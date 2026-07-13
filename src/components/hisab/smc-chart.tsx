@@ -41,13 +41,13 @@ const DEFAULT_THEME: ChartTheme = {
   bullWick: 'rgba(16, 185, 129, 0.7)',
   bearWick: 'rgba(239, 68, 68, 0.7)',
   bg: 'transparent',
-  text: '#a0a3b8',
-  grid: 'rgba(255, 255, 255, 0.04)',
-  border: 'rgba(255, 255, 255, 0.08)',
-  volume: 'rgba(110, 130, 200, 0.3)',
-  liq: 'rgba(224, 178, 67, 0.6)',
-  equilibrium: 'rgba(224, 178, 67, 0.4)',
-  ob: 'rgba(224, 178, 67, 0.15)',
+  text: '#64748B',
+  grid: 'rgba(120, 160, 200, 0.05)',
+  border: 'rgba(120, 160, 200, 0.1)',
+  volume: 'rgba(22, 119, 255, 0.25)',
+  liq: 'rgba(245, 185, 66, 0.6)',
+  equilibrium: 'rgba(245, 185, 66, 0.4)',
+  ob: 'rgba(245, 185, 66, 0.15)',
 }
 
 const THEME_STORAGE_KEY = 'apex-chart-theme-v1'
@@ -116,8 +116,8 @@ export function SMCChart({
       },
       crosshair: {
         mode: CrosshairMode.Normal,
-        vertLine: { color: 'rgba(37, 99, 235, 0.4)', width: 1, style: 2, labelBackgroundColor: '#2563EB' },
-        horzLine: { color: 'rgba(37, 99, 235, 0.4)', width: 1, style: 2, labelBackgroundColor: '#2563EB' },
+        vertLine: { color: 'rgba(22, 119, 255, 0.4)', width: 1, style: 2, labelBackgroundColor: '#1677FF' },
+        horzLine: { color: 'rgba(22, 119, 255, 0.4)', width: 1, style: 2, labelBackgroundColor: '#1677FF' },
       },
       rightPriceScale: {
         borderColor: theme.border,
