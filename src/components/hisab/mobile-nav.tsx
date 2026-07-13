@@ -10,6 +10,7 @@ import {
 import { cn } from '@/lib/utils'
 import { useI18n } from '@/lib/i18n/context'
 import { LANGUAGES } from '@/lib/i18n/types'
+import { useTheme } from 'next-themes'
 
 interface MobileNavProps {
   isOpen: boolean
@@ -55,7 +56,7 @@ const NAV_ITEMS: NavItem[] = [
  * - Accessible: ARIA labels, keyboard nav, focus indicators
  */
 export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: MobileNavProps) {
-  const [theme, setTheme] = React.useState<'dark' | 'light'>('dark')
+  const { theme, setTheme } = useTheme()
   const { language, setLanguage } = useI18n()
 
   // Lock body scroll when open
@@ -83,7 +84,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
   }
 
   const toggleTheme = () => {
-    setTheme(t => t === 'dark' ? 'light' : 'dark')
+    setTheme(theme === 'dark' ? 'light' : 'dark')
   }
 
   const cycleLanguage = () => {

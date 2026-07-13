@@ -2,7 +2,6 @@
 
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sidebar, NAV_ITEMS } from '@/components/hisab/sidebar'
 import { Header } from '@/components/hisab/header'
 import { Footer } from '@/components/hisab/footer'
 import { FloatingNav } from '@/components/hisab/floating-nav'
@@ -48,7 +47,6 @@ const SECTION_META: Record<string, { title: string; subtitle: string }> = {
 export default function Home() {
   // Read initial section from URL hash on mount (for refresh persistence)
   const [activeSection, setActiveSection] = React.useState('home')
-  const [sidebarOpen, setSidebarOpen] = React.useState(false)
   const [mobileNavOpen, setMobileNavOpen] = React.useState(false)
   const [seoPage, setSeoPage] = React.useState<string | null>(null)
   const init = useMarketStore(s => s.init)
@@ -190,17 +188,10 @@ export default function Home() {
 
   return (
     <div className="flex min-h-screen bg-background">
-      <Sidebar
-        active={activeSection}
-        onSelect={navigateToSection}
-        isOpen={sidebarOpen}
-        onClose={() => setSidebarOpen(false)}
-      />
-
       <div className="flex-1 flex flex-col min-w-0">
         {!isLanding && !isSeoPage && (
           <Header
-            onMenuClick={() => setSidebarOpen(true)}
+            onMenuClick={() => setMobileNavOpen(true)}
             title={meta.title}
             subtitle={meta.subtitle}
           />

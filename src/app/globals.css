@@ -142,6 +142,43 @@
   --ring: rgba(0, 122, 255, 0.5);
 }
 
+/* Light theme — Apple-style light mode */
+:root:not(.dark) {
+  --background: #F5F5F7;
+  --foreground: #1d1d1f;
+  --card: rgba(255, 255, 255, 0.8);
+  --card-foreground: #1d1d1f;
+  --popover: rgba(255, 255, 255, 0.95);
+  --popover-foreground: #1d1d1f;
+  --primary: #007AFF;
+  --primary-foreground: #FFFFFF;
+  --secondary: rgba(118, 118, 128, 0.12);
+  --secondary-foreground: #1d1d1f;
+  --muted: rgba(118, 118, 128, 0.08);
+  --muted-foreground: rgba(60, 60, 67, 0.6);
+  --accent: rgba(0, 122, 255, 0.1);
+  --accent-foreground: #007AFF;
+  --destructive: #FF3B30;
+  --border: rgba(0, 0, 0, 0.1);
+  --input: rgba(0, 0, 0, 0.08);
+  --ring: rgba(0, 122, 255, 0.4);
+  --sidebar: rgba(245, 245, 247, 0.9);
+  --sidebar-foreground: #1d1d1f;
+  --sidebar-primary: #007AFF;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(118, 118, 128, 0.08);
+  --sidebar-accent-foreground: #1d1d1f;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --sidebar-ring: rgba(0, 122, 255, 0.4);
+}
+
+:root:not(.dark) body {
+  background-color: #F5F5F7;
+  background-image:
+    radial-gradient(at 8% 0%, rgba(0, 122, 255, 0.04) 0px, transparent 45%),
+    radial-gradient(at 92% 5%, rgba(175, 82, 222, 0.03) 0px, transparent 50%);
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
