@@ -560,7 +560,7 @@ function welcomeMessage(): ChatMessage {
   return {
     id: 'welcome',
     role: 'assistant',
-    content: "Welcome to ApexEAPro.\n\nI'm Apex AI.\n\nI'm continuously monitoring global financial markets, institutional liquidity, macroeconomic events, and technical conditions.\n\nHow can I help you build better market intelligence today?",
+    content: "Welcome to ApexEAPro.\n\nI'm Apex AI™ — your elite AI Institutional Market Intelligence Assistant.\n\nI continuously monitor global financial markets, institutional liquidity, macroeconomic events, and technical conditions.\n\nI can help you:\n• Understand market conditions\n• Analyze charts (upload a screenshot)\n• Explain SMC, ICT, and the AILE Engine\n• Navigate ApexEAPro features\n• Answer pricing & subscription questions\n• Provide trading education\n\nHow can I help you build better market intelligence today?\n\n⚠️ Educational only — not financial advice.",
     timestamp: Date.now(),
     model: 'system',
   }
