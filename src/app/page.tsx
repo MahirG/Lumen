@@ -246,13 +246,12 @@ export default function Home() {
       {(isLanding || isSeoPage) && (
         <button
           onClick={() => setSidebarOpen(true)}
-          className="lg:hidden fixed top-4 right-4 z-50 w-11 h-11 rounded-xl flex flex-col items-center justify-center gap-[5px] hover:scale-105 active:scale-95 transition-transform"
+          className="lg:hidden fixed top-4 right-4 z-50 w-10 h-10 rounded-full flex flex-col items-center justify-center gap-[4px] hover:scale-105 active:scale-95 transition-transform"
           style={{
-            background: 'linear-gradient(135deg, rgba(13, 17, 38, 0.98), rgba(8, 12, 28, 0.98))',
-            backdropFilter: 'blur(24px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-            border: '1px solid rgba(255,255,255,0.1)',
-            boxShadow: '0 8px 28px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.08) inset',
+            background: 'rgba(18, 18, 20, 0.72)',
+            backdropFilter: 'blur(20px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
+            border: '1px solid rgba(255,255,255,0.08)',
           }}
           aria-label="Open navigation menu"
         >
@@ -303,12 +302,13 @@ function ScrollToTopButton() {
           whileHover={{ scale: 1.1 }}
           whileTap={{ scale: 0.9 }}
           onClick={scrollToTop}
-          className="fixed bottom-24 left-4 lg:bottom-6 lg:left-6 z-40 w-12 h-12 rounded-2xl flex items-center justify-center shadow-premium"
+          className="fixed bottom-24 left-4 lg:bottom-6 lg:left-6 z-40 w-12 h-12 rounded-full flex items-center justify-center"
           style={{
-            background: 'linear-gradient(135deg, rgba(13, 17, 38, 0.98), rgba(8, 12, 28, 0.98))',
+            background: 'rgba(18, 18, 20, 0.8)',
             backdropFilter: 'blur(24px) saturate(180%)',
             WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-            border: '1px solid rgba(255,255,255,0.1)',
+            border: '1px solid rgba(255,255,255,0.08)',
+            boxShadow: '0 8px 28px rgba(0,0,0,0.3)',
           }}
           aria-label="Scroll to top"
         >

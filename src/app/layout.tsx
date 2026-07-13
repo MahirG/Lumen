@@ -1,22 +1,27 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Inter, JetBrains_Mono, Outfit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+// Inter — the closest free alternative to Apple's SF Pro Display
+const inter = Inter({
+  variable: "--font-sans",
   subsets: ["latin"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
   display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+// JetBrains Mono for tabular numbers (trading data)
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-mono",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
+// Outfit for premium display headings
 const outfit = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
@@ -166,11 +171,11 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#050816",
+  themeColor: "#050505",
   width: "device-width",
   initialScale: 1,
-  maximumScale: 5,
-  userScalable: true,
+  maximumScale: 1,
+  userScalable: false,
   viewportFit: "cover",
 };
 
@@ -409,7 +414,7 @@ export default function RootLayout({
         */}
       </head>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-background text-foreground min-h-screen`}
+        className={`${inter.variable} ${jetbrainsMono.variable} ${outfit.variable} antialiased bg-background text-foreground min-h-screen`}
         style={{ fontFamily: "var(--font-sans)" }}
       >
         <ThemeProvider
