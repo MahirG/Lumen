@@ -157,50 +157,126 @@ function ParticleField() {
 }
 
 /* ============================================
-   MOBILE MARKET FLOW — Subtle animated background for mobile/tablet
+   MOBILE MARKET FLOW — Upward flowing market animation
+   Market lines rise from bottom, behind hero text, like rising prices.
    ============================================ */
 
 function MobileMarketFlow() {
+  // Generate candlestick-like shapes that rise upward
+  const candles = React.useMemo(() =>
+    Array.from({ length: 14 }, (_, i) => ({
+      x: (i / 14) * 100 + Math.random() * 3,
+      w: 3 + Math.random() * 4,
+      h: 20 + Math.random() * 60,
+      delay: Math.random() * 8,
+      duration: 10 + Math.random() * 8,
+      isUp: Math.random() > 0.4,
+    })), []
+  )
+
+  // Generate rising price line points
+  const linePoints = React.useMemo(() =>
+    Array.from({ length: 20 }, (_, i) => ({
+      x: (i / 19) * 100,
+      delay: i * 0.3,
+      duration: 8 + Math.random() * 6,
+    })), []
+  )
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden lg:hidden" aria-hidden="true">
-      {/* Layer 1: Ambient blue glow */}
+      {/* Layer 1: Ambient blue glow rising from bottom */}
       <motion.div
-        animate={{ opacity: [0.3, 0.5, 0.3] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full"
-        style={{ background: 'radial-gradient(circle, rgba(22, 119, 255, 0.08), transparent 70%)' }}
+        animate={{ opacity: [0.2, 0.35, 0.2], y: [20, 0, 20] }}
+        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-64 rounded-full"
+        style={{ background: 'radial-gradient(ellipse at center bottom, rgba(22, 119, 255, 0.1), transparent 70%)' }}
       />
 
-      {/* Layer 2: Flowing market wave lines */}
+      {/* Layer 2: Rising candlestick shapes — like market moving up */}
+      <div className="absolute inset-0">
+        {candles.map((c, i) => (
+          <motion.div
+            key={i}
+            className="absolute bottom-0 rounded-sm"
+            style={{
+              left: `${c.x}%`,
+              width: `${c.w}px`,
+              height: `${c.h}px`,
+              background: c.isUp
+                ? 'linear-gradient(to top, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02))'
+                : 'linear-gradient(to top, rgba(239, 68, 68, 0.06), rgba(239, 68, 68, 0.01))',
+              borderLeft: `1px solid ${c.isUp ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.08)'}`,
+            }}
+            animate={{
+              y: [40, -10, 40],
+              opacity: [0, 0.6, 0],
+              scaleY: [0.8, 1, 0.8],
+            }}
+            transition={{
+              duration: c.duration,
+              repeat: Infinity,
+              delay: c.delay,
+              ease: 'easeInOut',
+            }}
+          />
+        ))}
+      </div>
+
+      {/* Layer 3: Rising price line — smooth upward flowing graph */}
       <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 375 667">
+        {/* Main rising line — electric blue */}
         <motion.path
-          d="M0,400 Q100,380 187,400 T375,400"
+          d="M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200"
           fill="none"
-          stroke="rgba(22, 119, 255, 0.08)"
+          stroke="rgba(22, 119, 255, 0.1)"
+          strokeWidth="2"
+          strokeLinecap="round"
+          animate={{
+            d: [
+              'M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200',
+              'M-20,590 C50,570 80,500 130,470 C180,440 210,380 260,330 C310,280 340,230 390,180',
+              'M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200',
+            ]
+          }}
+          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        {/* Secondary line — emerald green */}
+        <motion.path
+          d="M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270"
+          fill="none"
+          stroke="rgba(16, 185, 129, 0.07)"
           strokeWidth="1.5"
-          animate={{ d: ['M0,400 Q100,380 187,400 T375,400', 'M0,400 Q100,420 187,400 T375,400', 'M0,400 Q100,380 187,400 T375,400'] }}
-          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+          strokeLinecap="round"
+          animate={{
+            d: [
+              'M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270',
+              'M-20,610 C60,590 90,530 140,500 C190,470 220,420 270,380 C320,340 350,290 390,250',
+              'M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270',
+            ]
+          }}
+          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />
+        {/* Tertiary line — purple */}
         <motion.path
-          d="M0,450 Q90,430 187,450 T375,450"
-          fill="none"
-          stroke="rgba(16, 185, 129, 0.06)"
-          strokeWidth="1"
-          animate={{ d: ['M0,450 Q90,430 187,450 T375,450', 'M0,450 Q90,470 187,450 T375,450', 'M0,450 Q90,430 187,450 T375,450'] }}
-          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
-        />
-        <motion.path
-          d="M0,350 Q80,330 187,350 T375,350"
+          d="M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310"
           fill="none"
           stroke="rgba(124, 92, 252, 0.05)"
           strokeWidth="1"
-          animate={{ d: ['M0,350 Q80,330 187,350 T375,350', 'M0,350 Q80,370 187,350 T375,350', 'M0,350 Q80,330 187,350 T375,350'] }}
+          strokeLinecap="round"
+          animate={{
+            d: [
+              'M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310',
+              'M-20,630 C70,610 100,550 150,520 C200,490 230,440 280,400 C330,360 360,320 390,290',
+              'M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310',
+            ]
+          }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
         />
       </svg>
 
-      {/* Layer 3: Floating glowing particles */}
-      {Array.from({ length: 8 }).map((_, i) => (
+      {/* Layer 4: Rising glowing particles — like price ticks moving up */}
+      {Array.from({ length: 10 }).map((_, i) => (
         <motion.div
           key={i}
           className="absolute rounded-full"
@@ -208,18 +284,22 @@ function MobileMarketFlow() {
             width: 2 + Math.random() * 3,
             height: 2 + Math.random() * 3,
             left: `${Math.random() * 100}%`,
-            top: `${Math.random() * 100}%`,
-            background: i % 3 === 0 ? 'rgba(22, 119, 255, 0.4)' : i % 3 === 1 ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 185, 66, 0.3)',
+            bottom: '0%',
+            background: i % 3 === 0
+              ? 'rgba(22, 119, 255, 0.5)'
+              : i % 3 === 1
+              ? 'rgba(16, 185, 129, 0.4)'
+              : 'rgba(245, 185, 66, 0.3)',
           }}
           animate={{
-            y: [0, -20, 0],
-            opacity: [0.1, 0.4, 0.1],
+            y: [0, -300 - Math.random() * 200],
+            opacity: [0, 0.5, 0],
           }}
           transition={{
-            duration: 10 + Math.random() * 8,
+            duration: 12 + Math.random() * 8,
             repeat: Infinity,
-            delay: i * 0.8,
-            ease: 'easeInOut',
+            delay: i * 1.2,
+            ease: 'easeOut',
           }}
         />
       ))}

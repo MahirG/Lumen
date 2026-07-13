@@ -41,25 +41,10 @@ const NAV_ITEMS: NavItem[] = [
   { id: 'coach', label: 'Apex Academy', icon: BookOpen },
 ]
 
-/**
- * MobileNav — Apple-inspired full-screen mobile navigation.
- *
- * Features:
- * - Animated hamburger → X morph (spring-based, 300ms)
- * - Full-screen overlay with blur background
- * - Staggered menu item entrance (fade + slide up)
- * - Language selector, theme switcher, Sign In, Launch CTA
- * - Locks background scroll when open
- * - Closes on Escape key
- * - 44×44px minimum touch targets
- * - Hardware-accelerated 60fps animations
- * - Accessible: ARIA labels, keyboard nav, focus indicators
- */
 export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: MobileNavProps) {
   const { theme, setTheme } = useTheme()
   const { language, setLanguage } = useI18n()
 
-  // Lock body scroll when open
   React.useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden'
@@ -69,7 +54,6 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
     return () => { document.body.style.overflow = '' }
   }, [isOpen])
 
-  // Close on Escape
   React.useEffect(() => {
     const handleEscape = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && isOpen) onClose()
@@ -97,7 +81,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop with blur */}
+          {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
@@ -126,23 +110,18 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
             }}
           >
             {/* Header */}
-            <div className="flex items-center justify-between px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-              {/* Logo */}
+            <div className="flex items-center justify-between px-6 py-5" style={{ borderBottom: '1px solid var(--border)' }}>
               <div className="flex items-center gap-2.5">
-                <div className="relative w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #007AFF, #7C5CFC)' }}>
+                <div className="relative w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #1677FF, #7C5CFC)' }}>
                   <Crown className="w-4 h-4 text-white" strokeWidth={2.5} />
                 </div>
-                <span className="text-base font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>ApexEAPro</span>
+                <span className="text-base font-bold tracking-tight text-foreground" style={{ fontFamily: 'var(--font-display)' }}>ApexEAPro</span>
               </div>
 
-              {/* Close button — animated X */}
               <motion.button
                 onClick={onClose}
-                className="w-11 h-11 rounded-full flex items-center justify-center"
-                style={{
-                  background: 'rgba(255,255,255,0.06)',
-                  border: '1px solid rgba(255,255,255,0.08)',
-                }}
+                className="w-11 h-11 rounded-full flex items-center justify-center border"
+                style={{ background: 'var(--muted)', borderColor: 'var(--border)' }}
                 whileTap={{ scale: 0.9 }}
                 aria-label="Close menu"
               >
@@ -156,7 +135,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
               </motion.button>
             </div>
 
-            {/* Navigation items — scrollable */}
+            {/* Navigation items */}
             <div className="flex-1 overflow-y-auto px-6 py-4">
               <nav className="space-y-1" aria-label="Main navigation">
                 {NAV_ITEMS.map((item, i) => {
@@ -168,50 +147,42 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                       onClick={() => handleNavigate(item.id)}
                       initial={{ opacity: 0, y: 20 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{
-                        delay: 0.05 + i * 0.04,
-                        type: 'spring',
-                        stiffness: 300,
-                        damping: 25,
-                      }}
+                      transition={{ delay: 0.05 + i * 0.04, type: 'spring', stiffness: 300, damping: 25 }}
                       whileTap={{ scale: 0.97 }}
-                      className="w-full flex items-center gap-4 py-3.5 px-3 rounded-2xl group transition-colors"
+                      className="w-full flex items-center gap-4 py-3.5 px-3 rounded-2xl transition-colors"
                       style={{
-                        background: isActive ? 'rgba(0, 122, 255, 0.08)' : 'transparent',
+                        background: isActive ? 'rgba(22, 119, 255, 0.08)' : 'transparent',
                       }}
                       aria-current={isActive ? 'page' : undefined}
                     >
-                      {/* Icon */}
                       <div
                         className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-colors"
                         style={{
-                          background: isActive ? 'rgba(0, 122, 255, 0.15)' : 'rgba(255,255,255,0.04)',
-                          border: isActive ? '1px solid rgba(0, 122, 255, 0.25)' : '1px solid rgba(255,255,255,0.06)',
+                          background: isActive ? 'rgba(22, 119, 255, 0.15)' : 'var(--muted)',
+                          border: isActive ? '1px solid rgba(22, 119, 255, 0.25)' : '1px solid var(--border)',
                         }}
                       >
                         <Icon
                           className="w-[18px] h-[18px]"
-                          style={{ color: isActive ? '#1677FF' : 'rgba(235,235,245,0.5)' }}
+                          style={{ color: isActive ? '#1677FF' : 'var(--muted-foreground)' }}
                           strokeWidth={isActive ? 2.5 : 2}
                         />
                       </div>
 
-                      {/* Label */}
                       <span
                         className="flex-1 text-left text-[15px] font-medium tracking-tight"
-                        style={{ color: isActive ? '#F5F5F7' : 'rgba(235,235,245,0.7)' }}
+                        style={{ color: isActive ? 'var(--foreground)' : 'var(--muted-foreground)' }}
                       >
                         {item.label}
                       </span>
 
-                      {/* Badge */}
                       {item.badge && (
                         <span
                           className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded uppercase tracking-wider"
                           style={{
-                            background: item.badge === 'PRO' ? 'rgba(255, 214, 10, 0.12)' : 'rgba(52, 199, 89, 0.12)',
+                            background: item.badge === 'PRO' ? 'rgba(245, 185, 66, 0.12)' : 'rgba(16, 185, 129, 0.12)',
                             color: item.badge === 'PRO' ? '#F5B942' : '#10B981',
-                            border: `1px solid ${item.badge === 'PRO' ? 'rgba(255,214,10,0.25)' : 'rgba(52,199,89,0.25)'}`,
+                            border: `1px solid ${item.badge === 'PRO' ? 'rgba(245,185,66,0.25)' : 'rgba(16,185,129,0.25)'}`,
                           }}
                         >
                           {item.badge}
@@ -223,42 +194,40 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
               </nav>
             </div>
 
-            {/* Bottom section — controls + CTA */}
+            {/* Bottom controls */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4 + NAV_ITEMS.length * 0.04, type: 'spring', stiffness: 300, damping: 25 }}
               className="px-6 py-5 space-y-3"
-              style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}
+              style={{ borderTop: '1px solid var(--border)' }}
             >
-              {/* Controls row */}
+              {/* Language + Theme */}
               <div className="flex items-center gap-3">
-                {/* Language selector */}
                 <button
                   onClick={cycleLanguage}
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-medium transition-colors hover:bg-white/5"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-medium transition-colors hover:opacity-80"
+                  style={{ background: 'var(--muted)', border: '1px solid var(--border)' }}
                   aria-label="Change language"
                 >
                   <Globe className="w-4 h-4 text-muted-foreground" />
                   <span className="text-foreground/80">{LANGUAGES.find(l => l.code === language)?.nativeName || language}</span>
                 </button>
 
-                {/* Theme switcher */}
                 <button
                   onClick={toggleTheme}
-                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-medium transition-colors hover:bg-white/5"
-                  style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
+                  className="flex-1 flex items-center justify-center gap-2 py-2.5 rounded-xl text-xs font-medium transition-colors hover:opacity-80"
+                  style={{ background: 'var(--muted)', border: '1px solid var(--border)' }}
                   aria-label="Toggle theme"
                 >
                   {theme === 'dark' ? (
                     <>
-                      <Sun className="w-4 h-4 text-[#F5B942]" />
+                      <Sun className="w-4 h-4" style={{ color: '#F5B942' }} />
                       <span className="text-foreground/80">Light</span>
                     </>
                   ) : (
                     <>
-                      <Moon className="w-4 h-4 text-[#007AFF]" />
+                      <Moon className="w-4 h-4" style={{ color: '#1677FF' }} />
                       <span className="text-foreground/80">Dark</span>
                     </>
                   )}
@@ -268,31 +237,30 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
               {/* Sign In */}
               <button
                 onClick={() => { handleNavigate('home'); onClose() }}
-                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5"
-                style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
+                className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-colors hover:opacity-80"
+                style={{ background: 'var(--muted)', border: '1px solid var(--border)' }}
               >
                 <LogIn className="w-4 h-4 text-muted-foreground" />
                 <span className="text-foreground/80">Sign In</span>
               </button>
 
-              {/* Launch CTA — primary */}
+              {/* Launch CTA */}
               <motion.button
                 onClick={() => handleNavigate('dashboard')}
                 whileTap={{ scale: 0.97 }}
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-semibold text-white"
                 style={{
-                  background: 'linear-gradient(135deg, #007AFF, #7C5CFC)',
-                  boxShadow: '0 8px 24px rgba(0, 122, 255, 0.3)',
+                  background: 'linear-gradient(135deg, #1677FF, #7C5CFC)',
+                  boxShadow: '0 8px 24px rgba(22, 119, 255, 0.3)',
                 }}
               >
                 <Zap className="w-4 h-4" />
                 Launch AI Intelligence Workspace
               </motion.button>
 
-              {/* Disclaimer */}
-              <p className="text-[10px] text-center text-foreground/30 leading-relaxed">
+              <p className="text-[10px] text-center text-muted-foreground leading-relaxed">
                 Educational only — not financial advice.<br />
-                Powered by <a href="https://hisabtechnologies.com" target="_blank" rel="noopener noreferrer" className="text-[#007AFF] hover:underline">HisabTech</a>
+                Powered by <a href="https://hisabtechnologies.com" target="_blank" rel="noopener noreferrer" className="text-[#1677FF] hover:underline">HisabTech</a>
               </p>
             </motion.div>
           </motion.div>
@@ -303,9 +271,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
 }
 
 /**
- * AnimatedHamburger — Apple-style animated hamburger icon.
- * Three lines that morph into an X with spring physics.
- * 300ms animation, 44×44px touch target.
+ * AnimatedHamburger — morphing icon, theme-aware.
  */
 export function AnimatedHamburger({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) {
   return (
@@ -316,78 +282,29 @@ export function AnimatedHamburger({ isOpen, onClick }: { isOpen: boolean; onClic
         background: 'var(--card)',
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-        border: '1px solid rgba(255,255,255,0.08)',
+        border: '1px solid var(--border)',
       }}
       whileTap={{ scale: 0.9 }}
       aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen}
     >
       <div className="relative w-5 h-4 flex flex-col justify-between items-center">
-        {/* Top line */}
         <motion.div
           animate={isOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="w-full h-[2px] rounded-full bg-[#F5F5F7] origin-center"
+          className="w-full h-[2px] rounded-full bg-foreground origin-center"
         />
-        {/* Middle line */}
         <motion.div
           animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="w-full h-[2px] rounded-full bg-[#F5F5F7] origin-center"
+          className="w-full h-[2px] rounded-full bg-foreground origin-center"
         />
-        {/* Bottom line */}
         <motion.div
           animate={isOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
           transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="w-full h-[2px] rounded-full bg-[#F5F5F7] origin-center"
+          className="w-full h-[2px] rounded-full bg-foreground origin-center"
         />
       </div>
     </motion.button>
-  )
-}
-
-/**
- * StickyHeader — Apple-style glass header that becomes more opaque on scroll.
- * Shows logo on left, optional page title in center.
- */
-export function StickyHeader({ title, onMenuClick }: { title?: string; onMenuClick: () => void }) {
-  const [scrolled, setScrolled] = React.useState(false)
-
-  React.useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', handleScroll, { passive: true })
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  return (
-    <header
-      className="lg:hidden sticky top-0 z-40 transition-all duration-300"
-      style={{
-        background: scrolled ? 'var(--popover)' : 'var(--card)',
-        backdropFilter: 'blur(20px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-        borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
-      }}
-    >
-      <div className="flex items-center justify-between px-5 h-14">
-        {/* Logo */}
-        <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #007AFF, #7C5CFC)' }}>
-            <Crown className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
-          </div>
-          <span className="text-sm font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>ApexEAPro</span>
-        </div>
-
-        {/* Page title (center) */}
-        {title && (
-          <span className="absolute left-1/2 -translate-x-1/2 text-sm font-medium text-muted-foreground truncate max-w-[140px]">
-            {title}
-          </span>
-        )}
-
-        {/* Hamburger handled by AnimatedHamburger component (fixed positioned) */}
-        <div className="w-11" /> {/* Spacer for fixed hamburger */}
-      </div>
-    </header>
   )
 }
