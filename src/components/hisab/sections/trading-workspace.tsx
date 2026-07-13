@@ -470,7 +470,9 @@ export function TradingWorkspace() {
 }
 
 /* ============================================
-   PRO CHART — TradingView-style with MACD
+   PRO CHART — TradingView Lightweight Charts v5
+   Professional candlestick rendering with live updates,
+   crosshair OHLC, indicators, volume, and theme-awareness.
    ============================================ */
 
 function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, showVolume, pricePrecision, onCrosshairMove }: {
@@ -489,9 +491,17 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
   const candleSeriesRef = React.useRef<ISeriesApi<'Candlestick'> | null>(null)
   const volumeSeriesRef = React.useRef<ISeriesApi<'Histogram'> | null>(null)
   const indicatorSeriesRef = React.useRef<ISeriesApi<'Line'>[]>([])
+  const isFirstLoad = React.useRef(true)
+  const lastCandleTime = React.useRef<number>(0)
+  const onCrosshairMoveRef = React.useRef(onCrosshairMove)
 
+  // Keep ref updated without re-creating chart
+  React.useEffect(() => { onCrosshairMoveRef.current = onCrosshairMove }, [onCrosshairMove])
+
+  // ===== Chart initialization (only on timeframe/precision change) =====
   React.useEffect(() => {
     if (!containerRef.current) return
+
     const chart = createChart(containerRef.current, {
       width: containerRef.current.clientWidth,
       height: containerRef.current.clientHeight,
@@ -503,23 +513,56 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
         attributionLogo: false,
       },
       grid: {
-        vertLines: { color: 'rgba(120, 160, 200, 0.05)' },
-        horzLines: { color: 'rgba(120, 160, 200, 0.05)' },
+        vertLines: { color: 'rgba(120, 160, 200, 0.04)' },
+        horzLines: { color: 'rgba(120, 160, 200, 0.04)' },
       },
       crosshair: {
         mode: CrosshairMode.Normal,
-        vertLine: { color: 'rgba(22, 119, 255, 0.4)', width: 1, style: 2, labelBackgroundColor: '#1677FF' },
-        horzLine: { color: 'rgba(22, 119, 255, 0.4)', width: 1, style: 2, labelBackgroundColor: '#1677FF' },
+        vertLine: {
+          color: 'rgba(22, 119, 255, 0.5)',
+          width: 1,
+          style: 2,
+          labelBackgroundColor: '#1677FF',
+        },
+        horzLine: {
+          color: 'rgba(22, 119, 255, 0.5)',
+          width: 1,
+          style: 2,
+          labelBackgroundColor: '#1677FF',
+        },
       },
-      rightPriceScale: { borderColor: 'rgba(120, 160, 200, 0.1)', scaleMargins: { top: 0.05, bottom: 0.15 } },
+      rightPriceScale: {
+        borderColor: 'rgba(120, 160, 200, 0.08)',
+        scaleMargins: { top: 0.05, bottom: 0.18 },
+        ensureEdgeTickMarksVisible: true,
+      },
       timeScale: {
-        borderColor: 'rgba(120, 160, 200, 0.1)',
-        timeVisible: timeframe === '1M' || timeframe === '5M' || timeframe === '15M' || timeframe === '1H',
+        borderColor: 'rgba(120, 160, 200, 0.08)',
+        timeVisible: ['1M', '5M', '15M', '1H'].includes(timeframe),
+        secondsVisible: false,
+        rightOffset: 4,
+        barSpacing: 8,
+        minBarSpacing: 2,
+        fixLeftEdge: false,
+        fixRightEdge: false,
+        lockVisibleTimeRangeOnResize: true,
+        rightBarStaysOnScroll: true,
       },
-      handleScroll: true,
-      handleScale: true,
+      handleScroll: {
+        mouseWheel: true,
+        pressedMouseMove: true,
+        horzTouchDrag: true,
+        vertTouchDrag: false,
+      },
+      handleScale: {
+        mouseWheel: true,
+        pinch: true,
+        axisPressedMouseMove: true,
+        axisDoubleClickReset: true,
+      },
     })
 
+    // Candlestick series — professional rendering
     const candleSeries = chart.addSeries(CandlestickSeries, {
       upColor: '#10B981',
       downColor: '#EF4444',
@@ -528,32 +571,45 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
       wickUpColor: 'rgba(16, 185, 129, 0.7)',
       wickDownColor: 'rgba(239, 68, 68, 0.7)',
       priceFormat: { type: 'price', precision: pricePrecision, minMove: 1 / Math.pow(10, pricePrecision) },
+      priceLineVisible: true,
+      priceLineStyle: 2,
+      priceLineColor: 'rgba(22, 119, 255, 0.3)',
+      lastValueVisible: true,
     })
 
     chartRef.current = chart
     candleSeriesRef.current = candleSeries
+    isFirstLoad.current = true
 
-    // Crosshair move — update OHLC info box like TradingView
+    // Crosshair — OHLC info box like TradingView
     chart.subscribeCrosshairMove((param) => {
-      if (!param.time || !param.seriesData || !onCrosshairMove) {
-        onCrosshairMove?.(null)
+      const cb = onCrosshairMoveRef.current
+      if (!cb) return
+      if (!param.time || !param.seriesData) {
+        cb(null)
         return
       }
       const data = param.seriesData.get(candleSeries)
       if (data && 'open' in data) {
-        onCrosshairMove({
+        cb({
           o: (data as any).open,
           h: (data as any).high,
           l: (data as any).low,
           c: (data as any).close,
           vol: (data as any).volume ?? 0,
         })
+      } else {
+        cb(null)
       }
     })
 
+    // Resize handler
     const handleResize = () => {
       if (containerRef.current && chartRef.current) {
-        chartRef.current.applyOptions({ width: containerRef.current.clientWidth, height: containerRef.current.clientHeight })
+        chartRef.current.applyOptions({
+          width: containerRef.current.clientWidth,
+          height: containerRef.current.clientHeight,
+        })
       }
     }
     window.addEventListener('resize', handleResize)
@@ -571,54 +627,61 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     }
   }, [timeframe, pricePrecision])
 
-  // Candle data — use setData on first load, then update() for live ticks
-  const isFirstLoad = React.useRef(true)
-  const lastCandleTime = React.useRef<number>(0)
-
+  // ===== Candle data: setData on first load, update() for live ticks =====
   React.useEffect(() => {
     if (!candleSeriesRef.current || !candles.length) return
+    const toTime = (t: number) => Math.floor(t / 1000) as any
 
     if (isFirstLoad.current) {
-      // Full data load — set all candles at once
-      const data = candles.map(c => ({
-        time: Math.floor(c.time / 1000) as any,
+      // Full historical load
+      const candleData = candles.map(c => ({
+        time: toTime(c.time),
         open: c.open, high: c.high, low: c.low, close: c.close,
       }))
-      candleSeriesRef.current.setData(data)
+      candleSeriesRef.current.setData(candleData)
+
+      // Also set volume data if volume series exists
+      if (volumeSeriesRef.current) {
+        const volData = candles.map(c => ({
+          time: toTime(c.time),
+          value: c.volume,
+          color: c.close >= c.open ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)',
+        }))
+        volumeSeriesRef.current.setData(volData)
+      }
+
+      // Fit content to show all candles nicely
       chartRef.current?.timeScale().fitContent()
       isFirstLoad.current = false
       lastCandleTime.current = candles[candles.length - 1].time
     } else {
-      // Live update — only update the last candle (or add new one)
+      // Live update — only update/add the last candle
       const last = candles[candles.length - 1]
-      const timeSec = Math.floor(last.time / 1000) as any
+      const timeSec = toTime(last.time)
 
-      if (last.time > lastCandleTime.current) {
-        // New candle — add it
-        candleSeriesRef.current.update({
+      // Update candlestick
+      candleSeriesRef.current.update({
+        time: timeSec,
+        open: last.open, high: last.high, low: last.low, close: last.close,
+      })
+
+      // Update volume if present
+      if (volumeSeriesRef.current) {
+        volumeSeriesRef.current.update({
           time: timeSec,
-          open: last.open, high: last.high, low: last.low, close: last.close,
-        })
-        lastCandleTime.current = last.time
-      } else {
-        // Update existing candle (same timeframe period)
-        candleSeriesRef.current.update({
-          time: timeSec,
-          open: last.open, high: last.high, low: last.low, close: last.close,
+          value: last.volume,
+          color: last.close >= last.open ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)',
         })
       }
+
+      lastCandleTime.current = Math.max(lastCandleTime.current, last.time)
     }
   }, [candles])
 
-  // Reset first load flag when timeframe or symbol changes
-  React.useEffect(() => {
-    isFirstLoad.current = true
-  }, [timeframe, pricePrecision])
-
-  // Clear and rebuild indicators
+  // ===== Indicators: rebuild when toggled or candles change significantly =====
   React.useEffect(() => {
     const chart = chartRef.current
-    if (!chart) return
+    if (!chart || !candles.length) return
 
     // Remove all previous indicator series
     indicatorSeriesRef.current.forEach(s => { try { chart.removeSeries(s) } catch {} })
@@ -627,26 +690,35 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
 
     const toTime = (i: number) => Math.floor(candles[i].time / 1000) as any
 
-    // Volume
+    // --- Volume histogram ---
     if (showVolume) {
       const vol = chart.addSeries(HistogramSeries, {
         color: 'rgba(22, 119, 255, 0.3)',
         priceFormat: { type: 'volume' },
         priceScaleId: 'vol',
+        priceLineVisible: false,
+        lastValueVisible: false,
       })
-      chart.priceScale('vol').applyOptions({ scaleMargins: { top: 0.88, bottom: 0 } })
-      vol.setData(candles.map(c => ({
-        time: toTime(candles.indexOf(c)),
+      chart.priceScale('vol').applyOptions({
+        scaleMargins: { top: 0.85, bottom: 0 },
+      })
+      vol.setData(candles.map((c, i) => ({
+        time: toTime(i),
         value: c.volume,
-        color: c.close >= c.open ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)',
+        color: c.close >= c.open ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)',
       })))
       volumeSeriesRef.current = vol
     }
 
-    // Moving Average (SMA 20)
+    // --- SMA (20) ---
     if (showMA) {
       const ma = chart.addSeries(LineSeries, {
-        color: '#F5B942', lineWidth: 1.5, priceLineVisible: false, lastValueVisible: false, title: 'MA(20)',
+        color: '#F5B942',
+        lineWidth: 2,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+        title: 'SMA 20',
       })
       const period = 20
       const maData: any[] = []
@@ -658,10 +730,15 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
       indicatorSeriesRef.current.push(ma)
     }
 
-    // EMA 9
+    // --- EMA (9) ---
     if (showEMA) {
       const ema = chart.addSeries(LineSeries, {
-        color: '#7C5CFC', lineWidth: 1.5, priceLineVisible: false, lastValueVisible: false, title: 'EMA(9)',
+        color: '#7C5CFC',
+        lineWidth: 2,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+        title: 'EMA 9',
       })
       const period = 9
       const k = 2 / (period + 1)
@@ -675,19 +752,28 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
       indicatorSeriesRef.current.push(ema)
     }
 
-    // RSI
+    // --- RSI (14) ---
     if (showRSI) {
       const rsi = chart.addSeries(LineSeries, {
-        color: '#7C5CFC', lineWidth: 1.5, priceLineVisible: false, lastValueVisible: true, title: 'RSI', priceScaleId: 'rsi',
+        color: '#7C5CFC',
+        lineWidth: 2,
+        priceLineVisible: false,
+        lastValueVisible: true,
+        crosshairMarkerVisible: true,
+        title: 'RSI',
+        priceScaleId: 'rsi',
       })
-      chart.priceScale('rsi').applyOptions({ scaleMargins: { top: 0.78, bottom: 0.05 } })
+      chart.priceScale('rsi').applyOptions({
+        scaleMargins: { top: 0.78, bottom: 0.05 },
+      })
       const period = 14
       const rsiData: any[] = []
       for (let i = period; i < candles.length; i++) {
         let gains = 0, losses = 0
         for (let j = i - period + 1; j <= i; j++) {
           const diff = candles[j].close - candles[j - 1].close
-          if (diff >= 0) gains += diff; else losses -= diff
+          if (diff >= 0) gains += diff
+          else losses -= diff
         }
         const rs = losses === 0 ? 100 : gains / losses
         rsiData.push({ time: toTime(i), value: 100 - 100 / (1 + rs) })
@@ -696,36 +782,67 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
       indicatorSeriesRef.current.push(rsi)
     }
 
-    // MACD
+    // --- MACD (12, 26, 9) ---
     if (showMACD) {
       const macdLine = chart.addSeries(LineSeries, {
-        color: '#1677FF', lineWidth: 1.5, priceLineVisible: false, lastValueVisible: true, title: 'MACD', priceScaleId: 'macd',
+        color: '#1677FF',
+        lineWidth: 2,
+        priceLineVisible: false,
+        lastValueVisible: true,
+        crosshairMarkerVisible: true,
+        title: 'MACD',
+        priceScaleId: 'macd',
       })
       const signalLine = chart.addSeries(LineSeries, {
-        color: '#F5B942', lineWidth: 1, priceLineVisible: false, lastValueVisible: false, priceScaleId: 'macd',
+        color: '#F5B942',
+        lineWidth: 1,
+        priceLineVisible: false,
+        lastValueVisible: false,
+        crosshairMarkerVisible: false,
+        priceScaleId: 'macd',
       })
-      chart.priceScale('macd').applyOptions({ scaleMargins: { top: 0.85, bottom: 0.05 } })
+      const macdHist = chart.addSeries(HistogramSeries, {
+        color: 'rgba(22, 119, 255, 0.2)',
+        priceLineVisible: false,
+        lastValueVisible: false,
+        priceScaleId: 'macd',
+      })
+      chart.priceScale('macd').applyOptions({
+        scaleMargins: { top: 0.85, bottom: 0.05 },
+      })
       const fastPeriod = 12, slowPeriod = 26, signalPeriod = 9
       const closes = candles.map(c => c.close)
-      const ema = (period: number) => {
+      const calcEma = (period: number) => {
         const k = 2 / (period + 1)
         let prev = closes[0]
         const result = [prev]
-        for (let i = 1; i < closes.length; i++) { prev = closes[i] * k + prev * (1 - k); result.push(prev) }
+        for (let i = 1; i < closes.length; i++) {
+          prev = closes[i] * k + prev * (1 - k)
+          result.push(prev)
+        }
         return result
       }
-      const fastEma = ema(fastPeriod)
-      const slowEma = ema(slowPeriod)
+      const fastEma = calcEma(fastPeriod)
+      const slowEma = calcEma(slowPeriod)
       const macdValues = closes.map((_, i) => fastEma[i] - slowEma[i])
       const signalK = 2 / (signalPeriod + 1)
       let signalPrev = macdValues[0]
       const signalValues = [signalPrev]
-      for (let i = 1; i < macdValues.length; i++) { signalPrev = macdValues[i] * signalK + signalPrev * (1 - signalK); signalValues.push(signalPrev) }
+      for (let i = 1; i < macdValues.length; i++) {
+        signalPrev = macdValues[i] * signalK + signalPrev * (1 - signalK)
+        signalValues.push(signalPrev)
+      }
       const macdData = macdValues.map((v, i) => ({ time: toTime(i), value: v })).slice(slowPeriod)
       const sigData = signalValues.map((v, i) => ({ time: toTime(i), value: v })).slice(slowPeriod)
+      const histData = macdValues.map((v, i) => ({
+        time: toTime(i),
+        value: v - signalValues[i],
+        color: v > signalValues[i] ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)',
+      })).slice(slowPeriod)
       macdLine.setData(macdData)
       signalLine.setData(sigData)
-      indicatorSeriesRef.current.push(macdLine, signalLine)
+      macdHist.setData(histData)
+      indicatorSeriesRef.current.push(macdLine, signalLine, macdHist)
     }
   }, [showMA, showEMA, showRSI, showMACD, showVolume, candles])
 
