@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Menu, TrendingUp, TrendingDown, Crown, Zap } from 'lucide-react'
+import { TrendingUp, TrendingDown, Crown, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useMarketStore } from '@/lib/hisab/market-store'
 import { formatNumber } from '@/lib/hisab/risk-manager'
@@ -115,15 +115,6 @@ export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
       {/* Main header bar */}
       <div className="flex items-center justify-between gap-3 px-4 lg:px-6 py-3">
         <div className="flex items-center gap-3 min-w-0">
-          <Button
-            variant="ghost"
-            size="icon"
-            className="lg:hidden text-muted-foreground hover:text-foreground shrink-0"
-            onClick={onMenuClick}
-            aria-label="Open menu"
-          >
-            <Menu className="w-5 h-5" />
-          </Button>
           <div className="min-w-0">
             <h1 className="text-base lg:text-lg font-bold leading-tight font-display tracking-tight truncate text-gradient-platinum">
               {title}
@@ -190,6 +181,21 @@ export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
             <Zap className="w-3 h-3 text-[oklch(0.92_0.13_85)]" />
             <span className="text-[10px] font-mono font-semibold text-[oklch(0.92_0.13_85)] uppercase tracking-wide">AI</span>
           </div>
+
+          {/* Hamburger menu — right side, 2-line + short style */}
+          <button
+            onClick={onMenuClick}
+            className="lg:hidden w-10 h-10 rounded-xl flex flex-col items-center justify-center gap-[5px] hover:scale-105 active:scale-95 transition-transform shrink-0"
+            style={{
+              background: 'linear-gradient(135deg, rgba(13, 17, 38, 0.8), rgba(8, 12, 28, 0.8))',
+              border: '1px solid rgba(255,255,255,0.08)',
+            }}
+            aria-label="Open navigation menu"
+          >
+            <div className="w-[16px] h-[2px] rounded-full bg-foreground" />
+            <div className="w-[16px] h-[2px] rounded-full bg-foreground" />
+            <div className="w-[10px] h-[2px] rounded-full bg-foreground" style={{ alignSelf: 'flex-start', marginLeft: '8px' }} />
+          </button>
         </div>
       </div>
     </header>

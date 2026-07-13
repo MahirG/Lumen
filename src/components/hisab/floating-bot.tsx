@@ -192,7 +192,12 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.9, y: 20 }}
             transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-            className="fixed bottom-44 right-4 lg:bottom-24 lg:right-6 z-50 w-[calc(100vw-2rem)] max-w-[400px] h-[500px] max-h-[70vh] flex flex-col rounded-2xl liquid-glass-strong overflow-hidden shadow-premium-lg"
+            className="fixed bottom-44 right-4 lg:bottom-24 lg:right-6 z-50 w-[calc(100vw-2rem)] max-w-[400px] h-[500px] max-h-[70vh] flex flex-col rounded-2xl overflow-hidden shadow-premium-lg border border-white/[10%]"
+            style={{
+              background: 'linear-gradient(135deg, rgba(13, 17, 38, 0.98), rgba(8, 12, 28, 0.98))',
+              backdropFilter: 'blur(32px) saturate(180%)',
+              WebkitBackdropFilter: 'blur(32px) saturate(180%)',
+            }}
           >
             {/* Header */}
             <div className="flex items-center gap-3 p-4 border-b border-white/[8%] bg-gradient-to-r from-[#2563EB]/10 to-[#10B981]/10">

@@ -241,19 +241,24 @@ export default function Home() {
         <Footer onNavigate={navigateToSection} />
       </div>
 
-      {/* Floating hamburger menu button — visible on landing/SEO pages (mobile only).
-          Positioned on the LEFT to match the sidebar which slides from the left. */}
+      {/* Floating hamburger menu button — top-RIGHT (opposite AI bot bottom-right).
+          Premium 2-line + short style. Opens drawer from the right. */}
       {(isLanding || isSeoPage) && (
         <button
           onClick={() => setSidebarOpen(true)}
-          className="lg:hidden fixed top-4 left-4 z-50 w-11 h-11 rounded-xl liquid-glass-strong flex items-center justify-center text-foreground hover:scale-105 active:scale-95 transition-transform"
+          className="lg:hidden fixed top-4 right-4 z-50 w-11 h-11 rounded-xl flex flex-col items-center justify-center gap-[5px] hover:scale-105 active:scale-95 transition-transform"
+          style={{
+            background: 'linear-gradient(135deg, rgba(13, 17, 38, 0.98), rgba(8, 12, 28, 0.98))',
+            backdropFilter: 'blur(24px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            boxShadow: '0 8px 28px rgba(0,0,0,0.3), 0 1px 0 rgba(255,255,255,0.08) inset',
+          }}
           aria-label="Open navigation menu"
         >
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-            <line x1="2" y1="4.5" x2="16" y2="4.5" />
-            <line x1="2" y1="9" x2="16" y2="9" />
-            <line x1="2" y1="13.5" x2="16" y2="13.5" />
-          </svg>
+          <div className="w-[18px] h-[2px] rounded-full bg-foreground" />
+          <div className="w-[18px] h-[2px] rounded-full bg-foreground" />
+          <div className="w-[12px] h-[2px] rounded-full bg-foreground self-center mr-[3px]" style={{ alignSelf: 'flex-start', marginLeft: '7px' }} />
         </button>
       )}
 
@@ -262,6 +267,57 @@ export default function Home() {
 
       {/* Floating AI Bot — appears on ALL pages */}
       <FloatingAIBot onNavigate={navigateToSection} />
+
+      {/* Scroll to top button — opposite side of AI bot (bottom-LEFT) */}
+      <ScrollToTopButton />
     </div>
+  )
+}
+
+/**
+ * ScrollToTopButton — floating button on the bottom-LEFT (opposite AI bot).
+ * Appears after scrolling down 400px. Smooth scroll to top on click.
+ */
+function ScrollToTopButton() {
+  const [visible, setVisible] = React.useState(false)
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      setVisible(window.scrollY > 400)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' })
+  }
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.button
+          initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.5, y: 20 }}
+          whileHover={{ scale: 1.1 }}
+          whileTap={{ scale: 0.9 }}
+          onClick={scrollToTop}
+          className="fixed bottom-24 left-4 lg:bottom-6 lg:left-6 z-40 w-12 h-12 rounded-2xl flex items-center justify-center shadow-premium"
+          style={{
+            background: 'linear-gradient(135deg, rgba(13, 17, 38, 0.98), rgba(8, 12, 28, 0.98))',
+            backdropFilter: 'blur(24px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+            border: '1px solid rgba(255,255,255,0.1)',
+          }}
+          aria-label="Scroll to top"
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="text-foreground">
+            <path d="M9 14V4" />
+            <path d="M4 9L9 4L14 9" />
+          </svg>
+        </motion.button>
+      )}
+    </AnimatePresence>
   )
 }

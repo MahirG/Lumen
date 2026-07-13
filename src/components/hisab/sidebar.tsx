@@ -70,13 +70,22 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
 
       <aside
         className={cn(
-          'fixed lg:sticky top-0 left-0 z-50 lg:z-30',
+          'fixed lg:sticky top-0 z-50 lg:z-30',
           'h-screen w-[290px] shrink-0',
-          'glass-strong border-r border-white/[6%]',
           'transition-transform duration-300 ease-out',
           'flex flex-col',
-          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0',
+          // Desktop: left sticky sidebar (lg:translate-x-0, lg:left-0).
+          // Mobile: right-side drawer (right-0, translate-x-full when closed).
+          'right-0 lg:right-auto lg:left-0',
+          isOpen ? 'translate-x-0' : 'translate-x-full lg:translate-x-0',
         )}
+        style={{
+          background: 'linear-gradient(180deg, rgba(13, 17, 38, 0.98), rgba(8, 12, 28, 0.98))',
+          backdropFilter: 'blur(32px) saturate(180%)',
+          WebkitBackdropFilter: 'blur(32px) saturate(180%)',
+          borderRight: '1px solid rgba(255,255,255,0.06)',
+          boxShadow: isOpen ? '-12px 0 40px rgba(0,0,0,0.3)' : 'none',
+        }}
       >
         {/* Logo */}
         <div className="flex items-center justify-between p-5 border-b border-white/[6%]">

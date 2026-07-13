@@ -149,6 +149,11 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     scroll-behavior: smooth;
+    /* Momentum scrolling on iOS */
+    -webkit-overflow-scrolling: touch;
+    /* Prevent text size adjustment on orientation change */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -162,29 +167,36 @@
     background-attachment: fixed;
     background-size: 100% 100%;
     min-height: 100vh;
+    /* Smooth scrolling with overscroll behavior */
+    overscroll-behavior-y: none;
   }
-  ::selection {
-    background: oklch(0.80 0.18 220 / 35%);
-    color: oklch(0.99 0 0);
+  /* Smooth scroll for all scrollable containers */
+  * {
+    scroll-behavior: smooth;
   }
-  /* Premium scrollbar — Apple-style */
+  /* Premium scrollbar — thin and subtle */
   ::-webkit-scrollbar {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
   }
   ::-webkit-scrollbar-track {
     background: transparent;
   }
   ::-webkit-scrollbar-thumb {
-    background: oklch(0.4 0.04 240 / 35%);
+    background: rgba(255, 255, 255, 0.1);
     border-radius: 9999px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
   }
   ::-webkit-scrollbar-thumb:hover {
-    background: oklch(0.6 0.08 220 / 60%);
-    background-clip: padding-box;
-    border: 2px solid transparent;
+    background: rgba(255, 255, 255, 0.2);
+  }
+  /* Firefox scrollbar */
+  * {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+  }
+  ::selection {
+    background: oklch(0.80 0.18 220 / 35%);
+    color: oklch(0.99 0 0);
   }
   /* Focus visible */
   *:focus-visible {
