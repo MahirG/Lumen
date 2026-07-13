@@ -115,7 +115,7 @@ export function FloatingNav({ active, onNavigate }: FloatingNavProps) {
                     isHovered && !isActive && 'text-[#F5F5F7]',
                   )}
                   strokeWidth={isActive ? 2.5 : 2}
-                  style={isActive ? { color: '#0A84FF' } : {}}
+                  style={isActive ? { color: '#1677FF' } : {}}
                 />
                 {/* Label: always show for active, show on hover for inactive */}
                 <AnimatePresence>
@@ -126,7 +126,7 @@ export function FloatingNav({ active, onNavigate }: FloatingNavProps) {
                       exit={{ opacity: 0, width: 0, x: -4 }}
                       transition={{ duration: 0.2 }}
                       className="text-xs font-semibold whitespace-nowrap leading-none"
-                      style={{ color: isActive ? '#0A84FF' : '#F5F5F7' }}
+                      style={{ color: isActive ? '#1677FF' : '#F5F5F7' }}
                     >
                       {item.label}
                     </motion.span>

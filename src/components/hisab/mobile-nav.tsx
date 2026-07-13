@@ -129,7 +129,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
             <div className="flex items-center justify-between px-6 py-5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
               {/* Logo */}
               <div className="flex items-center gap-2.5">
-                <div className="relative w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #007AFF, #AF52DE)' }}>
+                <div className="relative w-8 h-8 rounded-xl flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #007AFF, #7C5CFC)' }}>
                   <Crown className="w-4 h-4 text-white" strokeWidth={2.5} />
                 </div>
                 <span className="text-base font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>ApexEAPro</span>
@@ -191,7 +191,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                       >
                         <Icon
                           className="w-[18px] h-[18px]"
-                          style={{ color: isActive ? '#0A84FF' : 'rgba(235,235,245,0.5)' }}
+                          style={{ color: isActive ? '#1677FF' : 'rgba(235,235,245,0.5)' }}
                           strokeWidth={isActive ? 2.5 : 2}
                         />
                       </div>
@@ -210,7 +210,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                           className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded uppercase tracking-wider"
                           style={{
                             background: item.badge === 'PRO' ? 'rgba(255, 214, 10, 0.12)' : 'rgba(52, 199, 89, 0.12)',
-                            color: item.badge === 'PRO' ? '#FFD60A' : '#34C759',
+                            color: item.badge === 'PRO' ? '#F5B942' : '#10B981',
                             border: `1px solid ${item.badge === 'PRO' ? 'rgba(255,214,10,0.25)' : 'rgba(52,199,89,0.25)'}`,
                           }}
                         >
@@ -253,7 +253,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                 >
                   {theme === 'dark' ? (
                     <>
-                      <Sun className="w-4 h-4 text-[#FFD60A]" />
+                      <Sun className="w-4 h-4 text-[#F5B942]" />
                       <span className="text-[#F5F5F7]/70">Light</span>
                     </>
                   ) : (
@@ -281,7 +281,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                 whileTap={{ scale: 0.97 }}
                 className="w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl text-sm font-semibold text-white"
                 style={{
-                  background: 'linear-gradient(135deg, #007AFF, #AF52DE)',
+                  background: 'linear-gradient(135deg, #007AFF, #7C5CFC)',
                   boxShadow: '0 8px 24px rgba(0, 122, 255, 0.3)',
                 }}
               >
@@ -372,7 +372,7 @@ export function StickyHeader({ title, onMenuClick }: { title?: string; onMenuCli
       <div className="flex items-center justify-between px-5 h-14">
         {/* Logo */}
         <div className="flex items-center gap-2">
-          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #007AFF, #AF52DE)' }}>
+          <div className="w-7 h-7 rounded-lg flex items-center justify-center" style={{ background: 'linear-gradient(135deg, #007AFF, #7C5CFC)' }}>
             <Crown className="w-3.5 h-3.5 text-white" strokeWidth={2.5} />
           </div>
           <span className="text-sm font-bold tracking-tight" style={{ fontFamily: 'var(--font-display)' }}>ApexEAPro</span>

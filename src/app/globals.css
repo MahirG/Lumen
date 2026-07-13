@@ -64,119 +64,119 @@
    ============================================ */
 
 :root {
-  /* Base radii — Apple uses larger, softer corners */
+  /* Base radii */
   --radius: 0.875rem;
 
-  /* Core surfaces — Premium deep dark (#08080A) — not pure black */
-  --background: #08080A;
-  --foreground: #F5F5F7;
-  --card: rgba(20, 20, 24, 0.7);
-  --card-foreground: #F5F5F7;
-  --popover: rgba(16, 16, 18, 0.97);
-  --popover-foreground: #F5F5F7;
-  --primary: #0A84FF;
+  /* CORE BRAND: Deep Navy #071A2B background */
+  --background: #071A2B;
+  --foreground: #E8EDF2;
+  --card: rgba(13, 33, 54, 0.75);
+  --card-foreground: #E8EDF2;
+  --popover: rgba(10, 27, 43, 0.97);
+  --popover-foreground: #E8EDF2;
+  --primary: #1677FF;
   --primary-foreground: #FFFFFF;
-  --secondary: rgba(50, 50, 55, 0.5);
-  --secondary-foreground: #F5F5F7;
-  --muted: rgba(38, 38, 42, 0.5);
-  --muted-foreground: rgba(200, 200, 210, 0.55);
-  --accent: rgba(10, 132, 255, 0.1);
-  --accent-foreground: #0A84FF;
-  --destructive: #FF453A;
-  --border: rgba(255, 255, 255, 0.06);
-  --input: rgba(255, 255, 255, 0.08);
-  --ring: rgba(10, 132, 255, 0.4);
+  --secondary: rgba(30, 55, 82, 0.5);
+  --secondary-foreground: #E8EDF2;
+  --muted: rgba(22, 45, 70, 0.5);
+  --muted-foreground: rgba(180, 195, 215, 0.55);
+  --accent: rgba(22, 119, 255, 0.1);
+  --accent-foreground: #1677FF;
+  --destructive: #EF4444;
+  --border: rgba(120, 160, 200, 0.08);
+  --input: rgba(120, 160, 200, 0.1);
+  --ring: rgba(22, 119, 255, 0.4);
 
-  /* Premium accent palette */
-  --gold: #FFD60A;
-  --gold-soft: rgba(255, 214, 10, 0.12);
-  --bull: #30D158;
-  --bear: #FF453A;
-  --neutral-trade: rgba(200, 200, 210, 0.3);
-  --electric: #0A84FF;
-  --electric-soft: rgba(10, 132, 255, 0.1);
-  --emerald: #30D158;
-  --emerald-soft: rgba(48, 209, 88, 0.1);
-  --purple: #BF5AF2;
-  --purple-soft: rgba(191, 90, 242, 0.1);
-  --orange: #FF9F0A;
-  --midnight: #000000;
-  --platinum: #F5F5F7;
+  /* Brand accent palette */
+  --gold: #F5B942;
+  --gold-soft: rgba(245, 185, 66, 0.12);
+  --bull: #10B981;
+  --bear: #EF4444;
+  --neutral-trade: rgba(180, 195, 215, 0.3);
+  --electric: #1677FF;
+  --electric-soft: rgba(22, 119, 255, 0.1);
+  --emerald: #10B981;
+  --emerald-soft: rgba(16, 185, 129, 0.1);
+  --purple: #7C5CFC;
+  --purple-soft: rgba(124, 92, 252, 0.1);
+  --orange: #F5B942;
+  --midnight: #071A2B;
+  --platinum: #E8EDF2;
 
-  /* Chart palette */
-  --chart-1: #007AFF;
-  --chart-2: #FFD60A;
-  --chart-3: #34C759;
-  --chart-4: #FF3B30;
-  --chart-5: #AF52DE;
+  /* Chart palette — TradingView professional */
+  --chart-1: #1677FF;
+  --chart-2: #F5B942;
+  --chart-3: #10B981;
+  --chart-4: #EF4444;
+  --chart-5: #7C5CFC;
 
   /* Sidebar */
-  --sidebar: rgba(10, 10, 12, 0.8);
-  --sidebar-foreground: #F5F5F7;
-  --sidebar-primary: #007AFF;
+  --sidebar: rgba(7, 20, 35, 0.92);
+  --sidebar-foreground: #E8EDF2;
+  --sidebar-primary: #1677FF;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: rgba(44, 44, 46, 0.5);
-  --sidebar-accent-foreground: #F5F5F7;
-  --sidebar-border: rgba(255, 255, 255, 0.06);
-  --sidebar-ring: rgba(0, 122, 255, 0.5);
+  --sidebar-accent: rgba(22, 45, 70, 0.5);
+  --sidebar-accent-foreground: #E8EDF2;
+  --sidebar-border: rgba(120, 160, 200, 0.06);
+  --sidebar-ring: rgba(22, 119, 255, 0.4);
 }
 
 .dark {
-  --background: #08080A;
-  --foreground: #F5F5F7;
-  --card: rgba(20, 20, 24, 0.7);
-  --card-foreground: #F5F5F7;
-  --popover: rgba(16, 16, 18, 0.97);
-  --popover-foreground: #F5F5F7;
-  --primary: #0A84FF;
+  --background: #071A2B;
+  --foreground: #E8EDF2;
+  --card: rgba(13, 33, 54, 0.75);
+  --card-foreground: #E8EDF2;
+  --popover: rgba(10, 27, 43, 0.97);
+  --popover-foreground: #E8EDF2;
+  --primary: #1677FF;
   --primary-foreground: #FFFFFF;
-  --secondary: rgba(50, 50, 55, 0.5);
-  --secondary-foreground: #F5F5F7;
-  --muted: rgba(38, 38, 42, 0.5);
-  --muted-foreground: rgba(200, 200, 210, 0.55);
-  --accent: rgba(10, 132, 255, 0.1);
-  --accent-foreground: #0A84FF;
-  --destructive: #FF453A;
-  --border: rgba(255, 255, 255, 0.06);
-  --input: rgba(255, 255, 255, 0.08);
-  --ring: rgba(10, 132, 255, 0.4);
+  --secondary: rgba(30, 55, 82, 0.5);
+  --secondary-foreground: #E8EDF2;
+  --muted: rgba(22, 45, 70, 0.5);
+  --muted-foreground: rgba(180, 195, 215, 0.55);
+  --accent: rgba(22, 119, 255, 0.1);
+  --accent-foreground: #1677FF;
+  --destructive: #EF4444;
+  --border: rgba(120, 160, 200, 0.08);
+  --input: rgba(120, 160, 200, 0.1);
+  --ring: rgba(22, 119, 255, 0.4);
 }
 
-/* Light theme — Apple-style light mode */
+/* Light theme — Professional fintech light mode */
 :root:not(.dark) {
-  --background: #F5F5F7;
-  --foreground: #1d1d1f;
-  --card: rgba(255, 255, 255, 0.8);
-  --card-foreground: #1d1d1f;
-  --popover: rgba(255, 255, 255, 0.95);
-  --popover-foreground: #1d1d1f;
-  --primary: #007AFF;
+  --background: #F0F4F8;
+  --foreground: #0D2134;
+  --card: rgba(255, 255, 255, 0.85);
+  --card-foreground: #0D2134;
+  --popover: rgba(255, 255, 255, 0.97);
+  --popover-foreground: #0D2134;
+  --primary: #1677FF;
   --primary-foreground: #FFFFFF;
-  --secondary: rgba(118, 118, 128, 0.12);
-  --secondary-foreground: #1d1d1f;
-  --muted: rgba(118, 118, 128, 0.08);
-  --muted-foreground: rgba(60, 60, 67, 0.6);
-  --accent: rgba(0, 122, 255, 0.1);
-  --accent-foreground: #007AFF;
-  --destructive: #FF3B30;
-  --border: rgba(0, 0, 0, 0.1);
-  --input: rgba(0, 0, 0, 0.08);
-  --ring: rgba(0, 122, 255, 0.4);
-  --sidebar: rgba(245, 245, 247, 0.9);
-  --sidebar-foreground: #1d1d1f;
-  --sidebar-primary: #007AFF;
+  --secondary: rgba(13, 33, 54, 0.08);
+  --secondary-foreground: #0D2134;
+  --muted: rgba(13, 33, 54, 0.05);
+  --muted-foreground: rgba(13, 33, 54, 0.5);
+  --accent: rgba(22, 119, 255, 0.08);
+  --accent-foreground: #1677FF;
+  --destructive: #EF4444;
+  --border: rgba(13, 33, 54, 0.1);
+  --input: rgba(13, 33, 54, 0.08);
+  --ring: rgba(22, 119, 255, 0.3);
+  --sidebar: rgba(240, 244, 248, 0.95);
+  --sidebar-foreground: #0D2134;
+  --sidebar-primary: #1677FF;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: rgba(118, 118, 128, 0.08);
-  --sidebar-accent-foreground: #1d1d1f;
-  --sidebar-border: rgba(0, 0, 0, 0.08);
-  --sidebar-ring: rgba(0, 122, 255, 0.4);
+  --sidebar-accent: rgba(13, 33, 54, 0.05);
+  --sidebar-accent-foreground: #0D2134;
+  --sidebar-border: rgba(13, 33, 54, 0.08);
+  --sidebar-ring: rgba(22, 119, 255, 0.3);
 }
 
 :root:not(.dark) body {
-  background-color: #F5F5F7;
+  background-color: #F0F4F8;
   background-image:
-    radial-gradient(at 8% 0%, rgba(0, 122, 255, 0.04) 0px, transparent 45%),
-    radial-gradient(at 92% 5%, rgba(175, 82, 222, 0.03) 0px, transparent 50%);
+    radial-gradient(at 8% 0%, rgba(22, 119, 255, 0.03) 0px, transparent 45%),
+    radial-gradient(at 92% 5%, rgba(124, 92, 252, 0.02) 0px, transparent 50%);
 }
 
 @layer base {
@@ -199,11 +199,11 @@
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "cv11" 1, "tnum" 1;
-    background-color: #08080A;
+    background-color: #071A2B;
     background-image:
-      radial-gradient(at 8% 0%, rgba(10, 132, 255, 0.05) 0px, transparent 45%),
-      radial-gradient(at 92% 5%, rgba(191, 90, 242, 0.03) 0px, transparent 50%),
-      radial-gradient(at 50% 100%, rgba(48, 209, 88, 0.02) 0px, transparent 55%);
+      radial-gradient(at 8% 0%, rgba(22, 119, 255, 0.06) 0px, transparent 45%),
+      radial-gradient(at 92% 5%, rgba(124, 92, 252, 0.03) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, rgba(16, 185, 129, 0.02) 0px, transparent 55%);
     background-attachment: fixed;
     background-size: 100% 100%;
     min-height: 100vh;

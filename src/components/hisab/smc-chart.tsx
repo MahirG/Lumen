@@ -36,10 +36,10 @@ interface ChartTheme {
 }
 
 const DEFAULT_THEME: ChartTheme = {
-  bull: '#22c98a',
-  bear: '#ef4856',
-  bullWick: 'rgba(34, 201, 138, 0.7)',
-  bearWick: 'rgba(239, 72, 86, 0.7)',
+  bull: '#10B981',
+  bear: '#EF4444',
+  bullWick: 'rgba(16, 185, 129, 0.7)',
+  bearWick: 'rgba(239, 68, 68, 0.7)',
   bg: 'transparent',
   text: '#a0a3b8',
   grid: 'rgba(255, 255, 255, 0.04)',
@@ -72,7 +72,7 @@ function saveTheme(theme: ChartTheme) {
 
 // Preset themes
 const PRESETS: { name: string; theme: Partial<ChartTheme> }[] = [
-  { name: 'Default', theme: { bull: '#22c98a', bear: '#ef4856' } },
+  { name: 'Default', theme: { bull: '#10B981', bear: '#EF4444' } },
   { name: 'TradingView', theme: { bull: '#26a69a', bear: '#ef5350' } },
   { name: 'Classic', theme: { bull: '#00e676', bear: '#ff1744' } },
   { name: 'Neon', theme: { bull: '#00ff88', bear: '#ff0044' } },

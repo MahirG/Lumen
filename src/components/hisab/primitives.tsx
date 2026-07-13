@@ -85,18 +85,18 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
     }
 
     const variants = {
-      gold: 'text-white hover:shadow-[0_8px_32px_rgba(255,214,10,0.3)]',
-      electric: 'text-white hover:shadow-[0_8px_32px_rgba(10,132,255,0.3)]',
-      emerald: 'text-white hover:shadow-[0_8px_32px_rgba(48,209,88,0.3)]',
+      gold: 'text-[#071A2B] hover:shadow-[0_8px_32px_rgba(245,185,66,0.3)]',
+      electric: 'text-white hover:shadow-[0_8px_32px_rgba(22,119,255,0.3)]',
+      emerald: 'text-white hover:shadow-[0_8px_32px_rgba(16,185,129,0.3)]',
       ghost: 'bg-white/[4%] hover:bg-white/[8%] text-foreground border border-white/[8%] hover:border-white/[14%]',
       outline: 'bg-transparent border border-white/12 hover:border-white/25 hover:bg-white/[4%] text-foreground',
-      danger: 'text-white hover:shadow-[0_8px_32px_rgba(255,69,58,0.3)]',
+      danger: 'text-white hover:shadow-[0_8px_32px_rgba(239,68,68,0.3)]',
     }
     const gradientBg: Record<string, string> = {
-      gold: 'linear-gradient(135deg, #FFD60A, #FF9F0A)',
-      electric: 'linear-gradient(135deg, #0A84FF, #BF5AF2)',
-      emerald: 'linear-gradient(135deg, #30D158, #34C759)',
-      danger: 'linear-gradient(135deg, #FF453A, #FF3B30)',
+      gold: 'linear-gradient(135deg, #F5B942, #E09B2E)',
+      electric: 'linear-gradient(135deg, #1677FF, #0958D6)',
+      emerald: 'linear-gradient(135deg, #10B981, #059669)',
+      danger: 'linear-gradient(135deg, #EF4444, #DC2626)',
     }
     const sizes = {
       sm: 'h-8 px-3.5 text-xs rounded-lg gap-1.5',

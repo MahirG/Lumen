@@ -303,15 +303,15 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center"
         style={{
-          background: 'linear-gradient(135deg, #007AFF, #AF52DE)',
+          background: 'linear-gradient(135deg, #007AFF, #7C5CFC)',
           boxShadow: '0 8px 32px rgba(0, 122, 255, 0.35), 0 0 0 1px rgba(255,255,255,0.1) inset',
         }}
         aria-label="Open AI assistant"
       >
         {isOpen ? <X className="w-5 h-5 text-white" /> : <Bot className="w-5 h-5 text-white" />}
         {!isOpen && (
-          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#34C759] border-2 border-[#050505]">
-            <span className="absolute inset-0 rounded-full bg-[#34C759] animate-ping opacity-60" />
+          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#10B981] border-2 border-[#071A2B]">
+            <span className="absolute inset-0 rounded-full bg-[#10B981] animate-ping opacity-60" />
           </span>
         )}
       </motion.button>
@@ -339,17 +339,17 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
           >
             {/* Header */}
             <div className="flex items-center gap-3 px-5 py-3.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="relative w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #AF52DE)' }}>
+              <div className="relative w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #7C5CFC)' }}>
                 <Bot className="w-4 h-4 text-white" />
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#34C759] border-2 border-[#121214]" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#10B981] border-2 border-[#121214]" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm font-semibold tracking-tight">Apex AI</span>
-                  <Sparkles className="w-3 h-3 text-[#FFD60A]" />
+                  <Sparkles className="w-3 h-3 text-[#F5B942]" />
                 </div>
-                <div className="text-[10px] text-[#34C759] font-medium flex items-center gap-1">
-                  <span className="w-1 h-1 rounded-full bg-[#34C759] animate-pulse" />
+                <div className="text-[10px] text-[#10B981] font-medium flex items-center gap-1">
+                  <span className="w-1 h-1 rounded-full bg-[#10B981] animate-pulse" />
                   Online · Multi-AI Engine
                 </div>
               </div>
@@ -395,7 +395,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                       ? 'rounded-2xl rounded-br-md text-white'
                       : 'rounded-2xl rounded-bl-md text-[#F5F5F7]/90',
                   )} style={msg.role === 'user' ? {
-                    background: 'linear-gradient(135deg, #007AFF, #0A84FF)',
+                    background: 'linear-gradient(135deg, #007AFF, #1677FF)',
                   } : {
                     background: 'rgba(255,255,255,0.05)',
                     border: '1px solid rgba(255,255,255,0.06)',
@@ -442,7 +442,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
               {/* Loading indicator */}
               {isLoading && (
                 <div className="flex items-start gap-2">
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #AF52DE)' }}>
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #7C5CFC)' }}>
                     <Bot className="w-3.5 h-3.5 text-white" />
                   </div>
                   <div className="rounded-2xl rounded-bl-md px-4 py-3.5 flex gap-1.5" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.06)' }}>
@@ -467,7 +467,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                     key={q}
                     onClick={() => setInput(q)}
                     className="px-3 py-1.5 rounded-full text-[11px] font-medium hover:scale-105 transition-transform"
-                    style={{ background: 'rgba(0, 122, 255, 0.1)', border: '1px solid rgba(0, 122, 255, 0.2)', color: '#0A84FF' }}
+                    style={{ background: 'rgba(0, 122, 255, 0.1)', border: '1px solid rgba(0, 122, 255, 0.2)', color: '#1677FF' }}
                   >
                     {q}
                   </button>
@@ -500,7 +500,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
               </button>
               <button
                 onClick={toggleVoice}
-                className={cn('w-8 h-8 rounded-full flex items-center justify-center transition-colors shrink-0', isListening ? 'bg-[#FF3B30]' : 'hover:bg-white/10')}
+                className={cn('w-8 h-8 rounded-full flex items-center justify-center transition-colors shrink-0', isListening ? 'bg-[#EF4444]' : 'hover:bg-white/10')}
                 aria-label="Voice input"
                 title="Voice input"
               >
@@ -533,7 +533,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                 onClick={sendMessage}
                 disabled={(!input.trim() && !uploadedFile) || isLoading}
                 className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 disabled:opacity-30 hover:scale-105 active:scale-95 transition-transform"
-                style={{ background: 'linear-gradient(135deg, #007AFF, #AF52DE)' }}
+                style={{ background: 'linear-gradient(135deg, #007AFF, #7C5CFC)' }}
                 aria-label="Send message"
               >
                 {isLoading ? <StopCircle className="w-4 h-4 text-white" /> : <Send className="w-4 h-4 text-white" />}
@@ -593,12 +593,12 @@ function MessageActions({ text, isSpeaking, liked, disliked, onCopy, onVoice, on
   }
 
   const actions = [
-    { icon: copied ? Check : Copy, label: 'Copy', onClick: handleCopy, active: copied, color: copied ? '#34C759' : 'rgba(235,235,245,0.35)' },
+    { icon: copied ? Check : Copy, label: 'Copy', onClick: handleCopy, active: copied, color: copied ? '#10B981' : 'rgba(235,235,245,0.35)' },
     { icon: isSpeaking ? StopCircle : Volume2, label: isSpeaking ? 'Stop' : 'Read aloud', onClick: onVoice, active: isSpeaking, color: isSpeaking ? '#007AFF' : 'rgba(235,235,245,0.35)' },
     { icon: Share2, label: 'Share', onClick: onShare, color: 'rgba(235,235,245,0.35)' },
     { icon: RefreshCw, label: 'Regenerate', onClick: onRefresh, color: 'rgba(235,235,245,0.35)' },
-    { icon: ThumbsUp, label: 'Good response', onClick: onLike, active: liked, color: liked ? '#34C759' : 'rgba(235,235,245,0.35)' },
-    { icon: ThumbsDown, label: 'Bad response', onClick: onDislike, active: disliked, color: disliked ? '#FF3B30' : 'rgba(235,235,245,0.35)' },
+    { icon: ThumbsUp, label: 'Good response', onClick: onLike, active: liked, color: liked ? '#10B981' : 'rgba(235,235,245,0.35)' },
+    { icon: ThumbsDown, label: 'Bad response', onClick: onDislike, active: disliked, color: disliked ? '#EF4444' : 'rgba(235,235,245,0.35)' },
     { icon: Download, label: 'Download', onClick: onDownload, color: 'rgba(235,235,245,0.35)' },
     { icon: FileText, label: 'Export', onClick: onExport, color: 'rgba(235,235,245,0.35)' },
   ]
