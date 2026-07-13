@@ -133,23 +133,32 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
             <h4 className="text-xs uppercase tracking-[0.18em] text-muted-foreground font-semibold mb-4">Company</h4>
             <ul className="space-y-2.5">
               {[
-                { label: 'About Us', href: 'https://t.me/mahifxcapital' },
-                { label: 'Pricing', href: '#' },
-                { label: 'Testimonials', href: '#' },
-                { label: 'Blog', href: '#' },
-                { label: 'Careers', href: '#' },
+                { label: 'About Us', section: 'about' },
+                { label: 'Pricing', section: 'home' },
+                { label: 'AI Trading FAQ', section: 'ai-trading-faq' },
+                { label: 'Smart Money Concepts', section: 'smart-money-concepts' },
+                { label: 'Risk Management', section: 'trading-risk-management' },
                 { label: 'Contact', href: 'https://t.me/mahifxcapital' },
               ].map((link) => (
                 <li key={link.label}>
-                  <a
-                    href={link.href}
-                    target={link.href.startsWith('http') ? '_blank' : undefined}
-                    rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
-                    className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
-                  >
-                    {link.label}
-                    {link.href.startsWith('http') && <ArrowUpRight className="w-3 h-3" />}
-                  </a>
+                  {link.section ? (
+                    <button
+                      onClick={() => onNavigate?.(link.section!)}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors text-left"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <a
+                      href={link.href}
+                      target={link.href?.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="text-sm text-muted-foreground hover:text-foreground transition-colors inline-flex items-center gap-1"
+                    >
+                      {link.label}
+                      {link.href?.startsWith('http') && <ArrowUpRight className="w-3 h-3" />}
+                    </a>
+                  )}
                 </li>
               ))}
             </ul>

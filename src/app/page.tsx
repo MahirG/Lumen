@@ -20,6 +20,8 @@ import { TradeJournal } from '@/components/hisab/sections/journal'
 import { SmartAlerts } from '@/components/hisab/sections/alerts'
 import { ASNEEngine } from '@/components/hisab/sections/asne'
 import { AICoach } from '@/components/hisab/sections/coach'
+import { SEOPage } from '@/components/seo/seo-page'
+import { SEO_PAGES } from '@/lib/seo/seo-content'
 import { useMarketStore } from '@/lib/hisab/market-store'
 import { useASNEStore } from '@/lib/hisab/asne-store'
 import { useRealtimeService } from '@/lib/hisab/use-realtime'
@@ -44,6 +46,7 @@ const SECTION_META: Record<string, { title: string; subtitle: string }> = {
 export default function Home() {
   const [activeSection, setActiveSection] = React.useState('home')
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
+  const [seoPage, setSeoPage] = React.useState<string | null>(null)
   const init = useMarketStore(s => s.init)
   const fetchRealPrice = useMarketStore(s => s.fetchRealPrice)
   const microTick = useMarketStore(s => s.microTick)
@@ -51,6 +54,79 @@ export default function Home() {
   const asneInit = useASNEStore(s => s.init)
   const asneGenerate = useASNEStore(s => s.generateFromMarket)
   useRealtimeService()
+
+  // Handle SEO page routing from URL path
+  React.useEffect(() => {
+    const checkRoute = () => {
+      const path = window.location.pathname.replace(/^\/+|\/+$/g, '')
+      if (path && SEO_PAGES[path]) {
+        setSeoPage(path)
+        // Update document title and meta for SEO
+        const page = SEO_PAGES[path]
+        document.title = page.seoTitle
+        const metaDesc = document.querySelector('meta[name="description"]')
+        if (metaDesc) metaDesc.setAttribute('content', page.metaDescription)
+        // Add FAQ schema if page has FAQs
+        if (page.faqs.length > 0) {
+          const faqSchema = {
+            '@context': 'https://schema.org',
+            '@type': 'FAQPage',
+            mainEntity: page.faqs.map(f => ({
+              '@type': 'Question',
+              name: f.q,
+              acceptedAnswer: { '@type': 'Answer', text: f.a },
+            })),
+          }
+          let scriptTag = document.getElementById('seo-faq-schema')
+          if (!scriptTag) {
+            scriptTag = document.createElement('script')
+            scriptTag.id = 'seo-faq-schema'
+            scriptTag.type = 'application/ld+json'
+            document.head.appendChild(scriptTag)
+          }
+          scriptTag.textContent = JSON.stringify(faqSchema)
+        }
+      } else {
+        setSeoPage(null)
+        // Reset to default title
+        document.title = 'AI Trading Platform for Professional Traders | ApexEAPro'
+        const faqSchema = document.getElementById('seo-faq-schema')
+        if (faqSchema) faqSchema.remove()
+      }
+    }
+    checkRoute()
+    // Listen for popstate (back/forward navigation)
+    window.addEventListener('popstate', checkRoute)
+    return () => window.removeEventListener('popstate', checkRoute)
+  }, [])
+
+  // Navigate to SEO page (updates URL)
+  const navigateToSection = React.useCallback((section: string) => {
+    // Check if it's an SEO page
+    if (SEO_PAGES[section]) {
+      window.history.pushState({}, '', `/${section}`)
+      setSeoPage(section)
+      setActiveSection('home')
+      window.scrollTo(0, 0)
+      // Update meta
+      const page = SEO_PAGES[section]
+      document.title = page.seoTitle
+      const metaDesc = document.querySelector('meta[name="description"]')
+      if (metaDesc) metaDesc.setAttribute('content', page.metaDescription)
+      return
+    }
+    // Regular section navigation
+    if (seoPage) {
+      // Leaving SEO page — reset URL
+      window.history.pushState({}, '', '/')
+      setSeoPage(null)
+      document.title = 'AI Trading Platform for Professional Traders | ApexEAPro'
+      const faqSchema = document.getElementById('seo-faq-schema')
+      if (faqSchema) faqSchema.remove()
+    }
+    setActiveSection(section)
+    window.scrollTo(0, 0)
+  }, [seoPage])
 
   // Initialize market data on mount
   React.useEffect(() => {
@@ -91,19 +167,20 @@ export default function Home() {
   }, [activeSection])
 
   const meta = SECTION_META[activeSection] ?? { title: 'Apex EA Pro', subtitle: '' }
-  const isLanding = activeSection === 'home'
+  const isLanding = activeSection === 'home' && !seoPage
+  const isSeoPage = seoPage !== null
 
   return (
     <div className="flex min-h-screen bg-background">
       <Sidebar
         active={activeSection}
-        onSelect={setActiveSection}
+        onSelect={navigateToSection}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
 
       <div className="flex-1 flex flex-col min-w-0">
-        {!isLanding && (
+        {!isLanding && !isSeoPage && (
           <Header
             onMenuClick={() => setSidebarOpen(true)}
             title={meta.title}
@@ -114,14 +191,16 @@ export default function Home() {
         <main ref={mainRef} className="flex-1">
           <AnimatePresence mode="wait">
             <motion.div
-              key={activeSection}
-              initial={{ opacity: 0, y: isLanding ? 0 : 8 }}
+              key={seoPage ?? activeSection}
+              initial={{ opacity: 0, y: isLanding || isSeoPage ? 0 : 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: isLanding ? 0 : -8 }}
+              exit={{ opacity: 0, y: isLanding || isSeoPage ? 0 : -8 }}
               transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
-              {isLanding ? (
-                <Landing onNavigate={setActiveSection} />
+              {isSeoPage && SEO_PAGES[seoPage!] ? (
+                <SEOPage data={SEO_PAGES[seoPage!]} onNavigate={navigateToSection} />
+              ) : isLanding ? (
+                <Landing onNavigate={navigateToSection} />
               ) : (
                 <div className="p-4 lg:p-6 grid-bg">
                   {activeSection === 'dashboard' && <LiveDashboard />}
@@ -135,7 +214,7 @@ export default function Home() {
                   {activeSection === 'risk' && <RiskManager />}
                   {activeSection === 'journal' && <TradeJournal />}
                   {activeSection === 'alerts' && <SmartAlerts />}
-                  {activeSection === 'asne' && <ASNEEngine onNavigate={setActiveSection} />}
+                  {activeSection === 'asne' && <ASNEEngine onNavigate={navigateToSection} />}
                   {activeSection === 'coach' && <AICoach />}
                 </div>
               )}
@@ -143,11 +222,11 @@ export default function Home() {
           </AnimatePresence>
         </main>
 
-        <Footer onNavigate={setActiveSection} />
+        <Footer onNavigate={navigateToSection} />
       </div>
 
       {/* Floating hamburger menu button — visible on landing page (mobile only) */}
-      {isLanding && (
+      {(isLanding || isSeoPage) && (
         <button
           onClick={() => setSidebarOpen(true)}
           className="lg:hidden fixed top-4 right-4 z-50 w-11 h-11 rounded-xl liquid-glass-strong flex items-center justify-center text-foreground hover:scale-105 active:scale-95 transition-transform"
@@ -162,7 +241,7 @@ export default function Home() {
       )}
 
       {/* Floating bottom nav — appears on ALL pages, 4 buttons */}
-      <FloatingNav active={activeSection} onNavigate={setActiveSection} />
+      <FloatingNav active={activeSection} onNavigate={navigateToSection} />
     </div>
   )
 }
