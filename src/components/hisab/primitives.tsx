@@ -17,15 +17,15 @@ interface LiquidGlassCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const LiquidGlassCard = React.forwardRef<HTMLDivElement, LiquidGlassCardProps>(
   ({ className, variant = 'default', hover = false, glow = false, children, ...props }, ref) => {
-    const base = 'rounded-2xl border transition-all duration-300'
+    const base = 'rounded-2xl border transition-all duration-300 ease-out'
     const variants = {
-      default: 'liquid-glass border-white/[9%]',
+      default: 'liquid-glass border-white/[8%]',
       gold: 'liquid-glass-gold',
       electric: 'liquid-glass-electric',
-      strong: 'liquid-glass border-white/[12%] shadow-premium',
+      strong: 'liquid-glass border-white/[10%]',
     }
     const hoverClass = hover
-      ? 'hover-lift ' + (variant === 'gold' ? 'hover-glow-gold' : variant === 'electric' ? 'hover-glow-electric' : 'hover:border-white/[18%]')
+      ? 'hover-lift hover:border-white/[14%] hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)]'
       : ''
     const glowClass = glow
       ? (variant === 'gold' ? 'glow-gold' : variant === 'electric' ? 'glow-electric' : 'glow-soft')
@@ -85,18 +85,24 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
     }
 
     const variants = {
-      gold: 'bg-gradient-to-br from-[oklch(0.92_0.10_85)] via-[oklch(0.82_0.16_85)] to-[oklch(0.72_0.18_75)] text-[oklch(0.07_0.018_265)] hover:shadow-[0_8px_32px_oklch(0.82_0.15_85/35%)]',
-      electric: 'bg-gradient-to-br from-[oklch(0.85_0.12_220)] via-[oklch(0.78_0.18_220)] to-[oklch(0.65_0.20_230)] text-white hover:shadow-[0_8px_32px_oklch(0.78_0.18_220/35%)]',
-      emerald: 'bg-gradient-to-br from-[oklch(0.85_0.15_152)] via-[oklch(0.78_0.19_152)] to-[oklch(0.65_0.20_160)] text-[oklch(0.07_0.018_265)] hover:shadow-[0_8px_32px_oklch(0.78_0.19_152/35%)]',
-      ghost: 'bg-white/[3%] hover:bg-white/[8%] text-foreground border border-white/[6%] hover:border-white/[12%]',
-      outline: 'bg-transparent border border-white/15 hover:border-white/30 hover:bg-white/[5%] text-foreground',
-      danger: 'bg-gradient-to-br from-[oklch(0.70_0.22_25)] to-[oklch(0.55_0.25_25)] text-white hover:shadow-[0_8px_32px_oklch(0.66_0.24_25/35%)]',
+      gold: 'text-white hover:shadow-[0_8px_32px_rgba(255,214,10,0.3)]',
+      electric: 'text-white hover:shadow-[0_8px_32px_rgba(10,132,255,0.3)]',
+      emerald: 'text-white hover:shadow-[0_8px_32px_rgba(48,209,88,0.3)]',
+      ghost: 'bg-white/[4%] hover:bg-white/[8%] text-foreground border border-white/[8%] hover:border-white/[14%]',
+      outline: 'bg-transparent border border-white/12 hover:border-white/25 hover:bg-white/[4%] text-foreground',
+      danger: 'text-white hover:shadow-[0_8px_32px_rgba(255,69,58,0.3)]',
+    }
+    const gradientBg: Record<string, string> = {
+      gold: 'linear-gradient(135deg, #FFD60A, #FF9F0A)',
+      electric: 'linear-gradient(135deg, #0A84FF, #BF5AF2)',
+      emerald: 'linear-gradient(135deg, #30D158, #34C759)',
+      danger: 'linear-gradient(135deg, #FF453A, #FF3B30)',
     }
     const sizes = {
-      sm: 'h-8 px-3 text-xs rounded-lg gap-1.5',
-      md: 'h-10 px-4 text-sm rounded-xl gap-2',
+      sm: 'h-8 px-3.5 text-xs rounded-lg gap-1.5',
+      md: 'h-10 px-5 text-sm rounded-xl gap-2',
       lg: 'h-12 px-6 text-base rounded-xl gap-2',
-      xl: 'h-14 px-8 text-lg rounded-2xl gap-2.5',
+      xl: 'h-14 px-8 text-base lg:text-lg rounded-2xl gap-2.5',
     }
     return (
       <button
@@ -112,6 +118,7 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
           glow && (variant === 'gold' ? 'glow-gold' : variant === 'electric' ? 'glow-electric' : variant === 'emerald' ? 'glow-emerald' : ''),
           className,
         )}
+        style={gradientBg[variant] ? { background: gradientBg[variant] } : undefined}
         {...props}
       >
         {children}

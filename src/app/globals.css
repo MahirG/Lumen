@@ -65,41 +65,41 @@
 
 :root {
   /* Base radii — Apple uses larger, softer corners */
-  --radius: 0.75rem;
+  --radius: 0.875rem;
 
-  /* Core surfaces — Apple Deep Space Black (#050505) */
-  --background: #050505;
-  --foreground: #F5F5F7; /* Apple White */
-  --card: rgba(28, 28, 30, 0.6); /* Apple dark card */
+  /* Core surfaces — Premium deep dark (#08080A) — not pure black */
+  --background: #08080A;
+  --foreground: #F5F5F7;
+  --card: rgba(20, 20, 24, 0.7);
   --card-foreground: #F5F5F7;
-  --popover: rgba(18, 18, 20, 0.95);
+  --popover: rgba(16, 16, 18, 0.97);
   --popover-foreground: #F5F5F7;
-  --primary: #007AFF; /* Apple Electric Blue */
+  --primary: #0A84FF;
   --primary-foreground: #FFFFFF;
-  --secondary: rgba(58, 58, 60, 0.5); /* Apple secondary dark */
+  --secondary: rgba(50, 50, 55, 0.5);
   --secondary-foreground: #F5F5F7;
-  --muted: rgba(44, 44, 46, 0.5);
-  --muted-foreground: rgba(235, 235, 245, 0.6); /* Apple secondary label */
-  --accent: rgba(0, 122, 255, 0.12);
-  --accent-foreground: #0A84FF; /* Apple Blue dark mode */
-  --destructive: #FF3B30; /* Apple Red */
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: rgba(0, 122, 255, 0.5);
+  --muted: rgba(38, 38, 42, 0.5);
+  --muted-foreground: rgba(200, 200, 210, 0.55);
+  --accent: rgba(10, 132, 255, 0.1);
+  --accent-foreground: #0A84FF;
+  --destructive: #FF453A;
+  --border: rgba(255, 255, 255, 0.06);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: rgba(10, 132, 255, 0.4);
 
-  /* Apple premium accent palette */
-  --gold: #FFD60A; /* Apple Gold */
-  --gold-soft: rgba(255, 214, 10, 0.15);
-  --bull: #34C759; /* Apple Green */
-  --bear: #FF3B30; /* Apple Red */
-  --neutral-trade: rgba(235, 235, 245, 0.3);
-  --electric: #007AFF; /* Apple Blue */
-  --electric-soft: rgba(0, 122, 255, 0.12);
-  --emerald: #34C759;
-  --emerald-soft: rgba(52, 199, 89, 0.12);
-  --purple: #AF52DE; /* AI Intelligence Purple */
-  --purple-soft: rgba(175, 82, 222, 0.12);
-  --orange: #FF9500; /* Apple Orange */
+  /* Premium accent palette */
+  --gold: #FFD60A;
+  --gold-soft: rgba(255, 214, 10, 0.12);
+  --bull: #30D158;
+  --bear: #FF453A;
+  --neutral-trade: rgba(200, 200, 210, 0.3);
+  --electric: #0A84FF;
+  --electric-soft: rgba(10, 132, 255, 0.1);
+  --emerald: #30D158;
+  --emerald-soft: rgba(48, 209, 88, 0.1);
+  --purple: #BF5AF2;
+  --purple-soft: rgba(191, 90, 242, 0.1);
+  --orange: #FF9F0A;
   --midnight: #000000;
   --platinum: #F5F5F7;
 
@@ -122,24 +122,24 @@
 }
 
 .dark {
-  --background: #050505;
+  --background: #08080A;
   --foreground: #F5F5F7;
-  --card: rgba(28, 28, 30, 0.6);
+  --card: rgba(20, 20, 24, 0.7);
   --card-foreground: #F5F5F7;
-  --popover: rgba(18, 18, 20, 0.95);
+  --popover: rgba(16, 16, 18, 0.97);
   --popover-foreground: #F5F5F7;
   --primary: #0A84FF;
   --primary-foreground: #FFFFFF;
-  --secondary: rgba(58, 58, 60, 0.5);
+  --secondary: rgba(50, 50, 55, 0.5);
   --secondary-foreground: #F5F5F7;
-  --muted: rgba(44, 44, 46, 0.5);
-  --muted-foreground: rgba(235, 235, 245, 0.6);
-  --accent: rgba(0, 122, 255, 0.12);
+  --muted: rgba(38, 38, 42, 0.5);
+  --muted-foreground: rgba(200, 200, 210, 0.55);
+  --accent: rgba(10, 132, 255, 0.1);
   --accent-foreground: #0A84FF;
-  --destructive: #FF3B30;
-  --border: rgba(255, 255, 255, 0.08);
-  --input: rgba(255, 255, 255, 0.1);
-  --ring: rgba(0, 122, 255, 0.5);
+  --destructive: #FF453A;
+  --border: rgba(255, 255, 255, 0.06);
+  --input: rgba(255, 255, 255, 0.08);
+  --ring: rgba(10, 132, 255, 0.4);
 }
 
 /* Light theme — Apple-style light mode */
@@ -199,11 +199,11 @@
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-sans);
     font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1, "cv11" 1, "tnum" 1;
-    background-color: #050505;
+    background-color: #08080A;
     background-image:
-      radial-gradient(at 8% 0%, rgba(0, 122, 255, 0.06) 0px, transparent 45%),
-      radial-gradient(at 92% 5%, rgba(175, 82, 222, 0.04) 0px, transparent 50%),
-      radial-gradient(at 50% 100%, rgba(52, 199, 89, 0.03) 0px, transparent 55%);
+      radial-gradient(at 8% 0%, rgba(10, 132, 255, 0.05) 0px, transparent 45%),
+      radial-gradient(at 92% 5%, rgba(191, 90, 242, 0.03) 0px, transparent 50%),
+      radial-gradient(at 50% 100%, rgba(48, 209, 88, 0.02) 0px, transparent 55%);
     background-attachment: fixed;
     background-size: 100% 100%;
     min-height: 100vh;

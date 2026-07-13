@@ -59,21 +59,6 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
         className="relative z-10 max-w-7xl mx-auto px-4 lg:px-6 py-20 w-full"
       >
         <div className="max-w-4xl">
-          {/* Badge */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full liquid-glass-strong border border-[#2563EB]/30 mb-6"
-          >
-            <span className="relative flex w-2 h-2">
-              <span className="absolute inset-0 rounded-full bg-[#10B981] animate-ping opacity-75" />
-              <span className="relative w-2 h-2 rounded-full bg-[#10B981]" />
-            </span>
-            <span className="text-xs font-mono uppercase tracking-wider text-foreground/80">AI Operating System · Live</span>
-            <Sparkles className="w-3 h-3 text-[#F59E0B]" />
-          </motion.div>
-
           {/* Headline */}
           <motion.h1
             initial={{ opacity: 0, y: 24 }}
