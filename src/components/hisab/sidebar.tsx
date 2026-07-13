@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, LayoutDashboard, Brain, Clock, Newspaper, Gauge,
   Calculator, BookOpen, Bell, GraduationCap, Eye,
-  Activity, X, Sparkles, Zap, Crown, Layers, BellRing,
+  Activity, X, Sparkles, Zap, Crown, Layers, BellRing, LineChart,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -24,6 +24,7 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { id: 'home', label: 'Home', icon: Home, description: 'Platform overview', category: 'home' },
   { id: 'dashboard', label: 'Intelligence Workspace', icon: LayoutDashboard, description: 'Institutional command center', category: 'analysis' },
+  { id: 'trading', label: 'Trading Workspace', icon: LineChart, description: 'Mini TradingView terminal', badge: 'NEW', category: 'analysis' },
   { id: 'chart-analysis', label: 'Institutional Intelligence', icon: Eye, description: 'AI Vision + SMC detection', category: 'analysis' },
   { id: 'decision-engine', label: 'AI Market Intelligence', icon: Brain, description: 'Bias · entry · SL · TP', category: 'analysis' },
   { id: 'aile', label: 'AILE Engine', icon: Layers, description: '12-phase institutional liquidity', badge: 'PRO', category: 'analysis' },

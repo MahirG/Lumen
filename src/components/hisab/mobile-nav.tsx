@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, LayoutDashboard, Brain, BellRing, Eye, Newspaper,
   BarChart3, Clock, BookOpen, Crown, Globe, Sun, Moon,
-  LogIn, Zap, X, Atom, Activity,
+  LogIn, Zap, X, Atom, Activity, LineChart,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useI18n } from '@/lib/i18n/context'
@@ -29,6 +29,7 @@ interface NavItem {
 const NAV_ITEMS: NavItem[] = [
   { id: 'home', label: 'Home', icon: Home },
   { id: 'dashboard', label: 'AI Intelligence Workspace', icon: LayoutDashboard },
+  { id: 'trading', label: 'Trading Workspace', icon: LineChart, badge: 'NEW' },
   { id: 'aile', label: 'Apex AI', icon: Atom, badge: 'PRO' },
   { id: 'asne', label: 'Market Intelligence Center', icon: BellRing, badge: 'NEW' },
   { id: 'chart-analysis', label: 'Institutional Intelligence', icon: Eye },
@@ -43,7 +44,10 @@ const NAV_ITEMS: NavItem[] = [
 
 export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: MobileNavProps) {
   const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
   const { language, setLanguage } = useI18n()
+
+  React.useEffect(() => { setMounted(true) }, [])
 
   React.useEffect(() => {
     if (isOpen) {
@@ -220,7 +224,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                   style={{ background: 'var(--muted)', border: '1px solid var(--border)' }}
                   aria-label="Toggle theme"
                 >
-                  {theme === 'dark' ? (
+                  {mounted && theme === 'dark' ? (
                     <>
                       <Sun className="w-4 h-4" style={{ color: '#F5B942' }} />
                       <span className="text-foreground/80">Light</span>

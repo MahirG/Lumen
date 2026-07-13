@@ -10,6 +10,7 @@ import { MobileNav, AnimatedHamburger, StickyHeader } from '@/components/hisab/m
 import { Landing } from '@/components/hisab/sections/landing'
 import { LiveDashboard } from '@/components/hisab/sections/live-dashboard'
 import { ChartAnalysis } from '@/components/hisab/sections/chart-analysis'
+import { TradingWorkspace } from '@/components/hisab/sections/trading-workspace'
 import { DecisionEngine } from '@/components/hisab/sections/decision-engine'
 import { AILEEngine } from '@/components/hisab/sections/aile-engine'
 import { MultiTimeframe } from '@/components/hisab/sections/mtf'
@@ -30,6 +31,7 @@ import { useRealtimeService } from '@/lib/hisab/use-realtime'
 const SECTION_META: Record<string, { title: string; subtitle: string }> = {
   home: { title: 'ApexEAPro', subtitle: 'The AI Operating System for Professional Traders' },
   dashboard: { title: 'AI Intelligence Workspace', subtitle: 'Your personalized institutional trading command center' },
+  trading: { title: 'Trading Workspace', subtitle: 'Professional market terminal — mini TradingView' },
   'chart-analysis': { title: 'Institutional Intelligence', subtitle: 'AI Vision + Smart Money Concepts detection' },
   'decision-engine': { title: 'AI Market Intelligence', subtitle: 'Probability-based institutional setups' },
   aile: { title: 'AILE Engine v1.0', subtitle: '12-phase institutional liquidity analysis' },
@@ -213,6 +215,7 @@ export default function Home() {
               ) : (
                 <div className="p-4 lg:p-6 grid-bg">
                   {activeSection === 'dashboard' && <LiveDashboard />}
+                  {activeSection === 'trading' && <TradingWorkspace />}
                   {activeSection === 'chart-analysis' && <ChartAnalysis />}
                   {activeSection === 'decision-engine' && <DecisionEngine />}
                   {activeSection === 'aile' && <AILEEngine />}
