@@ -17,14 +17,24 @@ export function LiveDashboard() {
   const indicators = useMarketStore(s => s.indicators)
   const session = useMarketStore(s => s.session)
   const newsEvents = useMarketStore(s => s.newsEvents)
+  const dataSource = useMarketStore(s => s.dataSource)
+  const lastRealUpdate = useMarketStore(s => s.lastRealUpdate)
 
   if (!price || !indicators) {
     return (
       <div className="flex items-center justify-center py-12">
         <div className="w-6 h-6 border-2 border-[oklch(0.82_0.15_85)] border-t-transparent rounded-full animate-spin" />
+        <span className="ml-3 text-sm text-muted-foreground">Fetching live gold price...</span>
       </div>
     )
   }
+
+  const secondsAgo = lastRealUpdate ? Math.round((Date.now() - lastRealUpdate) / 1000) : null
+  const sourceBadge = dataSource === 'live'
+    ? { label: 'LIVE • gold-api.com', variant: 'bull' as const }
+    : dataSource === 'cached'
+    ? { label: 'CACHED', variant: 'gold' as const }
+    : { label: 'DEMO MODE', variant: 'info' as const }
 
   const nextHighNews = newsEvents.find(e => e.impact === 'HIGH' && e.minutesUntil <= 120)
   const rsiColor = indicators.rsi > 70
@@ -35,6 +45,33 @@ export function LiveDashboard() {
 
   return (
     <div className="space-y-5">
+      {/* Live data source banner */}
+      <motion.div
+        initial={{ opacity: 0, y: -6 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5 rounded-lg glass-gold"
+      >
+        <div className="flex items-center gap-3">
+          <div className="relative w-2 h-2">
+            <div className="absolute inset-0 rounded-full" style={{
+              background: dataSource === 'live' ? 'oklch(0.72 0.18 145)' : dataSource === 'cached' ? 'oklch(0.78 0.16 85)' : 'oklch(0.7 0.1 230)'
+            }} />
+            <div className="absolute inset-0 rounded-full animate-ping opacity-75" style={{
+              background: dataSource === 'live' ? 'oklch(0.72 0.18 145)' : dataSource === 'cached' ? 'oklch(0.78 0.16 85)' : 'oklch(0.7 0.1 230)'
+            }} />
+          </div>
+          <StatusBadge variant={sourceBadge.variant}>{sourceBadge.label}</StatusBadge>
+          <span className="text-xs text-muted-foreground">
+            Real-time XAUUSD spot price · updates every 20s
+          </span>
+        </div>
+        <div className="text-xs text-muted-foreground font-mono">
+          {secondsAgo !== null && (
+            <span>Last sync: {secondsAgo}s ago</span>
+          )}
+        </div>
+      </motion.div>
+
       {/* Top stat grid */}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3 lg:gap-4">
         <StatCard

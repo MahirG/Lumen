@@ -10,13 +10,36 @@ import { cn } from '@/lib/utils'
 
 export function GoldStrengthMeter() {
   const [strength, setStrength] = React.useState(() => computeGoldStrength(getRawInputs()))
+  const [realDxy, setRealDxy] = React.useState<number | null>(null)
+  const [dxySource, setDxySource] = React.useState<string>('demo')
+
+  // Fetch real DXY from our /api/price endpoint (computed from forex rates)
+  const fetchRealDxy = React.useCallback(async () => {
+    try {
+      const res = await fetch('/api/price', { cache: 'no-store' })
+      if (!res.ok) return
+      const data = await res.json()
+      if (data.forex?.dxy && typeof data.forex.dxy === 'number') {
+        setRealDxy(data.forex.dxy)
+        setDxySource('live')
+      }
+    } catch (err) {
+      console.warn('Failed to fetch real DXY:', err)
+    }
+  }, [])
+
+  React.useEffect(() => {
+    fetchRealDxy()
+    const interval = setInterval(fetchRealDxy, 30000) // refresh every 30s
+    return () => clearInterval(interval)
+  }, [fetchRealDxy])
 
   React.useEffect(() => {
     const interval = setInterval(() => {
-      setStrength(computeGoldStrength(getRawInputs()))
+      setStrength(computeGoldStrength(getRawInputs(Date.now(), realDxy ?? undefined)))
     }, 5000)
     return () => clearInterval(interval)
-  }, [])
+  }, [realDxy])
 
   const scoreColor = getStrengthColor(strength.score)
 
@@ -105,11 +128,11 @@ export function GoldStrengthMeter() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
         <ComponentCard
           icon={<DollarSign className="w-4 h-4" />}
-          title="DXY (US Dollar Index)"
+          title={`DXY (US Dollar Index)${dxySource === 'live' ? ' · LIVE' : ''}`}
           value={formatNumber(strength.components.dxy.value, 2)}
           change={strength.components.dxy.change}
           impact={strength.components.dxy.impact}
-          note="Inverse correlation with gold"
+          note={dxySource === 'live' ? 'Real DXY computed from live forex rates' : 'Inverse correlation with gold'}
           delay={0}
         />
         <ComponentCard

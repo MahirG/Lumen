@@ -19,6 +19,8 @@ export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
   const price = useMarketStore(s => s.price)
   const session = useMarketStore(s => s.session)
   const newsEvents = useMarketStore(s => s.newsEvents)
+  const dataSource = useMarketStore(s => s.dataSource)
+  const lastRealUpdate = useMarketStore(s => s.lastRealUpdate)
   const prevPriceRef = React.useRef<number | null>(null)
   const [flash, setFlash] = React.useState<'up' | 'down' | null>(null)
 
@@ -32,6 +34,10 @@ export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
     }
     prevPriceRef.current = price.last
   }, [price?.last])
+
+  const secondsAgo = lastRealUpdate ? Math.round((Date.now() - lastRealUpdate) / 1000) : null
+  const sourceLabel = dataSource === 'live' ? 'LIVE' : dataSource === 'cached' ? 'CACHED' : 'DEMO'
+  const sourceColor = dataSource === 'live' ? 'oklch(0.72 0.18 145)' : dataSource === 'cached' ? 'oklch(0.78 0.16 85)' : 'oklch(0.7 0.1 230)'
 
   const isUp = (price?.change ?? 0) >= 0
   const highImpactNext = newsEvents.find(e => e.impact === 'HIGH' && e.minutesUntil <= 60)
@@ -61,13 +67,16 @@ export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
 
         {/* Live ticker */}
         <div className="flex items-center gap-2 lg:gap-4">
-          {/* Connection status */}
-          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground">
+          {/* Connection status — shows real data source */}
+          <div className="hidden md:flex items-center gap-1.5 text-xs text-muted-foreground" title={`Data source: ${dataSource}. Last real update: ${secondsAgo ?? '—'}s ago`}>
             <div className="relative w-1.5 h-1.5">
-              <div className="absolute inset-0 rounded-full bg-[oklch(0.72_0.18_145)]" />
-              <div className="absolute inset-0 rounded-full bg-[oklch(0.72_0.18_145)] animate-ping opacity-75" />
+              <div className="absolute inset-0 rounded-full" style={{ background: sourceColor }} />
+              <div className="absolute inset-0 rounded-full animate-ping opacity-75" style={{ background: sourceColor }} />
             </div>
-            <span className="font-mono">LIVE</span>
+            <span className="font-mono" style={{ color: sourceColor }}>{sourceLabel}</span>
+            {secondsAgo !== null && (
+              <span className="font-mono text-[10px] text-muted-foreground/70">· {secondsAgo}s</span>
+            )}
           </div>
 
           {/* Session badge */}

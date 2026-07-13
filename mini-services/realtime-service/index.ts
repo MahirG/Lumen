@@ -2,7 +2,7 @@
  * Hisab Gold AI — Realtime Service
  *
  * Mini WebSocket service that pushes:
- *   - Live XAUUSD price ticks (every 1.2s)
+ *   - Live XAUUSD price ticks (real data from gold-api.com every 30s, synthetic micro-ticks every 1.2s)
  *   - SMC alert notifications (when events trigger)
  *   - Session change notifications
  *   - News countdown updates
@@ -21,23 +21,64 @@ const io = new Server(httpServer, {
   pingInterval: 25000,
 })
 
-// === In-memory market simulation ===
-const BASE_PRICE = 2650
-let currentPrice = BASE_PRICE + (Math.random() - 0.5) * 30
-let currentTrend = 0
-const TREND_SHIFT_PROB = 0.02 // 2% chance per tick to shift trend
+// === Real gold price fetching ===
+const GOLD_API_URL = 'https://api.gold-api.com/price/XAU'
+let realGoldPrice: number | null = null
+let lastRealFetch = 0
+let realFetchError: string | null = null
 
-function liveTick(): { price: number; bid: number; ask: number; timestamp: number } {
-  if (Math.random() < TREND_SHIFT_PROB) {
-    currentTrend = (Math.random() - 0.5) * 0.6
+async function fetchRealGoldPrice(): Promise<number | null> {
+  const now = Date.now()
+  // Cache for 25 seconds (server-side) to respect rate limits
+  if (realGoldPrice !== null && now - lastRealFetch < 25000) {
+    return realGoldPrice
   }
-  const noise = (Math.random() - 0.5) * 0.8
-  currentPrice = Math.max(2400, currentPrice + noise + currentTrend * 0.3)
+  try {
+    const controller = new AbortController()
+    const timeout = setTimeout(() => controller.abort(), 5000)
+    const res = await fetch(GOLD_API_URL, {
+      signal: controller.signal,
+      headers: { Accept: 'application/json' },
+    })
+    clearTimeout(timeout)
+    if (!res.ok) throw new Error(`HTTP ${res.status}`)
+    const data = await res.json()
+    if (typeof data.price !== 'number' || data.price <= 0) {
+      throw new Error('Invalid price')
+    }
+    realGoldPrice = data.price
+    lastRealFetch = now
+    realFetchError = null
+    console.log(`[Hisab Realtime] Fetched real gold price: $${data.price}`)
+    return realGoldPrice
+  } catch (err: any) {
+    realFetchError = err.message
+    console.warn(`[Hisab Realtime] Gold price fetch failed (using cached/fallback):`, err.message)
+    return realGoldPrice // return cached value if available
+  }
+}
+
+// === Micro-tick simulation around real price ===
+let currentDisplayPrice: number = 2650
+let microTickOffset: number = 0
+
+function generateTick(): { price: number; bid: number; ask: number; timestamp: number; real: boolean; source: string } {
+  const realPrice = realGoldPrice ?? 2650
+  // Drift the display price toward the real price smoothly
+  const drift = (realPrice - currentDisplayPrice) * 0.15
+  // Small noise around the real price for visual liveliness
+  const noise = (Math.random() - 0.5) * 0.5
+  microTickOffset = Math.max(-2, Math.min(2, microTickOffset + noise))
+  currentDisplayPrice = currentDisplayPrice + drift + microTickOffset * 0.1
+
+  const spread = 0.30
   return {
-    price: currentPrice,
-    bid: currentPrice - 0.15,
-    ask: currentPrice + 0.15,
+    price: currentDisplayPrice,
+    bid: currentDisplayPrice - spread / 2,
+    ask: currentDisplayPrice + spread / 2,
     timestamp: Date.now(),
+    real: realGoldPrice !== null,
+    source: realGoldPrice !== null ? 'gold-api.com' : 'fallback',
   }
 }
 
@@ -54,9 +95,9 @@ const ALERT_TYPES = [
 ]
 
 function maybeGenerateAlert(): { type: string; severity: 'info' | 'warn' | 'critical'; message: string; price: number; timestamp: number } | null {
-  if (Math.random() < 0.04) { // 4% chance per tick
+  if (Math.random() < 0.04) {
     const template = ALERT_TYPES[Math.floor(Math.random() * ALERT_TYPES.length)]
-    const price = Math.round((currentPrice + (Math.random() - 0.5) * 5) * 100) / 100
+    const price = Math.round((currentDisplayPrice + (Math.random() - 0.5) * 5) * 100) / 100
     return {
       type: template.type,
       severity: template.severity,
@@ -78,22 +119,19 @@ io.on('connection', (socket) => {
     message: 'Connected to Hisab Gold AI realtime service',
     symbol: 'XAUUSD',
     timestamp: Date.now(),
+    realPriceAvailable: realGoldPrice !== null,
   })
 
   // Send initial snapshot
-  socket.emit('price-tick', liveTick())
+  socket.emit('price-tick', generateTick())
 
   socket.on('subscribe', (channels: string[]) => {
-    for (const ch of channels) {
-      socket.join(ch)
-    }
+    for (const ch of channels) socket.join(ch)
     socket.emit('subscribed', { channels })
   })
 
   socket.on('unsubscribe', (channels: string[]) => {
-    for (const ch of channels) {
-      socket.leave(ch)
-    }
+    for (const ch of channels) socket.leave(ch)
   })
 
   socket.on('ping', () => {
@@ -111,17 +149,31 @@ io.on('connection', (socket) => {
 })
 
 // === Broadcast loops ===
-const TICK_INTERVAL = 1200 // 1.2s
+// Real price fetch every 25 seconds
+setInterval(async () => {
+  await fetchRealGoldPrice()
+}, 25000)
+
+// Initial fetch on startup
+fetchRealGoldPrice().then(() => {
+  if (realGoldPrice !== null) {
+    currentDisplayPrice = realGoldPrice
+  }
+})
+
+// Micro-tick broadcast every 1.2s
+const TICK_INTERVAL = 1200
 setInterval(() => {
   if (connectedClients.size === 0) return
-  const tick = liveTick()
+  const tick = generateTick()
   io.emit('price-tick', {
     symbol: 'XAUUSD',
     ...tick,
   })
 }, TICK_INTERVAL)
 
-const ALERT_INTERVAL = 8000 // 8s
+// Alert broadcast every 8s
+const ALERT_INTERVAL = 8000
 setInterval(() => {
   if (connectedClients.size === 0) return
   const alert = maybeGenerateAlert()
@@ -143,7 +195,6 @@ setInterval(() => {
   let currentSessionName = 'OFF_SESSION'
   for (const [name, [start, end]] of Object.entries(SESSION_HOURS)) {
     if (utcHour >= start && utcHour < end) {
-      // Pick the latest matching session (NY takes precedence over London if both active)
       currentSessionName = name
     }
   }
@@ -160,6 +211,7 @@ setInterval(() => {
 const PORT = 3003
 httpServer.listen(PORT, () => {
   console.log(`[Hisab Realtime] WebSocket service running on port ${PORT}`)
+  console.log(`[Hisab Realtime] Fetching real gold price from ${GOLD_API_URL} every 25s`)
 })
 
 // Graceful shutdown

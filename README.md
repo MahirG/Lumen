@@ -11,7 +11,7 @@ An award-winning, production-grade AI Trading Assistant for XAUUSD (Gold) that c
 ## ✨ Features
 
 ### 1. Live Dashboard
-Real-time XAUUSD price ticker, RSI, ATR, ADX trend strength, volume, spread, volatility, current session, and countdown to next high-impact news.
+Real-time XAUUSD price ticker (fetched from **gold-api.com** every 20s, with synthetic micro-ticks between updates for visual liveliness), RSI, ATR, ADX trend strength, volume, spread, volatility, current session, and countdown to next high-impact news. Data source badge shows whether you're seeing LIVE, CACHED, or DEMO data with last-sync timestamp.
 
 ### 2. Chart Analysis + AI Vision
 - Upload TradingView screenshots — the AI reads candlestick structure and detects SMC elements
@@ -37,7 +37,7 @@ ICT kill zone highlighting for Asian, London, and New York sessions with 24-hour
 Aggregates high-impact USD news from Forex Factory, Trading Economics, and Investing.com with 18-minute warning window.
 
 ### 7. Gold Strength Meter
-Composite score from DXY, US10Y yields, interest rate outlook, volatility (VIX), and safe-haven demand.
+Composite score from **real DXY** (computed from live forex rates via open.er-api.com), US10Y yields, interest rate outlook, volatility (VIX), and safe-haven demand. DXY card shows "LIVE" badge when real data is available.
 
 ### 8. AI Risk Manager
 Position sizing calculator for XAUUSD — input account balance, risk %, entry, SL, TP, and leverage to compute lot size, max loss, max profit, R:R, margin requirement.
@@ -183,6 +183,37 @@ Open `http://localhost:3000` to view the app.
 | **Inducement** | Minor liquidity resting above/below an OB — trap for retail traders |
 | **Premium/Discount** | Upper/lower halves of the swing range — equilibrium at 50% |
 | **Kill Zones** | ICT-defined high-probability windows: Asian, London, NY AM |
+
+---
+
+## 📡 Live Data Sources
+
+The app fetches **real market data** from free public APIs (no API keys required):
+
+| Data | Source | Refresh | Fallback |
+|------|--------|---------|----------|
+| XAUUSD spot price | [gold-api.com](https://gold-api.com) | 20s | Cached, then synthetic |
+| Forex rates (EUR/JPY/GBP/CAD/SEK/CHF) | [open.er-api.com](https://open.er-api.com) | 30min | Hardcoded defaults |
+| DXY (US Dollar Index) | Computed from forex rates | 30min | 104.2 default |
+| Silver (XAG) | gold-api.com | On demand | — |
+
+The data source is displayed in the UI via a badge:
+- **🟢 LIVE** — fetching real-time data from upstream API
+- **🟡 CACHED** — serving cached data while API is unavailable
+- **🔵 DEMO** — using synthetic data (final fallback)
+
+A "Last sync: Ns ago" indicator shows when the most recent real data was received.
+
+### API Endpoints
+
+| Endpoint | Description |
+|----------|-------------|
+| `GET /api/price` | Real XAUUSD price + DXY + forex rates |
+| `GET /api/dashboard` | Aggregated dashboard data with real price |
+
+### Realtime WebSocket Service
+
+The Socket.IO mini-service (port 3003) also fetches real gold prices every 25 seconds and broadcasts them to all connected clients. Synthetic micro-ticks (1.2s interval) provide visual liveliness between real updates while staying anchored to the actual market price.
 
 ---
 

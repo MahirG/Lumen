@@ -36,22 +36,31 @@ export default function Home() {
   const [activeSection, setActiveSection] = React.useState('dashboard')
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
   const init = useMarketStore(s => s.init)
-  const tick = useMarketStore(s => s.tick)
+  const fetchRealPrice = useMarketStore(s => s.fetchRealPrice)
+  const microTick = useMarketStore(s => s.microTick)
   const refreshSession = useMarketStore(s => s.refreshSession)
   useRealtimeService()
 
-  // Initialize market data
+  // Initialize market data on mount (fetches real gold price)
   React.useEffect(() => {
     init()
   }, [init])
 
-  // Live tick loop
+  // Fetch REAL price every 20 seconds (server caches for 30s)
   React.useEffect(() => {
     const interval = setInterval(() => {
-      tick()
-    }, 1200) // ~1 update per second
+      fetchRealPrice()
+    }, 20000)
     return () => clearInterval(interval)
-  }, [tick])
+  }, [fetchRealPrice])
+
+  // Micro-tick every 1.2s for visual liveliness (small delta around real price)
+  React.useEffect(() => {
+    const interval = setInterval(() => {
+      microTick()
+    }, 1200)
+    return () => clearInterval(interval)
+  }, [microTick])
 
   // Refresh session every 30s
   React.useEffect(() => {

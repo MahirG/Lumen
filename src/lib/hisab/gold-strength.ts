@@ -19,12 +19,14 @@ interface RawInputs {
 }
 
 // Generate realistic current inputs. In production, would fetch from API.
-export function getRawInputs(seed = Date.now()): RawInputs {
+export function getRawInputs(seed = Date.now(), realDxy?: number): RawInputs {
   // Use seed for some variation
   const variance = (Math.sin(seed / 60000) + 1) / 2 // 0-1, changes every minute
+  // Use real DXY if provided, otherwise fall back to a sensible default
+  const baseDxy = realDxy ?? 104.2
   return {
-    dxy: 104.2 + (variance - 0.5) * 1.2,
-    dxyChange: (variance - 0.5) * 0.6,
+    dxy: baseDxy + (variance - 0.5) * 0.3,
+    dxyChange: (variance - 0.5) * 0.2,
     us10y: 4.28 + (variance - 0.5) * 0.08,
     us10yChange: (variance - 0.5) * 0.04,
     volatilityPercentile: 35 + variance * 40,
