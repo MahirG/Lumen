@@ -41,21 +41,63 @@ export function Landing({ onNavigate }: LandingProps) {
 
 /* ============================================
    HERO — Cinematic AI Operating System
+   Layered structure:
+   Layer 1: Premium background image
+   Layer 2: Theme-aware gradient overlay
+   Layer 3: Existing animations (particles, globe, market flow)
+   Layer 4: Hero content (heading, CTAs, stats)
    ============================================ */
 
 function HeroSection({ onNavigate, heroOpacity }: any) {
+  // Subtle parallax for the background image — desktop only.
+  // Mobile disables this for performance (the inline transform is
+  // only applied above the lg breakpoint via a state check).
+  const [isDesktop, setIsDesktop] = React.useState(false)
+  React.useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
+    const update = () => setIsDesktop(mq.matches)
+    update()
+    mq.addEventListener('change', update)
+    return () => mq.removeEventListener('change', update)
+  }, [])
+
+  const { scrollY } = useScroll()
+  const bgY = useTransform(scrollY, [0, 800], isDesktop ? [0, 80] : [0, 0])
+  const bgScale = useTransform(scrollY, [0, 800], isDesktop ? [1, 1.08] : [1, 1])
+
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-background">
-      {/* Animated particle background */}
-      <ParticleField />
-      {/* 3D rotating financial globe */}
-      <FinancialGlobe />
-      {/* Mobile/tablet market flow animation */}
-      <MobileMarketFlow />
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
-      <div className="absolute inset-0 grid-bg-fine opacity-20 pointer-events-none" />
+      {/* ====== LAYER 1: Premium background image ====== */}
+      <motion.div
+        aria-hidden="true"
+        style={{ y: bgY, scale: bgScale }}
+        className="absolute inset-0 z-0 pointer-events-none"
+      >
+        <div className="hero-bg-image" />
+      </motion.div>
 
+      {/* ====== LAYER 2: Theme-aware overlay + brand tint ====== */}
+      <div className="hero-bg-overlay z-[1]" aria-hidden="true" />
+      <div className="hero-bg-tint z-[1]" aria-hidden="true" />
+
+      {/* ====== LAYER 3: Existing animated effects ====== */}
+      {/* Animated particle background */}
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        <ParticleField />
+      </div>
+      {/* 3D rotating financial globe */}
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        <FinancialGlobe />
+      </div>
+      {/* Mobile/tablet market flow animation */}
+      <div className="absolute inset-0 z-[2] pointer-events-none">
+        <MobileMarketFlow />
+      </div>
+      {/* Gradient overlays */}
+      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
+      <div className="absolute inset-0 z-[2] grid-bg-fine opacity-20 pointer-events-none" />
+
+      {/* ====== LAYER 4: Hero content ====== */}
       <motion.div
         style={{ opacity: heroOpacity }}
         className="relative z-10 max-w-7xl mx-auto px-4 lg:px-6 py-20 w-full"
@@ -78,7 +120,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed mb-8"
+            className="text-base md:text-lg text-foreground/80 max-w-2xl leading-relaxed mb-8 drop-shadow-sm"
           >
             Institutional-grade market intelligence, powered by advanced artificial intelligence
             and designed for traders who demand precision.
@@ -105,7 +147,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground/60"
+            className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground/75"
           >
             <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> AI Market Intelligence</span>
             <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Priority Intelligence</span>
@@ -119,7 +161,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
       <motion.div
         animate={{ y: [0, 8, 0] }}
         transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-foreground/40"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-foreground/50"
       >
         <ChevronRight className="w-5 h-5 rotate-90" />
       </motion.div>

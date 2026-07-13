@@ -1,0 +1,1391 @@
+     1→'use client'
+     2→
+     3→import * as React from 'react'
+     4→import { motion, useScroll, useTransform, AnimatePresence } from 'framer-motion'
+     5→import {
+     6→  Crown, Zap, TrendingUp, TrendingDown, Shield, Brain, Eye, Activity,
+     7→  ChevronRight, Sparkles, Clock, Newspaper, Calculator, Bell,
+     8→  GraduationCap, Star, ArrowRight, Check, Plus, Minus,
+     9→  Globe, Lock, Award, BarChart3, Gauge, BookOpen, Atom,
+    10→  Layers, Cpu, Send, ArrowUpRight, Wifi, Building2, DollarSign,
+    11→  CircleDollarSign, Coins, LineChart, Radar, Target, AlertTriangle,
+    12→} from 'lucide-react'
+    13→import { LiquidGlassCard, GlowButton, AnimatedCounter, PremiumBadge, PremiumProgress, SectionHeading, StatCard } from '../primitives'
+    14→import { useMarketStore } from '@/lib/hisab/market-store'
+    15→import { formatNumber } from '@/lib/hisab/risk-manager'
+    16→import { cn } from '@/lib/utils'
+    17→import type { MarketSymbol } from '@/lib/hisab/multi-symbol'
+    18→
+    19→interface LandingProps {
+    20→  onNavigate: (section: string) => void
+    21→}
+    22→
+    23→export function Landing({ onNavigate }: LandingProps) {
+    24→  const { scrollY } = useScroll()
+    25→  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.95])
+    26→
+    27→  return (
+    28→    <div className="space-y-0">
+    29→      <HeroSection onNavigate={onNavigate} heroOpacity={heroOpacity} />
+    30→      <MarketTickerSection />
+    31→      <AICommandCenterSection onNavigate={onNavigate} />
+    32→      <AITerminalPreviewSection onNavigate={onNavigate} />
+    33→      <AIAssistantDemoSection />
+    34→      <WhyChooseSection onNavigate={onNavigate} />
+    35→      <PricingSection />
+    36→      <FAQSection />
+    37→      <CTASection onNavigate={onNavigate} />
+    38→    </div>
+    39→  )
+    40→}
+    41→
+    42→/* ============================================
+    43→   HERO — Cinematic AI Operating System
+    44→   ============================================ */
+    45→
+    46→function HeroSection({ onNavigate, heroOpacity }: any) {
+    47→  return (
+    48→    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-background">
+    49→      {/* Animated particle background */}
+    50→      <ParticleField />
+    51→      {/* 3D rotating financial globe */}
+    52→      <FinancialGlobe />
+    53→      {/* Mobile/tablet market flow animation */}
+    54→      <MobileMarketFlow />
+    55→      {/* Gradient overlays */}
+    56→      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
+    57→      <div className="absolute inset-0 grid-bg-fine opacity-20 pointer-events-none" />
+    58→
+    59→      <motion.div
+    60→        style={{ opacity: heroOpacity }}
+    61→        className="relative z-10 max-w-7xl mx-auto px-4 lg:px-6 py-20 w-full"
+    62→      >
+    63→        <div className="max-w-4xl">
+    64→          {/* Headline */}
+    65→          <motion.h1
+    66→            initial={{ opacity: 0, y: 24 }}
+    67→            animate={{ opacity: 1, y: 0 }}
+    68→            transition={{ duration: 0.7, delay: 0.1 }}
+    69→            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight leading-[1.05] mb-6"
+    70→          >
+    71→            <span className="text-foreground">The AI Operating System</span>
+    72→            <br />
+    73→            <span className="bg-gradient-to-r from-[#1677FF] via-[#3B9BFF] to-[#10B981] bg-clip-text text-transparent">for Professional Traders</span>
+    74→          </motion.h1>
+    75→
+    76→          {/* Subheadline */}
+    77→          <motion.p
+    78→            initial={{ opacity: 0, y: 20 }}
+    79→            animate={{ opacity: 1, y: 0 }}
+    80→            transition={{ duration: 0.6, delay: 0.2 }}
+    81→            className="text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed mb-8"
+    82→          >
+    83→            Institutional-grade market intelligence, powered by advanced artificial intelligence
+    84→            and designed for traders who demand precision.
+    85→          </motion.p>
+    86→
+    87→          {/* CTAs */}
+    88→          <motion.div
+    89→            initial={{ opacity: 0, y: 20 }}
+    90→            animate={{ opacity: 1, y: 0 }}
+    91→            transition={{ duration: 0.6, delay: 0.3 }}
+    92→            className="flex flex-wrap items-center gap-3 mb-8"
+    93→          >
+    94→            <GlowButton size="xl" variant="gold" glow onClick={() => onNavigate('dashboard')}>
+    95→              <Cpu className="w-4 h-4" /> Launch AI Intelligence Workspace
+    96→            </GlowButton>
+    97→            <GlowButton size="xl" variant="outline" onClick={() => onNavigate('aile')}>
+    98→              <Atom className="w-4 h-4" /> AILE Engine
+    99→              <span className="ml-1 text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F5B942]/15 text-[#F5B942] border border-[#F5B942]/30 uppercase">PRO</span>
+   100→            </GlowButton>
+   101→          </motion.div>
+   102→
+   103→          {/* Trust indicators */}
+   104→          <motion.div
+   105→            initial={{ opacity: 0 }}
+   106→            animate={{ opacity: 1 }}
+   107→            transition={{ duration: 0.6, delay: 0.4 }}
+   108→            className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground/60"
+   109→          >
+   110→            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> AI Market Intelligence</span>
+   111→            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Priority Intelligence</span>
+   112→            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Multi-Timeframe Intelligence</span>
+   113→            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Institutional Trading Tools</span>
+   114→          </motion.div>
+   115→        </div>
+   116→      </motion.div>
+   117→
+   118→      {/* Scroll indicator */}
+   119→      <motion.div
+   120→        animate={{ y: [0, 8, 0] }}
+   121→        transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+   122→        className="absolute bottom-8 left-1/2 -translate-x-1/2 z-10 text-foreground/40"
+   123→      >
+   124→        <ChevronRight className="w-5 h-5 rotate-90" />
+   125→      </motion.div>
+   126→    </section>
+   127→  )
+   128→}
+   129→
+   130→/* ============================================
+   131→   PARTICLE FIELD — Animated background
+   132→   ============================================ */
+   133→
+   134→function ParticleField() {
+   135→  const particles = React.useMemo(() =>
+   136→    Array.from({ length: 40 }, () => ({
+   137→      x: Math.random() * 100,
+   138→      y: Math.random() * 100,
+   139→      size: Math.random() * 2 + 0.5,
+   140→      duration: Math.random() * 20 + 10,
+   141→      delay: Math.random() * 5,
+   142→    })), []
+   143→  )
+   144→  return (
+   145→    <div className="absolute inset-0 overflow-hidden pointer-events-none">
+   146→      {particles.map((p, i) => (
+   147→        <motion.div
+   148→          key={i}
+   149→          className="absolute rounded-full bg-white/30"
+   150→          style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size }}
+   151→          animate={{ y: [0, -30, 0], opacity: [0, 0.6, 0] }}
+   152→          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+   153→        />
+   154→      ))}
+   155→    </div>
+   156→  )
+   157→}
+   158→
+   159→/* ============================================
+   160→   MOBILE MARKET FLOW — Upward flowing market animation
+   161→   Market lines rise from bottom, behind hero text, like rising prices.
+   162→   ============================================ */
+   163→
+   164→function MobileMarketFlow() {
+   165→  // Generate candlestick-like shapes that rise upward
+   166→  const candles = React.useMemo(() =>
+   167→    Array.from({ length: 14 }, (_, i) => ({
+   168→      x: (i / 14) * 100 + Math.random() * 3,
+   169→      w: 3 + Math.random() * 4,
+   170→      h: 20 + Math.random() * 60,
+   171→      delay: Math.random() * 8,
+   172→      duration: 10 + Math.random() * 8,
+   173→      isUp: Math.random() > 0.4,
+   174→    })), []
+   175→  )
+   176→
+   177→  // Generate rising price line points
+   178→  const linePoints = React.useMemo(() =>
+   179→    Array.from({ length: 20 }, (_, i) => ({
+   180→      x: (i / 19) * 100,
+   181→      delay: i * 0.3,
+   182→      duration: 8 + Math.random() * 6,
+   183→    })), []
+   184→  )
+   185→
+   186→  return (
+   187→    <div className="absolute inset-0 pointer-events-none overflow-hidden lg:hidden" aria-hidden="true">
+   188→      {/* Layer 1: Ambient blue glow rising from bottom */}
+   189→      <motion.div
+   190→        animate={{ opacity: [0.2, 0.35, 0.2], y: [20, 0, 20] }}
+   191→        transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
+   192→        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-64 rounded-full"
+   193→        style={{ background: 'radial-gradient(ellipse at center bottom, rgba(22, 119, 255, 0.1), transparent 70%)' }}
+   194→      />
+   195→
+   196→      {/* Layer 2: Rising candlestick shapes — like market moving up */}
+   197→      <div className="absolute inset-0">
+   198→        {candles.map((c, i) => (
+   199→          <motion.div
+   200→            key={i}
+   201→            className="absolute bottom-0 rounded-sm"
+   202→            style={{
+   203→              left: `${c.x}%`,
+   204→              width: `${c.w}px`,
+   205→              height: `${c.h}px`,
+   206→              background: c.isUp
+   207→                ? 'linear-gradient(to top, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02))'
+   208→                : 'linear-gradient(to top, rgba(239, 68, 68, 0.06), rgba(239, 68, 68, 0.01))',
+   209→              borderLeft: `1px solid ${c.isUp ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.08)'}`,
+   210→            }}
+   211→            animate={{
+   212→              y: [40, -10, 40],
+   213→              opacity: [0, 0.6, 0],
+   214→              scaleY: [0.8, 1, 0.8],
+   215→            }}
+   216→            transition={{
+   217→              duration: c.duration,
+   218→              repeat: Infinity,
+   219→              delay: c.delay,
+   220→              ease: 'easeInOut',
+   221→            }}
+   222→          />
+   223→        ))}
+   224→      </div>
+   225→
+   226→      {/* Layer 3: Rising price line — smooth upward flowing graph */}
+   227→      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 375 667">
+   228→        {/* Main rising line — electric blue */}
+   229→        <motion.path
+   230→          d="M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200"
+   231→          fill="none"
+   232→          stroke="rgba(22, 119, 255, 0.1)"
+   233→          strokeWidth="2"
+   234→          strokeLinecap="round"
+   235→          animate={{
+   236→            d: [
+   237→              'M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200',
+   238→              'M-20,590 C50,570 80,500 130,470 C180,440 210,380 260,330 C310,280 340,230 390,180',
+   239→              'M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200',
+   240→            ]
+   241→          }}
+   242→          transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
+   243→        />
+   244→        {/* Secondary line — emerald green */}
+   245→        <motion.path
+   246→          d="M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270"
+   247→          fill="none"
+   248→          stroke="rgba(16, 185, 129, 0.07)"
+   249→          strokeWidth="1.5"
+   250→          strokeLinecap="round"
+   251→          animate={{
+   252→            d: [
+   253→              'M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270',
+   254→              'M-20,610 C60,590 90,530 140,500 C190,470 220,420 270,380 C320,340 350,290 390,250',
+   255→              'M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270',
+   256→            ]
+   257→          }}
+   258→          transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
+   259→        />
+   260→        {/* Tertiary line — purple */}
+   261→        <motion.path
+   262→          d="M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310"
+   263→          fill="none"
+   264→          stroke="rgba(124, 92, 252, 0.05)"
+   265→          strokeWidth="1"
+   266→          strokeLinecap="round"
+   267→          animate={{
+   268→            d: [
+   269→              'M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310',
+   270→              'M-20,630 C70,610 100,550 150,520 C200,490 230,440 280,400 C330,360 360,320 390,290',
+   271→              'M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310',
+   272→            ]
+   273→          }}
+   274→          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+   275→        />
+   276→      </svg>
+   277→
+   278→      {/* Layer 4: Rising glowing particles — like price ticks moving up */}
+   279→      {Array.from({ length: 10 }).map((_, i) => (
+   280→        <motion.div
+   281→          key={i}
+   282→          className="absolute rounded-full"
+   283→          style={{
+   284→            width: 2 + Math.random() * 3,
+   285→            height: 2 + Math.random() * 3,
+   286→            left: `${Math.random() * 100}%`,
+   287→            bottom: '0%',
+   288→            background: i % 3 === 0
+   289→              ? 'rgba(22, 119, 255, 0.5)'
+   290→              : i % 3 === 1
+   291→              ? 'rgba(16, 185, 129, 0.4)'
+   292→              : 'rgba(245, 185, 66, 0.3)',
+   293→          }}
+   294→          animate={{
+   295→            y: [0, -300 - Math.random() * 200],
+   296→            opacity: [0, 0.5, 0],
+   297→          }}
+   298→          transition={{
+   299→            duration: 12 + Math.random() * 8,
+   300→            repeat: Infinity,
+   301→            delay: i * 1.2,
+   302→            ease: 'easeOut',
+   303→          }}
+   304→        />
+   305→      ))}
+   306→    </div>
+   307→  )
+   308→}
+   309→
+   310→/* ============================================
+   311→   FINANCIAL GLOBE — 3D rotating with market zones
+   312→   ============================================ */
+   313→
+   314→function FinancialGlobe() {
+   315→  const markets = [
+   316→    { name: 'New York', lat: 40.7, lon: -74, color: '#10B981' },
+   317→    { name: 'London', lat: 51.5, lon: -0.1, color: '#F5B942' },
+   318→    { name: 'Tokyo', lat: 35.7, lon: 139.7, color: '#1677FF' },
+   319→    { name: 'Frankfurt', lat: 50.1, lon: 8.7, color: '#3B9BFF' },
+   320→    { name: 'Sydney', lat: -33.9, lon: 151.2, color: '#A78BFA' },
+   321→    { name: 'Singapore', lat: 1.3, lon: 103.8, color: '#F472B6' },
+   322→  ]
+   323→
+   324→  return (
+   325→    <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] hidden lg:block pointer-events-none">
+   326→      {/* Glow behind globe */}
+   327→      <div className="absolute inset-0 rounded-full bg-[#1677FF]/10 blur-3xl" />
+   328→      {/* Globe */}
+   329→      <motion.div
+   330→        animate={{ rotate: 360 }}
+   331→        transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
+   332→        className="absolute inset-12 rounded-full border border-[#1677FF]/20"
+   333→        style={{
+   334→          background: 'radial-gradient(circle at 30% 30%, rgba(37,99,235,0.15), transparent 60%), radial-gradient(circle at 70% 70%, rgba(16,185,129,0.1), transparent 60%)',
+   335→        }}
+   336→      >
+   337→        {/* Latitude lines */}
+   338→        {[30, 60, 90, 120, 150].map((r) => (
+   339→          <div key={r} className="absolute border border-[#1677FF]/10 rounded-full" style={{
+   340→            width: `${r * 2}%`, height: `${r * 2}%`,
+   341→            left: `${50 - r}%`, top: `${50 - r}%`,
+   342→          }} />
+   343→        ))}
+   344→        {/* Longitude lines (ellipses) */}
+   345→        {[0, 30, 60, 90, 120, 150].map((deg) => (
+   346→          <div key={deg} className="absolute border border-[#1677FF]/10 rounded-full" style={{
+   347→            width: '100%', height: '100%',
+   348→            transform: `rotateY(${deg}deg)`,
+   349→          }} />
+   350→        ))}
+   351→        {/* Market dots */}
+   352→        {markets.map((m, i) => {
+   353→          const angle = (m.lon + 180) * (Math.PI / 180)
+   354→          const x = 50 + Math.cos(angle) * 45
+   355→          const y = 50 - (m.lat / 90) * 45
+   356→          return (
+   357→            <motion.div
+   358→              key={m.name}
+   359→              className="absolute"
+   360→              style={{ left: `${x}%`, top: `${y}%` }}
+   361→              animate={{ scale: [1, 1.5, 1], opacity: [0.6, 1, 0.6] }}
+   362→              transition={{ duration: 2, repeat: Infinity, delay: i * 0.3 }}
+   363→            >
+   364→              <div className="w-3 h-3 rounded-full" style={{ background: m.color, boxShadow: `0 0 12px ${m.color}` }} />
+   365→            </motion.div>
+   366→          )
+   367→        })}
+   368→      </motion.div>
+   369→      {/* Orbit ring */}
+   370→      <motion.div
+   371→        animate={{ rotate: -360 }}
+   372→        transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
+   373→        className="absolute inset-0"
+   374→      >
+   375→        <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-[#F5B942] shadow-[0_0_8px_#F5B942]" />
+   376→      </motion.div>
+   377→    </div>
+   378→  )
+   379→}
+   380→
+   381→/* ============================================
+   382→   MARKET TICKER — Live animated tickers
+   383→   ============================================ */
+   384→
+   385→function MarketTickerSection() {
+   386→  const [symbols, setSymbols] = React.useState<MarketSymbol[]>([])
+   387→  const [loading, setLoading] = React.useState(true)
+   388→
+   389→  React.useEffect(() => {
+   390→    const fetchMarkets = async () => {
+   391→      try {
+   392→        const res = await fetch('/api/markets', { cache: 'no-store' })
+   393→        if (res.ok) {
+   394→          const data = await res.json()
+   395→          setSymbols(data.symbols || [])
+   396→        }
+   397→      } catch (err) {
+   398→        console.warn('Market fetch failed', err)
+   399→      } finally {
+   400→        setLoading(false)
+   401→      }
+   402→    }
+   403→    fetchMarkets()
+   404→    const interval = setInterval(fetchMarkets, 30000)
+   405→    return () => clearInterval(interval)
+   406→  }, [])
+   407→
+   408→  return (
+   409→    <section className="py-10 relative border-y border-border/50 bg-background/50">
+   410→      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+   411→        <div className="flex items-center justify-between mb-4">
+   412→          <div className="flex items-center gap-2">
+   413→            <div className="relative flex w-2 h-2">
+   414→              <span className="absolute inset-0 rounded-full bg-[#10B981] animate-ping opacity-75" />
+   415→              <span className="relative w-2 h-2 rounded-full bg-[#10B981]" />
+   416→            </div>
+   417→            <span className="text-xs font-mono uppercase tracking-wider text-foreground/60">Live Market Intelligence</span>
+   418→          </div>
+   419→          <span className="text-[10px] text-foreground/40 font-mono">Real-time · 30s refresh</span>
+   420→        </div>
+   421→        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
+   422→          {loading ? (
+   423→            Array.from({ length: 6 }).map((_, i) => (
+   424→              <div key={i} className="h-24 rounded-xl bg-foreground/[4%] animate-pulse" />
+   425→            ))
+   426→          ) : (
+   427→            symbols.map((sym, i) => <TickerCard key={sym.symbol} sym={sym} delay={i * 0.05} />)
+   428→          )}
+   429→        </div>
+   430→      </div>
+   431→    </section>
+   432→  )
+   433→}
+   434→
+   435→function TickerCard({ sym, delay }: { sym: MarketSymbol; delay: number }) {
+   436→  const isUp = sym.change >= 0
+   437→  const color = isUp ? '#10B981' : '#EF4444'
+   438→  const categoryColor = sym.category === 'METAL' ? '#F5B942' : sym.category === 'CRYPTO' ? '#F7930A' : sym.category === 'DXY' ? '#3B9BFF' : sym.category === 'INDEX' ? '#A78BFA' : '#10B981'
+   439→
+   440→  return (
+   441→    <motion.div
+   442→      initial={{ opacity: 0, y: 10 }}
+   443→      animate={{ opacity: 1, y: 0 }}
+   444→      transition={{ delay }}
+   445→      className="relative p-4 rounded-xl liquid-glass hover:border-white/[15%] transition-all group"
+   446→    >
+   447→      <div className="flex items-start justify-between mb-2">
+   448→        <div>
+   449→          <div className="flex items-center gap-1.5">
+   450→            <div className="w-1.5 h-1.5 rounded-full" style={{ background: categoryColor }} />
+   451→            <span className="text-xs font-mono font-bold tracking-tight">{sym.symbol}</span>
+   452→          </div>
+   453→          <div className="text-[10px] text-foreground/50 mt-0.5 truncate">{sym.name}</div>
+   454→        </div>
+   455→        {isUp ? <TrendingUp className="w-3.5 h-3.5" style={{ color }} /> : <TrendingDown className="w-3.5 h-3.5" style={{ color }} />}
+   456→      </div>
+   457→      <div className="text-lg font-mono font-bold tabular">
+   458→        {sym.price > 1000 ? `$${formatNumber(sym.price, 0)}` : sym.price > 10 ? `$${formatNumber(sym.price, 2)}` : formatNumber(sym.price, 4)}
+   459→      </div>
+   460→      <div className="text-xs font-mono tabular mt-0.5" style={{ color }}>
+   461→        {isUp ? '+' : ''}{sym.changePct.toFixed(2)}%
+   462→      </div>
+   463→      {/* Source indicator */}
+   464→      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
+   465→        <div className={cn('w-1 h-1 rounded-full', sym.source === 'live' ? 'bg-[#10B981]' : 'bg-[#F5B942]')} title={sym.source} />
+   466→      </div>
+   467→    </motion.div>
+   468→  )
+   469→}
+   470→
+   471→/* ============================================
+   472→   AI COMMAND CENTER — Glass panels
+   473→   ============================================ */
+   474→
+   475→function AICommandCenterSection({ onNavigate }: { onNavigate: (s: string) => void }) {
+   476→  return (
+   477→    <section className="py-24 relative">
+   478→      <div className="absolute inset-0 mesh-bg opacity-50 pointer-events-none" />
+   479→      <div className="relative max-w-7xl mx-auto px-4 lg:px-6">
+   480→        <motion.div
+   481→          initial={{ opacity: 0, y: 20 }}
+   482→          whileInView={{ opacity: 1, y: 0 }}
+   483→          viewport={{ once: true }}
+   484→          className="text-center max-w-3xl mx-auto mb-12"
+   485→        >
+   486→          <PremiumBadge variant="info" size="md" className="mb-3 px-3 py-1">
+   487→            <Cpu className="w-3 h-3" /> AI Command Center
+   488→          </PremiumBadge>
+   489→          <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
+   490→            <span className="text-foreground">Institutional Intelligence,</span>{' '}
+   491→            <span className="bg-gradient-to-r from-[#1677FF] to-[#10B981] bg-clip-text text-transparent">Real-Time</span>
+   492→          </h2>
+   493→          <p className="text-base text-foreground/60">
+   494→            Six AI-powered panels monitoring every aspect of the market — from liquidity to news, from structure to sentiment.
+   495→          </p>
+   496→        </motion.div>
+   497→
+   498→        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+   499→          <MarketBiasPanel />
+   500→          <MarketHeatmapPanel />
+   501→          <EconomicCalendarPanel />
+   502→          <LiquidityTrackerPanel />
+   503→          <GoldStrengthPanel />
+   504→          <NotificationFeedPanel onNavigate={onNavigate} />
+   505→        </div>
+   506→      </div>
+   507→    </section>
+   508→  )
+   509→}
+   510→
+   511→function MarketBiasPanel() {
+   512→  return (
+   513→    <LiquidGlassCard className="p-5 hover-lift" hover>
+   514→      <div className="flex items-center justify-between mb-4">
+   515→        <h3 className="text-sm font-semibold flex items-center gap-2">
+   516→          <Brain className="w-4 h-4 text-primary" /> AI Market Bias
+   517→        </h3>
+   518→        <PremiumBadge variant="danger" size="xs">BEARISH</PremiumBadge>
+   519→      </div>
+   520→      <div className="space-y-3">
+   521→        <div>
+   522→          <div className="flex justify-between text-xs mb-1">
+   523→            <span className="text-foreground/60">Gold Market · XAUUSD</span>
+   524→            <span className="font-mono font-bold text-[#F5B942]">92%</span>
+   525→          </div>
+   526→          <PremiumProgress value={92} color="gold" height={6} />
+   527→        </div>
+   528→        <div className="space-y-1.5 text-xs">
+   529→          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#10B981]" /> Liquidity sweep detected</div>
+   530→          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#10B981]" /> Market structure changed</div>
+   531→          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#10B981]" /> Order block confirmed</div>
+   532→        </div>
+   533→      </div>
+   534→    </LiquidGlassCard>
+   535→  )
+   536→}
+   537→
+   538→function MarketHeatmapPanel() {
+   539→  const assets = [
+   540→    { name: 'EURUSD', change: 0.14, cat: 'Forex' },
+   541→    { name: 'GBPUSD', change: -0.06, cat: 'Forex' },
+   542→    { name: 'USDJPY', change: 0.22, cat: 'Forex' },
+   543→    { name: 'BTCUSD', change: -2.93, cat: 'Crypto' },
+   544→    { name: 'ETHUSD', change: -1.8, cat: 'Crypto' },
+   545→    { name: 'XAUUSD', change: 0.84, cat: 'Metal' },
+   546→    { name: 'XAGUSD', change: 1.2, cat: 'Metal' },
+   547→    { name: 'NASDAQ', change: 0.45, cat: 'Index' },
+   548→    { name: 'SP500', change: 0.32, cat: 'Index' },
+   549→    { name: 'DXY', change: 0.15, cat: 'DXY' },
+   550→    { name: 'US10Y', change: -0.08, cat: 'Bond' },
+   551→    { name: 'WTI', change: -0.9, cat: 'Commodity' },
+   552→  ]
+   553→  return (
+   554→    <LiquidGlassCard className="p-5 hover-lift" hover>
+   555→      <div className="flex items-center justify-between mb-4">
+   556→        <h3 className="text-sm font-semibold flex items-center gap-2">
+   557→          <BarChart3 className="w-4 h-4 text-[#10B981]" /> Market Heatmap
+   558→        </h3>
+   559→        <span className="text-[10px] text-foreground/50 font-mono">12 assets</span>
+   560→      </div>
+   561→      <div className="grid grid-cols-3 gap-1.5">
+   562→        {assets.map(a => {
+   563→          const intensity = Math.min(1, Math.abs(a.change) / 3)
+   564→          const bg = a.change >= 0 ? `rgba(16,185,129,${0.1 + intensity * 0.3})` : `rgba(239,68,68,${0.1 + intensity * 0.3})`
+   565→          return (
+   566→            <div key={a.name} className="p-2 rounded-md text-center" style={{ background: bg }}>
+   567→              <div className="text-[10px] font-mono font-bold">{a.name}</div>
+   568→              <div className="text-[10px] font-mono tabular" style={{ color: a.change >= 0 ? '#10B981' : '#EF4444' }}>
+   569→                {a.change >= 0 ? '+' : ''}{a.change.toFixed(2)}%
+   570→              </div>
+   571→            </div>
+   572→          )
+   573→        })}
+   574→      </div>
+   575→    </LiquidGlassCard>
+   576→  )
+   577→}
+   578→
+   579→function EconomicCalendarPanel() {
+   580→  const [secondsLeft, setSecondsLeft] = React.useState(298)
+   581→  React.useEffect(() => {
+   582→    const interval = setInterval(() => {
+   583→      setSecondsLeft(s => s > 0 ? s - 1 : 600)
+   584→    }, 1000)
+   585→    return () => clearInterval(interval)
+   586→  }, [])
+   587→  const mins = Math.floor(secondsLeft / 60)
+   588→  const secs = secondsLeft % 60
+   589→
+   590→  return (
+   591→    <LiquidGlassCard variant="gold" className="p-5 hover-lift" hover>
+   592→      <div className="flex items-center justify-between mb-4">
+   593→        <h3 className="text-sm font-semibold flex items-center gap-2">
+   594→          <AlertTriangle className="w-4 h-4 text-[#EF4444]" /> Economic Calendar
+   595→        </h3>
+   596→        <PremiumBadge variant="danger" size="xs">HIGH IMPACT</PremiumBadge>
+   597→      </div>
+   598→      <div className="space-y-3">
+   599→        <div>
+   600→          <div className="text-xs text-foreground/60 mb-1">USD CPI Release</div>
+   601→          <div className="flex items-center gap-2">
+   602→            <Clock className="w-3.5 h-3.5 text-[#F5B942]" />
+   603→            <span className="text-2xl font-mono font-bold tabular text-[#F5B942]">
+   604→              {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
+   605→            </span>
+   606→          </div>
+   607→        </div>
+   608→        <div className="p-2.5 rounded-md bg-[#EF4444]/8 border border-[#EF4444]/20">
+   609→          <div className="text-[10px] uppercase tracking-wider text-[#EF4444] mb-1">AI Recommendation</div>
+   610→          <p className="text-xs text-foreground/80">Reduce exposure before volatility event.</p>
+   611→        </div>
+   612→      </div>
+   613→    </LiquidGlassCard>
+   614→  )
+   615→}
+   616→
+   617→function LiquidityTrackerPanel() {
+   618→  return (
+   619→    <LiquidGlassCard className="p-5 hover-lift" hover>
+   620→      <div className="flex items-center justify-between mb-4">
+   621→        <h3 className="text-sm font-semibold flex items-center gap-2">
+   622→          <Radar className="w-4 h-4 text-primary" /> Institutional Liquidity
+   623→        </h3>
+   624→        <PremiumBadge variant="info" size="xs">SMART MONEY</PremiumBadge>
+   625→      </div>
+   626→      <div className="space-y-2.5">
+   627→        <LiquidityRow label="Smart Money Activity" value="ACCUMULATING" color="#10B981" pct={78} />
+   628→        <LiquidityRow label="Liquidity Zones" value="3 ACTIVE" color="#F5B942" pct={65} />
+   629→        <LiquidityRow label="Institutional Flow" value="BEARISH" color="#EF4444" pct={71} />
+   630→        <LiquidityRow label="Market Sentiment" value="FEAR" color="#EF4444" pct={58} />
+   631→      </div>
+   632→    </LiquidGlassCard>
+   633→  )
+   634→}
+   635→
+   636→function LiquidityRow({ label, value, color, pct }: { label: string; value: string; color: string; pct: number }) {
+   637→  return (
+   638→    <div>
+   639→      <div className="flex justify-between text-xs mb-1">
+   640→        <span className="text-foreground/60">{label}</span>
+   641→        <span className="font-mono font-medium" style={{ color }}>{value}</span>
+   642→      </div>
+   643→      <div className="h-1 rounded-full bg-white/5 overflow-hidden">
+   644→        <div className="h-full rounded-full" style={{ width: `${pct}%`, background: color }} />
+   645→      </div>
+   646→    </div>
+   647→  )
+   648→}
+   649→
+   650→function GoldStrengthPanel() {
+   651→  return (
+   652→    <LiquidGlassCard className="p-5 hover-lift" hover>
+   653→      <div className="flex items-center justify-between mb-4">
+   654→        <h3 className="text-sm font-semibold flex items-center gap-2">
+   655→          <Gauge className="w-4 h-4 text-[#F5B942]" /> Gold Strength Index
+   656→        </h3>
+   657→        <PremiumBadge variant="gold" size="xs">XAU</PremiumBadge>
+   658→      </div>
+   659→      <div className="flex items-center gap-4">
+   660→        <div className="relative w-20 h-20 shrink-0">
+   661→          <svg viewBox="0 0 80 80" className="w-full h-full -rotate-90">
+   662→            <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" />
+   663→            <motion.circle
+   664→              cx="40" cy="40" r="32" fill="none" stroke="#F5B942" strokeWidth="6" strokeLinecap="round"
+   665→              strokeDasharray="201"
+   666→              initial={{ strokeDashoffset: 201 }}
+   667→              whileInView={{ strokeDashoffset: 201 - (87 / 100) * 201 }}
+   668→              viewport={{ once: true }}
+   669→              transition={{ duration: 1.2, ease: 'easeOut' }}
+   670→              style={{ filter: 'drop-shadow(0 0 6px rgba(245,158,11,0.5))' }}
+   671→            />
+   672→          </svg>
+   673→          <div className="absolute inset-0 flex items-center justify-center">
+   674→            <span className="text-xl font-mono font-bold text-[#F5B942]">87</span>
+   675→          </div>
+   676→        </div>
+   677→        <div className="flex-1">
+   678→          <div className="text-xs text-foreground/60 mb-1">XAU Strength</div>
+   679→          <div className="text-sm font-semibold text-[#10B981] mb-1.5">Institutional Accumulation</div>
+   680→          <p className="text-[11px] text-foreground/50 leading-relaxed">Gold showing institutional accumulation. DXY weakening, yields stabilizing.</p>
+   681→        </div>
+   682→      </div>
+   683→    </LiquidGlassCard>
+   684→  )
+   685→}
+   686→
+   687→function NotificationFeedPanel({ onNavigate }: { onNavigate: (s: string) => void }) {
+   688→  return (
+   689→    <LiquidGlassCard className="p-5 hover-lift" hover>
+   690→      <div className="flex items-center justify-between mb-4">
+   691→        <h3 className="text-sm font-semibold flex items-center gap-2">
+   692→          <BellRing className="w-4 h-4 text-[#10B981]" /> Smart Notifications
+   693→        </h3>
+   694→        <button onClick={() => onNavigate('asne')} className="text-[10px] text-primary hover:underline">View All</button>
+   695→      </div>
+   696→      <div className="space-y-2">
+   697→        {/* SELL alert */}
+   698→        <div className="p-2.5 rounded-md bg-[#EF4444]/8 border border-l-2 border-l-[#EF4444]">
+   699→          <div className="flex items-center justify-between mb-1">
+   700→            <span className="text-xs font-bold text-[#EF4444]">🔴 SELL CONFIRMED</span>
+   701→            <span className="text-[10px] font-mono text-foreground/50">XAUUSD</span>
+   702→          </div>
+   703→          <div className="text-[10px] text-foreground/60">Confidence: <span className="font-mono font-bold text-[#EF4444]">94%</span></div>
+   704→          <div className="flex gap-2 mt-1 text-[9px] text-foreground/50">
+   705→            <span>✓ Liq Sweep</span><span>✓ CHOCH</span><span>✓ OB</span>
+   706→          </div>
+   707→        </div>
+   708→        {/* BUY alert */}
+   709→        <div className="p-2.5 rounded-md bg-[#10B981]/8 border border-l-2 border-l-[#10B981]">
+   710→          <div className="flex items-center justify-between mb-1">
+   711→            <span className="text-xs font-bold text-[#10B981]">🟢 BUY OPPORTUNITY</span>
+   712→            <span className="text-[10px] font-mono text-foreground/50">EURUSD</span>
+   713→          </div>
+   714→          <div className="text-[10px] text-foreground/60">Confidence: <span className="font-mono font-bold text-[#10B981]">89%</span></div>
+   715→          <div className="text-[9px] text-foreground/50 mt-1">Multi-Timeframe Confirmation Complete</div>
+   716→        </div>
+   717→      </div>
+   718→    </LiquidGlassCard>
+   719→  )
+   720→}
+   721→
+   722→function BellRing({ className }: { className?: string }) {
+   723→  return <Bell className={className} />
+   724→}
+   725→
+   726→/* ============================================
+   727→   AI TERMINAL PREVIEW — Product showcase
+   728→   ============================================ */
+   729→
+   730→function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => void }) {
+   731→  return (
+   732→    <section className="py-24 relative overflow-hidden">
+   733→      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-transparent" />
+   734→      <div className="relative max-w-7xl mx-auto px-4 lg:px-6">
+   735→        <motion.div
+   736→          initial={{ opacity: 0, y: 20 }}
+   737→          whileInView={{ opacity: 1, y: 0 }}
+   738→          viewport={{ once: true }}
+   739→          className="text-center max-w-3xl mx-auto mb-10"
+   740→        >
+   741→          <PremiumBadge variant="gold" size="md" className="mb-3 px-3 py-1">
+   742→            <Crown className="w-3 h-3" /> AI Terminal
+   743→          </PremiumBadge>
+   744→          <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
+   745→            <span className="text-foreground">Your Mission Control for</span>{' '}
+   746→            <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Markets</span>
+   747→          </h2>
+   748→          <p className="text-base text-foreground/60">
+   749→            A professional-grade trading dashboard that feels like the future.
+   750→          </p>
+   751→        </motion.div>
+   752→
+   753→        {/* Terminal mockup */}
+   754→        <motion.div
+   755→          initial={{ opacity: 0, scale: 0.97, y: 20 }}
+   756→          whileInView={{ opacity: 1, scale: 1, y: 0 }}
+   757→          viewport={{ once: true }}
+   758→          transition={{ duration: 0.6 }}
+   759→          className="relative"
+   760→        >
+   761→          <LiquidGlassCard variant="strong" className="p-0 overflow-hidden shadow-premium-lg">
+   762→            {/* Terminal header */}
+   763→            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-white/[2%]">
+   764→              <div className="flex items-center gap-2">
+   765→                <div className="flex gap-1.5">
+   766→                  <div className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/60" />
+   767→                  <div className="w-2.5 h-2.5 rounded-full bg-[#F5B942]/60" />
+   768→                  <div className="w-2.5 h-2.5 rounded-full bg-[#10B981]/60" />
+   769→                </div>
+   770→                <span className="text-xs font-mono text-foreground/50 ml-2">apexeapro — terminal</span>
+   771→              </div>
+   772→              <div className="flex items-center gap-2 text-[10px] text-foreground/40 font-mono">
+   773→                <Wifi className="w-3 h-3 text-[#10B981]" /> Connected
+   774→              </div>
+   775→            </div>
+   776→
+   777→            {/* Terminal body */}
+   778→            <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
+   779→              {/* AI Assistant (left) */}
+   780→              <div className="lg:col-span-3 p-4 border-r border-border/50">
+   781→                <div className="flex items-center gap-2 mb-3">
+   782→                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#1677FF] to-[#10B981] flex items-center justify-center">
+   783→                    <Cpu className="w-3.5 h-3.5 text-white" />
+   784→                  </div>
+   785→                  <span className="text-xs font-semibold">AI Assistant</span>
+   786→                </div>
+   787→                <div className="space-y-2">
+   788→                  <TerminalMessage text="Monitoring 2,500+ markets..." />
+   789→                  <TerminalMessage text="High probability Gold setup detected." highlight />
+   790→                  <TerminalMessage text="USD news event in 5 minutes." />
+   791→                </div>
+   792→              </div>
+   793→
+   794→              {/* Chart area (center) */}
+   795→              <div className="lg:col-span-6 p-4 border-r border-border/50 min-h-[280px]">
+   796→                <div className="flex items-center justify-between mb-3">
+   797→                  <div className="flex items-center gap-2">
+   798→                    <span className="text-sm font-bold font-mono">XAUUSD</span>
+   799→                    <PremiumBadge variant="gold" size="xs">15M</PremiumBadge>
+   800→                  </div>
+   801→                  <div className="flex items-center gap-3 text-[10px] font-mono">
+   802→                    <span className="text-[#10B981]">H 4,018</span>
+   803→                    <span className="text-[#EF4444]">L 3,998</span>
+   804→                    <span className="text-foreground/60">$4,011</span>
+   805→                  </div>
+   806→                </div>
+   807→                <MiniChart />
+   808→                <div className="flex items-center justify-between mt-2 text-[10px] text-foreground/40 font-mono">
+   809→                  <span>Bias: <span className="text-[#EF4444]">SELL</span></span>
+   810→                  <span>Confidence: <span className="text-[#F5B942]">92%</span></span>
+   811→                </div>
+   812→              </div>
+   813→
+   814→              {/* Right panel */}
+   815→              <div className="lg:col-span-3 p-4 space-y-3">
+   816→                <TerminalPanel title="Watchlist" items={['XAUUSD 4,011', 'EURUSD 1.087', 'BTCUSD 62,255', 'DXY 104.2']} />
+   817→                <TerminalPanel title="AI Signals" items={['SELL XAU 92%', 'BUY EUR 89%']} highlight />
+   818→                <TerminalPanel title="Risk Mgmt" items={['Risk: 1%', 'R:R 1:2.5']} />
+   819→              </div>
+   820→            </div>
+   821→
+   822→            {/* Bottom bar */}
+   823→            <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-white/[2%] text-[10px] font-mono text-foreground/40">
+   824→              <span>Live Market Intelligence</span>
+   825→              <span>Session: <span className="text-[#F5B942]">LONDON KZ</span></span>
+   826→            </div>
+   827→          </LiquidGlassCard>
+   828→
+   829→          {/* Glow under terminal */}
+   830→          <div className="absolute -inset-4 bg-gradient-to-r from-[#1677FF]/10 via-[#F5B942]/5 to-[#10B981]/10 blur-2xl -z-10" />
+   831→        </motion.div>
+   832→
+   833→        <div className="text-center mt-8">
+   834→          <GlowButton size="lg" variant="gold" glow onClick={() => onNavigate('dashboard')}>
+   835→            <Zap className="w-4 h-4" /> Open Intelligence Workspace
+   836→          </GlowButton>
+   837→        </div>
+   838→      </div>
+   839→    </section>
+   840→  )
+   841→}
+   842→
+   843→function TerminalMessage({ text, highlight }: { text: string; highlight?: boolean }) {
+   844→  return (
+   845→    <motion.div
+   846→      initial={{ opacity: 0, x: -8 }}
+   847→      whileInView={{ opacity: 1, x: 0 }}
+   848→      viewport={{ once: true }}
+   849→      className={cn(
+   850→        'text-[11px] p-2 rounded-md',
+   851→        highlight ? 'bg-[#10B981]/8 border border-[#10B981]/20 text-[#10B981]' : 'text-foreground/60',
+   852→      )}
+   853→    >
+   854→      {text}
+   855→    </motion.div>
+   856→  )
+   857→}
+   858→
+   859→function MiniChart() {
+   860→  const candles = React.useMemo(() => {
+   861→    let price = 4011
+   862→    return Array.from({ length: 40 }, (_, i) => {
+   863→      const open = price
+   864→      const close = open + (Math.random() - 0.52) * 4
+   865→      const high = Math.max(open, close) + Math.random() * 2
+   866→      const low = Math.min(open, close) - Math.random() * 2
+   867→      price = close
+   868→      return { open, close, high, low, isUp: close >= open }
+   869→    })
+   870→  }, [])
+   871→  const allHigh = Math.max(...candles.map(c => c.high))
+   872→  const allLow = Math.min(...candles.map(c => c.low))
+   873→  const range = allHigh - allLow
+   874→
+   875→  return (
+   876→    <div className="relative h-48 flex items-end gap-0.5">
+   877→      {candles.map((c, i) => {
+   878→        const h = ((c.high - c.low) / range) * 100
+   879→        const bodyH = Math.abs(c.close - c.open) / range * 100
+   880→        const top = ((allHigh - c.high) / range) * 100
+   881→        return (
+   882→          <div key={i} className="flex-1 relative" style={{ height: '100%' }}>
+   883→            <div
+   884→              className="absolute w-full"
+   885→              style={{ top: `${top}%`, height: `${h}%` }}
+   886→            >
+   887→              <div className={cn('w-full h-full', c.isUp ? 'bg-[#10B981]/30' : 'bg-[#EF4444]/30')} />
+   888→              <div
+   889→                className={cn('absolute left-1/2 -translate-x-1/2 w-3/4', c.isUp ? 'bg-[#10B981]' : 'bg-[#EF4444]')}
+   890→                style={{
+   891→                  top: `${((c.high - Math.max(c.open, c.close)) / (c.high - c.low)) * 100}%`,
+   892→                  height: `${bodyH / h * 100}%`,
+   893→                }}
+   894→              />
+   895→            </div>
+   896→          </div>
+   897→        )
+   898→      })}
+   899→    </div>
+   900→  )
+   901→}
+   902→
+   903→function TerminalPanel({ title, items, highlight }: { title: string; items: string[]; highlight?: boolean }) {
+   904→  return (
+   905→    <div>
+   906→      <div className={cn('text-[10px] uppercase tracking-wider font-semibold mb-1.5', highlight ? 'text-[#10B981]' : 'text-foreground/50')}>{title}</div>
+   907→      <div className="space-y-1">
+   908→        {items.map((item, i) => (
+   909→          <div key={i} className="text-[10px] font-mono text-foreground/60 flex items-center justify-between">
+   910→            <span>{item.split(' ')[0]}</span>
+   911→            <span className={highlight ? 'text-[#10B981]' : ''}>{item.split(' ').slice(1).join(' ')}</span>
+   912→          </div>
+   913→        ))}
+   914→      </div>
+   915→    </div>
+   916→  )
+   917→}
+   918→
+   919→/* ============================================
+   920→   AI ASSISTANT DEMO — Interactive conversation
+   921→   ============================================ */
+   922→
+   923→function AIAssistantDemoSection() {
+   924→  const [step, setStep] = React.useState(0)
+   925→  const steps = [
+   926→    { role: 'user', text: 'Analyze Gold.' },
+   927→    { role: 'ai', text: 'Analyzing XAUUSD...', typing: true },
+   928→    { role: 'ai', text: 'Market Bias: Bearish\nConfidence: 92%\n\nReasons:\n✓ Liquidity taken\n✓ Structure break confirmed\n✓ Order block identified\n✓ USD strength increasing\n\nUpcoming: High impact news in 35 minutes', final: true },
+   929→  ]
+   930→  const [displayed, setDisplayed] = React.useState<typeof steps>([])
+   931→
+   932→  React.useEffect(() => {
+   933→    if (step >= steps.length) return
+   934→    const timer = setTimeout(() => {
+   935→      setDisplayed(steps.slice(0, step + 1))
+   936→      setStep(s => s + 1)
+   937→    }, step === 0 ? 800 : step === 1 ? 1200 : 600)
+   938→    return () => clearTimeout(timer)
+   939→  }, [step])
+   940→
+   941→  const reset = () => {
+   942→    setStep(0)
+   943→    setDisplayed([])
+   944→  }
+   945→
+   946→  return (
+   947→    <section className="py-24 relative">
+   948→      <div className="max-w-4xl mx-auto px-4 lg:px-6">
+   949→        <motion.div
+   950→          initial={{ opacity: 0, y: 20 }}
+   951→          whileInView={{ opacity: 1, y: 0 }}
+   952→          viewport={{ once: true }}
+   953→          className="text-center mb-10"
+   954→        >
+   955→          <PremiumBadge variant="info" size="md" className="mb-3 px-3 py-1">
+   956→            <Brain className="w-3 h-3" /> AI Assistant
+   957→          </PremiumBadge>
+   958→          <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
+   959→            <span className="text-foreground">Talk to Your</span>{' '}
+   960→            <span className="bg-gradient-to-r from-[#1677FF] to-[#3B9BFF] bg-clip-text text-transparent">AI Analyst</span>
+   961→          </h2>
+   962→          <p className="text-base text-foreground/60">Ask any question. Get institutional-grade answers in seconds.</p>
+   963→        </motion.div>
+   964→
+   965→        <LiquidGlassCard variant="strong" className="p-6 min-h-[360px]">
+   966→          <div className="space-y-4">
+   967→            <AnimatePresence>
+   968→              {displayed.map((msg, i) => (
+   969→                <motion.div
+   970→                  key={i}
+   971→                  initial={{ opacity: 0, y: 10 }}
+   972→                  animate={{ opacity: 1, y: 0 }}
+   973→                  className={cn('flex gap-3', msg.role === 'user' && 'justify-end')}
+   974→                >
+   975→                  {msg.role === 'ai' && (
+   976→                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1677FF] to-[#10B981] flex items-center justify-center shrink-0">
+   977→                      <Cpu className="w-4 h-4 text-white" />
+   978→                    </div>
+   979→                  )}
+   980→                  <div className={cn(
+   981→                    'max-w-[80%] p-3 rounded-2xl text-sm',
+   982→                    msg.role === 'user'
+   983→                      ? 'bg-[#1677FF]/15 border border-[#1677FF]/30 text-foreground'
+   984→                      : 'liquid-glass text-foreground/80',
+   985→                  )}>
+   986→                    {msg.final ? (
+   987→                      <div className="space-y-1.5">
+   988→                        <div className="flex items-center gap-2">
+   989→                          <span className="text-xs font-bold text-[#EF4444]">Market Bias: Bearish</span>
+   990→                          <span className="text-xs text-foreground/50">·</span>
+   991→                          <span className="text-xs font-bold text-[#F5B942]">Confidence: 92%</span>
+   992→                        </div>
+   993→                        <div className="text-xs text-foreground/60">Reasons:</div>
+   994→                        <div className="space-y-0.5 text-xs">
+   995→                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Liquidity taken</div>
+   996→                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Structure break confirmed</div>
+   997→                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Order block identified</div>
+   998→                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> USD strength increasing</div>
+   999→                        </div>
+  1000→                        <div className="text-xs text-[#F5B942] mt-2 pt-2 border-t border-border">⚠ Upcoming: High impact news in 35 minutes</div>
+  1001→                      </div>
+  1002→                    ) : msg.typing ? (
+  1003→                      <div className="flex items-center gap-1.5">
+  1004→                        <span className="text-xs">{msg.text}</span>
+  1005→                        <motion.span animate={{ opacity: [0.3, 1, 0.3] }} transition={{ duration: 1, repeat: Infinity }} className="text-xs">●</motion.span>
+  1006→                      </div>
+  1007→                    ) : (
+  1008→                      <span className="text-xs">{msg.text}</span>
+  1009→                    )}
+  1010→                  </div>
+  1011→                  {msg.role === 'user' && (
+  1012→                    <div className="w-8 h-8 rounded-lg bg-[#1677FF]/20 flex items-center justify-center shrink-0">
+  1013→                      <span className="text-xs font-bold text-[#3B9BFF]">U</span>
+  1014→                    </div>
+  1015→                  )}
+  1016→                </motion.div>
+  1017→              ))}
+  1018→            </AnimatePresence>
+  1019→          </div>
+  1020→
+  1021→          {step >= steps.length && (
+  1022→            <motion.div
+  1023→              initial={{ opacity: 0 }}
+  1024→              animate={{ opacity: 1 }}
+  1025→              className="mt-4 pt-4 border-t border-border/50 flex justify-center"
+  1026→            >
+  1027→              <GlowButton variant="ghost" size="sm" onClick={reset}>
+  1028→                <RotateCwIcon /> Replay Demo
+  1029→              </GlowButton>
+  1030→            </motion.div>
+  1031→          )}
+  1032→        </LiquidGlassCard>
+  1033→      </div>
+  1034→    </section>
+  1035→  )
+  1036→}
+  1037→
+  1038→function RotateCwIcon() {
+  1039→  return <ChevronRight className="w-3.5 h-3.5 rotate-90" />
+  1040→}
+  1041→
+  1042→/* ============================================
+  1043→   WHY CHOOSE — Premium interactive cards
+  1044→   ============================================ */
+  1045→
+  1046→function WhyChooseSection({ onNavigate }: { onNavigate: (s: string) => void }) {
+  1047→  const cards = [
+  1048→    { icon: Radar, title: 'Institutional Liquidity Analysis', desc: 'Understand where professional money is moving.', detail: 'Track smart money activity, liquidity zones, and institutional flow in real-time.', color: '#1677FF', section: 'chart-analysis' },
+  1049→    { icon: Shield, title: 'AI Trade Validation', desc: 'Confirm setups before taking action.', detail: '8-condition entry checklist ensures only A+ setups trigger alerts.', color: '#10B981', section: 'aile' },
+  1050→    { icon: Layers, title: 'Multi-Timeframe Intelligence', desc: 'Combine multiple market perspectives.', detail: '8-timeframe bias matrix from Monthly to 1M with weighted alignment.', color: '#F5B942', section: 'mtf' },
+  1051→    { icon: Bell, title: 'Smart Notifications', desc: 'Never miss important market conditions.', detail: '8 alert categories, anti-spam, priority-based delivery across 8 channels.', color: '#A78BFA', section: 'asne' },
+  1052→    { icon: AlertTriangle, title: 'Economic Event Protection', desc: 'Avoid unnecessary exposure during volatility.', detail: '60/30/15/5/1 minute countdowns for high-impact news events.', color: '#EF4444', section: 'news' },
+  1053→    { icon: GraduationCap, title: 'AI Trading Coach', desc: 'Learn and improve with personalized insights.', detail: 'Mentor-style explanations break down every setup step-by-step.', color: '#3B9BFF', section: 'coach' },
+  1054→  ]
+  1055→
+  1056→  return (
+  1057→    <section className="py-24 relative">
+  1058→      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+  1059→        <motion.div
+  1060→          initial={{ opacity: 0, y: 20 }}
+  1061→          whileInView={{ opacity: 1, y: 0 }}
+  1062→          viewport={{ once: true }}
+  1063→          className="text-center max-w-3xl mx-auto mb-12"
+  1064→        >
+  1065→          <PremiumBadge variant="gold" size="md" className="mb-3 px-3 py-1">
+  1066→            <Award className="w-3 h-3" /> Why ApexEAPro
+  1067→          </PremiumBadge>
+  1068→          <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
+  1069→            <span className="text-foreground">Built for</span>{' '}
+  1070→            <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Professional Traders</span>
+  1071→          </h2>
+  1072→          <p className="text-base text-foreground/60">Six institutional-grade systems in one platform.</p>
+  1073→        </motion.div>
+  1074→
+  1075→        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+  1076→          {cards.map((card, i) => {
+  1077→            const Icon = card.icon
+  1078→            return (
+  1079→              <motion.div
+  1080→                key={card.title}
+  1081→                initial={{ opacity: 0, y: 20 }}
+  1082→                whileInView={{ opacity: 1, y: 0 }}
+  1083→                viewport={{ once: true }}
+  1084→                transition={{ delay: i * 0.08 }}
+  1085→              >
+  1086→                <LiquidGlassCard
+  1087→                  hover
+  1088→                  className="p-6 h-full cursor-pointer group relative overflow-hidden"
+  1089→                >
+  1090→                  <div
+  1091→                    className="absolute -inset-px opacity-0 group-hover:opacity-100 transition-opacity rounded-2xl"
+  1092→                    style={{ background: `radial-gradient(circle at 50% 0%, ${card.color}15, transparent 70%)` }}
+  1093→                  />
+  1094→                  <div className="relative">
+  1095→                    <div
+  1096→                      className="w-12 h-12 rounded-xl flex items-center justify-center mb-4 transition-transform group-hover:scale-110"
+  1097→                      style={{ background: `${card.color}15`, border: `1px solid ${card.color}30` }}
+  1098→                    >
+  1099→                      <Icon className="w-5 h-5" style={{ color: card.color }} />
+  1100→                    </div>
+  1101→                    <h3 className="text-base font-semibold mb-2">{card.title}</h3>
+  1102→                    <p className="text-sm text-foreground/60 mb-3">{card.desc}</p>
+  1103→                    <p className="text-xs text-foreground/40 leading-relaxed opacity-0 group-hover:opacity-100 transition-opacity max-h-0 group-hover:max-h-20 overflow-hidden">
+  1104→                      {card.detail}
+  1105→                    </p>
+  1106→                    <div
+  1107→                      className="flex items-center gap-1 text-xs font-medium mt-4 opacity-0 group-hover:opacity-100 transition-opacity"
+  1108→                      style={{ color: card.color }}
+  1109→                      onClick={() => onNavigate(card.section)}
+  1110→                    >
+  1111→                      Explore <ChevronRight className="w-3 h-3" />
+  1112→                    </div>
+  1113→                  </div>
+  1114→                </LiquidGlassCard>
+  1115→              </motion.div>
+  1116→            )
+  1117→          })}
+  1118→        </div>
+  1119→      </div>
+  1120→    </section>
+  1121→  )
+  1122→}
+  1123→
+  1124→/* ============================================
+  1125→   PRICING — Luxury tiers
+  1126→   ============================================ */
+  1127→
+  1128→function PricingSection() {
+  1129→  const [annual, setAnnual] = React.useState(true)
+  1130→  const plans = [
+  1131→    {
+  1132→      name: 'Professional',
+  1133→      desc: 'For active retail traders',
+  1134→      monthly: 79, annual: 63,
+  1135→      features: ['AI Market Analysis', '8-timeframe matrix', 'Smart notifications (4 channels)', 'Trade journal', 'AI Coach', 'Risk manager'],
+  1136→      color: '#1677FF',
+  1137→      popular: false,
+  1138→    },
+  1139→    {
+  1140→      name: 'Premium',
+  1141→      desc: 'For serious professionals',
+  1142→      monthly: 199, annual: 159,
+  1143→      features: ['Everything in Professional', 'AILE Engine v1.0', 'Unlimited AI Vision', '6 notification channels', 'Price level alerts (30)', 'Priority support'],
+  1144→      color: '#F5B942',
+  1145→      popular: true,
+  1146→    },
+  1147→    {
+  1148→      name: 'Institutional',
+  1149→      desc: 'For funds and prop firms',
+  1150→      monthly: 499, annual: 399,
+  1151→      features: ['Everything in Premium', '8 notification channels', 'Unlimited price levels', 'Custom AI training', 'API access', 'Dedicated account manager'],
+  1152→      color: '#10B981',
+  1153→      popular: false,
+  1154→    },
+  1155→  ]
+  1156→
+  1157→  return (
+  1158→    <section className="py-24 relative">
+  1159→      <div className="max-w-7xl mx-auto px-4 lg:px-6">
+  1160→        <motion.div
+  1161→          initial={{ opacity: 0, y: 20 }}
+  1162→          whileInView={{ opacity: 1, y: 0 }}
+  1163→          viewport={{ once: true }}
+  1164→          className="text-center max-w-3xl mx-auto mb-10"
+  1165→        >
+  1166→          <PremiumBadge variant="gold" size="md" className="mb-3 px-3 py-1">
+  1167→            <Crown className="w-3 h-3" /> Premium Access
+  1168→          </PremiumBadge>
+  1169→          <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
+  1170→            <span className="text-foreground">Choose Your</span>{' '}
+  1171→            <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Trading Edge</span>
+  1172→          </h2>
+  1173→          <p className="text-base text-foreground/60 mb-6">Cancel anytime. 14-day money-back guarantee.</p>
+  1174→          <div className="inline-flex items-center gap-3 p-1 rounded-xl liquid-glass">
+  1175→            <button onClick={() => setAnnual(false)} className={cn('px-4 py-1.5 rounded-lg text-sm font-medium transition-all', !annual ? 'bg-white/10 text-foreground' : 'text-foreground/50')}>Monthly</button>
+  1176→            <button onClick={() => setAnnual(true)} className={cn('px-4 py-1.5 rounded-lg text-sm font-medium transition-all flex items-center gap-2', annual ? 'bg-white/10 text-foreground' : 'text-foreground/50')}>
+  1177→              Annual <PremiumBadge variant="bull" size="xs">SAVE 20%</PremiumBadge>
+  1178→            </button>
+  1179→          </div>
+  1180→        </motion.div>
+  1181→
+  1182→        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 max-w-5xl mx-auto">
+  1183→          {plans.map((plan, i) => (
+  1184→            <motion.div
+  1185→              key={plan.name}
+  1186→              initial={{ opacity: 0, y: 20 }}
+  1187→              whileInView={{ opacity: 1, y: 0 }}
+  1188→              viewport={{ once: true }}
+  1189→              transition={{ delay: i * 0.1 }}
+  1190→              className="relative"
+  1191→            >
+  1192→              {plan.popular && (
+  1193→                <div className="absolute -top-3 left-1/2 -translate-x-1/2 z-10">
+  1194→                  <PremiumBadge variant="gold" size="md" glow className="px-3 py-1.5">
+  1195→                    <Sparkles className="w-3 h-3" /> MOST POPULAR
+  1196→                  </PremiumBadge>
+  1197→                </div>
+  1198→              )}
+  1199→              <LiquidGlassCard
+  1200→                variant={plan.popular ? 'gold' : 'default'}
+  1201→                glow={plan.popular}
+  1202→                className={cn('p-6 h-full flex flex-col', plan.popular && 'border-[#F5B942]/35')}
+  1203→              >
+  1204→                <div className="mb-5">
+  1205→                  <div className="flex items-center gap-2 mb-1">
+  1206→                    <div className="w-2 h-2 rounded-full" style={{ background: plan.color }} />
+  1207→                    <h3 className="text-lg font-semibold font-display">{plan.name}</h3>
+  1208→                  </div>
+  1209→                  <p className="text-xs text-foreground/50">{plan.desc}</p>
+  1210→                </div>
+  1211→                <div className="mb-5">
+  1212→                  <div className="flex items-baseline gap-1">
+  1213→                    <span className="text-4xl font-mono font-bold tabular">${annual ? plan.annual : plan.monthly}</span>
+  1214→                    <span className="text-sm text-foreground/50">/month</span>
+  1215→                  </div>
+  1216→                  {annual && <div className="text-xs text-foreground/40 mt-1 line-through">${plan.monthly}/month billed monthly</div>}
+  1217→                </div>
+  1218→                <GlowButton
+  1219→                  variant={plan.popular ? 'gold' : 'outline'}
+  1220→                  size="md"
+  1221→                  className="w-full mb-5"
+  1222→                >
+  1223→                  Start {plan.name}
+  1224→                </GlowButton>
+  1225→                <ul className="space-y-2.5 flex-1">
+  1226→                  {plan.features.map(feat => (
+  1227→                    <li key={feat} className="flex items-start gap-2 text-sm">
+  1228→                      <Check className="w-3.5 h-3.5 mt-0.5 shrink-0" style={{ color: plan.color }} />
+  1229→                      <span className="text-foreground/80">{feat}</span>
+  1230→                    </li>
+  1231→                  ))}
+  1232→                </ul>
+  1233→              </LiquidGlassCard>
+  1234→            </motion.div>
+  1235→          ))}
+  1236→        </div>
+  1237→      </div>
+  1238→    </section>
+  1239→  )
+  1240→}
+  1241→
+  1242→/* ============================================
+  1243→   FAQ
+  1244→   ============================================ */
+  1245→
+  1246→function FAQSection() {
+  1247→  const [open, setOpen] = React.useState<number | null>(0)
+  1248→  const faqs = [
+  1249→    { q: 'Is ApexEAPro suitable for beginners?', a: 'Absolutely. The AI Coach explains every setup in plain English. The interface is intuitive for beginners while powerful enough for institutional traders.' },
+  1250→    { q: 'Does the AI guarantee profits?', a: 'No. ApexEAPro NEVER guarantees profits. All analysis is probability-based and explicitly educational. Trading involves substantial risk of loss.' },
+  1251→    { q: 'How real-time is the data?', a: 'Gold prices from gold-api.com (30s), BTC from CoinGecko (60s), forex from open.er-api.com (30min). All sources are free, trusted, and require no API keys.' },
+  1252→    { q: 'What is the AILE Engine?', a: 'AILE v1.0 is our 12-phase institutional liquidity analysis engine. It outputs WAIT when any of 8 entry conditions are missing — patience is edge.' },
+  1253→    { q: 'Can I use it on mobile?', a: 'Yes. Fully responsive PWA. Works flawlessly on mobile, tablet, laptop, desktop, and ultrawide. Install to home screen for native-app experience.' },
+  1254→  ]
+  1255→  return (
+  1256→    <section className="py-24">
+  1257→      <div className="max-w-3xl mx-auto px-4 lg:px-6">
+  1258→        <motion.div
+  1259→          initial={{ opacity: 0, y: 20 }}
+  1260→          whileInView={{ opacity: 1, y: 0 }}
+  1261→          viewport={{ once: true }}
+  1262→          className="text-center mb-10"
+  1263→        >
+  1264→          <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
+  1265→            <span className="text-foreground">Frequently Asked</span>{' '}
+  1266→            <span className="bg-gradient-to-r from-[#1677FF] to-[#10B981] bg-clip-text text-transparent">Questions</span>
+  1267→          </h2>
+  1268→        </motion.div>
+  1269→        <div className="space-y-3">
+  1270→          {faqs.map((faq, i) => (
+  1271→            <motion.div
+  1272→              key={i}
+  1273→              initial={{ opacity: 0, y: 10 }}
+  1274→              whileInView={{ opacity: 1, y: 0 }}
+  1275→              viewport={{ once: true }}
+  1276→              transition={{ delay: i * 0.05 }}
+  1277→            >
+  1278→              <LiquidGlassCard className="overflow-hidden">
+  1279→                <button
+  1280→                  onClick={() => setOpen(open === i ? null : i)}
+  1281→                  className="w-full flex items-center justify-between p-4 text-left"
+  1282→                >
+  1283→                  <span className="text-sm font-semibold">{faq.q}</span>
+  1284→                  <motion.div animate={{ rotate: open === i ? 180 : 0 }}>
+  1285→                    <ChevronRight className="w-4 h-4 rotate-90 text-foreground/50" />
+  1286→                  </motion.div>
+  1287→                </button>
+  1288→                <AnimatePresence>
+  1289→                  {open === i && (
+  1290→                    <motion.div
+  1291→                      initial={{ height: 0, opacity: 0 }}
+  1292→                      animate={{ height: 'auto', opacity: 1 }}
+  1293→                      exit={{ height: 0, opacity: 0 }}
+  1294→                      transition={{ duration: 0.3 }}
+  1295→                      className="overflow-hidden"
+  1296→                    >
+  1297→                      <p className="px-4 pb-4 text-sm text-foreground/60 leading-relaxed">{faq.a}</p>
+  1298→                    </motion.div>
+  1299→                  )}
+  1300→                </AnimatePresence>
+  1301→              </LiquidGlassCard>
+  1302→            </motion.div>
+  1303→          ))}
+  1304→        </div>
+  1305→      </div>
+  1306→    </section>
+  1307→  )
+  1308→}
+  1309→
+  1310→/* ============================================
+  1311→   CTA
+  1312→   ============================================ */
+  1313→
+  1314→function CTASection({ onNavigate }: { onNavigate: (s: string) => void }) {
+  1315→  return (
+  1316→    <section className="py-24 relative overflow-hidden">
+  1317→      <div className="absolute inset-0 mesh-bg opacity-60" />
+  1318→      <div className="relative max-w-4xl mx-auto px-4 lg:px-6 text-center">
+  1319→        <motion.div
+  1320→          initial={{ opacity: 0, y: 20 }}
+  1321→          whileInView={{ opacity: 1, y: 0 }}
+  1322→          viewport={{ once: true }}
+  1323→        >
+  1324→          <PremiumBadge variant="gold" size="md" glow className="mb-4 px-3 py-1.5">
+  1325→            <Crown className="w-3 h-3" /> Start Trading Smarter
+  1326→          </PremiumBadge>
+  1327→          <h2 className="text-4xl lg:text-6xl font-bold font-display tracking-tight mb-4">
+  1328→            <span className="text-foreground">Trade Less.</span>{' '}
+  1329→            <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Trade Smarter.</span>
+  1330→          </h2>
+  1331→          <p className="text-base lg:text-lg text-foreground/60 mb-8 max-w-2xl mx-auto">
+  1332→            Join thousands of professional traders using ApexEAPro. The AI Operating System for serious market participants.
+  1333→          </p>
+  1334→          <div className="flex flex-wrap items-center justify-center gap-3">
+  1335→            <GlowButton size="xl" variant="gold" glow onClick={() => onNavigate('dashboard')}>
+  1336→              <Zap className="w-4 h-4" /> Launch AI Intelligence Workspace
+  1337→            </GlowButton>
+  1338→            <GlowButton size="xl" variant="outline" onClick={() => onNavigate('aile')}>
+  1339→              <Atom className="w-4 h-4" /> Try AILE Engine
+  1340→            </GlowButton>
+  1341→          </div>
+  1342→          <p className="text-xs text-foreground/40 mt-6 italic">
+  1343→            Educational tool only — not financial advice. Trading involves substantial risk.
+  1344→          </p>
+  1345→        </motion.div>
+  1346→      </div>
+  1347→    </section>
+  1348→  )
+  1349→}
+  1350→
+  1351→/* ============================================
+  1352→   AILE BUTTON — Compact award-winning
+  1353→   ============================================ */
+  1354→
+  1355→interface AILEButtonProps {
+  1356→  onClick: () => void
+  1357→}
+  1358→
+  1359→function AILEEngineButton({ onClick }: AILEButtonProps) {
+  1360→  const buttonRef = React.useRef<HTMLButtonElement>(null)
+  1361→  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  1362→    onClick()
+  1363→  }
+  1364→  return (
+  1365→    <motion.button
+  1366→      ref={buttonRef}
+  1367→      onClick={handleClick}
+  1368→      whileHover={{ scale: 1.03, y: -2 }}
+  1369→      whileTap={{ scale: 0.97 }}
+  1370→      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+  1371→      className="group relative inline-flex items-center justify-center h-14 px-5 rounded-2xl font-semibold overflow-hidden cursor-pointer shrink-0"
+  1372→      aria-label="Launch AILE Engine"
+  1373→    >
+  1374→      <div className="absolute -inset-[1.5px] rounded-2xl opacity-90 group-hover:opacity-100 transition-opacity" style={{
+  1375→        background: 'conic-gradient(from 0deg, oklch(0.92 0.14 85), oklch(0.78 0.18 220), oklch(0.78 0.19 152), oklch(0.92 0.14 85))',
+  1376→        animation: 'aile-rotate 4s linear infinite',
+  1377→      }} />
+  1378→      <div className="relative flex items-center gap-2 h-full px-5 rounded-[14px] bg-gradient-to-br from-[oklch(0.14 0.022 265 / 95%)] to-[oklch(0.12 0.02 265 / 95%)] backdrop-blur-xl">
+  1379→        <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
+  1380→          <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity }} className="absolute inset-0 rounded-full bg-[#F5B942]/50 blur-[3px]" />
+  1381→          <div className="relative w-4 h-4 rounded-[5px] bg-gradient-to-br from-[#F5B942] to-[#D97706] flex items-center justify-center">
+  1382→            <Atom className="w-2.5 h-2.5 text-background" strokeWidth={2.5} />
+  1383→          </div>
+  1384→        </div>
+  1385→        <span className="text-base font-bold font-display tracking-tight bg-gradient-to-r from-[#F5B942] to-[#1677FF] bg-clip-text text-transparent whitespace-nowrap">AILE Engine</span>
+  1386→        <span className="text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F5B942]/15 text-[#F5B942] border border-[#F5B942]/30 uppercase tracking-wider shrink-0">PRO</span>
+  1387→      </div>
+  1388→    </motion.button>
+  1389→  )
+  1390→}
+  1391→
