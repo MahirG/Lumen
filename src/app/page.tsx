@@ -7,6 +7,7 @@ import { Header } from '@/components/hisab/header'
 import { Footer } from '@/components/hisab/footer'
 import { FloatingNav } from '@/components/hisab/floating-nav'
 import { FloatingAIBot } from '@/components/hisab/floating-bot'
+import { MobileNav, AnimatedHamburger, StickyHeader } from '@/components/hisab/mobile-nav'
 import { Landing } from '@/components/hisab/sections/landing'
 import { LiveDashboard } from '@/components/hisab/sections/live-dashboard'
 import { ChartAnalysis } from '@/components/hisab/sections/chart-analysis'
@@ -48,6 +49,7 @@ export default function Home() {
   // Read initial section from URL hash on mount (for refresh persistence)
   const [activeSection, setActiveSection] = React.useState('home')
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
+  const [mobileNavOpen, setMobileNavOpen] = React.useState(false)
   const [seoPage, setSeoPage] = React.useState<string | null>(null)
   const init = useMarketStore(s => s.init)
   const fetchRealPrice = useMarketStore(s => s.fetchRealPrice)
@@ -241,25 +243,14 @@ export default function Home() {
         <Footer onNavigate={navigateToSection} />
       </div>
 
-      {/* Floating hamburger menu button — top-RIGHT (opposite AI bot bottom-right).
-          Premium 2-line + short style. Opens drawer from the right. */}
-      {(isLanding || isSeoPage) && (
-        <button
-          onClick={() => setSidebarOpen(true)}
-          className="lg:hidden fixed top-4 right-4 z-50 w-10 h-10 rounded-full flex flex-col items-center justify-center gap-[4px] hover:scale-105 active:scale-95 transition-transform"
-          style={{
-            background: 'rgba(18, 18, 20, 0.72)',
-            backdropFilter: 'blur(20px) saturate(180%)',
-            WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-            border: '1px solid rgba(255,255,255,0.08)',
-          }}
-          aria-label="Open navigation menu"
-        >
-          <div className="w-[18px] h-[2px] rounded-full bg-foreground" />
-          <div className="w-[18px] h-[2px] rounded-full bg-foreground" />
-          <div className="w-[12px] h-[2px] rounded-full bg-foreground self-center mr-[3px]" style={{ alignSelf: 'flex-start', marginLeft: '7px' }} />
-        </button>
-      )}
+      {/* Premium mobile navigation — Apple-inspired full-screen overlay */}
+      <AnimatedHamburger isOpen={mobileNavOpen} onClick={() => setMobileNavOpen(!mobileNavOpen)} />
+      <MobileNav
+        isOpen={mobileNavOpen}
+        onClose={() => setMobileNavOpen(false)}
+        onNavigate={navigateToSection}
+        activeSection={activeSection}
+      />
 
       {/* Floating bottom nav — appears on ALL pages, 4 buttons */}
       <FloatingNav active={activeSection} onNavigate={navigateToSection} />
