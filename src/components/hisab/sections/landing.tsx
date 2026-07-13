@@ -7,6 +7,7 @@ import {
   ChevronRight, Sparkles, Clock, Newspaper, Calculator, Bell,
   GraduationCap, Star, ArrowRight, Check, Plus, Minus,
   Globe, Lock, Award, BarChart3, Gauge, BookOpen,
+  Layers, Atom, Cpu,
 } from 'lucide-react'
 import { LiquidGlassCard, GlowButton, AnimatedCounter, PremiumBadge, PremiumProgress, SectionHeading, StatCard } from '../primitives'
 import { useMarketStore } from '@/lib/hisab/market-store'
@@ -112,6 +113,7 @@ function HeroSection({ onNavigate, price, indicators, heroY, heroOpacity }: any)
               <GlowButton size="xl" variant="gold" glow onClick={() => onNavigate('dashboard')}>
                 <Zap className="w-4 h-4" /> Launch Dashboard
               </GlowButton>
+              <AILEEngineButton onClick={() => onNavigate('aile')} />
               <GlowButton size="xl" variant="outline" onClick={() => onNavigate('chart-analysis')}>
                 <Eye className="w-4 h-4" /> Analyze Chart
               </GlowButton>
@@ -125,7 +127,7 @@ function HeroSection({ onNavigate, price, indicators, heroY, heroOpacity }: any)
             >
               <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[oklch(0.78_0.19_152)]" /> Real-time data</span>
               <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[oklch(0.78_0.19_152)]" /> 8-timeframe analysis</span>
-              <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[oklch(0.78_0.19_152)]" /> AI Vision charts</span>
+              <span className="flex items-center gap-1.5"><Atom className="w-3 h-3 text-[oklch(0.92_0.13_85)]" /> AILE 12-phase engine</span>
               <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[oklch(0.78_0.19_152)]" /> Educational only</span>
             </motion.div>
           </div>
@@ -214,6 +216,110 @@ function MetricMini({ label, value }: { label: string; value: string }) {
       <div className="text-[9px] uppercase tracking-wider text-muted-foreground">{label}</div>
       <div className="text-sm font-mono font-bold tabular mt-0.5">{value}</div>
     </div>
+  )
+}
+
+/* ============================================
+   AILE ENGINE BUTTON — Award-winning unique CTA
+   Distinct from all other buttons:
+   • Animated conic-gradient border that rotates
+   • Liquid glass core with depth
+   • Pulsing AI core glow
+   • Shine sweep on hover
+   • Micro-scale on press
+   • "PRO" badge with institutional styling
+   ============================================ */
+
+interface AILEButtonProps {
+  onClick: () => void
+}
+
+function AILEEngineButton({ onClick }: AILEButtonProps) {
+  const [isPressed, setIsPressed] = React.useState(false)
+  const buttonRef = React.useRef<HTMLButtonElement>(null)
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    // Ripple effect
+    const button = buttonRef.current
+    if (button) {
+      const ripple = document.createElement('span')
+      const rect = button.getBoundingClientRect()
+      const size = Math.max(rect.width, rect.height)
+      const x = e.clientX - rect.left - size / 2
+      const y = e.clientY - rect.top - size / 2
+      ripple.style.width = ripple.style.height = `${size}px`
+      ripple.style.left = `${x}px`
+      ripple.style.top = `${y}px`
+      ripple.className = 'ripple'
+      button.appendChild(ripple)
+      setTimeout(() => ripple.remove(), 600)
+    }
+    setIsPressed(true)
+    setTimeout(() => setIsPressed(false), 200)
+    onClick()
+  }
+
+  return (
+    <motion.button
+      ref={buttonRef}
+      onClick={handleClick}
+      whileHover={{ scale: 1.03, y: -2 }}
+      whileTap={{ scale: 0.97 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 17 }}
+      className="group relative inline-flex items-center justify-center h-14 px-7 rounded-2xl font-semibold overflow-hidden cursor-pointer"
+      aria-label="Launch AILE Engine — 12-phase institutional liquidity analysis"
+    >
+      {/* Animated rotating conic-gradient border */}
+      <div
+        className="absolute -inset-[1.5px] rounded-2xl opacity-90 group-hover:opacity-100 transition-opacity"
+        style={{
+          background: 'conic-gradient(from 0deg, oklch(0.92 0.14 85), oklch(0.78 0.18 220), oklch(0.78 0.19 152), oklch(0.92 0.14 85))',
+          animation: 'aile-rotate 4s linear infinite',
+        }}
+      />
+      {/* Liquid glass core */}
+      <div className="relative flex items-center gap-2.5 px-6 py-3 rounded-[14px] bg-gradient-to-br from-[oklch(0.14 0.022 265 / 95%)] via-[oklch(0.16 0.025 265 / 92%)] to-[oklch(0.12 0.02 265 / 95%)] backdrop-blur-xl">
+        {/* Pulsing AI core */}
+        <div className="relative w-6 h-6 flex items-center justify-center shrink-0">
+          <motion.div
+            animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute inset-0 rounded-full bg-[oklch(0.82 0.15 85 / 40%)] blur-sm"
+          />
+          <div className="relative w-5 h-5 rounded-md bg-gradient-to-br from-[oklch(0.95 0.10 85)] via-[oklch(0.82 0.16 85)] to-[oklch(0.65 0.20_75)] flex items-center justify-center shadow-[0_0_12px_oklch(0.82_0.15_85/50%)]">
+            <Atom className="w-3 h-3 text-[oklch(0.07 0.018 265)]" strokeWidth={2.5} />
+          </div>
+        </div>
+        {/* Label */}
+        <div className="flex flex-col items-start leading-none">
+          <div className="flex items-center gap-1.5">
+            <span className="text-sm font-bold font-display tracking-tight bg-gradient-to-r from-[oklch(0.95 0.10 85)] via-[oklch(0.88 0.14 85)] to-[oklch(0.78 0.18 220)] bg-clip-text text-transparent">
+              AILE Engine
+            </span>
+            <span className="text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[oklch(0.82 0.15 85 / 15%)] text-[oklch(0.92 0.13 85)] border border-[oklch(0.82 0.15 85 / 30%)] uppercase tracking-wider">
+              PRO
+            </span>
+          </div>
+          <span className="text-[9px] text-muted-foreground uppercase tracking-[0.15em] mt-0.5">
+            12-Phase Institutional
+          </span>
+        </div>
+        {/* Chevron */}
+        <motion.div
+          animate={{ x: [0, 3, 0] }}
+          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
+          className="ml-1 text-[oklch(0.92 0.13 85)]"
+        >
+          <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
+        </motion.div>
+        {/* Shine sweep on hover */}
+        <div className="absolute inset-0 overflow-hidden rounded-[14px] pointer-events-none">
+          <div className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:left-full transition-all duration-700 ease-out" />
+        </div>
+      </div>
+      {/* Outer glow on hover */}
+      <div className="absolute -inset-2 rounded-2xl bg-gradient-to-r from-[oklch(0.82 0.15 85 / 0%)] via-[oklch(0.78 0.18 220 / 0%)] to-[oklch(0.78 0.19 152 / 0%)] group-hover:from-[oklch(0.82 0.15 85 / 15%)] group-hover:via-[oklch(0.78 0.18 220 / 15%)] group-hover:to-[oklch(0.78 0.19 152 / 15%)] blur-xl transition-all duration-500 -z-10" />
+    </motion.button>
   )
 }
 
@@ -744,6 +850,7 @@ function CTASection({ onNavigate }: { onNavigate: (s: string) => void }) {
             <GlowButton size="xl" variant="gold" glow onClick={() => onNavigate('dashboard')}>
               <Zap className="w-4 h-4" /> Launch Free Dashboard
             </GlowButton>
+            <AILEEngineButton onClick={() => onNavigate('aile')} />
             <GlowButton size="xl" variant="outline" onClick={() => onNavigate('chart-analysis')}>
               <Eye className="w-4 h-4" /> Try AI Vision
             </GlowButton>
