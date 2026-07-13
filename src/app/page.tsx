@@ -9,6 +9,7 @@ import { Landing } from '@/components/hisab/sections/landing'
 import { LiveDashboard } from '@/components/hisab/sections/live-dashboard'
 import { ChartAnalysis } from '@/components/hisab/sections/chart-analysis'
 import { DecisionEngine } from '@/components/hisab/sections/decision-engine'
+import { AILEEngine } from '@/components/hisab/sections/aile-engine'
 import { MultiTimeframe } from '@/components/hisab/sections/mtf'
 import { SessionDetector } from '@/components/hisab/sections/sessions'
 import { NewsFilter } from '@/components/hisab/sections/news'
@@ -25,6 +26,7 @@ const SECTION_META: Record<string, { title: string; subtitle: string }> = {
   dashboard: { title: 'Live Dashboard', subtitle: 'Real-time XAUUSD market intelligence' },
   'chart-analysis': { title: 'Chart Analysis', subtitle: 'SMC detection & AI Vision for XAUUSD' },
   'decision-engine': { title: 'AI Decision Engine', subtitle: 'Probability-based trade setups' },
+  aile: { title: 'AILE Engine v1.0', subtitle: 'Apex Institutional Liquidity Engine — 12-phase analysis' },
   mtf: { title: 'Multi-Timeframe Analysis', subtitle: '8-timeframe bias alignment matrix' },
   sessions: { title: 'Session Detector', subtitle: 'Trading sessions & ICT kill zones' },
   news: { title: 'Economic News Filter', subtitle: 'High-impact news monitoring' },
@@ -110,6 +112,7 @@ export default function Home() {
                   {activeSection === 'dashboard' && <LiveDashboard />}
                   {activeSection === 'chart-analysis' && <ChartAnalysis />}
                   {activeSection === 'decision-engine' && <DecisionEngine />}
+                  {activeSection === 'aile' && <AILEEngine />}
                   {activeSection === 'mtf' && <MultiTimeframe />}
                   {activeSection === 'sessions' && <SessionDetector />}
                   {activeSection === 'news' && <NewsFilter />}

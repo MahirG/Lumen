@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, LayoutDashboard, Brain, Clock, Newspaper, Gauge,
   Calculator, BookOpen, Bell, GraduationCap, Eye,
-  Activity, X, Sparkles, Zap, Crown,
+  Activity, X, Sparkles, Zap, Crown, Layers,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -26,6 +26,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'dashboard', label: 'Live Dashboard', icon: LayoutDashboard, description: 'Real-time market intelligence', category: 'analysis' },
   { id: 'chart-analysis', label: 'Chart Analysis', icon: Eye, description: 'AI Vision + SMC detection', category: 'analysis' },
   { id: 'decision-engine', label: 'AI Decision Engine', icon: Brain, description: 'Bias · entry · SL · TP', category: 'analysis' },
+  { id: 'aile', label: 'AILE Engine', icon: Layers, description: 'Institutional 12-phase liquidity', badge: 'PRO', category: 'analysis' },
   { id: 'mtf', label: 'Multi-Timeframe', icon: Activity, description: '8-timeframe bias matrix', category: 'analysis' },
   { id: 'sessions', label: 'Session Detector', icon: Clock, description: 'ICT kill zones', category: 'tools' },
   { id: 'news', label: 'News Filter', icon: Newspaper, description: 'Economic events & warnings', category: 'tools' },
