@@ -116,11 +116,11 @@ export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
       <div className="flex items-center justify-between gap-3 px-4 lg:px-6 py-2.5">
         <div className="flex items-center gap-3 min-w-0">
           <div className="min-w-0">
-            <h1 className="text-sm lg:text-base font-semibold leading-tight tracking-tight truncate text-[#F5F5F7]" style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
+            <h1 className="text-sm lg:text-base font-semibold leading-tight tracking-tight truncate text-foreground" style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               {title}
             </h1>
             {subtitle && (
-              <p className="text-[11px] text-[#F5F5F7]/40 truncate font-normal tracking-tight">{subtitle}</p>
+              <p className="text-[11px] text-foreground/40 truncate font-normal tracking-tight">{subtitle}</p>
             )}
           </div>
         </div>

@@ -45,13 +45,13 @@ export function Landing({ onNavigate }: LandingProps) {
 
 function HeroSection({ onNavigate, heroOpacity }: any) {
   return (
-    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#071A2B]">
+    <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-background">
       {/* Animated particle background */}
       <ParticleField />
       {/* 3D rotating financial globe */}
       <FinancialGlobe />
       {/* Gradient overlays */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#071A2B]/40 via-transparent to-[#071A2B] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
       <div className="absolute inset-0 grid-bg-fine opacity-20 pointer-events-none" />
 
       <motion.div
@@ -66,7 +66,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             transition={{ duration: 0.7, delay: 0.1 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight leading-[1.05] mb-6"
           >
-            <span className="text-white">The AI Operating System</span>
+            <span className="text-foreground">The AI Operating System</span>
             <br />
             <span className="bg-gradient-to-r from-[#1677FF] via-[#3B9BFF] to-[#10B981] bg-clip-text text-transparent">for Professional Traders</span>
           </motion.h1>
@@ -253,7 +253,7 @@ function MarketTickerSection() {
   }, [])
 
   return (
-    <section className="py-10 relative border-y border-white/[6%] bg-[#071A2B]/50">
+    <section className="py-10 relative border-y border-border/50 bg-background/50">
       <div className="max-w-7xl mx-auto px-4 lg:px-6">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
@@ -334,7 +334,7 @@ function AICommandCenterSection({ onNavigate }: { onNavigate: (s: string) => voi
             <Cpu className="w-3 h-3" /> AI Command Center
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
-            <span className="text-white">Institutional Intelligence,</span>{' '}
+            <span className="text-foreground">Institutional Intelligence,</span>{' '}
             <span className="bg-gradient-to-r from-[#1677FF] to-[#10B981] bg-clip-text text-transparent">Real-Time</span>
           </h2>
           <p className="text-base text-foreground/60">
@@ -577,7 +577,7 @@ function BellRing({ className }: { className?: string }) {
 function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => void }) {
   return (
     <section className="py-24 relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#071A2B]/40 to-transparent" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-background/40 to-transparent" />
       <div className="relative max-w-7xl mx-auto px-4 lg:px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -589,7 +589,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
             <Crown className="w-3 h-3" /> AI Terminal
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
-            <span className="text-white">Your Mission Control for</span>{' '}
+            <span className="text-foreground">Your Mission Control for</span>{' '}
             <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Markets</span>
           </h2>
           <p className="text-base text-foreground/60">
@@ -607,7 +607,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
         >
           <LiquidGlassCard variant="strong" className="p-0 overflow-hidden shadow-premium-lg">
             {/* Terminal header */}
-            <div className="flex items-center justify-between px-4 py-3 border-b border-white/[8%] bg-white/[2%]">
+            <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-white/[2%]">
               <div className="flex items-center gap-2">
                 <div className="flex gap-1.5">
                   <div className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/60" />
@@ -624,7 +624,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
             {/* Terminal body */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-0">
               {/* AI Assistant (left) */}
-              <div className="lg:col-span-3 p-4 border-r border-white/[6%]">
+              <div className="lg:col-span-3 p-4 border-r border-border/50">
                 <div className="flex items-center gap-2 mb-3">
                   <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#1677FF] to-[#10B981] flex items-center justify-center">
                     <Cpu className="w-3.5 h-3.5 text-white" />
@@ -639,7 +639,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
               </div>
 
               {/* Chart area (center) */}
-              <div className="lg:col-span-6 p-4 border-r border-white/[6%] min-h-[280px]">
+              <div className="lg:col-span-6 p-4 border-r border-border/50 min-h-[280px]">
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-2">
                     <span className="text-sm font-bold font-mono">XAUUSD</span>
@@ -667,7 +667,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
             </div>
 
             {/* Bottom bar */}
-            <div className="flex items-center justify-between px-4 py-2 border-t border-white/[8%] bg-white/[2%] text-[10px] font-mono text-foreground/40">
+            <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-white/[2%] text-[10px] font-mono text-foreground/40">
               <span>Live Market Intelligence</span>
               <span>Session: <span className="text-[#F5B942]">LONDON KZ</span></span>
             </div>
@@ -803,7 +803,7 @@ function AIAssistantDemoSection() {
             <Brain className="w-3 h-3" /> AI Assistant
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
-            <span className="text-white">Talk to Your</span>{' '}
+            <span className="text-foreground">Talk to Your</span>{' '}
             <span className="bg-gradient-to-r from-[#1677FF] to-[#3B9BFF] bg-clip-text text-transparent">AI Analyst</span>
           </h2>
           <p className="text-base text-foreground/60">Ask any question. Get institutional-grade answers in seconds.</p>
@@ -844,7 +844,7 @@ function AIAssistantDemoSection() {
                           <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Order block identified</div>
                           <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> USD strength increasing</div>
                         </div>
-                        <div className="text-xs text-[#F5B942] mt-2 pt-2 border-t border-white/[8%]">⚠ Upcoming: High impact news in 35 minutes</div>
+                        <div className="text-xs text-[#F5B942] mt-2 pt-2 border-t border-border">⚠ Upcoming: High impact news in 35 minutes</div>
                       </div>
                     ) : msg.typing ? (
                       <div className="flex items-center gap-1.5">
@@ -869,7 +869,7 @@ function AIAssistantDemoSection() {
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              className="mt-4 pt-4 border-t border-white/[6%] flex justify-center"
+              className="mt-4 pt-4 border-t border-border/50 flex justify-center"
             >
               <GlowButton variant="ghost" size="sm" onClick={reset}>
                 <RotateCwIcon /> Replay Demo
@@ -913,7 +913,7 @@ function WhyChooseSection({ onNavigate }: { onNavigate: (s: string) => void }) {
             <Award className="w-3 h-3" /> Why ApexEAPro
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
-            <span className="text-white">Built for</span>{' '}
+            <span className="text-foreground">Built for</span>{' '}
             <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Professional Traders</span>
           </h2>
           <p className="text-base text-foreground/60">Six institutional-grade systems in one platform.</p>
@@ -1014,7 +1014,7 @@ function PricingSection() {
             <Crown className="w-3 h-3" /> Premium Access
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
-            <span className="text-white">Choose Your</span>{' '}
+            <span className="text-foreground">Choose Your</span>{' '}
             <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Trading Edge</span>
           </h2>
           <p className="text-base text-foreground/60 mb-6">Cancel anytime. 14-day money-back guarantee.</p>
@@ -1109,7 +1109,7 @@ function FAQSection() {
           className="text-center mb-10"
         >
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
-            <span className="text-white">Frequently Asked</span>{' '}
+            <span className="text-foreground">Frequently Asked</span>{' '}
             <span className="bg-gradient-to-r from-[#1677FF] to-[#10B981] bg-clip-text text-transparent">Questions</span>
           </h2>
         </motion.div>
@@ -1172,7 +1172,7 @@ function CTASection({ onNavigate }: { onNavigate: (s: string) => void }) {
             <Crown className="w-3 h-3" /> Start Trading Smarter
           </PremiumBadge>
           <h2 className="text-4xl lg:text-6xl font-bold font-display tracking-tight mb-4">
-            <span className="text-white">Trade Less.</span>{' '}
+            <span className="text-foreground">Trade Less.</span>{' '}
             <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Trade Smarter.</span>
           </h2>
           <p className="text-base lg:text-lg text-foreground/60 mb-8 max-w-2xl mx-auto">
@@ -1226,7 +1226,7 @@ function AILEEngineButton({ onClick }: AILEButtonProps) {
         <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
           <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity }} className="absolute inset-0 rounded-full bg-[#F5B942]/50 blur-[3px]" />
           <div className="relative w-4 h-4 rounded-[5px] bg-gradient-to-br from-[#F5B942] to-[#D97706] flex items-center justify-center">
-            <Atom className="w-2.5 h-2.5 text-[#071A2B]" strokeWidth={2.5} />
+            <Atom className="w-2.5 h-2.5 text-background" strokeWidth={2.5} />
           </div>
         </div>
         <span className="text-base font-bold font-display tracking-tight bg-gradient-to-r from-[#F5B942] to-[#1677FF] bg-clip-text text-transparent whitespace-nowrap">AILE Engine</span>

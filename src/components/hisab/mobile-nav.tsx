@@ -120,7 +120,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
             transition={{ type: 'spring', stiffness: 300, damping: 30 }}
             className="fixed inset-0 z-[61] lg:hidden flex flex-col"
             style={{
-              background: 'rgba(10, 10, 12, 0.98)',
+              background: 'var(--popover)',
               backdropFilter: 'blur(40px) saturate(180%)',
               WebkitBackdropFilter: 'blur(40px) saturate(180%)',
             }}
@@ -313,7 +313,7 @@ export function AnimatedHamburger({ isOpen, onClick }: { isOpen: boolean; onClic
       onClick={onClick}
       className="lg:hidden fixed top-4 right-4 z-[62] w-11 h-11 rounded-full flex items-center justify-center"
       style={{
-        background: 'rgba(18, 18, 20, 0.72)',
+        background: 'var(--card)',
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
         border: '1px solid rgba(255,255,255,0.08)',
@@ -363,7 +363,7 @@ export function StickyHeader({ title, onMenuClick }: { title?: string; onMenuCli
     <header
       className="lg:hidden sticky top-0 z-40 transition-all duration-300"
       style={{
-        background: scrolled ? 'rgba(10, 10, 12, 0.9)' : 'rgba(10, 10, 12, 0.5)',
+        background: scrolled ? 'var(--popover)' : 'var(--card)',
         backdropFilter: 'blur(20px) saturate(180%)',
         WebkitBackdropFilter: 'blur(20px) saturate(180%)',
         borderBottom: scrolled ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',

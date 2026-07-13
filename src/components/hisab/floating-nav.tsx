@@ -46,7 +46,7 @@ export function FloatingNav({ active, onNavigate }: FloatingNavProps) {
         aria-label="Floating navigation"
         onMouseLeave={() => setHovered(null)}
         style={{
-          background: 'rgba(18, 18, 20, 0.8)',
+          background: 'var(--card)',
           backdropFilter: 'blur(32px) saturate(180%)',
           WebkitBackdropFilter: 'blur(32px) saturate(180%)',
           border: '1px solid rgba(255,255,255,0.08)',

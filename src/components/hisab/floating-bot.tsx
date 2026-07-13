@@ -330,7 +330,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                 : 'bottom-44 right-4 lg:bottom-24 lg:right-6 w-[calc(100vw-2rem)] max-w-[420px] h-[560px] max-h-[75vh]'
             )}
             style={{
-              background: 'rgba(18, 18, 20, 0.98)',
+              background: 'var(--popover)',
               backdropFilter: 'blur(40px) saturate(180%)',
               WebkitBackdropFilter: 'blur(40px) saturate(180%)',
               border: '1px solid rgba(255,255,255,0.08)',
@@ -341,7 +341,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
             <div className="flex items-center gap-3 px-5 py-3.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
               <div className="relative w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #7C5CFC)' }}>
                 <Bot className="w-4 h-4 text-white" />
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#10B981] border-2 border-[#121214]" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#10B981] border-2 border-border" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
