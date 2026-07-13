@@ -4,6 +4,8 @@ import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { Sidebar, NAV_ITEMS } from '@/components/hisab/sidebar'
 import { Header } from '@/components/hisab/header'
+import { Footer } from '@/components/hisab/footer'
+import { Landing } from '@/components/hisab/sections/landing'
 import { LiveDashboard } from '@/components/hisab/sections/live-dashboard'
 import { ChartAnalysis } from '@/components/hisab/sections/chart-analysis'
 import { DecisionEngine } from '@/components/hisab/sections/decision-engine'
@@ -19,7 +21,8 @@ import { useMarketStore } from '@/lib/hisab/market-store'
 import { useRealtimeService } from '@/lib/hisab/use-realtime'
 
 const SECTION_META: Record<string, { title: string; subtitle: string }> = {
-  dashboard: { title: 'Live Dashboard', subtitle: 'Real-time XAUUSD market overview' },
+  home: { title: 'Apex EA Pro', subtitle: 'AI-Powered Forex & Gold Trading Intelligence' },
+  dashboard: { title: 'Live Dashboard', subtitle: 'Real-time XAUUSD market intelligence' },
   'chart-analysis': { title: 'Chart Analysis', subtitle: 'SMC detection & AI Vision for XAUUSD' },
   'decision-engine': { title: 'AI Decision Engine', subtitle: 'Probability-based trade setups' },
   mtf: { title: 'Multi-Timeframe Analysis', subtitle: '8-timeframe bias alignment matrix' },
@@ -33,7 +36,7 @@ const SECTION_META: Record<string, { title: string; subtitle: string }> = {
 }
 
 export default function Home() {
-  const [activeSection, setActiveSection] = React.useState('dashboard')
+  const [activeSection, setActiveSection] = React.useState('home')
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
   const init = useMarketStore(s => s.init)
   const fetchRealPrice = useMarketStore(s => s.fetchRealPrice)
@@ -41,24 +44,18 @@ export default function Home() {
   const refreshSession = useMarketStore(s => s.refreshSession)
   useRealtimeService()
 
-  // Initialize market data on mount (fetches real gold price)
-  React.useEffect(() => {
-    init()
-  }, [init])
+  // Initialize market data on mount
+  React.useEffect(() => { init() }, [init])
 
-  // Fetch REAL price every 20 seconds (server caches for 30s)
+  // Fetch REAL price every 20 seconds
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      fetchRealPrice()
-    }, 20000)
+    const interval = setInterval(() => { fetchRealPrice() }, 20000)
     return () => clearInterval(interval)
   }, [fetchRealPrice])
 
-  // Micro-tick every 1.2s for visual liveliness (small delta around real price)
+  // Micro-tick every 1.2s
   React.useEffect(() => {
-    const interval = setInterval(() => {
-      microTick()
-    }, 1200)
+    const interval = setInterval(() => { microTick() }, 1200)
     return () => clearInterval(interval)
   }, [microTick])
 
@@ -68,7 +65,16 @@ export default function Home() {
     return () => clearInterval(interval)
   }, [refreshSession])
 
-  const meta = SECTION_META[activeSection] ?? { title: 'Hisab Gold AI', subtitle: '' }
+  // Scroll to top on section change
+  const mainRef = React.useRef<HTMLElement>(null)
+  React.useEffect(() => {
+    if (mainRef.current && activeSection !== 'home') {
+      mainRef.current.scrollTo({ top: 0, behavior: 'smooth' })
+    }
+  }, [activeSection])
+
+  const meta = SECTION_META[activeSection] ?? { title: 'Apex EA Pro', subtitle: '' }
+  const isLanding = activeSection === 'home'
 
   return (
     <div className="flex min-h-screen bg-background">
@@ -80,56 +86,45 @@ export default function Home() {
       />
 
       <div className="flex-1 flex flex-col min-w-0">
-        <Header
-          onMenuClick={() => setSidebarOpen(true)}
-          title={meta.title}
-          subtitle={meta.subtitle}
-        />
+        {!isLanding && (
+          <Header
+            onMenuClick={() => setSidebarOpen(true)}
+            title={meta.title}
+            subtitle={meta.subtitle}
+          />
+        )}
 
-        <main className="flex-1 p-4 lg:p-6 grid-bg">
+        <main ref={mainRef} className="flex-1">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeSection}
-              initial={{ opacity: 0, y: 8 }}
+              initial={{ opacity: 0, y: isLanding ? 0 : 8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.25 }}
+              exit={{ opacity: 0, y: isLanding ? 0 : -8 }}
+              transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
             >
-              {activeSection === 'dashboard' && <LiveDashboard />}
-              {activeSection === 'chart-analysis' && <ChartAnalysis />}
-              {activeSection === 'decision-engine' && <DecisionEngine />}
-              {activeSection === 'mtf' && <MultiTimeframe />}
-              {activeSection === 'sessions' && <SessionDetector />}
-              {activeSection === 'news' && <NewsFilter />}
-              {activeSection === 'gold-strength' && <GoldStrengthMeter />}
-              {activeSection === 'risk' && <RiskManager />}
-              {activeSection === 'journal' && <TradeJournal />}
-              {activeSection === 'alerts' && <SmartAlerts />}
-              {activeSection === 'coach' && <AICoach />}
+              {isLanding ? (
+                <Landing onNavigate={setActiveSection} />
+              ) : (
+                <div className="p-4 lg:p-6 grid-bg">
+                  {activeSection === 'dashboard' && <LiveDashboard />}
+                  {activeSection === 'chart-analysis' && <ChartAnalysis />}
+                  {activeSection === 'decision-engine' && <DecisionEngine />}
+                  {activeSection === 'mtf' && <MultiTimeframe />}
+                  {activeSection === 'sessions' && <SessionDetector />}
+                  {activeSection === 'news' && <NewsFilter />}
+                  {activeSection === 'gold-strength' && <GoldStrengthMeter />}
+                  {activeSection === 'risk' && <RiskManager />}
+                  {activeSection === 'journal' && <TradeJournal />}
+                  {activeSection === 'alerts' && <SmartAlerts />}
+                  {activeSection === 'coach' && <AICoach />}
+                </div>
+              )}
             </motion.div>
           </AnimatePresence>
         </main>
 
-        {/* Footer */}
-        <footer className="mt-auto border-t border-border/30 glass">
-          <div className="px-4 lg:px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-2 text-xs text-muted-foreground">
-            <div className="flex items-center gap-2">
-              <span className="font-semibold text-foreground">Hisab Gold AI</span>
-              <span>·</span>
-              <span>SMC + ICT + AI Vision</span>
-            </div>
-            <div className="text-center md:text-right">
-              <span className="text-[oklch(0.92_0.14_85)] font-medium">
-                This tool is for educational purposes and should not be considered financial advice.
-              </span>
-            </div>
-            <div className="flex items-center gap-3">
-              <span className="font-mono">v1.0.0</span>
-              <span>·</span>
-              <span>Probability-based analysis only</span>
-            </div>
-          </div>
-        </footer>
+        <Footer onNavigate={setActiveSection} />
       </div>
     </div>
   )

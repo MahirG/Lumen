@@ -1,48 +1,37 @@
 import type { Metadata, Viewport } from "next";
-import { Geist, Geist_Mono, Outfit } from "next/font/google";
+import { Outfit } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
 const outfit = Outfit({
   variable: "--font-display",
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["300", "400", "500", "600", "700", "800", "900"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Hisab Gold AI — XAUUSD Smart Money Trading Assistant",
+  title: "Apex EA Pro — AI Forex & Gold Trading Intelligence",
   description:
-    "AI-powered XAUUSD analysis using Smart Money Concepts, ICT, and risk management. Probability-based educational tool — never financial advice.",
+    "The world's most advanced AI-powered forex and gold trading platform. Smart Money Concepts, ICT, real-time market intelligence, and institutional-grade analysis. Educational only — not financial advice.",
   keywords: [
-    "XAUUSD", "Gold Trading", "Smart Money Concepts", "ICT", "AI Trading",
-    "Order Blocks", "FVG", "Liquidity", "BOS", "CHoCH", "Risk Management",
+    "Apex EA Pro", "Forex Trading", "Gold Trading", "XAUUSD", "AI Trading",
+    "Smart Money Concepts", "ICT", "Institutional Trading", "Risk Management",
   ],
-  authors: [{ name: "Hisab Gold AI" }],
-  icons: {
-    icon: "/logo.svg",
-  },
+  authors: [{ name: "HisabTech" }],
+  icons: { icon: "/logo.svg" },
   manifest: "/manifest.json",
   openGraph: {
-    title: "Hisab Gold AI",
-    description: "AI-powered XAUUSD Smart Money Concepts analysis",
+    title: "Apex EA Pro — AI Trading Intelligence",
+    description: "Institutional-grade AI trading analysis for forex & gold.",
     type: "website",
   },
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a0d1a",
+  themeColor: "#07091a",
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
@@ -56,7 +45,8 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="dark">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${outfit.variable} antialiased bg-background text-foreground min-h-screen`}
+        className={`${outfit.variable} antialiased bg-background text-foreground min-h-screen`}
+        style={{ fontFamily: "var(--font-sans)" }}
       >
         <ThemeProvider
           attribute="class"
@@ -71,10 +61,11 @@ export default function RootLayout({
             theme="dark"
             toastOptions={{
               style: {
-                background: "oklch(0.2 0.015 240 / 90%)",
+                background: "oklch(0.16 0.025 265 / 90%)",
                 border: "1px solid oklch(1 0 0 / 10%)",
-                color: "oklch(0.96 0.005 60)",
-                backdropFilter: "blur(20px)",
+                color: "oklch(0.97 0.005 240)",
+                backdropFilter: "blur(24px)",
+                borderRadius: "12px",
               },
             }}
           />
