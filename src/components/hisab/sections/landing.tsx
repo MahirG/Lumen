@@ -22,8 +22,8 @@ export function Landing({ onNavigate }: LandingProps) {
   const price = useMarketStore(s => s.price)
   const indicators = useMarketStore(s => s.indicators)
   const { scrollY } = useScroll()
-  const heroY = useTransform(scrollY, [0, 500], [0, -100])
-  const heroOpacity = useTransform(scrollY, [0, 400], [1, 0])
+  const heroY = useTransform(scrollY, [0, 500], [0, -60])
+  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.85])
 
   return (
     <div className="space-y-0">
@@ -235,11 +235,9 @@ interface AILEButtonProps {
 }
 
 function AILEEngineButton({ onClick }: AILEButtonProps) {
-  const [isPressed, setIsPressed] = React.useState(false)
   const buttonRef = React.useRef<HTMLButtonElement>(null)
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
-    // Ripple effect
     const button = buttonRef.current
     if (button) {
       const ripple = document.createElement('span')
@@ -254,8 +252,6 @@ function AILEEngineButton({ onClick }: AILEButtonProps) {
       button.appendChild(ripple)
       setTimeout(() => ripple.remove(), 600)
     }
-    setIsPressed(true)
-    setTimeout(() => setIsPressed(false), 200)
     onClick()
   }
 
@@ -266,7 +262,7 @@ function AILEEngineButton({ onClick }: AILEButtonProps) {
       whileHover={{ scale: 1.03, y: -2 }}
       whileTap={{ scale: 0.97 }}
       transition={{ type: 'spring', stiffness: 400, damping: 17 }}
-      className="group relative inline-flex items-center justify-center h-14 px-7 rounded-2xl font-semibold overflow-hidden cursor-pointer"
+      className="group relative inline-flex items-center justify-center h-14 px-5 rounded-2xl font-semibold overflow-hidden cursor-pointer shrink-0"
       aria-label="Launch AILE Engine — 12-phase institutional liquidity analysis"
     >
       {/* Animated rotating conic-gradient border */}
@@ -277,48 +273,34 @@ function AILEEngineButton({ onClick }: AILEButtonProps) {
           animation: 'aile-rotate 4s linear infinite',
         }}
       />
-      {/* Liquid glass core */}
-      <div className="relative flex items-center gap-2.5 px-6 py-3 rounded-[14px] bg-gradient-to-br from-[oklch(0.14 0.022 265 / 95%)] via-[oklch(0.16 0.025 265 / 92%)] to-[oklch(0.12 0.02 265 / 95%)] backdrop-blur-xl">
-        {/* Pulsing AI core */}
-        <div className="relative w-6 h-6 flex items-center justify-center shrink-0">
+      {/* Liquid glass core — single line, same height as GlowButton xl */}
+      <div className="relative flex items-center gap-2 h-full px-5 rounded-[14px] bg-gradient-to-br from-[oklch(0.14 0.022 265 / 95%)] via-[oklch(0.16 0.025 265 / 92%)] to-[oklch(0.12 0.02 265 / 95%)] backdrop-blur-xl">
+        {/* Pulsing AI core icon */}
+        <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
           <motion.div
-            animate={{ scale: [1, 1.15, 1], opacity: [0.6, 1, 0.6] }}
+            animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.9, 0.5] }}
             transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute inset-0 rounded-full bg-[oklch(0.82 0.15 85 / 40%)] blur-sm"
+            className="absolute inset-0 rounded-full bg-[oklch(0.82 0.15 85 / 50%)] blur-[3px]"
           />
-          <div className="relative w-5 h-5 rounded-md bg-gradient-to-br from-[oklch(0.95 0.10 85)] via-[oklch(0.82 0.16 85)] to-[oklch(0.65 0.20_75)] flex items-center justify-center shadow-[0_0_12px_oklch(0.82_0.15_85/50%)]">
-            <Atom className="w-3 h-3 text-[oklch(0.07 0.018 265)]" strokeWidth={2.5} />
+          <div className="relative w-4 h-4 rounded-[5px] bg-gradient-to-br from-[oklch(0.95 0.10 85)] via-[oklch(0.82 0.16 85)] to-[oklch(0.65 0.20_75)] flex items-center justify-center shadow-[0_0_8px_oklch(0.82_0.15_85/60%)]">
+            <Atom className="w-2.5 h-2.5 text-[oklch(0.07 0.018 265)]" strokeWidth={2.5} />
           </div>
         </div>
-        {/* Label */}
-        <div className="flex flex-col items-start leading-none">
-          <div className="flex items-center gap-1.5">
-            <span className="text-sm font-bold font-display tracking-tight bg-gradient-to-r from-[oklch(0.95 0.10 85)] via-[oklch(0.88 0.14 85)] to-[oklch(0.78 0.18 220)] bg-clip-text text-transparent">
-              AILE Engine
-            </span>
-            <span className="text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[oklch(0.82 0.15 85 / 15%)] text-[oklch(0.92 0.13 85)] border border-[oklch(0.82 0.15 85 / 30%)] uppercase tracking-wider">
-              PRO
-            </span>
-          </div>
-          <span className="text-[9px] text-muted-foreground uppercase tracking-[0.15em] mt-0.5">
-            12-Phase Institutional
-          </span>
-        </div>
-        {/* Chevron */}
-        <motion.div
-          animate={{ x: [0, 3, 0] }}
-          transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-          className="ml-1 text-[oklch(0.92 0.13 85)]"
-        >
-          <ChevronRight className="w-4 h-4" strokeWidth={2.5} />
-        </motion.div>
+        {/* Single-line label */}
+        <span className="text-base font-bold font-display tracking-tight bg-gradient-to-r from-[oklch(0.95 0.10 85)] via-[oklch(0.88 0.14 85)] to-[oklch(0.78 0.18 220)] bg-clip-text text-transparent whitespace-nowrap">
+          AILE Engine
+        </span>
+        {/* PRO badge */}
+        <span className="text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[oklch(0.82 0.15 85 / 15%)] text-[oklch(0.92 0.13 85)] border border-[oklch(0.82 0.15 85 / 30%)] uppercase tracking-wider shrink-0">
+          PRO
+        </span>
         {/* Shine sweep on hover */}
         <div className="absolute inset-0 overflow-hidden rounded-[14px] pointer-events-none">
           <div className="absolute top-0 -left-full w-1/2 h-full bg-gradient-to-r from-transparent via-white/20 to-transparent group-hover:left-full transition-all duration-700 ease-out" />
         </div>
       </div>
       {/* Outer glow on hover */}
-      <div className="absolute -inset-2 rounded-2xl bg-gradient-to-r from-[oklch(0.82 0.15 85 / 0%)] via-[oklch(0.78 0.18 220 / 0%)] to-[oklch(0.78 0.19 152 / 0%)] group-hover:from-[oklch(0.82 0.15 85 / 15%)] group-hover:via-[oklch(0.78 0.18 220 / 15%)] group-hover:to-[oklch(0.78 0.19 152 / 15%)] blur-xl transition-all duration-500 -z-10" />
+      <div className="absolute -inset-1 rounded-2xl bg-gradient-to-r from-[oklch(0.82 0.15 85 / 0%)] via-[oklch(0.78 0.18 220 / 0%)] to-[oklch(0.78 0.19 152 / 0%)] group-hover:from-[oklch(0.82 0.15 85 / 12%)] group-hover:via-[oklch(0.78 0.18 220 / 12%)] group-hover:to-[oklch(0.78 0.19 152 / 12%)] blur-lg transition-all duration-500 -z-10" />
     </motion.button>
   )
 }

@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Sidebar, NAV_ITEMS } from '@/components/hisab/sidebar'
 import { Header } from '@/components/hisab/header'
 import { Footer } from '@/components/hisab/footer'
+import { FloatingNav } from '@/components/hisab/floating-nav'
 import { Landing } from '@/components/hisab/sections/landing'
 import { LiveDashboard } from '@/components/hisab/sections/live-dashboard'
 import { ChartAnalysis } from '@/components/hisab/sections/chart-analysis'
@@ -129,6 +130,24 @@ export default function Home() {
 
         <Footer onNavigate={setActiveSection} />
       </div>
+
+      {/* Floating hamburger menu button — visible on landing page (mobile only) */}
+      {isLanding && (
+        <button
+          onClick={() => setSidebarOpen(true)}
+          className="lg:hidden fixed top-4 right-4 z-50 w-11 h-11 rounded-xl liquid-glass-strong flex items-center justify-center text-foreground hover:scale-105 active:scale-95 transition-transform"
+          aria-label="Open navigation menu"
+        >
+          <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+            <line x1="2" y1="4.5" x2="16" y2="4.5" />
+            <line x1="2" y1="9" x2="16" y2="9" />
+            <line x1="2" y1="13.5" x2="16" y2="13.5" />
+          </svg>
+        </button>
+      )}
+
+      {/* Floating bottom nav — appears on ALL pages, 4 buttons */}
+      <FloatingNav active={activeSection} onNavigate={setActiveSection} />
     </div>
   )
 }

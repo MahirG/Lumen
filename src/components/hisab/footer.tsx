@@ -24,7 +24,7 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
   ]
 
   return (
-    <footer className="mt-auto relative border-t border-white/[6%] glass-strong">
+    <footer className="mt-auto relative border-t border-white/[6%] glass-strong pb-28 lg:pb-12">
       {/* Top gradient line */}
       <div className="h-px bg-gradient-to-r from-transparent via-[oklch(0.82_0.15_85/40%)] to-transparent" />
 
