@@ -1,0 +1,12 @@
+{
+  "name": "hisab-realtime-service",
+  "version": "1.0.0",
+  "description": "Real-time WebSocket service for Hisab Gold AI — pushes live XAUUSD ticks, alerts, and session changes.",
+  "scripts": {
+    "dev": "bun --hot index.ts",
+    "start": "bun index.ts"
+  },
+  "dependencies": {
+    "socket.io": "^4.8.1"
+  }
+}

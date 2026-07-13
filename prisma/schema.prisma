@@ -1,0 +1,97 @@
+// Hisab Gold AI — Prisma schema
+// Educational XAUUSD analysis platform. Stores trade journal, user settings, alerts.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  password  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  trades    Trade[]
+  settings  UserSettings?
+}
+
+model UserSettings {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountBalance  Float    @default(10000)
+  riskPercent     Float    @default(1)
+  preferredSession String  @default("London")
+  aiProvider      String   @default("auto")
+  theme           String   @default("dark")
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Trade {
+  id            String   @id @default(cuid())
+  userId        String
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  symbol        String   @default("XAUUSD")
+  direction     String   // BUY | SELL
+  bias          String?  // BULLISH | BEARISH | NEUTRAL
+  confidence    Int?     // 0-100
+
+  entryPrice    Float
+  stopLoss      Float
+  takeProfit1   Float?
+  takeProfit2   Float?
+  takeProfit3   Float?
+  lotSize       Float
+  riskReward    Float?
+
+  result        String   @default("OPEN") // OPEN | WIN | LOSS | BE | CANCELLED
+  pnl           Float?
+  exitPrice     Float?
+
+  screenshotUrl String?
+  emotion       String?
+  mistakes      String?
+  notes         String?
+
+  session       String?  // Asian | London | New York
+  timeframe     String?
+  setupType     String?  // SMC, ICT, etc.
+
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+  closedAt      DateTime?
+}
+
+model Alert {
+  id          String   @id @default(cuid())
+  type        String   // LIQUIDITY_SWEEP | BOS | CHOCH | ORDER_BLOCK | FVG_FILL | PREMIUM | DISCOUNT
+  symbol      String   @default("XAUUSD")
+  timeframe   String
+  message     String
+  severity    String   @default("info") // info | warn | critical
+  price       Float?
+  acknowledged Boolean @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model NewsEvent {
+  id         String   @id @default(cuid())
+  source     String   // ForexFactory | TradingEconomics | Investing
+  title      String
+  currency   String   @default("USD")
+  impact     String   // HIGH | MEDIUM | LOW
+  actual     String?
+  forecast   String?
+  previous   String?
+  eventTime  DateTime
+  createdAt  DateTime @default(now())
+}

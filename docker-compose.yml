@@ -1,0 +1,22 @@
+# Hisab Gold AI — Docker Compose
+# One-command local development environment
+
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+      - "3003:3003"
+    environment:
+      - DATABASE_URL=file:/app/db/custom.db
+      - NODE_ENV=production
+    volumes:
+      - app-db:/app/db
+    restart: unless-stopped
+
+volumes:
+  app-db:
