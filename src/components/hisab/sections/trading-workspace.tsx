@@ -59,35 +59,90 @@ interface IndicatorState {
 
 type ToolType = 'crosshair' | 'move' | 'trend' | 'fib' | 'text'
 
-// ===== Generate candles for any symbol =====
-function generateSymbolCandles(symbol: SymbolDef, timeframe: Timeframe, count = 200): Candle[] {
-  const tfMultipliers: Record<Timeframe, number> = {
-    '1M': 0.2, '5M': 0.4, '15M': 0.8, '1H': 2.0, '4H': 4.0, 'D': 10, 'W': 25, 'M': 50,
+// ===== Generate realistic OHLC candles for any symbol =====
+// Uses a proper random-walk model with trend cycles, volatility clustering,
+// and realistic wick/body ratios — mimicking real market behavior.
+function generateSymbolCandles(symbol: SymbolDef, timeframe: Timeframe, count = 500): Candle[] {
+  const tfVolScale: Record<Timeframe, number> = {
+    '1M': 0.15, '5M': 0.35, '15M': 0.7, '1H': 1.5, '4H': 3.5, 'D': 8, 'W': 20, 'M': 45,
   }
   const tfSeconds: Record<Timeframe, number> = {
     '1M': 60, '5M': 300, '15M': 900, '1H': 3600, '4H': 14400,
     'D': 86400, 'W': 604800, 'M': 2592000,
   }
-  const vol = tfMultipliers[timeframe] * symbol.volatility
+
+  const baseVol = tfVolScale[timeframe] * symbol.volatility
   const interval = tfSeconds[timeframe] * 1000
   const now = Date.now()
+  // Align to candle boundary
+  const currentCandleTime = Math.floor(now / interval) * interval
   const candles: Candle[] = []
+
+  // Starting price — walk backwards from basePrice
   let price = symbol.basePrice
-  let trend = 0
+
+  // Generate forward from oldest to newest, creating a realistic price story
+  // We'll build a trend regime model: trending up, ranging, trending down
+  let regime: 'up' | 'down' | 'range' = 'range'
+  let regimeBarCount = 0
+  let regimeDuration = 20 + Math.floor(Math.random() * 40)
+  let trendStrength = 0
+  // Volatility clustering
+  let currentVol = baseVol
+  let volMultiplier = 1.0
 
   for (let i = count - 1; i >= 0; i--) {
-    const time = now - i * interval
-    if (i % 30 === 0) trend = (Math.random() - 0.5) * 0.4
-    const noise = (Math.random() - 0.5) * vol * 2
-    const open = price
-    const close = open + noise + trend * vol
-    const range = Math.abs(noise) * (1 + Math.random()) + vol * 0.3
-    const high = Math.max(open, close) + Math.random() * range * 0.5
-    const low = Math.min(open, close) - Math.random() * range * 0.5
-    const volume = 1000 + Math.random() * 5000 + Math.abs(noise) * 200
+    const time = currentCandleTime - i * interval
+
+    // Regime switching
+    regimeBarCount++
+    if (regimeBarCount >= regimeDuration) {
+      const r = Math.random()
+      if (r < 0.4) { regime = 'up'; trendStrength = 0.3 + Math.random() * 0.5 }
+      else if (r < 0.7) { regime = 'down'; trendStrength = -(0.3 + Math.random() * 0.5) }
+      else { regime = 'range'; trendStrength = (Math.random() - 0.5) * 0.2 }
+      regimeBarCount = 0
+      regimeDuration = 20 + Math.floor(Math.random() * 50)
+    }
+
+    // Volatility clustering — GARCH-like
+    volMultiplier = volMultiplier * 0.95 + (0.8 + Math.random() * 0.6) * 0.05
+    currentVol = baseVol * volMultiplier
+
+    // Open = previous close (with small gap)
+    const gap = (Math.random() - 0.5) * currentVol * 0.3
+    const open = price + gap
+
+    // Trend component
+    const trendMove = trendStrength * currentVol
+
+    // Random noise (brownian motion)
+    const noise = (Math.random() - 0.5) * currentVol * 2
+
+    // Close = open + trend + noise
+    const close = open + trendMove + noise
+
+    // Realistic wick formation
+    // High and low extend beyond body by a random factor
+    const bodySize = Math.abs(close - open)
+    const wickFactor1 = 0.3 + Math.random() * 0.8
+    const wickFactor2 = 0.3 + Math.random() * 0.8
+    const upperWick = bodySize * wickFactor1 + currentVol * 0.2 * Math.random()
+    const lowerWick = bodySize * wickFactor2 + currentVol * 0.2 * Math.random()
+
+    const high = Math.max(open, close) + upperWick
+    const low = Math.min(open, close) - lowerWick
+
+    // Volume — higher on breakouts and trend changes
+    const baseVol_amount = 2000 + Math.random() * 3000
+    const trendVolBoost = Math.abs(trendMove) > currentVol * 0.5 ? 1.5 : 1.0
+    const bodyVolBoost = bodySize > currentVol ? 1.8 : 1.0
+    const volume = baseVol_amount * trendVolBoost * bodyVolBoost
+
     candles.push({ time, open, high, low, close, volume })
     price = close
   }
+
   return candles
 }
 
@@ -102,17 +157,78 @@ export function TradingWorkspace() {
   const [isFullscreen, setIsFullscreen] = React.useState(false)
   const [showSymbolSearch, setShowSymbolSearch] = React.useState(false)
   const [showAIAnalysis, setShowAIAnalysis] = React.useState(true)
+  const [liveCandles, setLiveCandles] = React.useState<Candle[]>([])
+  const [crosshairData, setCrosshairData] = React.useState<{ o: number; h: number; l: number; c: number; vol: number } | null>(null)
 
   const symbol = SYMBOLS.find(s => s.id === symbolId) ?? SYMBOLS[0]
   const isLiveSymbol = symbolId === 'XAUUSD' && marketPrice
 
   React.useEffect(() => {
     setLoading(true)
-    const t = setTimeout(() => setLoading(false), 600)
+    const t = setTimeout(() => setLoading(false), 500)
     return () => clearTimeout(t)
   }, [symbolId, timeframe])
 
-  const chartCandles = React.useMemo(() => generateSymbolCandles(symbol, timeframe, 200), [symbol, timeframe])
+  // Generate 500 historical candles
+  const baseCandles = React.useMemo(() => generateSymbolCandles(symbol, timeframe, 500), [symbol, timeframe])
+
+  // Initialize live candles from base
+  React.useEffect(() => {
+    setLiveCandles(baseCandles)
+  }, [baseCandles])
+
+  // Real-time candle formation — update the last candle's close/high/low
+  // like TradingView does. New candle when timeframe interval passes.
+  React.useEffect(() => {
+    if (liveCandles.length === 0) return
+    const tfSecondsMap: Record<Timeframe, number> = {
+      '1M': 60, '5M': 300, '15M': 900, '1H': 3600, '4H': 14400, 'D': 86400, 'W': 604800, 'M': 2592000,
+    }
+    const interval = tfSecondsMap[timeframe] * 1000
+    const volScale: Record<Timeframe, number> = {
+      '1M': 0.15, '5M': 0.35, '15M': 0.7, '1H': 1.5, '4H': 3.5, 'D': 8, 'W': 20, 'M': 45,
+    }
+    const tickVol = volScale[timeframe] * symbol.volatility * 0.3
+
+    const tick = setInterval(() => {
+      setLiveCandles(prev => {
+        if (prev.length === 0) return prev
+        const updated = [...prev]
+        const last = { ...updated[updated.length - 1] }
+        const now = Date.now()
+        const candleTime = Math.floor(now / interval) * interval
+
+        // Check if we need a new candle
+        if (candleTime > last.time) {
+          // Lock the old candle, create a new one
+          const newCandle: Candle = {
+            time: candleTime,
+            open: last.close,
+            high: last.close + Math.random() * tickVol,
+            low: last.close - Math.random() * tickVol,
+            close: last.close + (Math.random() - 0.5) * tickVol * 2,
+            volume: 500 + Math.random() * 2000,
+          }
+          // Keep last 500 candles
+          updated.push(newCandle)
+          if (updated.length > 500) updated.shift()
+        } else {
+          // Update current candle — like TradingView live formation
+          const priceMove = (Math.random() - 0.5) * tickVol * 2
+          last.close = last.close + priceMove
+          last.high = Math.max(last.high, last.close)
+          last.low = Math.min(last.low, last.close)
+          last.volume += Math.random() * 200
+          updated[updated.length - 1] = last
+        }
+        return updated
+      })
+    }, 1500) // Update every 1.5s for smooth live feel
+
+    return () => clearInterval(tick)
+  }, [timeframe, symbol])
+
+  const chartCandles = liveCandles.length > 0 ? liveCandles : baseCandles
 
   const currentPrice = isLiveSymbol ? marketPrice.last : chartCandles.at(-1)?.close ?? 0
   const prevClose = chartCandles.at(-2)?.close ?? currentPrice
@@ -121,6 +237,15 @@ export function TradingWorkspace() {
   const isUp = change >= 0
 
   const priceFormat = currentPrice > 1000 ? 2 : currentPrice > 10 ? 2 : 4
+
+  // Display data for OHLC box — use crosshair data if hovering, else last candle
+  const displayData = crosshairData ?? {
+    o: chartCandles.at(-1)?.open ?? 0,
+    h: chartCandles.at(-1)?.high ?? 0,
+    l: chartCandles.at(-1)?.low ?? 0,
+    c: chartCandles.at(-1)?.close ?? 0,
+    vol: chartCandles.at(-1)?.volume ?? 0,
+  }
 
   return (
     <div className={cn('space-y-4', isFullscreen && 'fixed inset-0 z-[100] p-4 bg-background overflow-auto')}>
@@ -295,8 +420,20 @@ export function TradingWorkspace() {
               showMACD={indicators.macd}
               showVolume={indicators.volume}
               pricePrecision={priceFormat}
+              onCrosshairMove={setCrosshairData}
             />
           )}
+
+          {/* OHLC info box — top left, TradingView style */}
+          <div className="absolute top-2 left-2 z-10 flex items-center gap-3 px-3 py-1.5 rounded-md text-[10px] font-mono" style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
+            <span className="font-bold text-foreground">{symbol.label}</span>
+            <span className="text-muted-foreground">{timeframe}</span>
+            <span className="text-muted-foreground">O:<span className="text-foreground ml-0.5">{formatNumber(displayData.o, priceFormat)}</span></span>
+            <span className="text-muted-foreground">H:<span className="ml-0.5" style={{ color: '#10B981' }}>{formatNumber(displayData.h, priceFormat)}</span></span>
+            <span className="text-muted-foreground">L:<span className="ml-0.5" style={{ color: '#EF4444' }}>{formatNumber(displayData.l, priceFormat)}</span></span>
+            <span className="text-muted-foreground">C:<span className="ml-0.5" style={{ color: displayData.c >= displayData.o ? '#10B981' : '#EF4444' }}>{formatNumber(displayData.c, priceFormat)}</span></span>
+            <span className="text-muted-foreground hidden sm:inline">Vol:<span className="text-foreground ml-0.5">{formatNumber(displayData.vol, 0)}</span></span>
+          </div>
 
           {/* Connection status */}
           <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1 rounded-md z-10" style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
@@ -308,9 +445,9 @@ export function TradingWorkspace() {
         {/* Bottom info bar */}
         <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5" style={{ borderTop: '1px solid var(--border)' }}>
           <div className="flex items-center gap-3 text-[10px] font-mono text-muted-foreground flex-wrap">
-            <span>O: <span className="text-foreground">{formatNumber(chartCandles.at(-1)?.open ?? 0, priceFormat)}</span></span>
-            <span>H: <span style={{ color: '#10B981' }}>{formatNumber(chartCandles.at(-1)?.high ?? 0, priceFormat)}</span></span>
-            <span>L: <span style={{ color: '#EF4444' }}>{formatNumber(chartCandles.at(-1)?.low ?? 0, priceFormat)}</span></span>
+            <span>O: <span className="text-foreground">{formatNumber(displayData.o, priceFormat)}</span></span>
+            <span>H: <span style={{ color: '#10B981' }}>{formatNumber(displayData.h, priceFormat)}</span></span>
+            <span>L: <span style={{ color: '#EF4444' }}>{formatNumber(displayData.l, priceFormat)}</span></span>
             <span>C: <span className="text-foreground">{formatNumber(chartCandles.at(-1)?.close ?? 0, priceFormat)}</span></span>
             <span className="hidden sm:inline">Vol: <span className="text-foreground">{formatNumber(chartCandles.at(-1)?.volume ?? 0, 0)}</span></span>
           </div>
@@ -336,7 +473,7 @@ export function TradingWorkspace() {
    PRO CHART — TradingView-style with MACD
    ============================================ */
 
-function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, showVolume, pricePrecision }: {
+function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, showVolume, pricePrecision, onCrosshairMove }: {
   candles: Candle[]
   timeframe: Timeframe
   showMA: boolean
@@ -345,6 +482,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
   showMACD: boolean
   showVolume: boolean
   pricePrecision: number
+  onCrosshairMove?: (data: { o: number; h: number; l: number; c: number; vol: number } | null) => void
 }) {
   const containerRef = React.useRef<HTMLDivElement>(null)
   const chartRef = React.useRef<IChartApi | null>(null)
@@ -395,6 +533,24 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     chartRef.current = chart
     candleSeriesRef.current = candleSeries
 
+    // Crosshair move — update OHLC info box like TradingView
+    chart.subscribeCrosshairMove((param) => {
+      if (!param.time || !param.seriesData || !onCrosshairMove) {
+        onCrosshairMove?.(null)
+        return
+      }
+      const data = param.seriesData.get(candleSeries)
+      if (data && 'open' in data) {
+        onCrosshairMove({
+          o: (data as any).open,
+          h: (data as any).high,
+          l: (data as any).low,
+          c: (data as any).close,
+          vol: (data as any).volume ?? 0,
+        })
+      }
+    })
+
     const handleResize = () => {
       if (containerRef.current && chartRef.current) {
         chartRef.current.applyOptions({ width: containerRef.current.clientWidth, height: containerRef.current.clientHeight })
@@ -415,16 +571,49 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     }
   }, [timeframe, pricePrecision])
 
-  // Candle data
+  // Candle data — use setData on first load, then update() for live ticks
+  const isFirstLoad = React.useRef(true)
+  const lastCandleTime = React.useRef<number>(0)
+
   React.useEffect(() => {
     if (!candleSeriesRef.current || !candles.length) return
-    const data = candles.map(c => ({
-      time: Math.floor(c.time / 1000) as any,
-      open: c.open, high: c.high, low: c.low, close: c.close,
-    }))
-    candleSeriesRef.current.setData(data)
-    chartRef.current?.timeScale().fitContent()
+
+    if (isFirstLoad.current) {
+      // Full data load — set all candles at once
+      const data = candles.map(c => ({
+        time: Math.floor(c.time / 1000) as any,
+        open: c.open, high: c.high, low: c.low, close: c.close,
+      }))
+      candleSeriesRef.current.setData(data)
+      chartRef.current?.timeScale().fitContent()
+      isFirstLoad.current = false
+      lastCandleTime.current = candles[candles.length - 1].time
+    } else {
+      // Live update — only update the last candle (or add new one)
+      const last = candles[candles.length - 1]
+      const timeSec = Math.floor(last.time / 1000) as any
+
+      if (last.time > lastCandleTime.current) {
+        // New candle — add it
+        candleSeriesRef.current.update({
+          time: timeSec,
+          open: last.open, high: last.high, low: last.low, close: last.close,
+        })
+        lastCandleTime.current = last.time
+      } else {
+        // Update existing candle (same timeframe period)
+        candleSeriesRef.current.update({
+          time: timeSec,
+          open: last.open, high: last.high, low: last.low, close: last.close,
+        })
+      }
+    }
   }, [candles])
+
+  // Reset first load flag when timeframe or symbol changes
+  React.useEffect(() => {
+    isFirstLoad.current = true
+  }, [timeframe, pricePrecision])
 
   // Clear and rebuild indicators
   React.useEffect(() => {
