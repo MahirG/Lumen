@@ -208,14 +208,14 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
               <Shield className="w-2.5 h-2.5" /> Educational Only
             </PremiumBadge>
             <a
-              href="https://t.me/mahifxcapital"
+              href="https://hisabtechnologies.com"
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[oklch(0.82_0.15_85/15%)] to-transparent border border-[oklch(0.82_0.15_85/25%)] hover:border-[oklch(0.82_0.15_85/45%)] transition-all group"
             >
               <span className="text-muted-foreground text-[11px]">Powered by</span>
               <span className="text-[oklch(0.92_0.13_85)] font-bold text-[11px] tracking-wide font-display">HisabTech</span>
-              <Send className="w-3 h-3 text-[oklch(0.92_0.13_85)] group-hover:translate-x-0.5 transition-transform" />
+              <ArrowUpRight className="w-3 h-3 text-[oklch(0.92_0.13_85)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           </div>
         </div>

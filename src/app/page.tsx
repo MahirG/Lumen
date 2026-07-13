@@ -6,6 +6,7 @@ import { Sidebar, NAV_ITEMS } from '@/components/hisab/sidebar'
 import { Header } from '@/components/hisab/header'
 import { Footer } from '@/components/hisab/footer'
 import { FloatingNav } from '@/components/hisab/floating-nav'
+import { FloatingAIBot } from '@/components/hisab/floating-bot'
 import { Landing } from '@/components/hisab/sections/landing'
 import { LiveDashboard } from '@/components/hisab/sections/live-dashboard'
 import { ChartAnalysis } from '@/components/hisab/sections/chart-analysis'
@@ -44,6 +45,7 @@ const SECTION_META: Record<string, { title: string; subtitle: string }> = {
 }
 
 export default function Home() {
+  // Read initial section from URL hash on mount (for refresh persistence)
   const [activeSection, setActiveSection] = React.useState('home')
   const [sidebarOpen, setSidebarOpen] = React.useState(false)
   const [seoPage, setSeoPage] = React.useState<string | null>(null)
@@ -55,18 +57,19 @@ export default function Home() {
   const asneGenerate = useASNEStore(s => s.generateFromMarket)
   useRealtimeService()
 
-  // Handle SEO page routing from URL path
+  // Handle routing from URL — restore section on refresh, handle SEO pages
   React.useEffect(() => {
     const checkRoute = () => {
       const path = window.location.pathname.replace(/^\/+|\/+$/g, '')
+      const hash = window.location.hash.replace(/^#/, '')
+
+      // Check if it's an SEO page (path-based)
       if (path && SEO_PAGES[path]) {
         setSeoPage(path)
-        // Update document title and meta for SEO
         const page = SEO_PAGES[path]
         document.title = page.seoTitle
         const metaDesc = document.querySelector('meta[name="description"]')
         if (metaDesc) metaDesc.setAttribute('content', page.metaDescription)
-        // Add FAQ schema if page has FAQs
         if (page.faqs.length > 0) {
           const faqSchema = {
             '@context': 'https://schema.org',
@@ -86,21 +89,30 @@ export default function Home() {
           }
           scriptTag.textContent = JSON.stringify(faqSchema)
         }
-      } else {
-        setSeoPage(null)
-        // Reset to default title
-        document.title = 'AI Trading Platform for Professional Traders | ApexEAPro'
-        const faqSchema = document.getElementById('seo-faq-schema')
-        if (faqSchema) faqSchema.remove()
+        return
+      }
+
+      // Not an SEO page — check hash for section (refresh persistence)
+      setSeoPage(null)
+      document.title = 'AI Trading Platform for Professional Traders | ApexEAPro'
+      const faqSchema = document.getElementById('seo-faq-schema')
+      if (faqSchema) faqSchema.remove()
+
+      if (hash) {
+        // Restore section from hash
+        setActiveSection(hash)
       }
     }
     checkRoute()
-    // Listen for popstate (back/forward navigation)
     window.addEventListener('popstate', checkRoute)
-    return () => window.removeEventListener('popstate', checkRoute)
+    window.addEventListener('hashchange', checkRoute)
+    return () => {
+      window.removeEventListener('popstate', checkRoute)
+      window.removeEventListener('hashchange', checkRoute)
+    }
   }, [])
 
-  // Navigate to SEO page (updates URL)
+  // Navigate to section or SEO page (updates URL)
   const navigateToSection = React.useCallback((section: string) => {
     // Check if it's an SEO page
     if (SEO_PAGES[section]) {
@@ -108,16 +120,14 @@ export default function Home() {
       setSeoPage(section)
       setActiveSection('home')
       window.scrollTo(0, 0)
-      // Update meta
       const page = SEO_PAGES[section]
       document.title = page.seoTitle
       const metaDesc = document.querySelector('meta[name="description"]')
       if (metaDesc) metaDesc.setAttribute('content', page.metaDescription)
       return
     }
-    // Regular section navigation
+    // Regular section navigation — update hash for refresh persistence
     if (seoPage) {
-      // Leaving SEO page — reset URL
       window.history.pushState({}, '', '/')
       setSeoPage(null)
       document.title = 'AI Trading Platform for Professional Traders | ApexEAPro'
@@ -125,6 +135,12 @@ export default function Home() {
       if (faqSchema) faqSchema.remove()
     }
     setActiveSection(section)
+    // Update URL hash so refresh stays on the same section
+    if (section === 'home') {
+      window.history.pushState({}, '', '/')
+    } else {
+      window.history.pushState({}, '', `/#${section}`)
+    }
     window.scrollTo(0, 0)
   }, [seoPage])
 
@@ -225,11 +241,12 @@ export default function Home() {
         <Footer onNavigate={navigateToSection} />
       </div>
 
-      {/* Floating hamburger menu button — visible on landing page (mobile only) */}
+      {/* Floating hamburger menu button — visible on landing/SEO pages (mobile only).
+          Positioned on the LEFT to match the sidebar which slides from the left. */}
       {(isLanding || isSeoPage) && (
         <button
           onClick={() => setSidebarOpen(true)}
-          className="lg:hidden fixed top-4 right-4 z-50 w-11 h-11 rounded-xl liquid-glass-strong flex items-center justify-center text-foreground hover:scale-105 active:scale-95 transition-transform"
+          className="lg:hidden fixed top-4 left-4 z-50 w-11 h-11 rounded-xl liquid-glass-strong flex items-center justify-center text-foreground hover:scale-105 active:scale-95 transition-transform"
           aria-label="Open navigation menu"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
@@ -242,6 +259,9 @@ export default function Home() {
 
       {/* Floating bottom nav — appears on ALL pages, 4 buttons */}
       <FloatingNav active={activeSection} onNavigate={navigateToSection} />
+
+      {/* Floating AI Bot — appears on ALL pages */}
+      <FloatingAIBot onNavigate={navigateToSection} />
     </div>
   )
 }

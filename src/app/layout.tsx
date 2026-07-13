@@ -101,7 +101,7 @@ export const metadata: Metadata = {
     "multi-timeframe analysis",
     "risk management trading",
   ],
-  authors: [{ name: "HisabTech", url: "https://t.me/mahifxcapital" }],
+  authors: [{ name: "HisabTech", url: "https://hisabtechnologies.com" }],
   creator: "HisabTech",
   publisher: "HisabTech",
   category: "Financial Technology",
@@ -190,16 +190,17 @@ const organizationSchema = {
   founder: {
     "@type": "Organization",
     name: "HisabTech",
-    url: "https://t.me/mahifxcapital",
+    url: "https://hisabtechnologies.com",
   },
   sameAs: [
+    "https://hisabtechnologies.com",
     "https://t.me/mahifxcapital",
     "https://github.com/MahirG/Lumen",
   ],
   contactPoint: {
     "@type": "ContactPoint",
     contactType: "customer support",
-    url: "https://t.me/mahifxcapital",
+    url: "https://hisabtechnologies.com",
   },
 };
 
