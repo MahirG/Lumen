@@ -22,12 +22,11 @@ export function Landing({ onNavigate }: LandingProps) {
   const price = useMarketStore(s => s.price)
   const indicators = useMarketStore(s => s.indicators)
   const { scrollY } = useScroll()
-  const heroY = useTransform(scrollY, [0, 500], [0, -60])
-  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.85])
+  const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.95])
 
   return (
     <div className="space-y-0">
-      <HeroSection onNavigate={onNavigate} price={price} indicators={indicators} heroY={heroY} heroOpacity={heroOpacity} />
+      <HeroSection onNavigate={onNavigate} price={price} indicators={indicators} heroOpacity={heroOpacity} />
       <StatsSection />
       <FeaturesSection onNavigate={onNavigate} />
       <AIPreviewSection onNavigate={onNavigate} />
@@ -44,7 +43,7 @@ export function Landing({ onNavigate }: LandingProps) {
    HERO — Cinematic with animated background
    ============================================ */
 
-function HeroSection({ onNavigate, price, indicators, heroY, heroOpacity }: any) {
+function HeroSection({ onNavigate, price, indicators, heroOpacity }: any) {
   return (
     <section className="relative min-h-[88vh] flex items-center overflow-hidden aurora">
       {/* Animated grid background */}
@@ -64,7 +63,7 @@ function HeroSection({ onNavigate, price, indicators, heroY, heroOpacity }: any)
       />
 
       <motion.div
-        style={{ y: heroY, opacity: heroOpacity }}
+        style={{ opacity: heroOpacity }}
         className="relative z-10 max-w-7xl mx-auto px-4 lg:px-6 py-20 w-full"
       >
         <div className="grid lg:grid-cols-12 gap-8 items-center">

@@ -18,8 +18,10 @@ import { GoldStrengthMeter } from '@/components/hisab/sections/gold-strength'
 import { RiskManager } from '@/components/hisab/sections/risk-manager'
 import { TradeJournal } from '@/components/hisab/sections/journal'
 import { SmartAlerts } from '@/components/hisab/sections/alerts'
+import { ASNEEngine } from '@/components/hisab/sections/asne'
 import { AICoach } from '@/components/hisab/sections/coach'
 import { useMarketStore } from '@/lib/hisab/market-store'
+import { useASNEStore } from '@/lib/hisab/asne-store'
 import { useRealtimeService } from '@/lib/hisab/use-realtime'
 
 const SECTION_META: Record<string, { title: string; subtitle: string }> = {
@@ -35,6 +37,7 @@ const SECTION_META: Record<string, { title: string; subtitle: string }> = {
   risk: { title: 'AI Risk Manager', subtitle: 'Position sizing & R:R calculator' },
   journal: { title: 'Trade Journal', subtitle: 'Log, analyze, and improve your trading' },
   alerts: { title: 'Smart Alerts', subtitle: 'Real-time SMC event notifications' },
+  asne: { title: 'ASNE Engine v1.0', subtitle: 'AI Smart Notification Engine — institutional alert system' },
   coach: { title: 'AI Coach', subtitle: 'Mentor-style trade explanations' },
 }
 
@@ -45,10 +48,15 @@ export default function Home() {
   const fetchRealPrice = useMarketStore(s => s.fetchRealPrice)
   const microTick = useMarketStore(s => s.microTick)
   const refreshSession = useMarketStore(s => s.refreshSession)
+  const asneInit = useASNEStore(s => s.init)
+  const asneGenerate = useASNEStore(s => s.generateFromMarket)
   useRealtimeService()
 
   // Initialize market data on mount
-  React.useEffect(() => { init() }, [init])
+  React.useEffect(() => {
+    init()
+    asneInit()
+  }, [init, asneInit])
 
   // Fetch REAL price every 20 seconds
   React.useEffect(() => {
@@ -67,6 +75,12 @@ export default function Home() {
     const interval = setInterval(refreshSession, 30000)
     return () => clearInterval(interval)
   }, [refreshSession])
+
+  // ASNE: generate notifications every 30 seconds
+  React.useEffect(() => {
+    const interval = setInterval(() => { asneGenerate() }, 30000)
+    return () => clearInterval(interval)
+  }, [asneGenerate])
 
   // Scroll to top on section change
   const mainRef = React.useRef<HTMLElement>(null)
@@ -121,6 +135,7 @@ export default function Home() {
                   {activeSection === 'risk' && <RiskManager />}
                   {activeSection === 'journal' && <TradeJournal />}
                   {activeSection === 'alerts' && <SmartAlerts />}
+                  {activeSection === 'asne' && <ASNEEngine onNavigate={setActiveSection} />}
                   {activeSection === 'coach' && <AICoach />}
                 </div>
               )}

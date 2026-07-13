@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Home, LayoutDashboard, Atom, Eye } from 'lucide-react'
+import { Home, LayoutDashboard, Atom, BellRing } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
 interface FloatingNavProps {
@@ -14,7 +14,7 @@ const NAV_ITEMS = [
   { id: 'home', label: 'Home', icon: Home },
   { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
   { id: 'aile', label: 'AILE', icon: Atom },
-  { id: 'chart-analysis', label: 'Charts', icon: Eye },
+  { id: 'asne', label: 'Alerts', icon: BellRing },
 ]
 
 /**

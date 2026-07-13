@@ -6,7 +6,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, LayoutDashboard, Brain, Clock, Newspaper, Gauge,
   Calculator, BookOpen, Bell, GraduationCap, Eye,
-  Activity, X, Sparkles, Zap, Crown, Layers,
+  Activity, X, Sparkles, Zap, Crown, Layers, BellRing,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Button } from '@/components/ui/button'
@@ -34,6 +34,7 @@ export const NAV_ITEMS: NavItem[] = [
   { id: 'risk', label: 'Risk Manager', icon: Calculator, description: 'Position size & R:R', category: 'tools' },
   { id: 'journal', label: 'Trade Journal', icon: BookOpen, description: 'Log · stats · analytics', category: 'tools' },
   { id: 'alerts', label: 'Smart Alerts', icon: Bell, description: 'SMC event notifications', category: 'tools' },
+  { id: 'asne', label: 'ASNE Engine', icon: BellRing, description: 'AI smart notification center', badge: 'NEW', category: 'tools' },
   { id: 'coach', label: 'AI Coach', icon: GraduationCap, description: 'Mentor-style explanations', category: 'tools' },
 ]
 
