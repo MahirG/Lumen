@@ -28,20 +28,20 @@ import { useASNEStore } from '@/lib/hisab/asne-store'
 import { useRealtimeService } from '@/lib/hisab/use-realtime'
 
 const SECTION_META: Record<string, { title: string; subtitle: string }> = {
-  home: { title: 'Apex EA Pro', subtitle: 'AI-Powered Forex & Gold Trading Intelligence' },
-  dashboard: { title: 'Live Dashboard', subtitle: 'Real-time XAUUSD market intelligence' },
-  'chart-analysis': { title: 'Chart Analysis', subtitle: 'SMC detection & AI Vision for XAUUSD' },
-  'decision-engine': { title: 'AI Decision Engine', subtitle: 'Probability-based trade setups' },
-  aile: { title: 'AILE Engine v1.0', subtitle: 'Apex Institutional Liquidity Engine — 12-phase analysis' },
-  mtf: { title: 'Multi-Timeframe Analysis', subtitle: '8-timeframe bias alignment matrix' },
-  sessions: { title: 'Session Detector', subtitle: 'Trading sessions & ICT kill zones' },
-  news: { title: 'Economic News Filter', subtitle: 'High-impact news monitoring' },
-  'gold-strength': { title: 'Gold Strength Meter', subtitle: 'Macro drivers of XAUUSD' },
-  risk: { title: 'AI Risk Manager', subtitle: 'Position sizing & R:R calculator' },
-  journal: { title: 'Trade Journal', subtitle: 'Log, analyze, and improve your trading' },
-  alerts: { title: 'Smart Alerts', subtitle: 'Real-time SMC event notifications' },
-  asne: { title: 'ASNE Engine v1.0', subtitle: 'AI Smart Notification Engine — institutional alert system' },
-  coach: { title: 'AI Coach', subtitle: 'Mentor-style trade explanations' },
+  home: { title: 'ApexEAPro', subtitle: 'The AI Operating System for Professional Traders' },
+  dashboard: { title: 'AI Intelligence Workspace', subtitle: 'Your personalized institutional trading command center' },
+  'chart-analysis': { title: 'Institutional Intelligence', subtitle: 'AI Vision + Smart Money Concepts detection' },
+  'decision-engine': { title: 'AI Market Intelligence', subtitle: 'Probability-based institutional setups' },
+  aile: { title: 'AILE Engine v1.0', subtitle: '12-phase institutional liquidity analysis' },
+  mtf: { title: 'Multi-Timeframe Intelligence', subtitle: '8-timeframe bias alignment matrix' },
+  sessions: { title: 'Session Intelligence', subtitle: 'ICT kill zones & institutional timing' },
+  news: { title: 'Global Market Events', subtitle: 'Economic event protection & countdown' },
+  'gold-strength': { title: 'Gold Strength Index', subtitle: 'Macro drivers: DXY · yields · volatility' },
+  risk: { title: 'Risk Intelligence', subtitle: 'Position sizing & risk-to-reward optimization' },
+  journal: { title: 'Performance Intelligence', subtitle: 'Trade log · analytics · emotion tracking' },
+  alerts: { title: 'Priority Intelligence', subtitle: 'Real-time SMC event notifications' },
+  asne: { title: 'Market Intelligence Center', subtitle: 'AI notification engine — 8 channels, anti-spam' },
+  coach: { title: 'Apex Academy', subtitle: 'AI mentor — institutional trade explanations' },
 }
 
 export default function Home() {

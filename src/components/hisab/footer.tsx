@@ -7,20 +7,20 @@ import { PremiumBadge } from './primitives'
 
 export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
   const productLinks = [
-    { label: 'Live Dashboard', section: 'dashboard' },
-    { label: 'Chart Analysis', section: 'chart-analysis' },
-    { label: 'AI Decision Engine', section: 'decision-engine' },
+    { label: 'Intelligence Workspace', section: 'dashboard' },
+    { label: 'Institutional Intelligence', section: 'chart-analysis' },
+    { label: 'AI Market Intelligence', section: 'decision-engine' },
     { label: 'Multi-Timeframe', section: 'mtf' },
-    { label: 'AI Coach', section: 'coach' },
-    { label: 'Trade Journal', section: 'journal' },
+    { label: 'Apex Academy', section: 'coach' },
+    { label: 'Performance Intelligence', section: 'journal' },
   ]
   const resourceLinks = [
-    { label: 'Session Detector', section: 'sessions' },
-    { label: 'News Filter', section: 'news' },
-    { label: 'Gold Strength', section: 'gold-strength' },
-    { label: 'Risk Manager', section: 'risk' },
-    { label: 'Smart Alerts', section: 'alerts' },
-    { label: 'Documentation', section: 'home' },
+    { label: 'Session Intelligence', section: 'sessions' },
+    { label: 'Global Market Events', section: 'news' },
+    { label: 'Gold Strength Index', section: 'gold-strength' },
+    { label: 'Risk Intelligence', section: 'risk' },
+    { label: 'Priority Intelligence', section: 'alerts' },
+    { label: 'Knowledge Center', section: 'home' },
   ]
 
   return (

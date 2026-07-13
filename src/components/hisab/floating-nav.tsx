@@ -12,9 +12,9 @@ interface FloatingNavProps {
 
 const NAV_ITEMS = [
   { id: 'home', label: 'Home', icon: Home },
-  { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+  { id: 'dashboard', label: 'Workspace', icon: LayoutDashboard },
   { id: 'aile', label: 'AILE', icon: Atom },
-  { id: 'asne', label: 'Alerts', icon: BellRing },
+  { id: 'asne', label: 'Intelligence', icon: BellRing },
 ]
 
 /**

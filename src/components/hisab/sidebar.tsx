@@ -18,24 +18,24 @@ export interface NavItem {
   icon: React.ComponentType<{ className?: string }>
   description: string
   badge?: string
-  category: 'home' | 'analysis' | 'tools'
+  category: 'home' | 'analysis' | 'intelligence'
 }
 
 export const NAV_ITEMS: NavItem[] = [
-  { id: 'home', label: 'Home', icon: Home, description: 'Landing page & overview', category: 'home' },
-  { id: 'dashboard', label: 'Live Dashboard', icon: LayoutDashboard, description: 'Real-time market intelligence', category: 'analysis' },
-  { id: 'chart-analysis', label: 'Chart Analysis', icon: Eye, description: 'AI Vision + SMC detection', category: 'analysis' },
-  { id: 'decision-engine', label: 'AI Decision Engine', icon: Brain, description: 'Bias · entry · SL · TP', category: 'analysis' },
-  { id: 'aile', label: 'AILE Engine', icon: Layers, description: 'Institutional 12-phase liquidity', badge: 'PRO', category: 'analysis' },
+  { id: 'home', label: 'Home', icon: Home, description: 'Platform overview', category: 'home' },
+  { id: 'dashboard', label: 'Intelligence Workspace', icon: LayoutDashboard, description: 'Institutional command center', category: 'analysis' },
+  { id: 'chart-analysis', label: 'Institutional Intelligence', icon: Eye, description: 'AI Vision + SMC detection', category: 'analysis' },
+  { id: 'decision-engine', label: 'AI Market Intelligence', icon: Brain, description: 'Bias · entry · SL · TP', category: 'analysis' },
+  { id: 'aile', label: 'AILE Engine', icon: Layers, description: '12-phase institutional liquidity', badge: 'PRO', category: 'analysis' },
   { id: 'mtf', label: 'Multi-Timeframe', icon: Activity, description: '8-timeframe bias matrix', category: 'analysis' },
-  { id: 'sessions', label: 'Session Detector', icon: Clock, description: 'ICT kill zones', category: 'tools' },
-  { id: 'news', label: 'News Filter', icon: Newspaper, description: 'Economic events & warnings', category: 'tools' },
-  { id: 'gold-strength', label: 'Gold Strength', icon: Gauge, description: 'DXY · yields · volatility', category: 'tools' },
-  { id: 'risk', label: 'Risk Manager', icon: Calculator, description: 'Position size & R:R', category: 'tools' },
-  { id: 'journal', label: 'Trade Journal', icon: BookOpen, description: 'Log · stats · analytics', category: 'tools' },
-  { id: 'alerts', label: 'Smart Alerts', icon: Bell, description: 'SMC event notifications', category: 'tools' },
-  { id: 'asne', label: 'ASNE Engine', icon: BellRing, description: 'AI smart notification center', badge: 'NEW', category: 'tools' },
-  { id: 'coach', label: 'AI Coach', icon: GraduationCap, description: 'Mentor-style explanations', category: 'tools' },
+  { id: 'sessions', label: 'Session Intelligence', icon: Clock, description: 'ICT kill zones', category: 'intelligence' },
+  { id: 'news', label: 'Global Market Events', icon: Newspaper, description: 'Economic events & protection', category: 'intelligence' },
+  { id: 'gold-strength', label: 'Gold Strength Index', icon: Gauge, description: 'DXY · yields · volatility', category: 'intelligence' },
+  { id: 'risk', label: 'Risk Intelligence', icon: Calculator, description: 'Position sizing & R:R', category: 'intelligence' },
+  { id: 'journal', label: 'Performance Intelligence', icon: BookOpen, description: 'Trade log · stats · analytics', category: 'intelligence' },
+  { id: 'alerts', label: 'Priority Intelligence', icon: Bell, description: 'SMC event notifications', category: 'intelligence' },
+  { id: 'asne', label: 'Market Intelligence Center', icon: BellRing, description: 'AI notification engine', badge: 'NEW', category: 'intelligence' },
+  { id: 'coach', label: 'Apex Academy', icon: GraduationCap, description: 'AI mentor & education', category: 'intelligence' },
 ]
 
 interface SidebarProps {
@@ -47,8 +47,8 @@ interface SidebarProps {
 
 const CATEGORY_LABELS: Record<NavItem['category'], string> = {
   home: 'Overview',
-  analysis: 'AI Analysis',
-  tools: 'Trading Tools',
+  analysis: 'Institutional Intelligence',
+  intelligence: 'Market Intelligence',
 }
 
 export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {

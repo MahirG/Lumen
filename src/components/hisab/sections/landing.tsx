@@ -93,8 +93,8 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-base md:text-lg text-foreground/70 max-w-2xl leading-relaxed mb-8"
           >
-            Analyze markets, detect opportunities, and receive institutional-grade
-            intelligence powered by advanced AI. Trade Less. Trade Smarter.
+            Institutional-grade market intelligence, powered by advanced artificial intelligence
+            and designed for traders who demand precision.
           </motion.p>
 
           {/* CTAs */}
@@ -105,7 +105,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             className="flex flex-wrap items-center gap-3 mb-8"
           >
             <GlowButton size="xl" variant="gold" glow onClick={() => onNavigate('dashboard')}>
-              <Cpu className="w-4 h-4" /> Launch AI Terminal
+              <Cpu className="w-4 h-4" /> Launch AI Intelligence Workspace
             </GlowButton>
             <GlowButton size="xl" variant="outline" onClick={() => onNavigate('aile')}>
               <Atom className="w-4 h-4" /> AILE Engine
@@ -120,10 +120,10 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground/60"
           >
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> AI Market Analysis</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Smart Notifications</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Multi-Timeframe Intelligence</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Institutional Trading Tools</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#34C759]" /> AI Market Intelligence</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#34C759]" /> Priority Intelligence</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#34C759]" /> Multi-Timeframe Intelligence</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#34C759]" /> Institutional Trading Tools</span>
           </motion.div>
         </div>
       </motion.div>
@@ -694,7 +694,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
 
         <div className="text-center mt-8">
           <GlowButton size="lg" variant="gold" glow onClick={() => onNavigate('dashboard')}>
-            <Zap className="w-4 h-4" /> Open AI Terminal
+            <Zap className="w-4 h-4" /> Open Intelligence Workspace
           </GlowButton>
         </div>
       </div>
@@ -1195,7 +1195,7 @@ function CTASection({ onNavigate }: { onNavigate: (s: string) => void }) {
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
             <GlowButton size="xl" variant="gold" glow onClick={() => onNavigate('dashboard')}>
-              <Zap className="w-4 h-4" /> Launch AI Terminal
+              <Zap className="w-4 h-4" /> Launch AI Intelligence Workspace
             </GlowButton>
             <GlowButton size="xl" variant="outline" onClick={() => onNavigate('aile')}>
               <Atom className="w-4 h-4" /> Try AILE Engine

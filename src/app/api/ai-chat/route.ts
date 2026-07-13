@@ -35,7 +35,7 @@ interface ChatRequest {
   }
 }
 
-const SYSTEM_PROMPT = `You are ApexBot, the AI assistant for ApexEAPro — the AI Operating System for Professional Traders.
+const SYSTEM_PROMPT = `You are Apex AI, the intelligent assistant for ApexEAPro — The AI Operating System for Professional Traders.
 
 Your personality:
 - Professional, intelligent, concise
@@ -66,7 +66,7 @@ Formatting rules:
 
 If asked about market conditions, use the provided context (price, RSI, ATR, session).
 If analyzing an uploaded chart, describe what you see and provide institutional analysis.
-Never reveal which AI model you are — you are always "ApexBot".`
+Never reveal which AI model you are — you are always "Apex AI".`
 
 export async function POST(req: NextRequest) {
   try {
@@ -213,5 +213,5 @@ function generateFallbackResponse(question: string, context?: ChatRequest['conte
     return `💎 **Pricing**\n\n• Professional: $79/month\n• Premium: $199/month ⭐\n• Institutional: $499/month\n\n14-day money-back guarantee.`
   }
 
-  return `I'm ApexBot, your AI trading assistant. I can help with:\n\n📊 Market conditions\n💰 Gold price\n🧠 SMC strategy\n⚙️ AILE Engine\n🕒 Sessions\n💎 Pricing\n🔧 Features\n🛡️ Risk management\n\nWhat would you like to know?`
+  return `I'm Apex AI, your institutional market intelligence assistant. I can help with:\n\n📊 Market intelligence\n💰 XAUUSD price\n🧠 SMC strategy\n⚙️ AILE Engine\n🕒 Session timing\n💎 Pricing plans\n🔧 Platform features\n🛡️ Risk intelligence\n\nWhat would you like to know?`
 }

@@ -220,7 +220,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
 
   const handleShare = async (text: string) => {
     if (navigator.share) {
-      try { await navigator.share({ title: 'ApexBot Analysis', text }) } catch {}
+      try { await navigator.share({ title: 'Apex AI Intelligence', text }) } catch {}
     } else {
       navigator.clipboard.writeText(text)
     }
@@ -285,10 +285,10 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
   }
 
   const quickPrompts = [
-    'What\'s the market doing?',
-    'What\'s the gold price?',
-    'What is the AILE Engine?',
-    'How much does it cost?',
+    'Analyze current market intelligence',
+    'What\'s the XAUUSD price?',
+    'Explain the AILE Engine',
+    'View pricing plans',
   ]
 
   return (
@@ -345,7 +345,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
-                  <span className="text-sm font-semibold tracking-tight">ApexBot</span>
+                  <span className="text-sm font-semibold tracking-tight">Apex AI</span>
                   <Sparkles className="w-3 h-3 text-[#FFD60A]" />
                 </div>
                 <div className="text-[10px] text-[#34C759] font-medium flex items-center gap-1">
@@ -382,7 +382,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                   {/* Role label */}
                   {msg.role === 'assistant' && (
                     <div className="flex items-center gap-1.5 ml-1 mb-0.5">
-                      <span className="text-[10px] font-medium text-[#007AFF]">ApexBot</span>
+                      <span className="text-[10px] font-medium text-[#007AFF]">Apex AI</span>
                       {msg.model && msg.model !== 'error' && (
                         <span className="text-[8px] text-[#F5F5F7]/30 font-mono uppercase">{msg.model.replace('multi-ai-routed', 'AI').replace('openai-reasoning', 'AI').replace('local-fallback', 'Local')}</span>
                       )}
@@ -524,7 +524,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                 value={input}
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
-                placeholder={isListening ? 'Listening...' : 'Ask anything or upload a chart...'}
+                placeholder={isListening ? 'Analyzing Institutional Activity...' : 'Ask Apex AI or upload a chart...'}
                 className="flex-1 px-3 py-2 rounded-full text-[13px] focus:outline-none placeholder:text-[#F5F5F7]/30"
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.06)', color: '#F5F5F7' }}
                 disabled={isLoading}
@@ -560,7 +560,7 @@ function welcomeMessage(): ChatMessage {
   return {
     id: 'welcome',
     role: 'assistant',
-    content: "Hi! I'm ApexBot — your multi-AI trading assistant.\n\nI combine three AI engines:\n• **OpenAI** for reasoning & explanations\n• **Gemini** for image & document analysis\n• **DeepSeek** for technical SMC analysis\n\nAsk me anything, or upload a chart screenshot for instant AI analysis.",
+    content: "Welcome to ApexEAPro.\n\nI'm Apex AI.\n\nI'm continuously monitoring global financial markets, institutional liquidity, macroeconomic events, and technical conditions.\n\nHow can I help you build better market intelligence today?",
     timestamp: Date.now(),
     model: 'system',
   }
