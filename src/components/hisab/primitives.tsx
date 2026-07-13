@@ -88,8 +88,8 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
       gold: 'text-[#071A2B] hover:shadow-[0_8px_32px_rgba(245,185,66,0.3)]',
       electric: 'text-white hover:shadow-[0_8px_32px_rgba(22,119,255,0.3)]',
       emerald: 'text-white hover:shadow-[0_8px_32px_rgba(16,185,129,0.3)]',
-      ghost: 'bg-white/[4%] hover:bg-white/[8%] text-foreground border border-white/[8%] hover:border-white/[14%]',
-      outline: 'bg-transparent border border-white/12 hover:border-white/25 hover:bg-white/[4%] text-foreground',
+      ghost: 'bg-transparent hover:bg-foreground/[6%] text-foreground border border-border hover:border-foreground/20',
+      outline: 'bg-transparent border border-border hover:border-foreground/25 hover:bg-foreground/[4%] text-foreground',
       danger: 'text-white hover:shadow-[0_8px_32px_rgba(239,68,68,0.3)]',
     }
     const gradientBg: Record<string, string> = {

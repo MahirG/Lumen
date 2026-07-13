@@ -111,8 +111,8 @@ export function FloatingNav({ active, onNavigate }: FloatingNavProps) {
                     'transition-all duration-300',
                     isActive
                       ? 'w-[18px] h-[18px]'
-                      : 'w-[18px] h-[18px] text-[#F5F5F7]/40',
-                    isHovered && !isActive && 'text-[#F5F5F7]',
+                      : 'w-[18px] h-[18px] text-muted-foreground',
+                    isHovered && !isActive && 'text-foreground',
                   )}
                   strokeWidth={isActive ? 2.5 : 2}
                   style={isActive ? { color: '#1677FF' } : {}}

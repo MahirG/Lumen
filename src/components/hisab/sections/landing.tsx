@@ -50,6 +50,8 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
       <ParticleField />
       {/* 3D rotating financial globe */}
       <FinancialGlobe />
+      {/* Mobile/tablet market flow animation */}
+      <MobileMarketFlow />
       {/* Gradient overlays */}
       <div className="absolute inset-0 bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
       <div className="absolute inset-0 grid-bg-fine opacity-20 pointer-events-none" />
@@ -148,6 +150,77 @@ function ParticleField() {
           style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size }}
           animate={{ y: [0, -30, 0], opacity: [0, 0.6, 0] }}
           transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+        />
+      ))}
+    </div>
+  )
+}
+
+/* ============================================
+   MOBILE MARKET FLOW — Subtle animated background for mobile/tablet
+   ============================================ */
+
+function MobileMarketFlow() {
+  return (
+    <div className="absolute inset-0 pointer-events-none overflow-hidden lg:hidden" aria-hidden="true">
+      {/* Layer 1: Ambient blue glow */}
+      <motion.div
+        animate={{ opacity: [0.3, 0.5, 0.3] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute top-1/4 left-1/4 w-64 h-64 rounded-full"
+        style={{ background: 'radial-gradient(circle, rgba(22, 119, 255, 0.08), transparent 70%)' }}
+      />
+
+      {/* Layer 2: Flowing market wave lines */}
+      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 375 667">
+        <motion.path
+          d="M0,400 Q100,380 187,400 T375,400"
+          fill="none"
+          stroke="rgba(22, 119, 255, 0.08)"
+          strokeWidth="1.5"
+          animate={{ d: ['M0,400 Q100,380 187,400 T375,400', 'M0,400 Q100,420 187,400 T375,400', 'M0,400 Q100,380 187,400 T375,400'] }}
+          transition={{ duration: 12, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.path
+          d="M0,450 Q90,430 187,450 T375,450"
+          fill="none"
+          stroke="rgba(16, 185, 129, 0.06)"
+          strokeWidth="1"
+          animate={{ d: ['M0,450 Q90,430 187,450 T375,450', 'M0,450 Q90,470 187,450 T375,450', 'M0,450 Q90,430 187,450 T375,450'] }}
+          transition={{ duration: 15, repeat: Infinity, ease: 'easeInOut' }}
+        />
+        <motion.path
+          d="M0,350 Q80,330 187,350 T375,350"
+          fill="none"
+          stroke="rgba(124, 92, 252, 0.05)"
+          strokeWidth="1"
+          animate={{ d: ['M0,350 Q80,330 187,350 T375,350', 'M0,350 Q80,370 187,350 T375,350', 'M0,350 Q80,330 187,350 T375,350'] }}
+          transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
+        />
+      </svg>
+
+      {/* Layer 3: Floating glowing particles */}
+      {Array.from({ length: 8 }).map((_, i) => (
+        <motion.div
+          key={i}
+          className="absolute rounded-full"
+          style={{
+            width: 2 + Math.random() * 3,
+            height: 2 + Math.random() * 3,
+            left: `${Math.random() * 100}%`,
+            top: `${Math.random() * 100}%`,
+            background: i % 3 === 0 ? 'rgba(22, 119, 255, 0.4)' : i % 3 === 1 ? 'rgba(16, 185, 129, 0.3)' : 'rgba(245, 185, 66, 0.3)',
+          }}
+          animate={{
+            y: [0, -20, 0],
+            opacity: [0.1, 0.4, 0.1],
+          }}
+          transition={{
+            duration: 10 + Math.random() * 8,
+            repeat: Infinity,
+            delay: i * 0.8,
+            ease: 'easeInOut',
+          }}
         />
       ))}
     </div>
@@ -268,7 +341,7 @@ function MarketTickerSection() {
         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-3">
           {loading ? (
             Array.from({ length: 6 }).map((_, i) => (
-              <div key={i} className="h-24 rounded-xl bg-white/[4%] animate-pulse" />
+              <div key={i} className="h-24 rounded-xl bg-foreground/[4%] animate-pulse" />
             ))
           ) : (
             symbols.map((sym, i) => <TickerCard key={sym.symbol} sym={sym} delay={i * 0.05} />)
@@ -360,7 +433,7 @@ function MarketBiasPanel() {
     <LiquidGlassCard className="p-5 hover-lift" hover>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold flex items-center gap-2">
-          <Brain className="w-4 h-4 text-[#1677FF]" /> AI Market Bias
+          <Brain className="w-4 h-4 text-primary" /> AI Market Bias
         </h3>
         <PremiumBadge variant="danger" size="xs">BEARISH</PremiumBadge>
       </div>
@@ -466,7 +539,7 @@ function LiquidityTrackerPanel() {
     <LiquidGlassCard className="p-5 hover-lift" hover>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold flex items-center gap-2">
-          <Radar className="w-4 h-4 text-[#1677FF]" /> Institutional Liquidity
+          <Radar className="w-4 h-4 text-primary" /> Institutional Liquidity
         </h3>
         <PremiumBadge variant="info" size="xs">SMART MONEY</PremiumBadge>
       </div>
@@ -538,7 +611,7 @@ function NotificationFeedPanel({ onNavigate }: { onNavigate: (s: string) => void
         <h3 className="text-sm font-semibold flex items-center gap-2">
           <BellRing className="w-4 h-4 text-[#10B981]" /> Smart Notifications
         </h3>
-        <button onClick={() => onNavigate('asne')} className="text-[10px] text-[#1677FF] hover:underline">View All</button>
+        <button onClick={() => onNavigate('asne')} className="text-[10px] text-primary hover:underline">View All</button>
       </div>
       <div className="space-y-2">
         {/* SELL alert */}

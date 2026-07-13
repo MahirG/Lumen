@@ -151,7 +151,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                   animate={{ rotate: isOpen ? 90 : 0 }}
                   transition={{ type: 'spring', stiffness: 300, damping: 20 }}
                 >
-                  <X className="w-5 h-5 text-[#F5F5F7]" />
+                  <X className="w-5 h-5 text-foreground" />
                 </motion.div>
               </motion.button>
             </div>
@@ -240,8 +240,8 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                   style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
                   aria-label="Change language"
                 >
-                  <Globe className="w-4 h-4 text-[#F5F5F7]/50" />
-                  <span className="text-[#F5F5F7]/70">{LANGUAGES.find(l => l.code === language)?.nativeName || language}</span>
+                  <Globe className="w-4 h-4 text-muted-foreground" />
+                  <span className="text-foreground/80">{LANGUAGES.find(l => l.code === language)?.nativeName || language}</span>
                 </button>
 
                 {/* Theme switcher */}
@@ -254,12 +254,12 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                   {theme === 'dark' ? (
                     <>
                       <Sun className="w-4 h-4 text-[#F5B942]" />
-                      <span className="text-[#F5F5F7]/70">Light</span>
+                      <span className="text-foreground/80">Light</span>
                     </>
                   ) : (
                     <>
                       <Moon className="w-4 h-4 text-[#007AFF]" />
-                      <span className="text-[#F5F5F7]/70">Dark</span>
+                      <span className="text-foreground/80">Dark</span>
                     </>
                   )}
                 </button>
@@ -271,8 +271,8 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                 className="w-full flex items-center justify-center gap-2 py-2.5 rounded-xl text-sm font-medium transition-colors hover:bg-white/5"
                 style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.06)' }}
               >
-                <LogIn className="w-4 h-4 text-[#F5F5F7]/50" />
-                <span className="text-[#F5F5F7]/70">Sign In</span>
+                <LogIn className="w-4 h-4 text-muted-foreground" />
+                <span className="text-foreground/80">Sign In</span>
               </button>
 
               {/* Launch CTA — primary */}
@@ -290,7 +290,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
               </motion.button>
 
               {/* Disclaimer */}
-              <p className="text-[10px] text-center text-[#F5F5F7]/30 leading-relaxed">
+              <p className="text-[10px] text-center text-foreground/30 leading-relaxed">
                 Educational only — not financial advice.<br />
                 Powered by <a href="https://hisabtechnologies.com" target="_blank" rel="noopener noreferrer" className="text-[#007AFF] hover:underline">HisabTech</a>
               </p>
@@ -380,7 +380,7 @@ export function StickyHeader({ title, onMenuClick }: { title?: string; onMenuCli
 
         {/* Page title (center) */}
         {title && (
-          <span className="absolute left-1/2 -translate-x-1/2 text-sm font-medium text-[#F5F5F7]/60 truncate max-w-[140px]">
+          <span className="absolute left-1/2 -translate-x-1/2 text-sm font-medium text-muted-foreground truncate max-w-[140px]">
             {title}
           </span>
         )}

@@ -359,14 +359,14 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                 className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors"
                 aria-label="Expand chat"
               >
-                {expanded ? <ChevronDown className="w-4 h-4 text-[#F5F5F7]/60" /> : <ChevronUp className="w-4 h-4 text-[#F5F5F7]/60" />}
+                {expanded ? <ChevronDown className="w-4 h-4 text-muted-foreground" /> : <ChevronUp className="w-4 h-4 text-muted-foreground" />}
               </button>
               <button
                 onClick={() => setIsOpen(false)}
                 className="w-7 h-7 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors"
                 aria-label="Close chat"
               >
-                <X className="w-4 h-4 text-[#F5F5F7]/60" />
+                <X className="w-4 h-4 text-muted-foreground" />
               </button>
             </div>
 
@@ -384,7 +384,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                     <div className="flex items-center gap-1.5 ml-1 mb-0.5">
                       <span className="text-[10px] font-medium text-[#007AFF]">Apex AI</span>
                       {msg.model && msg.model !== 'error' && (
-                        <span className="text-[8px] text-[#F5F5F7]/30 font-mono uppercase">{msg.model.replace('multi-ai-routed', 'AI').replace('openai-reasoning', 'AI').replace('local-fallback', 'Local')}</span>
+                        <span className="text-[8px] text-muted-foreground/60 font-mono uppercase">{msg.model.replace('multi-ai-routed', 'AI').replace('openai-reasoning', 'AI').replace('local-fallback', 'Local')}</span>
                       )}
                     </div>
                   )}
@@ -393,7 +393,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                     'max-w-[88%] px-4 py-2.5 text-[13px] leading-relaxed whitespace-pre-wrap',
                     msg.role === 'user'
                       ? 'rounded-2xl rounded-br-md text-white'
-                      : 'rounded-2xl rounded-bl-md text-[#F5F5F7]/90',
+                      : 'rounded-2xl rounded-bl-md text-foreground/90',
                   )} style={msg.role === 'user' ? {
                     background: 'linear-gradient(135deg, #007AFF, #1677FF)',
                   } : {
@@ -407,12 +407,12 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                           <img src={msg.file.preview} alt={msg.file.name} className="w-14 h-14 rounded-lg object-cover" />
                         ) : (
                           <div className="w-10 h-10 rounded bg-white/10 flex items-center justify-center">
-                            <FileText className="w-5 h-5 text-[#F5F5F7]/60" />
+                            <FileText className="w-5 h-5 text-muted-foreground" />
                           </div>
                         )}
                         <div className="min-w-0">
                           <div className="text-[11px] font-medium truncate">{msg.file.name}</div>
-                          <div className="text-[9px] text-[#F5F5F7]/40 uppercase">{msg.file.type.split('/')[0] || 'file'}</div>
+                          <div className="text-[9px] text-muted-foreground/70 uppercase">{msg.file.type.split('/')[0] || 'file'}</div>
                         </div>
                       </div>
                     )}
@@ -482,12 +482,12 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                   <img src={uploadedFile.preview} alt={uploadedFile.name} className="w-8 h-8 rounded object-cover" />
                 ) : (
                   <div className="w-8 h-8 rounded bg-white/10 flex items-center justify-center">
-                    <FileText className="w-4 h-4 text-[#F5F5F7]/60" />
+                    <FileText className="w-4 h-4 text-muted-foreground" />
                   </div>
                 )}
-                <span className="text-[11px] text-[#F5F5F7]/60 flex-1 truncate">{uploadedFile.name}</span>
+                <span className="text-[11px] text-muted-foreground flex-1 truncate">{uploadedFile.name}</span>
                 <button onClick={() => setUploadedFile(null)} className="p-1 rounded hover:bg-white/10">
-                  <X className="w-3 h-3 text-[#F5F5F7]/40" />
+                  <X className="w-3 h-3 text-muted-foreground/70" />
                 </button>
               </div>
             )}
@@ -496,7 +496,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
             <div className="p-3 flex items-center gap-1.5" style={{ borderTop: '1px solid rgba(255,255,255,0.06)' }}>
               <input ref={fileInputRef} type="file" accept="image/*,.pdf,.csv,.txt,.docx,.xlsx" onChange={handleFileUpload} className="sr-only" />
               <button onClick={() => fileInputRef.current?.click()} className="w-8 h-8 rounded-full flex items-center justify-center hover:bg-white/10 transition-colors shrink-0" aria-label="Upload file" title="Upload file">
-                <Paperclip className="w-4 h-4 text-[#F5F5F7]/50" />
+                <Paperclip className="w-4 h-4 text-muted-foreground" />
               </button>
               <button
                 onClick={toggleVoice}
@@ -516,7 +516,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                     ))}
                   </div>
                 ) : (
-                  <Mic className="w-4 h-4 text-[#F5F5F7]/50" />
+                  <Mic className="w-4 h-4 text-muted-foreground" />
                 )}
               </button>
               <input
@@ -525,7 +525,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                 onChange={e => setInput(e.target.value)}
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
                 placeholder={isListening ? 'Analyzing Institutional Activity...' : 'Ask Apex AI or upload a chart...'}
-                className="flex-1 px-3 py-2 rounded-full text-[13px] focus:outline-none placeholder:text-[#F5F5F7]/30"
+                className="flex-1 px-3 py-2 rounded-full text-[13px] focus:outline-none placeholder:text-muted-foreground/60"
                 style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.06)', color: '#F5F5F7' }}
                 disabled={isLoading}
               />
@@ -544,7 +544,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
             {messages.length > 1 && (
               <button
                 onClick={clearChat}
-                className="absolute top-3 right-20 text-[10px] text-[#F5F5F7]/30 hover:text-[#F5F5F7]/60 transition-colors"
+                className="absolute top-3 right-20 text-[10px] text-muted-foreground/60 hover:text-muted-foreground transition-colors"
               >
                 Clear
               </button>

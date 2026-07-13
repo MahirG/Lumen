@@ -47,7 +47,7 @@ export function ASNEEngine({ onNavigate }: { onNavigate?: (s: string) => void })
               </div>
               <div>
                 <h3 className="text-base font-semibold">AI Market Intelligence Center™</h3>
-                <p className="text-xs text-[#F5F5F7]/50">Your personal institutional market analyst, working 24/7.</p>
+                <p className="text-xs text-muted-foreground">Your personal institutional market analyst, working 24/7.</p>
               </div>
             </div>
           </div>
@@ -68,7 +68,7 @@ export function ASNEEngine({ onNavigate }: { onNavigate?: (s: string) => void })
               onClick={() => setTab(t.id)}
               className={cn(
                 'relative flex items-center gap-2 px-3.5 py-2 rounded-xl text-sm font-medium transition-all',
-                isActive ? 'text-white' : 'text-[#F5F5F7]/50 hover:text-[#F5F5F7]/80',
+                isActive ? 'text-white' : 'text-muted-foreground hover:text-foreground/80',
               )}
               style={isActive ? {
                 background: 'linear-gradient(135deg, rgba(0,122,255,0.15), rgba(175,82,222,0.1))',
@@ -192,19 +192,19 @@ function MarketPulseWidget() {
     <WidgetCard title="Global Market Pulse" icon={<Globe className="w-3.5 h-3.5 text-[#007AFF]" />}>
       <div className="space-y-2">
         <div className="flex justify-between text-xs">
-          <span className="text-[#F5F5F7]/50">Risk Level</span>
+          <span className="text-muted-foreground">Risk Level</span>
           <span className="font-mono font-semibold" style={{ color: riskColor }}>{riskLevel}</span>
         </div>
         <div className="flex justify-between text-xs">
-          <span className="text-[#F5F5F7]/50">Sentiment</span>
+          <span className="text-muted-foreground">Sentiment</span>
           <span className="font-mono font-medium" style={{ color: sentiment === 'Risk-On' ? '#34C759' : sentiment === 'Risk-Off' ? '#FF3B30' : '#FFD60A' }}>{sentiment}</span>
         </div>
         <div className="flex justify-between text-xs">
-          <span className="text-[#F5F5F7]/50">Most Active</span>
-          <span className="font-mono font-medium text-[#F5F5F7]">{activeAsset}</span>
+          <span className="text-muted-foreground">Most Active</span>
+          <span className="font-mono font-medium text-foreground">{activeAsset}</span>
         </div>
         <div className="flex justify-between text-xs">
-          <span className="text-[#F5F5F7]/50">Top AI Confidence</span>
+          <span className="text-muted-foreground">Top AI Confidence</span>
           <span className="font-mono font-medium text-[#007AFF] truncate ml-2 max-w-[120px]">{topConfidence}</span>
         </div>
       </div>
@@ -245,7 +245,7 @@ function FearGreedWidget() {
         </div>
         <div>
           <div className="text-sm font-semibold" style={{ color }}>{label}</div>
-          <div className="text-[10px] text-[#F5F5F7]/40 mt-0.5">Market emotion index</div>
+          <div className="text-[10px] text-muted-foreground/70 mt-0.5">Market emotion index</div>
         </div>
       </div>
     </WidgetCard>
@@ -267,7 +267,7 @@ function CurrencyStrengthWidget() {
       <div className="space-y-1.5">
         {currencies.map(c => (
           <div key={c.name} className="flex items-center gap-2">
-            <span className="text-[10px] font-mono font-bold w-8 text-[#F5F5F7]/60">{c.name}</span>
+            <span className="text-[10px] font-mono font-bold w-8 text-muted-foreground">{c.name}</span>
             <div className="flex-1 h-1.5 rounded-full bg-white/5 overflow-hidden">
               <motion.div
                 initial={{ width: 0 }}
@@ -312,7 +312,7 @@ function AIConfidenceMeter() {
         <div className="text-3xl font-mono font-bold" style={{ color: confidence > 80 ? '#34C759' : confidence > 60 ? '#FFD60A' : '#FF9500' }}>
           {confidence}%
         </div>
-        <div className="text-[10px] text-[#F5F5F7]/40 mt-1">Current market conviction</div>
+        <div className="text-[10px] text-muted-foreground/70 mt-1">Current market conviction</div>
         <div className="mt-2">
           <PremiumProgress value={confidence} color={confidence > 80 ? 'bull' : 'gold'} height={5} />
         </div>
@@ -345,10 +345,10 @@ function GoldStrengthWidget() {
           </div>
         </div>
         <div className="flex-1">
-          <div className="text-xs text-[#F5F5F7]/50 mb-1">XAUUSD Strength</div>
+          <div className="text-xs text-muted-foreground mb-1">XAUUSD Strength</div>
           <div className="text-sm font-semibold text-[#34C759] mb-1.5">Institutional Accumulation</div>
           {price && <div className="text-lg font-mono font-bold">${formatNumber(price.last, 2)}</div>}
-          <p className="text-[10px] text-[#F5F5F7]/40 mt-1">DXY weakening, yields stabilizing</p>
+          <p className="text-[10px] text-muted-foreground/70 mt-1">DXY weakening, yields stabilizing</p>
         </div>
       </div>
     </WidgetCard>
@@ -372,7 +372,7 @@ function LiquidityRow({ label, value, color, pct }: { label: string; value: stri
   return (
     <div>
       <div className="flex justify-between text-xs mb-1">
-        <span className="text-[#F5F5F7]/50">{label}</span>
+        <span className="text-muted-foreground">{label}</span>
         <span className="font-mono font-medium" style={{ color }}>{value}</span>
       </div>
       <div className="h-1 rounded-full bg-white/5 overflow-hidden">
@@ -395,7 +395,7 @@ function EconomicCalendarWidget() {
     <WidgetCard title="Economic Calendar Intelligence" icon={<AlertTriangle className="w-3.5 h-3.5 text-[#FF3B30]" />} action={<PremiumBadge variant="danger" size="xs">HIGH IMPACT</PremiumBadge>}>
       <div className="space-y-2.5">
         <div>
-          <div className="text-xs text-[#F5F5F7]/50 mb-1">US CPI Release</div>
+          <div className="text-xs text-muted-foreground mb-1">US CPI Release</div>
           <div className="flex items-center gap-2">
             <Clock className="w-3.5 h-3.5 text-[#FF9500]" />
             <span className="text-2xl font-mono font-bold tabular text-[#FF9500]">{String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}</span>
@@ -403,7 +403,7 @@ function EconomicCalendarWidget() {
         </div>
         <div className="p-2 rounded-md" style={{ background: 'rgba(255,59,48,0.08)', border: '1px solid rgba(255,59,48,0.15)' }}>
           <div className="text-[9px] uppercase tracking-wider text-[#FF3B30] mb-0.5">AI Assessment</div>
-          <p className="text-[11px] text-[#F5F5F7]/70">Elevated volatility likely across USD pairs and Gold. Reduce exposure.</p>
+          <p className="text-[11px] text-foreground/70">Elevated volatility likely across USD pairs and Gold. Reduce exposure.</p>
         </div>
       </div>
     </WidgetCard>
@@ -423,15 +423,15 @@ function VolatilityMonitorWidget() {
     <WidgetCard title="Volatility Monitor" icon={<Activity className="w-3.5 h-3.5 text-[#AF52DE]" />}>
       <div className="space-y-2">
         <div className="flex justify-between items-center">
-          <span className="text-xs text-[#F5F5F7]/50">ATR (14)</span>
+          <span className="text-xs text-muted-foreground">ATR (14)</span>
           <span className="text-lg font-mono font-bold" style={{ color }}>${atr.toFixed(2)}</span>
         </div>
         <div className="flex justify-between items-center">
-          <span className="text-xs text-[#F5F5F7]/50">Volatility Level</span>
+          <span className="text-xs text-muted-foreground">Volatility Level</span>
           <span className="text-sm font-semibold" style={{ color }}>{level}</span>
         </div>
         <PremiumProgress value={Math.min(100, (atr / 20) * 100)} color={atr > 15 ? 'bear' : 'gold'} height={5} />
-        <div className="flex justify-between text-[9px] text-[#F5F5F7]/30">
+        <div className="flex justify-between text-[9px] text-foreground/30">
           <span>Low</span><span>Moderate</span><span>High</span>
         </div>
       </div>
@@ -456,7 +456,7 @@ function TrendingAssetsWidget() {
           <div key={a.name} className="flex items-center justify-between p-1.5 rounded-md" style={{ background: 'rgba(255,255,255,0.03)' }}>
             <div>
               <div className="text-[10px] font-mono font-bold">{a.name}</div>
-              <div className="text-[8px] text-[#F5F5F7]/30">{a.vol} vol</div>
+              <div className="text-[8px] text-foreground/30">{a.vol} vol</div>
             </div>
             <span className="text-[10px] font-mono font-semibold" style={{ color: a.change >= 0 ? '#34C759' : '#FF3B30' }}>
               {a.change >= 0 ? '+' : ''}{a.change.toFixed(2)}%
@@ -474,14 +474,14 @@ function DailyBriefingWidget({ onNavigate }: { onNavigate?: (s: string) => void 
       <button onClick={() => onNavigate?.('coach')} className="text-[10px] text-[#007AFF] hover:underline">Full Report</button>
     }>
       <div className="space-y-2 text-xs">
-        <p className="text-[#F5F5F7]/70 leading-relaxed">
-          <span className="font-semibold text-[#F5F5F7]">Good morning.</span> Gold is approaching a significant institutional demand zone. DXY showing weakness.
+        <p className="text-foreground/70 leading-relaxed">
+          <span className="font-semibold text-foreground">Good morning.</span> Gold is approaching a significant institutional demand zone. DXY showing weakness.
         </p>
         <div className="flex items-start gap-2 p-2 rounded-md" style={{ background: 'rgba(255,149,0,0.08)', border: '1px solid rgba(255,149,0,0.15)' }}>
           <AlertTriangle className="w-3 h-3 text-[#FF9500] mt-0.5 shrink-0" />
-          <span className="text-[11px] text-[#F5F5F7]/70">High-impact USD news in 18 minutes. Consider reducing exposure.</span>
+          <span className="text-[11px] text-foreground/70">High-impact USD news in 18 minutes. Consider reducing exposure.</span>
         </div>
-        <p className="text-[#F5F5F7]/50 text-[11px] italic">
+        <p className="text-muted-foreground text-[11px] italic">
           No high-probability setups identified today. Remaining patient is the best strategy.
         </p>
       </div>
@@ -515,7 +515,7 @@ function IntelligenceFeed({ onNavigate }: { onNavigate?: (s: string) => void }) 
               <button
                 key={p}
                 onClick={() => setFilter(p)}
-                className={cn('px-2.5 py-1 rounded-md text-[11px] font-mono font-medium border transition-all', filter === p ? 'text-foreground border-current' : 'text-[#F5F5F7]/40 border-white/[6%]')}
+                className={cn('px-2.5 py-1 rounded-md text-[11px] font-mono font-medium border transition-all', filter === p ? 'text-foreground border-current' : 'text-muted-foreground/70 border-border')}
                 style={filter === p && p !== 'ALL' ? { color: PRIORITY_CONFIG[p].color, borderColor: `${PRIORITY_CONFIG[p].color}60` } : {}}
               >
                 {p}
@@ -536,7 +536,7 @@ function IntelligenceFeed({ onNavigate }: { onNavigate?: (s: string) => void }) 
           {sampleItems.map((item, i) => (
             <IntelligenceCard key={item.id} item={item} onNavigate={onNavigate} delay={i * 0.04} sample />
           ))}
-          <p className="text-center text-[10px] text-[#F5F5F7]/30 mt-4 italic">
+          <p className="text-center text-[10px] text-foreground/30 mt-4 italic">
             AI Market Intelligence Center is monitoring global markets 24/7. Live alerts will appear here.
           </p>
         </div>
@@ -600,12 +600,12 @@ function IntelligenceCard({ item, onRead, onDismiss, onNavigate, delay, sample }
             </div>
             {onDismiss && (
               <button onClick={(e) => { e.stopPropagation(); onDismiss() }} className="opacity-0 group-hover:opacity-100 transition-opacity p-1 rounded hover:bg-white/10">
-                <X className="w-3.5 h-3.5 text-[#F5F5F7]/40" />
+                <X className="w-3.5 h-3.5 text-muted-foreground/70" />
               </button>
             )}
           </div>
-          <p className="text-xs text-[#F5F5F7]/70 leading-relaxed mb-2">{item.summary}</p>
-          {item.reason && <p className="text-[11px] text-[#F5F5F7]/40 leading-relaxed mb-2">{item.reason}</p>}
+          <p className="text-xs text-foreground/70 leading-relaxed mb-2">{item.summary}</p>
+          {item.reason && <p className="text-[11px] text-muted-foreground/70 leading-relaxed mb-2">{item.reason}</p>}
           {/* Trade setup details */}
           {isOpportunity && item.entryZone && (
             <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-2 p-2 rounded-lg" style={{ background: 'rgba(255,255,255,0.03)' }}>
@@ -618,7 +618,7 @@ function IntelligenceCard({ item, onRead, onDismiss, onNavigate, delay, sample }
           {item.confidence && (
             <div className="mt-2">
               <div className="flex justify-between text-[10px] mb-0.5">
-                <span className="text-[#F5F5F7]/40">AI Confidence</span>
+                <span className="text-muted-foreground/70">AI Confidence</span>
                 <span className="font-mono">{item.confidence}%</span>
               </div>
               <PremiumProgress value={item.confidence} color={item.confidence >= 90 ? 'gold' : item.confidence >= 75 ? 'bull' : 'neutral'} height={4} />
@@ -626,7 +626,7 @@ function IntelligenceCard({ item, onRead, onDismiss, onNavigate, delay, sample }
           )}
           {/* Footer */}
           <div className="flex items-center justify-between mt-2 pt-2" style={{ borderTop: '1px solid rgba(255,255,255,0.04)' }}>
-            <div className="flex items-center gap-2 text-[10px] text-[#F5F5F7]/30 font-mono">
+            <div className="flex items-center gap-2 text-[10px] text-foreground/30 font-mono">
               <span>{item.asset}</span>
               {item.timeframe && <span>· {item.timeframe}</span>}
               <span>· {new Date(item.timestamp).toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })}</span>
@@ -649,7 +649,7 @@ function IntelligenceCard({ item, onRead, onDismiss, onNavigate, delay, sample }
 function Detail({ label, value, color }: { label: string; value: string; color?: string }) {
   return (
     <div>
-      <div className="text-[9px] uppercase text-[#F5F5F7]/30">{label}</div>
+      <div className="text-[9px] uppercase text-foreground/30">{label}</div>
       <div className="text-[11px] font-mono font-semibold" style={{ color: color ?? '#F5F5F7' }}>{value}</div>
     </div>
   )
@@ -715,7 +715,7 @@ function CustomRules() {
         <div className="flex items-center justify-between mb-3">
           <div>
             <h3 className="text-sm font-semibold">Custom AI Intelligence Rules</h3>
-            <p className="text-xs text-[#F5F5F7]/50 mt-0.5">Create advanced rules with multiple conditions, recurring alerts, and combined logic.</p>
+            <p className="text-xs text-muted-foreground mt-0.5">Create advanced rules with multiple conditions, recurring alerts, and combined logic.</p>
           </div>
           <GlowButton variant="gold" size="sm" onClick={() => setShowForm(!showForm)}>
             <Plus className="w-3.5 h-3.5" /> New Rule
@@ -752,16 +752,16 @@ function CustomRules() {
               </div>
               <div className="flex-1 min-w-0">
                 <div className="text-sm">
-                  <span className="text-[#F5F5F7]/70">{rule.condition} </span>
-                  <span className="font-mono font-bold text-[#F5F5F7]">{rule.asset} </span>
+                  <span className="text-foreground/70">{rule.condition} </span>
+                  <span className="font-mono font-bold text-foreground">{rule.asset} </span>
                   <span className="font-mono text-[#007AFF]">{rule.threshold}</span>
                 </div>
-                <div className="text-[10px] text-[#F5F5F7]/30">→ {rule.action}</div>
+                <div className="text-[10px] text-foreground/30">→ {rule.action}</div>
               </div>
               <button onClick={() => toggleRule(rule.id)} className="relative w-10 h-6 rounded-full transition-all shrink-0" style={{ background: rule.enabled ? 'rgba(0,122,255,0.3)' : 'rgba(255,255,255,0.1)' }}>
                 <motion.div animate={{ x: rule.enabled ? 20 : 2 }} transition={{ type: 'spring', stiffness: 500, damping: 30 }} className="absolute top-0.5 w-5 h-5 rounded-full" style={{ background: rule.enabled ? '#0A84FF' : 'rgba(235,235,245,0.3)' }} />
               </button>
-              <button onClick={() => removeRule(rule.id)} className="p-1.5 rounded-lg hover:bg-white/5 text-[#F5F5F7]/30 hover:text-[#FF3B30]"><Trash2 className="w-3.5 h-3.5" /></button>
+              <button onClick={() => removeRule(rule.id)} className="p-1.5 rounded-lg hover:bg-white/5 text-foreground/30 hover:text-[#FF3B30]"><Trash2 className="w-3.5 h-3.5" /></button>
             </motion.div>
           ))}
         </div>
@@ -832,9 +832,9 @@ function NewsIntelligence() {
                 <PremiumBadge variant={news.impact === 'HIGH' ? 'danger' : 'gold'} size="xs">{news.impact} IMPACT</PremiumBadge>
                 <span className="text-sm font-semibold">{news.title}</span>
               </div>
-              <span className="text-[10px] text-[#F5F5F7]/30 font-mono shrink-0">{news.time}</span>
+              <span className="text-[10px] text-foreground/30 font-mono shrink-0">{news.time}</span>
             </div>
-            <div className="text-[10px] text-[#F5F5F7]/30 mb-2">Source: {news.source}</div>
+            <div className="text-[10px] text-foreground/30 mb-2">Source: {news.source}</div>
 
             {/* AI Summary */}
             <div className="p-2.5 rounded-lg mb-2" style={{ background: 'rgba(0,122,255,0.06)', border: '1px solid rgba(0,122,255,0.12)' }}>
@@ -842,7 +842,7 @@ function NewsIntelligence() {
                 <Brain className="w-3 h-3 text-[#007AFF]" />
                 <span className="text-[10px] font-semibold text-[#007AFF] uppercase tracking-wider">AI Summary</span>
               </div>
-              <p className="text-xs text-[#F5F5F7]/70 leading-relaxed">{news.aiSummary}</p>
+              <p className="text-xs text-foreground/70 leading-relaxed">{news.aiSummary}</p>
             </div>
 
             {/* Affected Assets */}
@@ -857,7 +857,7 @@ function NewsIntelligence() {
             {/* Confidence + Action */}
             <div className="flex items-center justify-between gap-2">
               <div className="flex items-center gap-2">
-                <span className="text-[10px] text-[#F5F5F7]/40">AI Confidence:</span>
+                <span className="text-[10px] text-muted-foreground/70">AI Confidence:</span>
                 <span className="text-[10px] font-mono font-bold" style={{ color: news.confidence > 85 ? '#34C759' : '#FFD60A' }}>{news.confidence}%</span>
               </div>
               <span className="text-[10px] text-[#007AFF] italic">{news.action}</span>
@@ -898,7 +898,7 @@ function DeliveryChannels() {
           <h3 className="text-sm font-semibold">Delivery Channels</h3>
           <PremiumBadge variant="gold" size="sm">{enabledCount}/{tierConfig.maxChannels} Active</PremiumBadge>
         </div>
-        <p className="text-xs text-[#F5F5F7]/50">{tierConfig.label} tier — intelligence delivered across {enabledCount} channels.</p>
+        <p className="text-xs text-muted-foreground">{tierConfig.label} tier — intelligence delivered across {enabledCount} channels.</p>
       </LiquidGlassCard>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -910,11 +910,11 @@ function DeliveryChannels() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-3">
                   <div className="w-10 h-10 rounded-xl flex items-center justify-center" style={{ background: ch.enabled ? 'rgba(0,122,255,0.12)' : 'rgba(255,255,255,0.04)', border: ch.enabled ? '1px solid rgba(0,122,255,0.25)' : '1px solid rgba(255,255,255,0.06)' }}>
-                    <Icon className={cn('w-5 h-5', ch.enabled ? 'text-[#0A84FF]' : 'text-[#F5F5F7]/30')} />
+                    <Icon className={cn('w-5 h-5', ch.enabled ? 'text-[#0A84FF]' : 'text-foreground/30')} />
                   </div>
                   <div>
                     <div className="text-sm font-semibold">{CHANNEL_LABELS[ch.channel]}</div>
-                    <div className="text-[10px] text-[#F5F5F7]/40">{ch.enabled ? 'Active' : isLocked ? 'Locked — upgrade tier' : 'Disabled'}</div>
+                    <div className="text-[10px] text-muted-foreground/70">{ch.enabled ? 'Active' : isLocked ? 'Locked — upgrade tier' : 'Disabled'}</div>
                   </div>
                 </div>
                 <button onClick={() => toggleChannel(ch.channel)} disabled={isLocked} className={cn('relative w-11 h-6 rounded-full transition-all shrink-0', ch.enabled ? 'bg-[#007AFF]/30' : 'bg-white/10', isLocked && 'opacity-40 cursor-not-allowed')} aria-label={`Toggle ${CHANNEL_LABELS[ch.channel]}`}>
@@ -929,13 +929,13 @@ function DeliveryChannels() {
       {/* Anti-spam info */}
       <LiquidGlassCard variant="gold" className="p-4">
         <h4 className="text-sm font-semibold mb-2 flex items-center gap-2"><Shield className="w-4 h-4 text-[#FFD60A]" /> Anti-Spam Protection</h4>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-[#F5F5F7]/50">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-2 text-xs text-muted-foreground">
           <div className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-[#34C759]" /> No duplicate notifications</div>
           <div className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-[#34C759]" /> Intelligent cooldown periods</div>
           <div className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-[#34C759]" /> Similar events merged</div>
           <div className="flex items-center gap-2"><Check className="w-3.5 h-3.5 text-[#34C759]" /> Quality over quantity</div>
         </div>
-        <p className="text-[11px] text-[#F5F5F7]/40 mt-3 italic">The objective is fewer—but significantly more valuable—intelligence notifications.</p>
+        <p className="text-[11px] text-muted-foreground/70 mt-3 italic">The objective is fewer—but significantly more valuable—intelligence notifications.</p>
       </LiquidGlassCard>
     </div>
   )

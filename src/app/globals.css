@@ -260,14 +260,46 @@
     scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
   }
   ::selection {
-    background: oklch(0.80 0.18 220 / 35%);
-    color: oklch(0.99 0 0);
+    background: rgba(22, 119, 255, 0.25);
+    color: #FFFFFF;
   }
   /* Focus visible */
   *:focus-visible {
-    outline: 2px solid oklch(0.80 0.18 220 / 70%);
+    outline: 2px solid rgba(22, 119, 255, 0.6);
     outline-offset: 2px;
     border-radius: 4px;
+  }
+
+  /* Premium input styling — theme-aware */
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="number"],
+  input[type="search"],
+  textarea,
+  select {
+    background: var(--card);
+    color: var(--foreground);
+    border: 1px solid var(--input);
+    border-radius: 0.625rem;
+    padding: 0.5rem 0.875rem;
+    font-size: 0.875rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+  input::placeholder,
+  textarea::placeholder {
+    color: var(--muted-foreground);
+  }
+  input:focus,
+  textarea:focus,
+  select:focus {
+    outline: none;
+    border-color: #1677FF;
+    box-shadow: 0 0 0 3px rgba(22, 119, 255, 0.12);
+  }
+  select option {
+    background: var(--popover);
+    color: var(--foreground);
   }
 }
 
