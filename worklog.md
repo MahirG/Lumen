@@ -37,3 +37,30 @@ Visual Verification (via VLM):
 - Dark mode desktop: 9/10 — "Effectively balances visual appeal with clarity"
 - Light mode desktop: 8/10 — "Background image visible, text highly readable"
 - Mobile dark mode: 8/10 — "Clean single-column layout, sophisticated"
+
+---
+Task ID: header-remove-gold-ticker-1
+Agent: main
+Task: Remove the Gold / XAUUSD value live update from sticky header
+
+Work Log:
+- Located the live Gold price ticker in `src/components/hisab/header.tsx` (lines 149-177)
+  - It was the prominent gold pill with Crown icon, $price, and change% that flashed green/red on every market store tick (~1.2s)
+- Removed the entire `<AnimatePresence>` block containing the Gold price ticker
+- Cleaned up now-unused imports and state to prevent dead code:
+  - Removed `motion`, `AnimatePresence` from framer-motion imports
+  - Removed `Crown` from lucide-react imports
+  - Removed `formatNumber` import (only used by the gold ticker)
+  - Removed `price` selector from `useMarketStore` (kept `dataSource` + `lastRealUpdate` for live status badge)
+  - Removed `prevPriceRef` and `flash` state and the price-flash effect
+- Preserved everything else in the sticky header:
+  - Scrolling ticker tape (top marquee) — unchanged
+  - Live status badge (LIVE/CACHED/DEMO with seconds-ago counter) — unchanged
+  - AI Engine indicator — unchanged
+- Verified dev server: page returns 200, compiles cleanly, no errors in dev.log
+
+Stage Summary:
+- The Gold / XAUUSD live price pill has been removed from the sticky header
+- The sticky header is now cleaner: title + live data-source badge + AI indicator
+- No re-render storms: the header no longer subscribes to `price.last`, only to `dataSource` and `lastRealUpdate` (which only change on real fetch events, not micro-ticks)
+- Gold/XAUUSD still appears in the scrolling ticker tape (alongside 11 other symbols) — that is a separate ambient marquee, not a "live value update" flasher

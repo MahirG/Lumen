@@ -1,11 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
-import { TrendingUp, TrendingDown, Crown, Zap } from 'lucide-react'
+import { TrendingUp, TrendingDown, Zap } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { useMarketStore } from '@/lib/hisab/market-store'
-import { formatNumber } from '@/lib/hisab/risk-manager'
 import { cn } from '@/lib/utils'
 
 interface HeaderProps {
@@ -63,23 +61,9 @@ function useTickerPrices() {
 }
 
 export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
-  const price = useMarketStore(s => s.price)
   const dataSource = useMarketStore(s => s.dataSource)
   const lastRealUpdate = useMarketStore(s => s.lastRealUpdate)
   const tickerPrices = useTickerPrices()
-  const prevPriceRef = React.useRef<number | null>(null)
-  const [flash, setFlash] = React.useState<'up' | 'down' | null>(null)
-
-  React.useEffect(() => {
-    if (!price) return
-    if (prevPriceRef.current !== null) {
-      if (price.last > prevPriceRef.current) setFlash('up')
-      else if (price.last < prevPriceRef.current) setFlash('down')
-      const t = setTimeout(() => setFlash(null), 600)
-      return () => clearTimeout(t)
-    }
-    prevPriceRef.current = price.last
-  }, [price?.last])
 
   const secondsAgo = lastRealUpdate ? Math.round((Date.now() - lastRealUpdate) / 1000) : null
   const sourceLabel = dataSource === 'live' ? 'LIVE' : dataSource === 'cached' ? 'CACHED' : 'DEMO'
@@ -145,36 +129,6 @@ export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
               <span className="text-[10px] font-mono text-muted-foreground/70 tabular">· {secondsAgo}s</span>
             )}
           </div>
-
-          {/* Gold price ticker */}
-          <AnimatePresence mode="wait">
-            {price && (
-              <motion.div
-                key={Math.floor(price.timestamp / 250)}
-                initial={{ opacity: 0.85 }}
-                animate={{ opacity: 1 }}
-                className={cn(
-                  'flex flex-col items-end rounded-xl px-3 lg:px-4 py-1.5 transition-colors glass-gold',
-                  flash === 'up' && 'flash-up',
-                  flash === 'down' && 'flash-down',
-                )}
-              >
-                <div className="flex items-center gap-1.5">
-                  <Crown className="w-3 h-3 text-[oklch(0.92_0.13_85)]" />
-                  <span className="text-xs font-mono font-semibold uppercase text-muted-foreground">XAUUSD</span>
-                  <span className="text-sm lg:text-base font-mono font-bold tabular text-foreground">
-                    ${formatNumber(price.last, 2)}
-                  </span>
-                </div>
-                <span className={cn(
-                  'text-[10px] lg:text-xs font-mono tabular',
-                  price.change >= 0 ? 'text-[oklch(0.78_0.19_152)]' : 'text-[oklch(0.66_0.24_25)]'
-                )}>
-                  {price.change >= 0 ? '+' : ''}{formatNumber(price.change, 2)} ({price.change >= 0 ? '+' : ''}{formatNumber(price.changePct, 2)}%)
-                </span>
-              </motion.div>
-            )}
-          </AnimatePresence>
 
           {/* AI Engine indicator */}
           <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[oklch(0.82_0.15_85/10%)] to-transparent border border-[oklch(0.82_0.15_85/15%)]">
