@@ -17,20 +17,24 @@ import type { TradeSetup, MTFAnalysis, SMCAnalysis } from '@/lib/types/hisab'
 import { cn } from '@/lib/utils'
 
 export function DecisionEngine() {
-  const candles = useMarketStore(s => s.candles)
-  const price = useMarketStore(s => s.price)
+  // Do NOT subscribe to live candles/price — causes re-renders every tick.
+  // Read from store snapshot only when analyzing.
   const [setup, setSetup] = React.useState<TradeSetup | null>(null)
   const [mtf, setMtf] = React.useState<MTFAnalysis | null>(null)
   const [smc, setSmc] = React.useState<SMCAnalysis | null>(null)
   const [coachText, setCoachText] = React.useState<string>('')
   const [generating, setGenerating] = React.useState(false)
+  const hasInitialized = React.useRef(false)
 
   const analyze = React.useCallback(() => {
     setGenerating(true)
     setTimeout(() => {
-      const mtfResult = runMultiTimeframeAnalysis(candles)
-      const smcResult = analyzeSMC(candles['15M'], '15M')
-      const setupResult = generateTradeSetup(smcResult, mtfResult, price?.last ?? 2650)
+      // Snapshot — don't track live updates
+      const candlesSnapshot = useMarketStore.getState().candles
+      const priceSnapshot = useMarketStore.getState().price?.last ?? 2650
+      const mtfResult = runMultiTimeframeAnalysis(candlesSnapshot)
+      const smcResult = analyzeSMC(candlesSnapshot['15M'], '15M')
+      const setupResult = generateTradeSetup(smcResult, mtfResult, priceSnapshot)
       const coach = generateCoachExplanation(smcResult, setupResult, mtfResult)
       setMtf(mtfResult)
       setSmc(smcResult)
@@ -38,9 +42,15 @@ export function DecisionEngine() {
       setCoachText(coach)
       setGenerating(false)
     }, 600)
-  }, [candles, price])
+  }, []) // Empty deps — never auto-regenerates
 
-  React.useEffect(() => { analyze() }, [analyze])
+  // Run once on mount only
+  React.useEffect(() => {
+    if (!hasInitialized.current) {
+      hasInitialized.current = true
+      analyze()
+    }
+  }, [analyze])
 
   if (!setup || !mtf) {
     return (

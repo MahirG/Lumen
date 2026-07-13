@@ -16,21 +16,31 @@ import type { AILEAnalysis, AILEOutput } from '@/lib/types/aile'
 import { cn } from '@/lib/utils'
 
 export function AILEEngine() {
-  const candles = useMarketStore(s => s.candles)
-  const price = useMarketStore(s => s.price)
+  // Do NOT subscribe to live candles/price — causes re-renders every tick.
+  // Read from store snapshot only when running analysis.
   const [analysis, setAnalysis] = React.useState<AILEAnalysis | null>(null)
   const [generating, setGenerating] = React.useState(false)
+  const hasInitialized = React.useRef(false)
 
   const runAnalysis = React.useCallback(() => {
     setGenerating(true)
     setTimeout(() => {
-      const result = runAILEAnalysis(candles, price?.last)
+      // Snapshot — don't track live updates
+      const candlesSnapshot = useMarketStore.getState().candles
+      const priceSnapshot = useMarketStore.getState().price?.last
+      const result = runAILEAnalysis(candlesSnapshot, priceSnapshot)
       setAnalysis(result)
       setGenerating(false)
     }, 500)
-  }, [candles, price])
+  }, []) // Empty deps — never auto-regenerates
 
-  React.useEffect(() => { runAnalysis() }, [runAnalysis])
+  // Run once on mount only
+  React.useEffect(() => {
+    if (!hasInitialized.current) {
+      hasInitialized.current = true
+      runAnalysis()
+    }
+  }, [runAnalysis])
 
   if (!analysis) {
     return (

@@ -10,13 +10,18 @@ import type { MTFAnalysis, TimeframeAnalysis, MarketBias } from '@/lib/types/his
 import { cn } from '@/lib/utils'
 
 export function MultiTimeframe() {
-  const candles = useMarketStore(s => s.candles)
+  // Do NOT subscribe to live candles — causes re-renders every tick.
+  // Read from store snapshot only once on mount.
   const [mtf, setMtf] = React.useState<MTFAnalysis | null>(null)
+  const hasInitialized = React.useRef(false)
 
   React.useEffect(() => {
-    const result = runMultiTimeframeAnalysis(candles)
+    if (hasInitialized.current) return
+    hasInitialized.current = true
+    const candlesSnapshot = useMarketStore.getState().candles
+    const result = runMultiTimeframeAnalysis(candlesSnapshot)
     setMtf(result)
-  }, [candles])
+  }, [])
 
   if (!mtf) {
     return (

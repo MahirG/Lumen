@@ -112,15 +112,15 @@ export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
         <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[oklch(0.07_0.018_265)] to-transparent" />
       </div>
 
-      {/* Main header bar */}
-      <div className="flex items-center justify-between gap-3 px-4 lg:px-6 py-3">
+      {/* Main header bar — refined typography (smaller, lighter, more elegant) */}
+      <div className="flex items-center justify-between gap-3 px-4 lg:px-6 py-2.5">
         <div className="flex items-center gap-3 min-w-0">
           <div className="min-w-0">
-            <h1 className="text-base lg:text-lg font-bold leading-tight font-display tracking-tight truncate text-gradient-platinum">
+            <h1 className="text-sm lg:text-base font-semibold leading-tight tracking-tight truncate text-[#F5F5F7]" style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
               {title}
             </h1>
             {subtitle && (
-              <p className="text-xs text-muted-foreground truncate">{subtitle}</p>
+              <p className="text-[11px] text-[#F5F5F7]/40 truncate font-normal tracking-tight">{subtitle}</p>
             )}
           </div>
         </div>

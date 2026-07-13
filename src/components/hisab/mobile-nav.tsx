@@ -8,6 +8,8 @@ import {
   LogIn, Zap, X, Atom, Activity,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { useI18n } from '@/lib/i18n/context'
+import { LANGUAGES } from '@/lib/i18n/types'
 
 interface MobileNavProps {
   isOpen: boolean
@@ -54,7 +56,7 @@ const NAV_ITEMS: NavItem[] = [
  */
 export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: MobileNavProps) {
   const [theme, setTheme] = React.useState<'dark' | 'light'>('dark')
-  const [language, setLanguage] = React.useState('EN')
+  const { language, setLanguage } = useI18n()
 
   // Lock body scroll when open
   React.useEffect(() => {
@@ -85,7 +87,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
   }
 
   const cycleLanguage = () => {
-    const langs = ['EN', 'ES', 'FR', 'DE', 'AR', 'JP']
+    const langs = LANGUAGES.map(l => l.code)
     const idx = langs.indexOf(language)
     setLanguage(langs[(idx + 1) % langs.length])
   }
@@ -238,7 +240,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
                   aria-label="Change language"
                 >
                   <Globe className="w-4 h-4 text-[#F5F5F7]/50" />
-                  <span className="text-[#F5F5F7]/70">{language}</span>
+                  <span className="text-[#F5F5F7]/70">{LANGUAGES.find(l => l.code === language)?.nativeName || language}</span>
                 </button>
 
                 {/* Theme switcher */}

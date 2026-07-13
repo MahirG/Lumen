@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as SonnerToaster } from "@/components/ui/sonner";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { I18nProvider } from "@/lib/i18n/context";
 
 // Inter — the closest free alternative to Apple's SF Pro Display
 const inter = Inter({
@@ -423,9 +424,10 @@ export default function RootLayout({
           enableSystem={false}
           forcedTheme="dark"
         >
-          {children}
-          <Toaster />
-          <SonnerToaster
+          <I18nProvider>
+            {children}
+            <Toaster />
+            <SonnerToaster
             position="top-right"
             theme="dark"
             toastOptions={{
@@ -438,6 +440,7 @@ export default function RootLayout({
               },
             }}
           />
+          </I18nProvider>
         </ThemeProvider>
       </body>
     </html>

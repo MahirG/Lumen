@@ -15,8 +15,8 @@ import { generateCoachExplanation, generateQuickCoachTip } from '@/lib/hisab/ai-
 import type { TradeSetup, MTFAnalysis, SMCAnalysis, MarketBias } from '@/lib/types/hisab'
 
 export function AICoach() {
-  const candles = useMarketStore(s => s.candles)
-  const price = useMarketStore(s => s.price)
+  // Do NOT subscribe to candles/price — that causes re-renders every tick.
+  // Instead, read from store snapshot only when manually generating.
   const [smc, setSmc] = React.useState<SMCAnalysis | null>(null)
   const [mtf, setMtf] = React.useState<MTFAnalysis | null>(null)
   const [setup, setSetup] = React.useState<TradeSetup | null>(null)
@@ -24,13 +24,20 @@ export function AICoach() {
   const [quickTip, setQuickTip] = React.useState('')
   const [generating, setGenerating] = React.useState(false)
   const [explanationKey, setExplanationKey] = React.useState(0)
+  const hasInitialized = React.useRef(false)
 
+  // Generate ONLY ONCE on mount — do NOT re-render when candles/price update.
+  // This keeps the reading experience stable and calm.
+  // User can manually refresh with the button.
   const generate = React.useCallback(() => {
     setGenerating(true)
     setTimeout(() => {
-      const smcResult = analyzeSMC(candles['15M'], '15M')
-      const mtfResult = runMultiTimeframeAnalysis(candles)
-      const setupResult = generateTradeSetup(smcResult, mtfResult, price?.last ?? 2650)
+      // Use a snapshot of candles at generation time — don't track live updates
+      const candlesSnapshot = useMarketStore.getState().candles
+      const priceSnapshot = useMarketStore.getState().price?.last ?? 2650
+      const smcResult = analyzeSMC(candlesSnapshot['15M'], '15M')
+      const mtfResult = runMultiTimeframeAnalysis(candlesSnapshot)
+      const setupResult = generateTradeSetup(smcResult, mtfResult, priceSnapshot)
       const coach = generateCoachExplanation(smcResult, setupResult, mtfResult)
       const tip = generateQuickCoachTip(smcResult, setupResult.bias)
       setSmc(smcResult)
@@ -41,9 +48,15 @@ export function AICoach() {
       setGenerating(false)
       setExplanationKey(k => k + 1)
     }, 400)
-  }, [candles, price])
+  }, []) // Empty dependency array — never auto-regenerates
 
-  React.useEffect(() => { generate() }, [generate])
+  // Run once on mount only
+  React.useEffect(() => {
+    if (!hasInitialized.current) {
+      hasInitialized.current = true
+      generate()
+    }
+  }, [generate])
 
   return (
     <div className="space-y-5">
