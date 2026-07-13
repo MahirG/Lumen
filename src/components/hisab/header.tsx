@@ -13,8 +13,9 @@ interface HeaderProps {
 }
 
 // Ticker tape items — mix of forex, metals, indices
+// (XAUUSD / Gold is intentionally excluded from the sticky header ticker
+//  per request — it has its own dedicated live panel in the workspace.)
 const TICKER_ITEMS = [
-  { symbol: 'XAUUSD', label: 'Gold', basePrice: 4055, volatility: 0.8 },
   { symbol: 'XAGUSD', label: 'Silver', basePrice: 58.35, volatility: 0.15 },
   { symbol: 'EURUSD', label: 'EUR/USD', basePrice: 1.087, volatility: 0.002 },
   { symbol: 'GBPUSD', label: 'GBP/USD', basePrice: 1.272, volatility: 0.002 },

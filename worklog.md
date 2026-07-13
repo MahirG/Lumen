@@ -64,3 +64,24 @@ Stage Summary:
 - The sticky header is now cleaner: title + live data-source badge + AI indicator
 - No re-render storms: the header no longer subscribes to `price.last`, only to `dataSource` and `lastRealUpdate` (which only change on real fetch events, not micro-ticks)
 - Gold/XAUUSD still appears in the scrolling ticker tape (alongside 11 other symbols) — that is a separate ambient marquee, not a "live value update" flasher
+
+---
+Task ID: header-remove-gold-ticker-2
+Agent: main
+Task: Also remove XAUUSD from the scrolling ticker tape in the sticky header (user clarification)
+
+Work Log:
+- User clarified that XAUUSD should be removed from the entire sticky header, including the scrolling ticker tape ("announcement menu")
+- Verified the gold price pill was already removed in task header-remove-gold-ticker-1
+- Removed `XAUUSD` / `Gold` entry from `TICKER_ITEMS` array in `src/components/hisab/header.tsx`
+- Added explanatory comment: "XAUUSD / Gold is intentionally excluded from the sticky header ticker per request"
+- Ticker now shows 11 symbols: XAGUSD, EURUSD, GBPUSD, USDJPY, DXY, BTCUSD, ETHUSD, US10Y, SPX, NDX, WTI
+- Verified via DOM inspection: sticky header `textContent` no longer contains "XAUUSD" anywhere
+- Verified via VLM screenshot analysis: "No, XAUUSD (gold) is not present in the ticker tape" and "No, there is no gold price pill with a crown icon visible"
+
+Stage Summary:
+- XAUUSD / Gold is now completely removed from the sticky header:
+  1. Gold price pill (crown icon + $price + change%) — removed in previous task
+  2. XAUUSD entry in scrolling ticker tape — removed in this task
+- The sticky header is now clean: ticker tape (11 symbols, no gold) + title + live status badge + AI indicator
+- Gold/XAUUSD live data still available in the workspace itself (LiveDashboard stat cards, Trading Workspace, etc.) — just not in the sticky header
