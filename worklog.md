@@ -194,3 +194,40 @@ Stage Summary:
 - Glassmorphism with blur, premium shadow, spring animations
 - Fully theme-aware (dark/light) via CSS variables
 - Accessible: keyboard nav, focus rings, aria labels, 40px+ touch targets
+
+---
+Task ID: fix-duplicate-hamburger-and-floating-text-1
+Agent: main
+Task: Remove duplicate/ghost hamburger menu and remove text from floating dock
+
+Work Log:
+- Investigated "two hamburger menus" report:
+  - Searched all hamburger references in codebase
+  - Found `AnimatedHamburger` (old floating button) was imported in page.tsx but NOT rendered in JSX
+  - The component itself returned null (already deprecated)
+  - However, the dead import was still in page.tsx, which could cause a cached JS bundle to render the old floating button (it was at `fixed top-4 right-4 z-[62]`)
+- Removed the dead import from page.tsx:
+  - `import { MobileNav, AnimatedHamburger, StickyHeader }` → `import { MobileNav }`
+  - This ensures no cached version of the old floating hamburger button can render
+- Verified via DOM inspection: only ONE "Open menu" button exists (at x:334, y:12 in header)
+- The other "Open AI assistant" button (bottom right) is the floating bot — not a hamburger
+
+- Removed text from FloatingNav (src/components/hisab/floating-nav.tsx):
+  - Removed all `<motion.span>` text labels that showed on active/hover
+  - Removed `hovered` state and `onMouseEnter`/`onMouseLeave` handlers
+  - Removed `AnimatePresence` import (no longer needed)
+  - All buttons now uniform `w-11 h-11` (44px) — no more expanding active button
+  - Active state: blue glow background + blue icon color + outer blur glow
+  - Inactive state: muted-foreground icon color
+  - Hover: scale 1.08, tap: scale 0.92 (spring physics)
+  - Icons: 19px, strokeWidth 2 (inactive) / 2.5 (active)
+  - Theme-aware border: `var(--border)` instead of hardcoded `rgba(255,255,255,0.08)`
+- Verified via DOM: floating nav now has "NO TEXT - icons only"
+
+Stage Summary:
+- Duplicate hamburger menu eliminated: removed dead `AnimatedHamburger` and `StickyHeader` imports from page.tsx
+- Only ONE hamburger button exists (in the header, top right)
+- FloatingNav (bottom dock) is now icons-only — no text labels on active or hover
+- All 4 dock buttons are uniform 44px squares with icons
+- Active state uses blue glow + color instead of expanding width + text
+- Verified: mobile menu drawer rated 8/10 by VLM, floating dock confirmed no text
