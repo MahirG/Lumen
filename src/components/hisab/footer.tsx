@@ -4,6 +4,7 @@ import * as React from 'react'
 import Link from 'next/link'
 import { Twitter, Send, MessageCircle, Youtube, Mail, ArrowUpRight, Shield, Zap } from 'lucide-react'
 import { PremiumBadge } from './primitives'
+import { BrandLogo } from './brand-logo'
 
 export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
   const productLinks = [
@@ -33,10 +34,8 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
           {/* Brand column */}
           <div className="md:col-span-4 space-y-4">
             <Link href="/" onClick={() => onNavigate?.('home')} className="flex items-center gap-3 group w-fit">
-              <img
-                src="/brand/png/apexeapro_logo_horizontal_dark_transparent.png"
-                alt="ApexEAPro"
-                height={28}
+              <BrandLogo
+                height={24}
                 className="h-[24px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
                 style={{ opacity: 0.85 }}
               />

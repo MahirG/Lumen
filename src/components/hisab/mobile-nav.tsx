@@ -13,6 +13,7 @@ import { cn } from '@/lib/utils'
 import { useI18n } from '@/lib/i18n/context'
 import { LANGUAGES } from '@/lib/i18n/types'
 import { useTheme } from 'next-themes'
+import { BrandLogo } from './brand-logo'
 
 interface MobileNavProps {
   isOpen: boolean
@@ -138,10 +139,8 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                 className="flex items-center gap-2 group"
                 aria-label="ApexEAPro home"
               >
-                <img
-                  src="/brand/png/apexeapro_logo_horizontal_dark_transparent.png"
-                  alt="ApexEAPro"
-                  height={26}
+                <BrandLogo
+                  height={24}
                   className="h-[22px] w-auto transition-transform duration-200 group-hover:scale-[1.03]"
                 />
               </button>

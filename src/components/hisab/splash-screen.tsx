@@ -2,13 +2,13 @@
 
 import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
+import { BrandLogo } from './brand-logo'
 
 /**
  * SplashScreen — shows the ApexEAPro brand logo centered on the dark app
  * background with a subtle fade-in + fade-out animation.
  *
- * Uses apexeapro_logo_horizontal_dark_transparent.png because the surrounding
- * area is the app's dark background (#0B0F19).
+ * Uses BrandLogo (theme-aware) so it adapts to light/dark mode.
  */
 export function SplashScreen() {
   const [visible, setVisible] = useState(true)
@@ -35,9 +35,7 @@ export function SplashScreen() {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           >
-            <img
-              src="/brand/png/apexeapro_logo_horizontal_dark_transparent.png"
-              alt="ApexEAPro"
+            <BrandLogo
               height={44}
               className="h-[36px] sm:h-[44px] w-auto"
               style={{

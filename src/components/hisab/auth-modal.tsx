@@ -7,6 +7,7 @@ import {
   Shield,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
+import { BrandLogo } from './brand-logo'
 
 interface AuthModalProps {
   isOpen: boolean
@@ -149,10 +150,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <div className="px-7 sm:px-9 pt-10 pb-8">
               {/* Brand mark */}
               <div className="flex items-center gap-2.5 mb-7">
-                <img
-                  src="/brand/png/apexeapro_logo_horizontal_dark_transparent.png"
-                  alt="ApexEAPro"
-                  height={28}
+                <BrandLogo
+                  height={26}
                   className="h-[24px] w-auto"
                   style={{ filter: 'drop-shadow(0 2px 8px rgba(245, 197, 66, 0.2))' }}
                 />

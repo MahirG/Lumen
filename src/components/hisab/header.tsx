@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Sun, Moon, User } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
+import { BrandLogo } from './brand-logo'
 
 interface HeaderProps {
   onMenuClick: () => void
@@ -46,16 +47,14 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-[68px]">
-          {/* ===== LEFT: Logo (horizontal dark transparent on dark header) ===== */}
+          {/* ===== LEFT: Logo (theme-aware) ===== */}
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               onClick={() => onNavigate('home')}
               className="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542] rounded-xl px-1 py-1"
               aria-label="ApexEAPro home"
             >
-              <img
-                src="/brand/png/apexeapro_logo_horizontal_dark_transparent.png"
-                alt="ApexEAPro"
+              <BrandLogo
                 height={32}
                 className="h-[26px] sm:h-[32px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
                 style={{ filter: 'drop-shadow(0 2px 8px rgba(245, 197, 66, 0.15))' }}
