@@ -36,18 +36,18 @@ interface ChartTheme {
 }
 
 const DEFAULT_THEME: ChartTheme = {
-  bull: '#10B981',
-  bear: '#EF4444',
-  bullWick: 'rgba(16, 185, 129, 0.7)',
-  bearWick: 'rgba(239, 68, 68, 0.7)',
+  bull: '#00E676',
+  bear: '#FF5252',
+  bullWick: 'rgba(0, 230, 118, 0.7)',
+  bearWick: 'rgba(255, 82, 82, 0.7)',
   bg: 'transparent',
   text: '#64748B',
-  grid: 'rgba(120, 160, 200, 0.05)',
-  border: 'rgba(120, 160, 200, 0.1)',
+  grid: 'rgba(44, 44, 44, 0.05)',
+  border: 'rgba(44, 44, 44, 0.1)',
   volume: 'rgba(247, 167, 7, 0.25)',
-  liq: 'rgba(245, 185, 66, 0.6)',
-  equilibrium: 'rgba(245, 185, 66, 0.4)',
-  ob: 'rgba(245, 185, 66, 0.15)',
+  liq: 'rgba(247, 167, 7, 0.6)',
+  equilibrium: 'rgba(247, 167, 7, 0.4)',
+  ob: 'rgba(247, 167, 7, 0.15)',
 }
 
 const THEME_STORAGE_KEY = 'apex-chart-theme-v1'
@@ -72,7 +72,7 @@ function saveTheme(theme: ChartTheme) {
 
 // Preset themes
 const PRESETS: { name: string; theme: Partial<ChartTheme> }[] = [
-  { name: 'Default', theme: { bull: '#10B981', bear: '#EF4444' } },
+  { name: 'Default', theme: { bull: '#00E676', bear: '#FF5252' } },
   { name: 'TradingView', theme: { bull: '#26a69a', bear: '#ef5350' } },
   { name: 'Classic', theme: { bull: '#00e676', bear: '#ff1744' } },
   { name: 'Neon', theme: { bull: '#00ff88', bear: '#ff0044' } },

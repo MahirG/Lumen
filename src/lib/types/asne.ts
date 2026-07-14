@@ -132,7 +132,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS'],
     cooldownMultiplier: 2,
     label: 'Free',
-    color: 'oklch(0.75 0.02 60)',
+    color: '#F7A707',
   },
   PRO: {
     maxChannels: 4,
@@ -140,7 +140,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS', 'PRICE_LEVEL', 'MARKET_STRUCTURE', 'VOLATILITY'],
     cooldownMultiplier: 1.5,
     label: 'Pro',
-    color: 'oklch(0.78 0.16 85)',
+    color: '#F7A707',
   },
   PREMIUM: {
     maxChannels: 6,
@@ -148,7 +148,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS', 'PRICE_LEVEL', 'MARKET_STRUCTURE', 'SMART_MONEY', 'VOLATILITY', 'RISK', 'TRADE_SETUP'],
     cooldownMultiplier: 1,
     label: 'Premium',
-    color: 'oklch(0.78 0.18 220)',
+    color: '#F7A707',
   },
   VIP: {
     maxChannels: 7,
@@ -156,7 +156,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS', 'PRICE_LEVEL', 'MARKET_STRUCTURE', 'SMART_MONEY', 'VOLATILITY', 'RISK', 'TRADE_SETUP'],
     cooldownMultiplier: 0.7,
     label: 'VIP',
-    color: 'oklch(0.82 0.15 85)',
+    color: '#F7A707',
   },
   INSTITUTIONAL: {
     maxChannels: 8,
@@ -164,7 +164,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS', 'PRICE_LEVEL', 'MARKET_STRUCTURE', 'SMART_MONEY', 'VOLATILITY', 'RISK', 'TRADE_SETUP'],
     cooldownMultiplier: 0.5,
     label: 'Institutional',
-    color: 'oklch(0.72 0.18 145)',
+    color: '#00E676',
   },
 }
 
@@ -191,8 +191,8 @@ export const CATEGORY_LABELS: Record<AlertCategory, string> = {
 }
 
 export const PRIORITY_CONFIG: Record<PriorityLevel, { color: string; label: string; triggersPush: boolean }> = {
-  CRITICAL: { color: 'oklch(0.66 0.24 25)', label: 'Critical', triggersPush: true },
-  HIGH: { color: 'oklch(0.82 0.15 85)', label: 'High', triggersPush: true },
-  MEDIUM: { color: 'oklch(0.78 0.18 220)', label: 'Medium', triggersPush: false },
-  LOW: { color: 'oklch(0.7 0.1 230)', label: 'Low', triggersPush: false },
+  CRITICAL: { color: '#FF5252', label: 'Critical', triggersPush: true },
+  HIGH: { color: '#F7A707', label: 'High', triggersPush: true },
+  MEDIUM: { color: '#F7A707', label: 'Medium', triggersPush: false },
+  LOW: { color: '#F7A707', label: 'Low', triggersPush: false },
 }

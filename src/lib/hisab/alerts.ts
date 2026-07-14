@@ -55,9 +55,9 @@ export function getAlertIcon(type: AlertType): string {
 
 export function getSeverityColor(severity: AlertSeverity): string {
   switch (severity) {
-    case 'critical': return 'oklch(0.66 0.22 25)'
-    case 'warn': return 'oklch(0.78 0.16 60)'
-    case 'info': return 'oklch(0.7 0.1 230)'
+    case 'critical': return '#FF5252'
+    case 'warn': return '#FFC107'
+    case 'info': return '#F7A707'
   }
 }
 

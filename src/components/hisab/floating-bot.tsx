@@ -310,8 +310,8 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
       >
         {isOpen ? <X className="w-5 h-5 text-white" /> : <Bot className="w-5 h-5 text-white" />}
         {!isOpen && (
-          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#10B981] border-2 border-[#0B0B0B]">
-            <span className="absolute inset-0 rounded-full bg-[#10B981] animate-ping opacity-60" />
+          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#00E676] border-2 border-[#0B0B0B]">
+            <span className="absolute inset-0 rounded-full bg-[#00E676] animate-ping opacity-60" />
           </span>
         )}
       </motion.button>
@@ -341,15 +341,15 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
             <div className="flex items-center gap-3 px-5 py-3.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
               <div className="relative w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #F7A707)' }}>
                 <Bot className="w-4 h-4 text-white" />
-                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#10B981] border-2 border-border" />
+                <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#00E676] border-2 border-border" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm font-semibold tracking-tight">Apex AI</span>
-                  <Sparkles className="w-3 h-3 text-[#F5B942]" />
+                  <Sparkles className="w-3 h-3 text-[#F7A707]" />
                 </div>
-                <div className="text-[10px] text-[#10B981] font-medium flex items-center gap-1">
-                  <span className="w-1 h-1 rounded-full bg-[#10B981] animate-pulse" />
+                <div className="text-[10px] text-[#00E676] font-medium flex items-center gap-1">
+                  <span className="w-1 h-1 rounded-full bg-[#00E676] animate-pulse" />
                   Online · Multi-AI Engine
                 </div>
               </div>
@@ -500,7 +500,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
               </button>
               <button
                 onClick={toggleVoice}
-                className={cn('w-8 h-8 rounded-full flex items-center justify-center transition-colors shrink-0', isListening ? 'bg-[#EF4444]' : 'hover:bg-white/10')}
+                className={cn('w-8 h-8 rounded-full flex items-center justify-center transition-colors shrink-0', isListening ? 'bg-[#FF5252]' : 'hover:bg-white/10')}
                 aria-label="Voice input"
                 title="Voice input"
               >
@@ -526,7 +526,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
                 placeholder={isListening ? 'Analyzing Institutional Activity...' : 'Ask Apex AI or upload a chart...'}
                 className="flex-1 px-3 py-2 rounded-full text-[13px] focus:outline-none placeholder:text-muted-foreground/60"
-                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.06)', color: '#F5F5F7' }}
+                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.06)', color: '#FFFFFF' }}
                 disabled={isLoading}
               />
               <button
@@ -593,12 +593,12 @@ function MessageActions({ text, isSpeaking, liked, disliked, onCopy, onVoice, on
   }
 
   const actions = [
-    { icon: copied ? Check : Copy, label: 'Copy', onClick: handleCopy, active: copied, color: copied ? '#10B981' : 'rgba(235,235,245,0.35)' },
+    { icon: copied ? Check : Copy, label: 'Copy', onClick: handleCopy, active: copied, color: copied ? '#00E676' : 'rgba(235,235,245,0.35)' },
     { icon: isSpeaking ? StopCircle : Volume2, label: isSpeaking ? 'Stop' : 'Read aloud', onClick: onVoice, active: isSpeaking, color: isSpeaking ? '#007AFF' : 'rgba(235,235,245,0.35)' },
     { icon: Share2, label: 'Share', onClick: onShare, color: 'rgba(235,235,245,0.35)' },
     { icon: RefreshCw, label: 'Regenerate', onClick: onRefresh, color: 'rgba(235,235,245,0.35)' },
-    { icon: ThumbsUp, label: 'Good response', onClick: onLike, active: liked, color: liked ? '#10B981' : 'rgba(235,235,245,0.35)' },
-    { icon: ThumbsDown, label: 'Bad response', onClick: onDislike, active: disliked, color: disliked ? '#EF4444' : 'rgba(235,235,245,0.35)' },
+    { icon: ThumbsUp, label: 'Good response', onClick: onLike, active: liked, color: liked ? '#00E676' : 'rgba(235,235,245,0.35)' },
+    { icon: ThumbsDown, label: 'Bad response', onClick: onDislike, active: disliked, color: disliked ? '#FF5252' : 'rgba(235,235,245,0.35)' },
     { icon: Download, label: 'Download', onClick: onDownload, color: 'rgba(235,235,245,0.35)' },
     { icon: FileText, label: 'Export', onClick: onExport, color: 'rgba(235,235,245,0.35)' },
   ]

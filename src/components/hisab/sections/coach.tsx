@@ -63,8 +63,8 @@ export function AICoach() {
       {/* Coach intro */}
       <GlassCard variant="strong" className="p-6">
         <div className="flex items-start gap-4 mb-5">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[oklch(0.92_0.14_85)] to-[oklch(0.72_0.18_75)] flex items-center justify-center shrink-0 glow-gold">
-            <GraduationCap className="w-7 h-7 text-[oklch(0.16_0.012_240)]" />
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center shrink-0 glow-gold">
+            <GraduationCap className="w-7 h-7 text-[#1A1A1A]" />
           </div>
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
@@ -92,13 +92,13 @@ export function AICoach() {
           <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
             <div className="p-3 rounded-lg bg-white/5">
               <div className="text-[10px] uppercase text-muted-foreground">Current Bias</div>
-              <div className={`text-lg font-bold mt-0.5 ${setup.bias === 'BUY' ? 'text-[oklch(0.85_0.15_145)]' : setup.bias === 'SELL' ? 'text-[oklch(0.85_0.15_25)]' : 'text-foreground'}`}>
+              <div className={`text-lg font-bold mt-0.5 ${setup.bias === 'BUY' ? 'text-[#00E676]' : setup.bias === 'SELL' ? 'text-[#FF7252]' : 'text-foreground'}`}>
                 {setup.bias}
               </div>
             </div>
             <div className="p-3 rounded-lg bg-white/5">
               <div className="text-[10px] uppercase text-muted-foreground">Confidence</div>
-              <div className="text-lg font-bold mt-0.5 text-[oklch(0.92_0.14_85)]">{setup.confidence}%</div>
+              <div className="text-lg font-bold mt-0.5 text-[#FFC83D]">{setup.confidence}%</div>
             </div>
             <div className="p-3 rounded-lg bg-white/5">
               <div className="text-[10px] uppercase text-muted-foreground">Timeframe Alignment</div>
@@ -116,11 +116,11 @@ export function AICoach() {
       {quickTip && (
         <GlassCard variant="gold" className="p-4">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[oklch(0.82_0.15_85/15%)] flex items-center justify-center shrink-0">
-              <Lightbulb className="w-4 h-4 text-[oklch(0.92_0.14_85)]" />
+            <div className="w-8 h-8 rounded-lg bg-[rgba(247, 167, 7, 0.15)] flex items-center justify-center shrink-0">
+              <Lightbulb className="w-4 h-4 text-[#FFC83D]" />
             </div>
             <div className="flex-1">
-              <div className="text-xs uppercase tracking-wider text-[oklch(0.92_0.14_85)] mb-1 font-medium">Quick Coach Tip</div>
+              <div className="text-xs uppercase tracking-wider text-[#FFC83D] mb-1 font-medium">Quick Coach Tip</div>
               <p className="text-sm leading-relaxed">{quickTip}</p>
             </div>
           </div>
@@ -130,8 +130,8 @@ export function AICoach() {
       {/* Full explanation */}
       <GlassCard className="p-5">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[oklch(0.92_0.14_85)] to-[oklch(0.72_0.18_75)] flex items-center justify-center">
-            <Brain className="w-4 h-4 text-[oklch(0.16_0.012_240)]" />
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center">
+            <Brain className="w-4 h-4 text-[#1A1A1A]" />
           </div>
           <div>
             <h3 className="text-base font-semibold font-display">Full Mentor Explanation</h3>
@@ -141,7 +141,7 @@ export function AICoach() {
 
         {generating ? (
           <div className="flex items-center justify-center py-8">
-            <div className="w-5 h-5 border-2 border-[oklch(0.82_0.15_85)] border-t-transparent rounded-full animate-spin mr-2" />
+            <div className="w-5 h-5 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin mr-2" />
             <span className="text-sm text-muted-foreground">Mentor analyzing market structure...</span>
           </div>
         ) : (
@@ -159,7 +159,7 @@ export function AICoach() {
                 transition={{ delay: i * 0.05 }}
                 className="text-sm leading-relaxed text-foreground/90 flex gap-2"
               >
-                <span className="text-[oklch(0.82_0.15_85)] font-mono text-xs shrink-0 mt-0.5">{(i + 1).toString().padStart(2, '0')}</span>
+                <span className="text-[#F7A707] font-mono text-xs shrink-0 mt-0.5">{(i + 1).toString().padStart(2, '0')}</span>
                 <span>{sentence}{i < arr.length - 1 ? '.' : ''}</span>
               </motion.p>
             ))}
@@ -222,7 +222,7 @@ function ConceptCard({ icon, title, definition, usage }: {
 }) {
   return (
     <GlassCard className="p-4" hover>
-      <div className="flex items-center gap-2 mb-2 text-[oklch(0.92_0.14_85)]">
+      <div className="flex items-center gap-2 mb-2 text-[#FFC83D]">
         {icon}
         <h4 className="text-sm font-semibold font-display">{title}</h4>
       </div>

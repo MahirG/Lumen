@@ -55,13 +55,13 @@ export function DecisionEngine() {
   if (!setup || !mtf) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 border-2 border-[oklch(0.82_0.15_85)] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
 
-  const biasColor = setup.bias === 'BUY' ? 'text-[oklch(0.85_0.15_145)]' : setup.bias === 'SELL' ? 'text-[oklch(0.85_0.15_25)]' : 'text-[oklch(0.85_0.02_60)]'
-  const biasBg = setup.bias === 'BUY' ? 'from-[oklch(0.72_0.18_145/15%)] to-transparent' : setup.bias === 'SELL' ? 'from-[oklch(0.66_0.22_25/15%)] to-transparent' : 'from-[oklch(0.75_0.02_60/10%)] to-transparent'
+  const biasColor = setup.bias === 'BUY' ? 'text-[#00E676]' : setup.bias === 'SELL' ? 'text-[#FF7252]' : 'text-[#F7A707]'
+  const biasBg = setup.bias === 'BUY' ? 'from-[rgba(0, 230, 118, 0.15)] to-transparent' : setup.bias === 'SELL' ? 'from-[rgba(255, 82, 82, 0.15)] to-transparent' : 'from-[rgba(247, 167, 7, 0.1)] to-transparent'
   const biasIcon = setup.bias === 'BUY' ? <TrendingUp className="w-7 h-7" /> : setup.bias === 'SELL' ? <TrendingDown className="w-7 h-7" /> : <Minus className="w-7 h-7" />
 
   return (
@@ -81,7 +81,7 @@ export function DecisionEngine() {
           <div className="flex items-center gap-3">
             <div className="text-right">
               <div className="text-xs uppercase tracking-wider text-muted-foreground">Confidence</div>
-              <div className="text-3xl font-mono font-bold text-[oklch(0.92_0.14_85)]">{setup.confidence}%</div>
+              <div className="text-3xl font-mono font-bold text-[#FFC83D]">{setup.confidence}%</div>
             </div>
             <div className="w-px h-12 bg-border/40" />
             <div className="text-right">
@@ -114,19 +114,19 @@ export function DecisionEngine() {
             <div className="flex items-center gap-1.5 text-[10px] uppercase text-muted-foreground">
               <Target className="w-3 h-3" /> Entry Optimal
             </div>
-            <div className="text-sm font-mono font-semibold mt-1 text-[oklch(0.92_0.14_85)]">${formatNumber(setup.entryZone.optimal, 2)}</div>
+            <div className="text-sm font-mono font-semibold mt-1 text-[#FFC83D]">${formatNumber(setup.entryZone.optimal, 2)}</div>
           </div>
           <div className="rounded-lg p-3 bg-white/5">
             <div className="flex items-center gap-1.5 text-[10px] uppercase text-muted-foreground">
               <Shield className="w-3 h-3" /> Stop Loss
             </div>
-            <div className="text-sm font-mono font-semibold mt-1 text-[oklch(0.85_0.15_25)]">${formatNumber(setup.stopLoss, 2)}</div>
+            <div className="text-sm font-mono font-semibold mt-1 text-[#FF7252]">${formatNumber(setup.stopLoss, 2)}</div>
           </div>
           <div className="rounded-lg p-3 bg-white/5">
             <div className="flex items-center gap-1.5 text-[10px] uppercase text-muted-foreground">
               <Award className="w-3 h-3" /> TP1 / TP3
             </div>
-            <div className="text-sm font-mono font-semibold mt-1 text-[oklch(0.85_0.15_145)]">
+            <div className="text-sm font-mono font-semibold mt-1 text-[#00E676]">
               ${formatNumber(setup.takeProfit1, 2)} · ${formatNumber(setup.takeProfit3, 2)}
             </div>
           </div>
@@ -138,7 +138,7 @@ export function DecisionEngine() {
         <GlassCard className="p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base font-semibold font-display flex items-center gap-2">
-              <Target className="w-4 h-4 text-[oklch(0.92_0.14_85)]" /> Trade Levels
+              <Target className="w-4 h-4 text-[#FFC83D]" /> Trade Levels
             </h3>
             <StatusBadge variant="gold">XAUUSD · 15M</StatusBadge>
           </div>
@@ -157,11 +157,11 @@ export function DecisionEngine() {
             </div>
             <div>
               <div className="text-[10px] uppercase text-muted-foreground">Reward (TP1)</div>
-              <div className="text-sm font-mono font-semibold text-[oklch(0.85_0.15_145)]">${formatNumber(Math.abs(setup.takeProfit1 - setup.entryZone.optimal), 2)}</div>
+              <div className="text-sm font-mono font-semibold text-[#00E676]">${formatNumber(Math.abs(setup.takeProfit1 - setup.entryZone.optimal), 2)}</div>
             </div>
             <div>
               <div className="text-[10px] uppercase text-muted-foreground">Risk:Reward</div>
-              <div className="text-sm font-mono font-semibold text-[oklch(0.92_0.14_85)]">1:{setup.riskReward}</div>
+              <div className="text-sm font-mono font-semibold text-[#FFC83D]">1:{setup.riskReward}</div>
             </div>
           </div>
         </GlassCard>
@@ -170,11 +170,11 @@ export function DecisionEngine() {
         <GlassCard variant="gold" className="p-5">
           <div className="flex items-center justify-between mb-4">
             <h3 className="text-base font-semibold font-display flex items-center gap-2">
-              <AlertOctagon className="w-4 h-4 text-[oklch(0.7_0.2_25)]" /> Trade Invalidation
+              <AlertOctagon className="w-4 h-4 text-[#FF5252]" /> Trade Invalidation
             </h3>
             <StatusBadge variant="danger">CRITICAL</StatusBadge>
           </div>
-          <div className="p-3 rounded-lg bg-[oklch(0.66_0.22_25/8%)] border border-[oklch(0.66_0.22_25/25%)]">
+          <div className="p-3 rounded-lg bg-[rgba(255, 82, 82, 0.08)] border border-[rgba(255, 82, 82, 0.25)]">
             <p className="text-sm leading-relaxed">{setup.invalidation}</p>
           </div>
           <div className="mt-4 space-y-2">
@@ -182,13 +182,13 @@ export function DecisionEngine() {
             {setup.invalidationLevels.map((lvl, i) => (
               <div key={i} className="flex items-center justify-between p-2 rounded-md bg-white/5">
                 <span className="text-xs text-muted-foreground">Level {i + 1}</span>
-                <span className="font-mono font-medium text-[oklch(0.85_0.15_25)]">${formatNumber(lvl, 2)}</span>
+                <span className="font-mono font-medium text-[#FF7252]">${formatNumber(lvl, 2)}</span>
               </div>
             ))}
           </div>
-          <div className="mt-4 p-2.5 rounded-md bg-[oklch(0.66_0.22_25/5%)] border border-[oklch(0.66_0.22_25/15%)]">
+          <div className="mt-4 p-2.5 rounded-md bg-[rgba(255, 82, 82, 0.05)] border border-[rgba(255, 82, 82, 0.15)]">
             <div className="flex items-start gap-2 text-[11px] text-muted-foreground">
-              <XCircle className="w-3.5 h-3.5 text-[oklch(0.7_0.2_25)] mt-0.5 shrink-0" />
+              <XCircle className="w-3.5 h-3.5 text-[#FF5252] mt-0.5 shrink-0" />
               <span>Never move stop loss against the trade. Invalidation = exit immediately.</span>
             </div>
           </div>
@@ -198,7 +198,7 @@ export function DecisionEngine() {
       {/* Reasons */}
       <GlassCard className="p-5">
         <h3 className="text-base font-semibold font-display flex items-center gap-2 mb-3">
-          <Brain className="w-4 h-4 text-[oklch(0.92_0.14_85)]" /> Why This Setup?
+          <Brain className="w-4 h-4 text-[#FFC83D]" /> Why This Setup?
         </h3>
         <div className="space-y-2">
           {setup.reasons.map((reason, i) => (
@@ -209,7 +209,7 @@ export function DecisionEngine() {
               transition={{ delay: i * 0.05 }}
               className="flex items-start gap-2.5 p-2.5 rounded-md bg-white/5"
             >
-              <CheckCircle2 className="w-4 h-4 text-[oklch(0.72_0.18_145)] mt-0.5 shrink-0" />
+              <CheckCircle2 className="w-4 h-4 text-[#00E676] mt-0.5 shrink-0" />
               <span className="text-sm">{reason}</span>
             </motion.div>
           ))}
@@ -220,7 +220,7 @@ export function DecisionEngine() {
       <GlassCard className="p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-base font-semibold font-display flex items-center gap-2">
-            <Target className="w-4 h-4 text-[oklch(0.92_0.14_85)]" /> Multi-Timeframe Alignment
+            <Target className="w-4 h-4 text-[#FFC83D]" /> Multi-Timeframe Alignment
           </h3>
           <StatusBadge variant={mtf.overallBias === 'BUY' ? 'bull' : mtf.overallBias === 'SELL' ? 'bear' : 'neutral'}>
             {mtf.overallBias} · {mtf.alignment}%
@@ -230,7 +230,7 @@ export function DecisionEngine() {
           {[mtf.monthly, mtf.weekly, mtf.daily, mtf.h4, mtf.h1, mtf.m15, mtf.m5, mtf.m1].map((tf, i) => (
             <div key={i} className="rounded-lg p-2 bg-white/5 text-center">
               <div className="text-[10px] uppercase text-muted-foreground font-mono">{tf.timeframe}</div>
-              <div className={cn('text-sm font-semibold mt-1', tf.bias === 'BUY' ? 'text-[oklch(0.85_0.15_145)]' : tf.bias === 'SELL' ? 'text-[oklch(0.85_0.15_25)]' : 'text-muted-foreground')}>
+              <div className={cn('text-sm font-semibold mt-1', tf.bias === 'BUY' ? 'text-[#00E676]' : tf.bias === 'SELL' ? 'text-[#FF7252]' : 'text-muted-foreground')}>
                 {tf.bias === 'BUY' ? '↑' : tf.bias === 'SELL' ? '↓' : '—'}
               </div>
             </div>
@@ -241,8 +241,8 @@ export function DecisionEngine() {
       {/* Coach */}
       <GlassCard variant="gold" className="p-5">
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[oklch(0.92_0.14_85)] to-[oklch(0.72_0.18_75)] flex items-center justify-center">
-            <Brain className="w-4 h-4 text-[oklch(0.16_0.012_240)]" />
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center">
+            <Brain className="w-4 h-4 text-[#1A1A1A]" />
           </div>
           <div>
             <h3 className="text-base font-semibold font-display">AI Coach Explanation</h3>
@@ -278,9 +278,9 @@ function LevelRow({ label, value, variant, sub }: {
   sub?: string
 }) {
   const colors = {
-    bull: 'text-[oklch(0.85_0.15_145)] border-[oklch(0.72_0.18_145/20%)] bg-[oklch(0.72_0.18_145/5%)]',
-    bear: 'text-[oklch(0.85_0.15_25)] border-[oklch(0.66_0.22_25/20%)] bg-[oklch(0.66_0.22_25/5%)]',
-    gold: 'text-[oklch(0.92_0.14_85)] border-[oklch(0.82_0.15_85/20%)] bg-[oklch(0.82_0.15_85/5%)]',
+    bull: 'text-[#00E676] border-[rgba(0, 230, 118, 0.20)] bg-[rgba(0, 200, 83, 0.05)]',
+    bear: 'text-[#FF7252] border-[rgba(255, 82, 82, 0.20)] bg-[rgba(255, 82, 82, 0.05)]',
+    gold: 'text-[#FFC83D] border-[rgba(247, 167, 7, 0.20)] bg-[rgba(247, 167, 7, 0.05)]',
     neutral: 'text-foreground border-border/30 bg-white/5',
   }
   return (

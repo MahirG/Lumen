@@ -713,10 +713,10 @@ export function shouldWarnForNews(events: NewsEvent[], warnWindowMinutes = 18): 
 
 export function getImpactColor(impact: NewsImpact): string {
   switch (impact) {
-    case 'HIGH': return 'oklch(0.66 0.22 25)'
-    case 'MEDIUM': return 'oklch(0.78 0.16 60)'
-    case 'LOW': return 'oklch(0.7 0.1 230)'
-    default: return 'oklch(0.5 0.05 60)'
+    case 'HIGH': return '#FF5252'
+    case 'MEDIUM': return '#FFC107'
+    case 'LOW': return '#F7A707'
+    default: return '#E69500'
   }
 }
 
@@ -731,8 +731,8 @@ export function getImpactLabel(impact: NewsImpact): string {
 
 export function getSourceColor(source: NewsSource): string {
   switch (source) {
-    case 'ForexFactory': return 'oklch(0.7 0.18 145)'
-    case 'TradingEconomics': return 'oklch(0.82 0.15 85)'
-    case 'Investing': return 'oklch(0.7 0.13 230)'
+    case 'ForexFactory': return '#00C853'
+    case 'TradingEconomics': return '#F7A707'
+    case 'Investing': return '#F7A707'
   }
 }

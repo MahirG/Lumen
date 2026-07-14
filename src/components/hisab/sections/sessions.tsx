@@ -39,8 +39,8 @@ export function SessionDetector() {
             >
               <Clock className="w-7 h-7" style={{ color: getSessionColor(currentSession.name) }} />
               {currentSession.isActive && (
-                <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[oklch(0.72_0.18_145)]">
-                  <div className="absolute inset-0 rounded-full bg-[oklch(0.72_0.18_145)] animate-ping" />
+                <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-[#00E676]">
+                  <div className="absolute inset-0 rounded-full bg-[#00E676] animate-ping" />
                 </div>
               )}
             </div>
@@ -57,16 +57,16 @@ export function SessionDetector() {
               <motion.div
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[oklch(0.78_0.16_85/15%)] border border-[oklch(0.82_0.15_85/30%)]"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(247, 167, 7, 0.15)] border border-[rgba(247, 167, 7, 0.3)]"
               >
-                <Zap className="w-4 h-4 text-[oklch(0.92_0.14_85)]" />
-                <span className="text-sm font-semibold text-[oklch(0.92_0.14_85)]">KILL ZONE ACTIVE</span>
+                <Zap className="w-4 h-4 text-[#FFC83D]" />
+                <span className="text-sm font-semibold text-[#FFC83D]">KILL ZONE ACTIVE</span>
               </motion.div>
             )}
             {nextSession && (
               <div className="text-xs text-muted-foreground">
                 Next: <span className="text-foreground font-mono">{nextSession.name.replace('_', ' ')}</span> in
-                <span className="text-[oklch(0.92_0.14_85)] font-mono ml-1">{minutesToNext}m</span>
+                <span className="text-[#FFC83D] font-mono ml-1">{minutesToNext}m</span>
               </div>
             )}
           </div>
@@ -78,9 +78,9 @@ export function SessionDetector() {
 
         {currentSession.killZoneStart && (
           <div className="mt-3 grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-lg bg-[oklch(0.82_0.15_85/5%)] border border-[oklch(0.82_0.15_85/20%)]">
+            <div className="p-3 rounded-lg bg-[rgba(247, 167, 7, 0.05)] border border-[rgba(247, 167, 7, 0.20)]">
               <div className="text-[10px] uppercase text-muted-foreground">Kill Zone Window</div>
-              <div className="text-sm font-mono font-semibold mt-1 text-[oklch(0.92_0.14_85)]">
+              <div className="text-sm font-mono font-semibold mt-1 text-[#FFC83D]">
                 {currentSession.killZoneStart} → {currentSession.killZoneEnd}
               </div>
             </div>
@@ -139,7 +139,7 @@ export function SessionDetector() {
           })}
           {/* Current time indicator */}
           <div
-            className="absolute top-0 bottom-0 w-0.5 bg-[oklch(0.92_0.14_85)] shadow-[0_0_8px_oklch(0.82_0.15_85/60%)]"
+            className="absolute top-0 bottom-0 w-0.5 bg-[#FFC83D] shadow-[0_0_8px_rgba(247, 167, 7, 0.6)]"
             style={{ left: `${(utcHours / 24) * 100}%` }}
           />
         </div>
@@ -160,7 +160,7 @@ function SessionCard({ session, delay }: { session: SessionInfo; delay: number }
       transition={{ delay }}
     >
       <GlassCard
-        className={cn('p-5 transition-all', session.isActive && 'border-[oklch(0.82_0.15_85/40%)] glow-gold')}
+        className={cn('p-5 transition-all', session.isActive && 'border-[rgba(247, 167, 7, 0.40)] glow-gold')}
         hover
       >
         <div className="flex items-center justify-between mb-3">
@@ -182,9 +182,9 @@ function SessionCard({ session, delay }: { session: SessionInfo; delay: number }
         {session.killZoneStart && (
           <div className="mt-3 pt-3 border-t border-border/30">
             <div className="flex items-center gap-1.5 text-[11px]">
-              <Zap className="w-3 h-3 text-[oklch(0.92_0.14_85)]" />
+              <Zap className="w-3 h-3 text-[#FFC83D]" />
               <span className="text-muted-foreground">Kill zone:</span>
-              <span className="font-mono text-[oklch(0.92_0.14_85)]">{session.killZoneStart} - {session.killZoneEnd}</span>
+              <span className="font-mono text-[#FFC83D]">{session.killZoneStart} - {session.killZoneEnd}</span>
             </div>
           </div>
         )}

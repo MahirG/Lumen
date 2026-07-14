@@ -91,8 +91,8 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
         {/* Logo */}
         <div className="flex items-center justify-between p-5 border-b border-white/[6%]">
           <Link href="/" onClick={() => onSelect('home')} className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-[oklch(0.95_0.10_85)] via-[oklch(0.82_0.16_85)] to-[oklch(0.65_0.20_75)] flex items-center justify-center glow-gold shrink-0 overflow-hidden">
-              <Crown className="w-5 h-5 text-[oklch(0.07_0.018_265)]" strokeWidth={2.5} />
+            <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-[#FFC83D] via-[#F7A707] to-[#E69500] flex items-center justify-center glow-gold shrink-0 overflow-hidden">
+              <Crown className="w-5 h-5 text-[#0B0B0B]" strokeWidth={2.5} />
               <div className="absolute inset-0 shimmer opacity-40" />
             </div>
             <div className="flex flex-col">
@@ -134,7 +134,7 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
                         'group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left',
                         'transition-all duration-300',
                         isActive
-                          ? 'bg-gradient-to-r from-[oklch(0.82_0.15_85/12%)] via-[oklch(0.82_0.15_85/6%)] to-transparent text-foreground'
+                          ? 'bg-gradient-to-r from-[rgba(247, 167, 7, 0.12)] via-[rgba(247, 167, 7, 0.06)] to-transparent text-foreground'
                           : 'text-muted-foreground hover:text-foreground hover:bg-white/[4%]',
                       )}
                       aria-current={isActive ? 'page' : undefined}
@@ -142,19 +142,19 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
                       {isActive && (
                         <motion.div
                           layoutId="sidebar-active"
-                          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[oklch(0.95_0.10_85)] to-[oklch(0.65_0.20_75)] rounded-r-full glow-gold"
+                          className="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#FFC83D] to-[#E69500] rounded-r-full glow-gold"
                           transition={{ type: 'spring', bounce: 0.2, duration: 0.5 }}
                         />
                       )}
                       <div className={cn(
                         'w-9 h-9 rounded-lg flex items-center justify-center transition-all shrink-0',
                         isActive
-                          ? 'bg-gradient-to-br from-[oklch(0.82_0.15_85/20%)] to-[oklch(0.82_0.15_85/8%)] border border-[oklch(0.82_0.15_85/25%)]'
+                          ? 'bg-gradient-to-br from-[rgba(247, 167, 7, 0.20)] to-[rgba(247, 167, 7, 0.08)] border border-[rgba(247, 167, 7, 0.25)]'
                           : 'bg-white/[4%] group-hover:bg-white/[8%]',
                       )}>
                         <Icon className={cn(
                           'w-4 h-4 transition-colors',
-                          isActive ? 'text-[oklch(0.92_0.13_85)]' : 'text-muted-foreground group-hover:text-foreground',
+                          isActive ? 'text-[#FFC83D]' : 'text-muted-foreground group-hover:text-foreground',
                         )} />
                       </div>
                       <div className="flex-1 min-w-0">
@@ -169,7 +169,7 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
                         </div>
                       </div>
                       {isActive && (
-                        <Sparkles className="w-3 h-3 text-[oklch(0.92_0.13_85)]" />
+                        <Sparkles className="w-3 h-3 text-[#FFC83D]" />
                       )}
                     </button>
                   )
@@ -183,8 +183,8 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
         <div className="p-3 border-t border-white/[6%]">
           <div className="rounded-xl p-3.5 glass-gold relative overflow-hidden">
             <div className="flex items-center gap-2 mb-2">
-              <Zap className="w-3.5 h-3.5 text-[oklch(0.92_0.13_85)]" />
-              <span className="text-[10px] uppercase tracking-wider font-bold text-[oklch(0.92_0.13_85)]">AI Engine</span>
+              <Zap className="w-3.5 h-3.5 text-[#FFC83D]" />
+              <span className="text-[10px] uppercase tracking-wider font-bold text-[#FFC83D]">AI Engine</span>
               <StatusDot color="gold" pulse size="sm" className="ml-auto" />
             </div>
             <p className="text-[11px] text-muted-foreground leading-relaxed">

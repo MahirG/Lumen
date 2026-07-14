@@ -93,10 +93,10 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
       danger: 'text-white hover:shadow-[0_8px_32px_rgba(239,68,68,0.3)]',
     }
     const gradientBg: Record<string, string> = {
-      gold: 'linear-gradient(135deg, #F5B942, #E09B2E)',
+      gold: 'linear-gradient(135deg, #F7A707, #E09B2E)',
       electric: 'linear-gradient(135deg, #F7A707, #0958D6)',
-      emerald: 'linear-gradient(135deg, #10B981, #059669)',
-      danger: 'linear-gradient(135deg, #EF4444, #DC2626)',
+      emerald: 'linear-gradient(135deg, #00E676, #059669)',
+      danger: 'linear-gradient(135deg, #FF5252, #DC2626)',
     }
     const sizes = {
       sm: 'h-8 px-3.5 text-xs rounded-lg gap-1.5',
@@ -188,11 +188,11 @@ interface StatusDotProps {
 
 export function StatusDot({ color = 'green', pulse = true, size = 'sm', label, className }: StatusDotProps) {
   const colors = {
-    green: 'bg-[oklch(0.78_0.19_152)]',
-    gold: 'bg-[oklch(0.82_0.15_85)]',
-    blue: 'bg-[oklch(0.78_0.18_220)]',
-    red: 'bg-[oklch(0.66_0.24_25)]',
-    gray: 'bg-[oklch(0.55_0.02_240)]',
+    green: 'bg-[#00E676]',
+    gold: 'bg-[#F7A707]',
+    blue: 'bg-[#F7A707]',
+    red: 'bg-[#FF5252]',
+    gray: 'bg-[#1A1A1A]',
   }
   const sizes = {
     sm: 'w-1.5 h-1.5',
@@ -225,14 +225,14 @@ interface PremiumBadgeProps {
 
 export function PremiumBadge({ variant = 'neutral', size = 'sm', glow = false, children, className }: PremiumBadgeProps) {
   const variants = {
-    bull: 'bg-[oklch(0.78_0.19_152/15%)] text-[oklch(0.88_0.16_152)] border-[oklch(0.78_0.19_152/30%)]',
-    bear: 'bg-[oklch(0.66_0.24_25/15%)] text-[oklch(0.88_0.16_25)] border-[oklch(0.66_0.24_25/30%)]',
-    neutral: 'bg-[oklch(0.75_0.02_60/12%)] text-[oklch(0.88_0.02_60)] border-[oklch(0.75_0.02_60/25%)]',
-    gold: 'bg-[oklch(0.82_0.15_85/12%)] text-[oklch(0.92_0.13_85)] border-[oklch(0.82_0.15_85/28%)]',
-    electric: 'bg-[oklch(0.78_0.18_220/12%)] text-[oklch(0.92_0.13_220)] border-[oklch(0.78_0.18_220/28%)]',
-    emerald: 'bg-[oklch(0.78_0.19_152/12%)] text-[oklch(0.88_0.16_152)] border-[oklch(0.78_0.19_152/28%)]',
-    danger: 'bg-[oklch(0.66_0.24_25/15%)] text-[oklch(0.88_0.16_25)] border-[oklch(0.66_0.24_25/30%)] animate-pulse',
-    info: 'bg-[oklch(0.78_0.13_230/12%)] text-[oklch(0.88_0.13_230)] border-[oklch(0.78_0.13_230/28%)]',
+    bull: 'bg-[rgba(0, 200, 83, 0.15)] text-[#00E676] border-[rgba(0, 200, 83, 0.3)]',
+    bear: 'bg-[rgba(255, 82, 82, 0.15)] text-[#FF5252] border-[rgba(255, 82, 82, 0.3)]',
+    neutral: 'bg-[rgba(247, 167, 7, 0.12)] text-[#FFC83D] border-[rgba(247, 167, 7, 0.25)]',
+    gold: 'bg-[rgba(247, 167, 7, 0.12)] text-[#FFC83D] border-[rgba(247, 167, 7, 0.28)]',
+    electric: 'bg-[rgba(247, 167, 7, 0.12)] text-[#FFC83D] border-[rgba(247, 167, 7, 0.28)]',
+    emerald: 'bg-[rgba(0, 200, 83, 0.12)] text-[#00E676] border-[rgba(0, 200, 83, 0.28)]',
+    danger: 'bg-[rgba(255, 82, 82, 0.15)] text-[#FF5252] border-[rgba(255, 82, 82, 0.3)] animate-pulse',
+    info: 'bg-[rgba(247, 167, 7, 0.12)] text-[#FFC83D] border-[rgba(247, 167, 7, 0.28)]',
     platinum: 'bg-white/[8%] text-platinum border-white/20',
   }
   const sizes = {
@@ -271,12 +271,12 @@ interface PremiumProgressProps {
 
 export function PremiumProgress({ value, color = 'gold', height = 8, showLabel, label, animated = true, className }: PremiumProgressProps) {
   const colors = {
-    gold: 'from-[oklch(0.78_0.16_85)] to-[oklch(0.92_0.13_85)]',
-    electric: 'from-[oklch(0.65_0.20_220)] to-[oklch(0.85_0.15_220)]',
-    emerald: 'from-[oklch(0.65_0.20_152)] to-[oklch(0.85_0.18_152)]',
-    bear: 'from-[oklch(0.55_0.25_25)] to-[oklch(0.75_0.22_25)]',
-    neutral: 'from-[oklch(0.55_0.05_240)] to-[oklch(0.85_0.05_240)]',
-    platinum: 'from-[oklch(0.65_0.005_240)] to-[oklch(0.99_0_0)]',
+    gold: 'from-[#F7A707] to-[#FFC83D]',
+    electric: 'from-[#1A1A1A] to-[#FFC83D]',
+    emerald: 'from-[#00C853] to-[#00E676]',
+    bear: 'from-[#CC3333] to-[#FF5252]',
+    neutral: 'from-[#1A1A1A] to-[#FFC83D]',
+    platinum: 'from-[#1A1A1A] to-[#FFFFFF]',
   }
   return (
     <div className={cn('w-full', className)}>
@@ -380,9 +380,9 @@ interface StatCardProps {
 
 export function StatCard({ label, value, sub, icon, trend = 'neutral', delay = 0, accent = 'neutral' }: StatCardProps) {
   const trendColor = trend === 'up'
-    ? 'text-[oklch(0.88_0.16_152)]'
+    ? 'text-[#00E676]'
     : trend === 'down'
-    ? 'text-[oklch(0.88_0.16_25)]'
+    ? 'text-[#FF5252]'
     : 'text-foreground'
 
   const accents = {

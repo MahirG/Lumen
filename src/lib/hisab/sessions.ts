@@ -139,9 +139,9 @@ export function getAllSessions(date = new Date()): SessionInfo[] {
 
 export function getSessionColor(name: TradingSession): string {
   switch (name) {
-    case 'ASIAN': return 'oklch(0.7 0.13 230)'
-    case 'LONDON': return 'oklch(0.82 0.15 85)'
-    case 'NEW_YORK': return 'oklch(0.72 0.18 145)'
-    default: return 'oklch(0.5 0.05 60)'
+    case 'ASIAN': return '#F7A707'
+    case 'LONDON': return '#F7A707'
+    case 'NEW_YORK': return '#00E676'
+    default: return '#E69500'
   }
 }

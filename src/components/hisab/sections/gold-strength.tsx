@@ -56,7 +56,7 @@ export function GoldStrengthMeter() {
                 <circle
                   cx="100" cy="100" r="85"
                   fill="none"
-                  stroke="oklch(1 0 0 / 5%)"
+                  stroke="rgba(255, 255, 255, 0.05)"
                   strokeWidth="14"
                   strokeLinecap="round"
                   strokeDasharray="400 600"
@@ -97,7 +97,7 @@ export function GoldStrengthMeter() {
           {/* Summary */}
           <div>
             <h3 className="text-lg font-semibold font-display flex items-center gap-2 mb-3">
-              <Gauge className="w-5 h-5 text-[oklch(0.92_0.14_85)]" /> Gold Strength Analysis
+              <Gauge className="w-5 h-5 text-[#FFC83D]" /> Gold Strength Analysis
             </h3>
             <p className="text-sm text-foreground/90 leading-relaxed mb-4">{strength.summary}</p>
             <div className="grid grid-cols-2 gap-3">
@@ -170,7 +170,7 @@ export function GoldStrengthMeter() {
         />
         <GlassCard variant="gold" className="p-4">
           <div className="flex items-center gap-2 mb-3">
-            <Gauge className="w-4 h-4 text-[oklch(0.92_0.14_85)]" />
+            <Gauge className="w-4 h-4 text-[#FFC83D]" />
             <span className="text-xs uppercase tracking-wider text-muted-foreground">Overall Score</span>
           </div>
           <div className="text-3xl font-bold font-mono mb-2" style={{ color: scoreColor }}>
@@ -195,7 +195,7 @@ interface ComponentCardProps {
 }
 
 function ComponentCard({ icon, title, value, change, impact, note, delay }: ComponentCardProps) {
-  const impactColor = impact > 5 ? 'oklch(0.72 0.18 145)' : impact < -5 ? 'oklch(0.66 0.22 25)' : 'oklch(0.75 0.02 60)'
+  const impactColor = impact > 5 ? '#00E676' : impact < -5 ? '#FF5252' : '#F7A707'
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}>
       <GlassCard className="p-4" hover>
@@ -211,7 +211,7 @@ function ComponentCard({ icon, title, value, change, impact, note, delay }: Comp
         <div className="flex items-baseline gap-2">
           <span className="text-2xl font-mono font-bold" style={{ color: impactColor }}>{value}</span>
           {change !== undefined && (
-            <span className={cn('text-xs font-mono', change >= 0 ? 'text-[oklch(0.72_0.18_145)]' : 'text-[oklch(0.66_0.22_25)]')}>
+            <span className={cn('text-xs font-mono', change >= 0 ? 'text-[#00E676]' : 'text-[#FF5252]')}>
               {change >= 0 ? '+' : ''}{formatNumber(change, 2)}
             </span>
           )}

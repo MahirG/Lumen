@@ -26,7 +26,7 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
   return (
     <footer className="mt-auto relative border-t border-white/[6%] glass-strong pb-28 lg:pb-12">
       {/* Top gradient line */}
-      <div className="h-px bg-gradient-to-r from-transparent via-[oklch(0.82_0.15_85/40%)] to-transparent" />
+      <div className="h-px bg-gradient-to-r from-transparent via-[rgba(247, 167, 7, 0.40)] to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 lg:px-6 py-12">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
@@ -52,7 +52,7 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Telegram"
-                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[oklch(0.92_0.13_85)] hover:bg-[oklch(0.82_0.15_85/8%)] hover:border-[oklch(0.82_0.15_85/20%)] transition-all"
+                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#FFC83D] hover:bg-[rgba(247, 167, 7, 0.08)] hover:border-[rgba(247, 167, 7, 0.20)] transition-all"
               >
                 <Send className="w-4 h-4" />
               </a>
@@ -61,7 +61,7 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Twitter / X"
-                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[oklch(0.92_0.13_220)] hover:bg-[oklch(0.78_0.18_220/8%)] hover:border-[oklch(0.78_0.18_220/20%)] transition-all"
+                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#FFC83D] hover:bg-[rgba(247, 167, 7, 0.08)] hover:border-[rgba(247, 167, 7, 0.2)] transition-all"
               >
                 <Twitter className="w-4 h-4" />
               </a>
@@ -70,7 +70,7 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Community"
-                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[oklch(0.88_0.16_152)] hover:bg-[oklch(0.78_0.19_152/8%)] hover:border-[oklch(0.78_0.19_152/20%)] transition-all"
+                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#00E676] hover:bg-[rgba(0, 200, 83, 0.08)] hover:border-[rgba(0, 200, 83, 0.2)] transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
               </a>
@@ -79,14 +79,14 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="YouTube"
-                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[oklch(0.85_0.15_25)] hover:bg-[oklch(0.66_0.24_25/8%)] hover:border-[oklch(0.66_0.24_25/20%)] transition-all"
+                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#FF7252] hover:bg-[rgba(255, 82, 82, 0.08)] hover:border-[rgba(255, 82, 82, 0.2)] transition-all"
               >
                 <Youtube className="w-4 h-4" />
               </a>
               <a
                 href="mailto:hello@apexeapro.com"
                 aria-label="Email"
-                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[oklch(0.92_0.13_85)] hover:bg-white/[8%] transition-all"
+                className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#FFC83D] hover:bg-white/[8%] transition-all"
               >
                 <Mail className="w-4 h-4" />
               </a>
@@ -173,17 +173,17 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
               href="https://t.me/mahifxcapital"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg glass-gold text-xs font-semibold text-[oklch(0.92_0.13_85)] hover:glow-gold transition-all w-full justify-center"
+              className="inline-flex items-center gap-2 px-3 py-2 rounded-lg glass-gold text-xs font-semibold text-[#FFC83D] hover:glow-gold transition-all w-full justify-center"
             >
               <Send className="w-3.5 h-3.5" /> Join Telegram
               <ArrowUpRight className="w-3 h-3" />
             </a>
             <div className="mt-4 space-y-2">
               <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                <Shield className="w-3 h-3 text-[oklch(0.78_0.19_152)]" /> Bank-grade security
+                <Shield className="w-3 h-3 text-[#00E676]" /> Bank-grade security
               </div>
               <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
-                <Zap className="w-3 h-3 text-[oklch(0.82_0.15_85)]" /> Real-time data
+                <Zap className="w-3 h-3 text-[#F7A707]" /> Real-time data
               </div>
             </div>
           </div>
@@ -210,11 +210,11 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
               href="https://hisabtechnologies.com"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[oklch(0.82_0.15_85/15%)] to-transparent border border-[oklch(0.82_0.15_85/25%)] hover:border-[oklch(0.82_0.15_85/45%)] transition-all group"
+              className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[rgba(247, 167, 7, 0.15)] to-transparent border border-[rgba(247, 167, 7, 0.25)] hover:border-[rgba(247, 167, 7, 0.45)] transition-all group"
             >
               <span className="text-muted-foreground text-[11px]">Powered by</span>
-              <span className="text-[oklch(0.92_0.13_85)] font-bold text-[11px] tracking-wide font-display">HisabTech</span>
-              <ArrowUpRight className="w-3 h-3 text-[oklch(0.92_0.13_85)] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
+              <span className="text-[#FFC83D] font-bold text-[11px] tracking-wide font-display">HisabTech</span>
+              <ArrowUpRight className="w-3 h-3 text-[#FFC83D] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform" />
             </a>
           </div>
         </div>

@@ -52,7 +52,7 @@ export function RiskManager() {
         {/* Input panel */}
         <GlassCard className="p-5">
           <h3 className="text-base font-semibold font-display flex items-center gap-2 mb-4">
-            <Calculator className="w-4 h-4 text-[oklch(0.92_0.14_85)]" /> Position Inputs
+            <Calculator className="w-4 h-4 text-[#FFC83D]" /> Position Inputs
           </h3>
           <div className="space-y-4">
             {/* Direction */}
@@ -63,7 +63,7 @@ export function RiskManager() {
                   onClick={() => setDirection('BUY')}
                   className={`py-2 rounded-md text-sm font-medium border transition-all ${
                     direction === 'BUY'
-                      ? 'bg-[oklch(0.72_0.18_145/15%)] text-[oklch(0.85_0.15_145)] border-[oklch(0.72_0.18_145/40%)]'
+                      ? 'bg-[rgba(0, 230, 118, 0.15)] text-[#00E676] border-[rgba(0, 200, 83, 0.4)]'
                       : 'bg-white/5 text-muted-foreground border-border/30 hover:border-border/60'
                   }`}
                 >
@@ -73,7 +73,7 @@ export function RiskManager() {
                   onClick={() => setDirection('SELL')}
                   className={`py-2 rounded-md text-sm font-medium border transition-all ${
                     direction === 'SELL'
-                      ? 'bg-[oklch(0.66_0.22_25/15%)] text-[oklch(0.85_0.15_25)] border-[oklch(0.66_0.22_25/40%)]'
+                      ? 'bg-[rgba(255, 82, 82, 0.15)] text-[#FF7252] border-[rgba(255, 82, 82, 0.4)]'
                       : 'bg-white/5 text-muted-foreground border-border/30 hover:border-border/60'
                   }`}
                 >
@@ -98,7 +98,7 @@ export function RiskManager() {
             <div>
               <div className="flex justify-between items-center">
                 <Label className="text-xs uppercase tracking-wider text-muted-foreground">Risk Per Trade</Label>
-                <span className="text-sm font-mono font-semibold text-[oklch(0.92_0.14_85)]">{riskPercent.toFixed(1)}%</span>
+                <span className="text-sm font-mono font-semibold text-[#FFC83D]">{riskPercent.toFixed(1)}%</span>
               </div>
               <Slider
                 value={[riskPercent]}
@@ -171,7 +171,7 @@ export function RiskManager() {
                 <div className="flex items-center gap-1.5 text-[10px] uppercase text-muted-foreground">
                   <Wallet className="w-3 h-3" /> Lot Size
                 </div>
-                <div className="text-2xl font-mono font-bold text-[oklch(0.92_0.14_85)] mt-1">
+                <div className="text-2xl font-mono font-bold text-[#FFC83D] mt-1">
                   {formatLotSize(result.lotSize)}
                 </div>
                 <div className="text-[10px] text-muted-foreground mt-0.5">
@@ -182,7 +182,7 @@ export function RiskManager() {
                 <div className="flex items-center gap-1.5 text-[10px] uppercase text-muted-foreground">
                   <AlertTriangle className="w-3 h-3" /> Max Loss
                 </div>
-                <div className="text-2xl font-mono font-bold text-[oklch(0.85_0.15_25)] mt-1">
+                <div className="text-2xl font-mono font-bold text-[#FF7252] mt-1">
                   {formatCurrency(-result.maximumLoss)}
                 </div>
                 <div className="text-[10px] text-muted-foreground mt-0.5">
@@ -193,7 +193,7 @@ export function RiskManager() {
                 <div className="flex items-center gap-1.5 text-[10px] uppercase text-muted-foreground">
                   <TrendingUp className="w-3 h-3" /> Max Profit
                 </div>
-                <div className="text-2xl font-mono font-bold text-[oklch(0.85_0.15_145)] mt-1">
+                <div className="text-2xl font-mono font-bold text-[#00E676] mt-1">
                   {formatCurrency(result.maximumProfit)}
                 </div>
                 <div className="text-[10px] text-muted-foreground mt-0.5">
@@ -234,13 +234,13 @@ export function RiskManager() {
             <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Risk vs Reward</div>
             <div className="relative h-8 rounded-lg overflow-hidden flex">
               <div
-                className="bg-gradient-to-r from-[oklch(0.55_0.25_25)] to-[oklch(0.66_0.22_25)] flex items-center justify-center text-[10px] font-mono font-bold text-white"
+                className="bg-gradient-to-r from-[#CC3333] to-[#FF5252] flex items-center justify-center text-[10px] font-mono font-bold text-white"
                 style={{ width: '33%' }}
               >
                 -{formatCurrency(result.maximumLoss)}
               </div>
               <div
-                className="bg-gradient-to-r from-[oklch(0.65_0.2_145)] to-[oklch(0.72_0.18_145)] flex items-center justify-center text-[10px] font-mono font-bold text-white"
+                className="bg-gradient-to-r from-[#00C853] to-[#00E676] flex items-center justify-center text-[10px] font-mono font-bold text-white"
                 style={{ width: `${Math.min(67, result.riskReward / (result.riskReward + 1) * 100)}%` }}
               >
                 +{formatCurrency(result.maximumProfit)}

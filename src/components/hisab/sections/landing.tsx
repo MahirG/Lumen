@@ -60,8 +60,8 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
           style={{
             background: `
               radial-gradient(ellipse 60% 50% at 15% 30%, rgba(247, 167, 7, 0.12), transparent 60%),
-              radial-gradient(ellipse 50% 40% at 85% 70%, rgba(124, 92, 252, 0.10), transparent 60%),
-              radial-gradient(ellipse 70% 50% at 50% 100%, rgba(16, 185, 129, 0.06), transparent 65%)
+              radial-gradient(ellipse 50% 40% at 85% 70%, rgba(247, 167, 7, 0.10), transparent 60%),
+              radial-gradient(ellipse 70% 50% at 50% 100%, rgba(0, 230, 118, 0.06), transparent 65%)
             `,
           }}
         />
@@ -76,13 +76,13 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
           animate={{ x: [0, -50, 0], y: [0, 40, 0], opacity: [0.2, 0.4, 0.2] }}
           transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(124, 92, 252, 0.12), transparent 70%)', filter: 'blur(40px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(247, 167, 7, 0.12), transparent 70%)', filter: 'blur(40px)' }}
         />
         <motion.div
           animate={{ x: [0, 40, 0], y: [0, -50, 0], opacity: [0.15, 0.3, 0.15] }}
           transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute top-1/2 right-1/3 w-72 h-72 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(16, 185, 129, 0.10), transparent 70%)', filter: 'blur(40px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(0, 230, 118, 0.10), transparent 70%)', filter: 'blur(40px)' }}
         />
       </div>
 
@@ -118,7 +118,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
           >
             <span className="text-foreground">The AI Operating System</span>
             <br />
-            <span className="bg-gradient-to-r from-[#F7A707] via-[#FFC83D] to-[#10B981] bg-clip-text text-transparent">for Professional Traders</span>
+            <span className="bg-gradient-to-r from-[#F7A707] via-[#FFC83D] to-[#00E676] bg-clip-text text-transparent">for Professional Traders</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -144,7 +144,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             </GlowButton>
             <GlowButton size="xl" variant="outline" onClick={() => onNavigate('aile')}>
               <Atom className="w-4 h-4" /> AILE Engine
-              <span className="ml-1 text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F5B942]/15 text-[#F5B942] border border-[#F5B942]/30 uppercase">PRO</span>
+              <span className="ml-1 text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F7A707]/15 text-[#F7A707] border border-[#F7A707]/30 uppercase">PRO</span>
             </GlowButton>
           </motion.div>
 
@@ -155,10 +155,10 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             transition={{ duration: 0.6, delay: 0.4 }}
             className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground/75"
           >
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> AI Market Intelligence</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Priority Intelligence</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Multi-Timeframe Intelligence</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Institutional Trading Tools</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> AI Market Intelligence</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Priority Intelligence</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Multi-Timeframe Intelligence</span>
+            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Institutional Trading Tools</span>
           </motion.div>
         </div>
       </motion.div>
@@ -201,7 +201,7 @@ function ParticleField() {
       duration: Math.random() * 8 + 6,
       delay: Math.random() * 6,
       riseHeight: 200 + Math.random() * 400,
-      color: i % 4 === 0 ? '#F7A707' : i % 4 === 1 ? '#10B981' : i % 4 === 2 ? '#F5B942' : '#F7A707',
+      color: i % 4 === 0 ? '#F7A707' : i % 4 === 1 ? '#00E676' : i % 4 === 2 ? '#F7A707' : '#F7A707',
     })), []
   )
 
@@ -214,7 +214,7 @@ function ParticleField() {
       duration: Math.random() * 15 + 12,
       delay: Math.random() * 5,
       direction: Math.random() > 0.5 ? 1 : -1,
-      color: i % 3 === 0 ? 'rgba(247, 167, 7, 0.4)' : i % 3 === 1 ? 'rgba(16, 185, 129, 0.35)' : 'rgba(245, 185, 66, 0.3)',
+      color: i % 3 === 0 ? 'rgba(247, 167, 7, 0.4)' : i % 3 === 1 ? 'rgba(0, 230, 118, 0.35)' : 'rgba(247, 167, 7, 0.3)',
     })), []
   )
 
@@ -305,8 +305,8 @@ function ParticleField() {
 
 function FinancialGlobe() {
   const markets = [
-    { name: 'New York', lat: 40.7, lon: -74, color: '#10B981' },
-    { name: 'London', lat: 51.5, lon: -0.1, color: '#F5B942' },
+    { name: 'New York', lat: 40.7, lon: -74, color: '#00E676' },
+    { name: 'London', lat: 51.5, lon: -0.1, color: '#F7A707' },
     { name: 'Tokyo', lat: 35.7, lon: 139.7, color: '#F7A707' },
     { name: 'Frankfurt', lat: 50.1, lon: 8.7, color: '#FFC83D' },
     { name: 'Sydney', lat: -33.9, lon: 151.2, color: '#A78BFA' },
@@ -364,7 +364,7 @@ function FinancialGlobe() {
         transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
         className="absolute inset-0"
       >
-        <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-[#F5B942] shadow-[0_0_8px_#F5B942]" />
+        <div className="absolute top-0 left-1/2 w-2 h-2 rounded-full bg-[#F7A707] shadow-[0_0_8px_#F7A707]" />
       </motion.div>
     </div>
   )
@@ -403,8 +403,8 @@ function MarketTickerSection() {
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
             <div className="relative flex w-2 h-2">
-              <span className="absolute inset-0 rounded-full bg-[#10B981] animate-ping opacity-75" />
-              <span className="relative w-2 h-2 rounded-full bg-[#10B981]" />
+              <span className="absolute inset-0 rounded-full bg-[#00E676] animate-ping opacity-75" />
+              <span className="relative w-2 h-2 rounded-full bg-[#00E676]" />
             </div>
             <span className="text-xs font-mono uppercase tracking-wider text-foreground/60">Live Market Intelligence</span>
           </div>
@@ -426,8 +426,8 @@ function MarketTickerSection() {
 
 function TickerCard({ sym, delay }: { sym: MarketSymbol; delay: number }) {
   const isUp = sym.change >= 0
-  const color = isUp ? '#10B981' : '#EF4444'
-  const categoryColor = sym.category === 'METAL' ? '#F5B942' : sym.category === 'CRYPTO' ? '#F7930A' : sym.category === 'DXY' ? '#FFC83D' : sym.category === 'INDEX' ? '#A78BFA' : '#10B981'
+  const color = isUp ? '#00E676' : '#FF5252'
+  const categoryColor = sym.category === 'METAL' ? '#F7A707' : sym.category === 'CRYPTO' ? '#F7930A' : sym.category === 'DXY' ? '#FFC83D' : sym.category === 'INDEX' ? '#A78BFA' : '#00E676'
 
   return (
     <motion.div
@@ -454,7 +454,7 @@ function TickerCard({ sym, delay }: { sym: MarketSymbol; delay: number }) {
       </div>
       {/* Source indicator */}
       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity">
-        <div className={cn('w-1 h-1 rounded-full', sym.source === 'live' ? 'bg-[#10B981]' : 'bg-[#F5B942]')} title={sym.source} />
+        <div className={cn('w-1 h-1 rounded-full', sym.source === 'live' ? 'bg-[#00E676]' : 'bg-[#F7A707]')} title={sym.source} />
       </div>
     </motion.div>
   )
@@ -480,7 +480,7 @@ function AICommandCenterSection({ onNavigate }: { onNavigate: (s: string) => voi
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Institutional Intelligence,</span>{' '}
-            <span className="bg-gradient-to-r from-[#F7A707] to-[#10B981] bg-clip-text text-transparent">Real-Time</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#00E676] bg-clip-text text-transparent">Real-Time</span>
           </h2>
           <p className="text-base text-foreground/60">
             Six AI-powered panels monitoring every aspect of the market — from liquidity to news, from structure to sentiment.
@@ -513,14 +513,14 @@ function MarketBiasPanel() {
         <div>
           <div className="flex justify-between text-xs mb-1">
             <span className="text-foreground/60">Gold Market · XAUUSD</span>
-            <span className="font-mono font-bold text-[#F5B942]">92%</span>
+            <span className="font-mono font-bold text-[#F7A707]">92%</span>
           </div>
           <PremiumProgress value={92} color="gold" height={6} />
         </div>
         <div className="space-y-1.5 text-xs">
-          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#10B981]" /> Liquidity sweep detected</div>
-          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#10B981]" /> Market structure changed</div>
-          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#10B981]" /> Order block confirmed</div>
+          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#00E676]" /> Liquidity sweep detected</div>
+          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#00E676]" /> Market structure changed</div>
+          <div className="flex items-center gap-2 text-foreground/70"><Check className="w-3 h-3 text-[#00E676]" /> Order block confirmed</div>
         </div>
       </div>
     </LiquidGlassCard>
@@ -546,7 +546,7 @@ function MarketHeatmapPanel() {
     <LiquidGlassCard className="p-5 hover-lift" hover>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold flex items-center gap-2">
-          <BarChart3 className="w-4 h-4 text-[#10B981]" /> Market Heatmap
+          <BarChart3 className="w-4 h-4 text-[#00E676]" /> Market Heatmap
         </h3>
         <span className="text-[10px] text-foreground/50 font-mono">12 assets</span>
       </div>
@@ -557,7 +557,7 @@ function MarketHeatmapPanel() {
           return (
             <div key={a.name} className="p-2 rounded-md text-center" style={{ background: bg }}>
               <div className="text-[10px] font-mono font-bold">{a.name}</div>
-              <div className="text-[10px] font-mono tabular" style={{ color: a.change >= 0 ? '#10B981' : '#EF4444' }}>
+              <div className="text-[10px] font-mono tabular" style={{ color: a.change >= 0 ? '#00E676' : '#FF5252' }}>
                 {a.change >= 0 ? '+' : ''}{a.change.toFixed(2)}%
               </div>
             </div>
@@ -583,7 +583,7 @@ function EconomicCalendarPanel() {
     <LiquidGlassCard variant="gold" className="p-5 hover-lift" hover>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold flex items-center gap-2">
-          <AlertTriangle className="w-4 h-4 text-[#EF4444]" /> Economic Calendar
+          <AlertTriangle className="w-4 h-4 text-[#FF5252]" /> Economic Calendar
         </h3>
         <PremiumBadge variant="danger" size="xs">HIGH IMPACT</PremiumBadge>
       </div>
@@ -591,14 +591,14 @@ function EconomicCalendarPanel() {
         <div>
           <div className="text-xs text-foreground/60 mb-1">USD CPI Release</div>
           <div className="flex items-center gap-2">
-            <Clock className="w-3.5 h-3.5 text-[#F5B942]" />
-            <span className="text-2xl font-mono font-bold tabular text-[#F5B942]">
+            <Clock className="w-3.5 h-3.5 text-[#F7A707]" />
+            <span className="text-2xl font-mono font-bold tabular text-[#F7A707]">
               {String(mins).padStart(2, '0')}:{String(secs).padStart(2, '0')}
             </span>
           </div>
         </div>
-        <div className="p-2.5 rounded-md bg-[#EF4444]/8 border border-[#EF4444]/20">
-          <div className="text-[10px] uppercase tracking-wider text-[#EF4444] mb-1">AI Recommendation</div>
+        <div className="p-2.5 rounded-md bg-[#FF5252]/8 border border-[#FF5252]/20">
+          <div className="text-[10px] uppercase tracking-wider text-[#FF5252] mb-1">AI Recommendation</div>
           <p className="text-xs text-foreground/80">Reduce exposure before volatility event.</p>
         </div>
       </div>
@@ -616,10 +616,10 @@ function LiquidityTrackerPanel() {
         <PremiumBadge variant="info" size="xs">SMART MONEY</PremiumBadge>
       </div>
       <div className="space-y-2.5">
-        <LiquidityRow label="Smart Money Activity" value="ACCUMULATING" color="#10B981" pct={78} />
-        <LiquidityRow label="Liquidity Zones" value="3 ACTIVE" color="#F5B942" pct={65} />
-        <LiquidityRow label="Institutional Flow" value="BEARISH" color="#EF4444" pct={71} />
-        <LiquidityRow label="Market Sentiment" value="FEAR" color="#EF4444" pct={58} />
+        <LiquidityRow label="Smart Money Activity" value="ACCUMULATING" color="#00E676" pct={78} />
+        <LiquidityRow label="Liquidity Zones" value="3 ACTIVE" color="#F7A707" pct={65} />
+        <LiquidityRow label="Institutional Flow" value="BEARISH" color="#FF5252" pct={71} />
+        <LiquidityRow label="Market Sentiment" value="FEAR" color="#FF5252" pct={58} />
       </div>
     </LiquidGlassCard>
   )
@@ -644,7 +644,7 @@ function GoldStrengthPanel() {
     <LiquidGlassCard className="p-5 hover-lift" hover>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold flex items-center gap-2">
-          <Gauge className="w-4 h-4 text-[#F5B942]" /> Gold Strength Index
+          <Gauge className="w-4 h-4 text-[#F7A707]" /> Gold Strength Index
         </h3>
         <PremiumBadge variant="gold" size="xs">XAU</PremiumBadge>
       </div>
@@ -653,7 +653,7 @@ function GoldStrengthPanel() {
           <svg viewBox="0 0 80 80" className="w-full h-full -rotate-90">
             <circle cx="40" cy="40" r="32" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="6" />
             <motion.circle
-              cx="40" cy="40" r="32" fill="none" stroke="#F5B942" strokeWidth="6" strokeLinecap="round"
+              cx="40" cy="40" r="32" fill="none" stroke="#F7A707" strokeWidth="6" strokeLinecap="round"
               strokeDasharray="201"
               initial={{ strokeDashoffset: 201 }}
               whileInView={{ strokeDashoffset: 201 - (87 / 100) * 201 }}
@@ -663,12 +663,12 @@ function GoldStrengthPanel() {
             />
           </svg>
           <div className="absolute inset-0 flex items-center justify-center">
-            <span className="text-xl font-mono font-bold text-[#F5B942]">87</span>
+            <span className="text-xl font-mono font-bold text-[#F7A707]">87</span>
           </div>
         </div>
         <div className="flex-1">
           <div className="text-xs text-foreground/60 mb-1">XAU Strength</div>
-          <div className="text-sm font-semibold text-[#10B981] mb-1.5">Institutional Accumulation</div>
+          <div className="text-sm font-semibold text-[#00E676] mb-1.5">Institutional Accumulation</div>
           <p className="text-[11px] text-foreground/50 leading-relaxed">Gold showing institutional accumulation. DXY weakening, yields stabilizing.</p>
         </div>
       </div>
@@ -681,29 +681,29 @@ function NotificationFeedPanel({ onNavigate }: { onNavigate: (s: string) => void
     <LiquidGlassCard className="p-5 hover-lift" hover>
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-sm font-semibold flex items-center gap-2">
-          <BellRing className="w-4 h-4 text-[#10B981]" /> Smart Notifications
+          <BellRing className="w-4 h-4 text-[#00E676]" /> Smart Notifications
         </h3>
         <button onClick={() => onNavigate('asne')} className="text-[10px] text-primary hover:underline">View All</button>
       </div>
       <div className="space-y-2">
         {/* SELL alert */}
-        <div className="p-2.5 rounded-md bg-[#EF4444]/8 border border-l-2 border-l-[#EF4444]">
+        <div className="p-2.5 rounded-md bg-[#FF5252]/8 border border-l-2 border-l-[#FF5252]">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-bold text-[#EF4444]">🔴 SELL CONFIRMED</span>
+            <span className="text-xs font-bold text-[#FF5252]">🔴 SELL CONFIRMED</span>
             <span className="text-[10px] font-mono text-foreground/50">XAUUSD</span>
           </div>
-          <div className="text-[10px] text-foreground/60">Confidence: <span className="font-mono font-bold text-[#EF4444]">94%</span></div>
+          <div className="text-[10px] text-foreground/60">Confidence: <span className="font-mono font-bold text-[#FF5252]">94%</span></div>
           <div className="flex gap-2 mt-1 text-[9px] text-foreground/50">
             <span>✓ Liq Sweep</span><span>✓ CHOCH</span><span>✓ OB</span>
           </div>
         </div>
         {/* BUY alert */}
-        <div className="p-2.5 rounded-md bg-[#10B981]/8 border border-l-2 border-l-[#10B981]">
+        <div className="p-2.5 rounded-md bg-[#00E676]/8 border border-l-2 border-l-[#00E676]">
           <div className="flex items-center justify-between mb-1">
-            <span className="text-xs font-bold text-[#10B981]">🟢 BUY OPPORTUNITY</span>
+            <span className="text-xs font-bold text-[#00E676]">🟢 BUY OPPORTUNITY</span>
             <span className="text-[10px] font-mono text-foreground/50">EURUSD</span>
           </div>
-          <div className="text-[10px] text-foreground/60">Confidence: <span className="font-mono font-bold text-[#10B981]">89%</span></div>
+          <div className="text-[10px] text-foreground/60">Confidence: <span className="font-mono font-bold text-[#00E676]">89%</span></div>
           <div className="text-[9px] text-foreground/50 mt-1">Multi-Timeframe Confirmation Complete</div>
         </div>
       </div>
@@ -735,7 +735,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Your Mission Control for</span>{' '}
-            <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Markets</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#00E676] bg-clip-text text-transparent">Markets</span>
           </h2>
           <p className="text-base text-foreground/60">
             A professional-grade trading dashboard that feels like the future.
@@ -755,14 +755,14 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
             <div className="flex items-center justify-between px-4 py-3 border-b border-border bg-white/[2%]">
               <div className="flex items-center gap-2">
                 <div className="flex gap-1.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#EF4444]/60" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#F5B942]/60" />
-                  <div className="w-2.5 h-2.5 rounded-full bg-[#10B981]/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#FF5252]/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#F7A707]/60" />
+                  <div className="w-2.5 h-2.5 rounded-full bg-[#00E676]/60" />
                 </div>
                 <span className="text-xs font-mono text-foreground/50 ml-2">apexeapro — terminal</span>
               </div>
               <div className="flex items-center gap-2 text-[10px] text-foreground/40 font-mono">
-                <Wifi className="w-3 h-3 text-[#10B981]" /> Connected
+                <Wifi className="w-3 h-3 text-[#00E676]" /> Connected
               </div>
             </div>
 
@@ -771,7 +771,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
               {/* AI Assistant (left) */}
               <div className="lg:col-span-3 p-4 border-r border-border/50">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#F7A707] to-[#10B981] flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#F7A707] to-[#00E676] flex items-center justify-center">
                     <Cpu className="w-3.5 h-3.5 text-white" />
                   </div>
                   <span className="text-xs font-semibold">AI Assistant</span>
@@ -791,15 +791,15 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
                     <PremiumBadge variant="gold" size="xs">15M</PremiumBadge>
                   </div>
                   <div className="flex items-center gap-3 text-[10px] font-mono">
-                    <span className="text-[#10B981]">H 4,018</span>
-                    <span className="text-[#EF4444]">L 3,998</span>
+                    <span className="text-[#00E676]">H 4,018</span>
+                    <span className="text-[#FF5252]">L 3,998</span>
                     <span className="text-foreground/60">$4,011</span>
                   </div>
                 </div>
                 <MiniChart />
                 <div className="flex items-center justify-between mt-2 text-[10px] text-foreground/40 font-mono">
-                  <span>Bias: <span className="text-[#EF4444]">SELL</span></span>
-                  <span>Confidence: <span className="text-[#F5B942]">92%</span></span>
+                  <span>Bias: <span className="text-[#FF5252]">SELL</span></span>
+                  <span>Confidence: <span className="text-[#F7A707]">92%</span></span>
                 </div>
               </div>
 
@@ -814,12 +814,12 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
             {/* Bottom bar */}
             <div className="flex items-center justify-between px-4 py-2 border-t border-border bg-white/[2%] text-[10px] font-mono text-foreground/40">
               <span>Live Market Intelligence</span>
-              <span>Session: <span className="text-[#F5B942]">LONDON KZ</span></span>
+              <span>Session: <span className="text-[#F7A707]">LONDON KZ</span></span>
             </div>
           </LiquidGlassCard>
 
           {/* Glow under terminal */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-[#F7A707]/10 via-[#F5B942]/5 to-[#10B981]/10 blur-2xl -z-10" />
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#F7A707]/10 via-[#F7A707]/5 to-[#00E676]/10 blur-2xl -z-10" />
         </motion.div>
 
         <div className="text-center mt-8">
@@ -840,7 +840,7 @@ function TerminalMessage({ text, highlight }: { text: string; highlight?: boolea
       viewport={{ once: true }}
       className={cn(
         'text-[11px] p-2 rounded-md',
-        highlight ? 'bg-[#10B981]/8 border border-[#10B981]/20 text-[#10B981]' : 'text-foreground/60',
+        highlight ? 'bg-[#00E676]/8 border border-[#00E676]/20 text-[#00E676]' : 'text-foreground/60',
       )}
     >
       {text}
@@ -876,9 +876,9 @@ function MiniChart() {
               className="absolute w-full"
               style={{ top: `${top}%`, height: `${h}%` }}
             >
-              <div className={cn('w-full h-full', c.isUp ? 'bg-[#10B981]/30' : 'bg-[#EF4444]/30')} />
+              <div className={cn('w-full h-full', c.isUp ? 'bg-[#00E676]/30' : 'bg-[#FF5252]/30')} />
               <div
-                className={cn('absolute left-1/2 -translate-x-1/2 w-3/4', c.isUp ? 'bg-[#10B981]' : 'bg-[#EF4444]')}
+                className={cn('absolute left-1/2 -translate-x-1/2 w-3/4', c.isUp ? 'bg-[#00E676]' : 'bg-[#FF5252]')}
                 style={{
                   top: `${((c.high - Math.max(c.open, c.close)) / (c.high - c.low)) * 100}%`,
                   height: `${bodyH / h * 100}%`,
@@ -895,12 +895,12 @@ function MiniChart() {
 function TerminalPanel({ title, items, highlight }: { title: string; items: string[]; highlight?: boolean }) {
   return (
     <div>
-      <div className={cn('text-[10px] uppercase tracking-wider font-semibold mb-1.5', highlight ? 'text-[#10B981]' : 'text-foreground/50')}>{title}</div>
+      <div className={cn('text-[10px] uppercase tracking-wider font-semibold mb-1.5', highlight ? 'text-[#00E676]' : 'text-foreground/50')}>{title}</div>
       <div className="space-y-1">
         {items.map((item, i) => (
           <div key={i} className="text-[10px] font-mono text-foreground/60 flex items-center justify-between">
             <span>{item.split(' ')[0]}</span>
-            <span className={highlight ? 'text-[#10B981]' : ''}>{item.split(' ').slice(1).join(' ')}</span>
+            <span className={highlight ? 'text-[#00E676]' : ''}>{item.split(' ').slice(1).join(' ')}</span>
           </div>
         ))}
       </div>
@@ -965,7 +965,7 @@ function AIAssistantDemoSection() {
                   className={cn('flex gap-3', msg.role === 'user' && 'justify-end')}
                 >
                   {msg.role === 'ai' && (
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#F7A707] to-[#10B981] flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#F7A707] to-[#00E676] flex items-center justify-center shrink-0">
                       <Cpu className="w-4 h-4 text-white" />
                     </div>
                   )}
@@ -978,18 +978,18 @@ function AIAssistantDemoSection() {
                     {msg.final ? (
                       <div className="space-y-1.5">
                         <div className="flex items-center gap-2">
-                          <span className="text-xs font-bold text-[#EF4444]">Market Bias: Bearish</span>
+                          <span className="text-xs font-bold text-[#FF5252]">Market Bias: Bearish</span>
                           <span className="text-xs text-foreground/50">·</span>
-                          <span className="text-xs font-bold text-[#F5B942]">Confidence: 92%</span>
+                          <span className="text-xs font-bold text-[#F7A707]">Confidence: 92%</span>
                         </div>
                         <div className="text-xs text-foreground/60">Reasons:</div>
                         <div className="space-y-0.5 text-xs">
-                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Liquidity taken</div>
-                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Structure break confirmed</div>
-                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> Order block identified</div>
-                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#10B981]" /> USD strength increasing</div>
+                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Liquidity taken</div>
+                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Structure break confirmed</div>
+                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Order block identified</div>
+                          <div className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> USD strength increasing</div>
                         </div>
-                        <div className="text-xs text-[#F5B942] mt-2 pt-2 border-t border-border">⚠ Upcoming: High impact news in 35 minutes</div>
+                        <div className="text-xs text-[#F7A707] mt-2 pt-2 border-t border-border">⚠ Upcoming: High impact news in 35 minutes</div>
                       </div>
                     ) : msg.typing ? (
                       <div className="flex items-center gap-1.5">
@@ -1038,10 +1038,10 @@ function RotateCwIcon() {
 function WhyChooseSection({ onNavigate }: { onNavigate: (s: string) => void }) {
   const cards = [
     { icon: Radar, title: 'Institutional Liquidity Analysis', desc: 'Understand where professional money is moving.', detail: 'Track smart money activity, liquidity zones, and institutional flow in real-time.', color: '#F7A707', section: 'chart-analysis' },
-    { icon: Shield, title: 'AI Trade Validation', desc: 'Confirm setups before taking action.', detail: '8-condition entry checklist ensures only A+ setups trigger alerts.', color: '#10B981', section: 'aile' },
-    { icon: Layers, title: 'Multi-Timeframe Intelligence', desc: 'Combine multiple market perspectives.', detail: '8-timeframe bias matrix from Monthly to 1M with weighted alignment.', color: '#F5B942', section: 'mtf' },
+    { icon: Shield, title: 'AI Trade Validation', desc: 'Confirm setups before taking action.', detail: '8-condition entry checklist ensures only A+ setups trigger alerts.', color: '#00E676', section: 'aile' },
+    { icon: Layers, title: 'Multi-Timeframe Intelligence', desc: 'Combine multiple market perspectives.', detail: '8-timeframe bias matrix from Monthly to 1M with weighted alignment.', color: '#F7A707', section: 'mtf' },
     { icon: Bell, title: 'Smart Notifications', desc: 'Never miss important market conditions.', detail: '8 alert categories, anti-spam, priority-based delivery across 8 channels.', color: '#A78BFA', section: 'asne' },
-    { icon: AlertTriangle, title: 'Economic Event Protection', desc: 'Avoid unnecessary exposure during volatility.', detail: '60/30/15/5/1 minute countdowns for high-impact news events.', color: '#EF4444', section: 'news' },
+    { icon: AlertTriangle, title: 'Economic Event Protection', desc: 'Avoid unnecessary exposure during volatility.', detail: '60/30/15/5/1 minute countdowns for high-impact news events.', color: '#FF5252', section: 'news' },
     { icon: GraduationCap, title: 'AI Trading Coach', desc: 'Learn and improve with personalized insights.', detail: 'Mentor-style explanations break down every setup step-by-step.', color: '#FFC83D', section: 'coach' },
   ]
 
@@ -1059,7 +1059,7 @@ function WhyChooseSection({ onNavigate }: { onNavigate: (s: string) => void }) {
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Built for</span>{' '}
-            <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Professional Traders</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#00E676] bg-clip-text text-transparent">Professional Traders</span>
           </h2>
           <p className="text-base text-foreground/60">Six institutional-grade systems in one platform.</p>
         </motion.div>
@@ -1133,7 +1133,7 @@ function PricingSection() {
       desc: 'For serious professionals',
       monthly: 199, annual: 159,
       features: ['Everything in Professional', 'AILE Engine v1.0', 'Unlimited AI Vision', '6 notification channels', 'Price level alerts (30)', 'Priority support'],
-      color: '#F5B942',
+      color: '#F7A707',
       popular: true,
     },
     {
@@ -1141,7 +1141,7 @@ function PricingSection() {
       desc: 'For funds and prop firms',
       monthly: 499, annual: 399,
       features: ['Everything in Premium', '8 notification channels', 'Unlimited price levels', 'Custom AI training', 'API access', 'Dedicated account manager'],
-      color: '#10B981',
+      color: '#00E676',
       popular: false,
     },
   ]
@@ -1160,7 +1160,7 @@ function PricingSection() {
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Choose Your</span>{' '}
-            <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Trading Edge</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#00E676] bg-clip-text text-transparent">Trading Edge</span>
           </h2>
           <p className="text-base text-foreground/60 mb-6">Cancel anytime. 14-day money-back guarantee.</p>
           <div className="inline-flex items-center gap-3 p-1 rounded-xl liquid-glass">
@@ -1191,7 +1191,7 @@ function PricingSection() {
               <LiquidGlassCard
                 variant={plan.popular ? 'gold' : 'default'}
                 glow={plan.popular}
-                className={cn('p-6 h-full flex flex-col', plan.popular && 'border-[#F5B942]/35')}
+                className={cn('p-6 h-full flex flex-col', plan.popular && 'border-[#F7A707]/35')}
               >
                 <div className="mb-5">
                   <div className="flex items-center gap-2 mb-1">
@@ -1255,7 +1255,7 @@ function FAQSection() {
         >
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Frequently Asked</span>{' '}
-            <span className="bg-gradient-to-r from-[#F7A707] to-[#10B981] bg-clip-text text-transparent">Questions</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#00E676] bg-clip-text text-transparent">Questions</span>
           </h2>
         </motion.div>
         <div className="space-y-3">
@@ -1318,7 +1318,7 @@ function CTASection({ onNavigate }: { onNavigate: (s: string) => void }) {
           </PremiumBadge>
           <h2 className="text-4xl lg:text-6xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Trade Less.</span>{' '}
-            <span className="bg-gradient-to-r from-[#F5B942] to-[#10B981] bg-clip-text text-transparent">Trade Smarter.</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#00E676] bg-clip-text text-transparent">Trade Smarter.</span>
           </h2>
           <p className="text-base lg:text-lg text-foreground/60 mb-8 max-w-2xl mx-auto">
             Join thousands of professional traders using ApexEAPro. The AI Operating System for serious market participants.
@@ -1364,18 +1364,18 @@ function AILEEngineButton({ onClick }: AILEButtonProps) {
       aria-label="Launch AILE Engine"
     >
       <div className="absolute -inset-[1.5px] rounded-2xl opacity-90 group-hover:opacity-100 transition-opacity" style={{
-        background: 'conic-gradient(from 0deg, oklch(0.92 0.14 85), oklch(0.78 0.18 220), oklch(0.78 0.19 152), oklch(0.92 0.14 85))',
+        background: 'conic-gradient(from 0deg, #FFC83D, #F7A707, #00E676, #FFC83D)',
         animation: 'aile-rotate 4s linear infinite',
       }} />
-      <div className="relative flex items-center gap-2 h-full px-5 rounded-[14px] bg-gradient-to-br from-[oklch(0.14 0.022 265 / 95%)] to-[oklch(0.12 0.02 265 / 95%)] backdrop-blur-xl">
+      <div className="relative flex items-center gap-2 h-full px-5 rounded-[14px] bg-gradient-to-br from-[#1A1A1A] to-[rgba(11, 11, 11, 0.95)] backdrop-blur-xl">
         <div className="relative w-5 h-5 flex items-center justify-center shrink-0">
-          <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity }} className="absolute inset-0 rounded-full bg-[#F5B942]/50 blur-[3px]" />
-          <div className="relative w-4 h-4 rounded-[5px] bg-gradient-to-br from-[#F5B942] to-[#D97706] flex items-center justify-center">
+          <motion.div animate={{ scale: [1, 1.2, 1], opacity: [0.5, 0.9, 0.5] }} transition={{ duration: 2, repeat: Infinity }} className="absolute inset-0 rounded-full bg-[#F7A707]/50 blur-[3px]" />
+          <div className="relative w-4 h-4 rounded-[5px] bg-gradient-to-br from-[#F7A707] to-[#D97706] flex items-center justify-center">
             <Atom className="w-2.5 h-2.5 text-background" strokeWidth={2.5} />
           </div>
         </div>
-        <span className="text-base font-bold font-display tracking-tight bg-gradient-to-r from-[#F5B942] to-[#F7A707] bg-clip-text text-transparent whitespace-nowrap">AILE Engine</span>
-        <span className="text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F5B942]/15 text-[#F5B942] border border-[#F5B942]/30 uppercase tracking-wider shrink-0">PRO</span>
+        <span className="text-base font-bold font-display tracking-tight bg-gradient-to-r from-[#F7A707] to-[#F7A707] bg-clip-text text-transparent whitespace-nowrap">AILE Engine</span>
+        <span className="text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F7A707]/15 text-[#F7A707] border border-[#F7A707]/30 uppercase tracking-wider shrink-0">PRO</span>
       </div>
     </motion.button>
   )

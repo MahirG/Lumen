@@ -50,10 +50,10 @@ export function NewsFilter() {
       >
         <div className="flex items-center gap-2.5">
           <div className="relative w-2 h-2">
-            <div className="absolute inset-0 rounded-full animate-ping opacity-75" style={{ background: '#10B981' }} />
-            <div className="relative w-2 h-2 rounded-full" style={{ background: '#10B981' }} />
+            <div className="absolute inset-0 rounded-full animate-ping opacity-75" style={{ background: '#00E676' }} />
+            <div className="relative w-2 h-2 rounded-full" style={{ background: '#00E676' }} />
           </div>
-          <span className="text-xs font-mono font-semibold uppercase tracking-wide" style={{ color: '#10B981' }}>
+          <span className="text-xs font-mono font-semibold uppercase tracking-wide" style={{ color: '#00E676' }}>
             Live · Forex Factory Feed
           </span>
           <span className="text-xs text-muted-foreground hidden sm:inline">
@@ -71,14 +71,14 @@ export function NewsFilter() {
           initial={{ opacity: 0, y: -10 }}
           animate={{ opacity: 1, y: 0 }}
         >
-          <GlassCard variant="gold" className="p-4 border-[oklch(0.66_0.22_25/40%)] bg-[oklch(0.66_0.22_25/10%)]">
+          <GlassCard variant="gold" className="p-4 border-[rgba(255, 82, 82, 0.4)] bg-[rgba(255, 82, 82, 0.10)]">
             <div className="flex items-start gap-3">
-              <div className="w-10 h-10 rounded-lg bg-[oklch(0.66_0.22_25/20%)] flex items-center justify-center shrink-0">
-                <AlertTriangle className="w-5 h-5 text-[oklch(0.85_0.15_25)]" />
+              <div className="w-10 h-10 rounded-lg bg-[rgba(255, 82, 82, 0.20)] flex items-center justify-center shrink-0">
+                <AlertTriangle className="w-5 h-5 text-[#FF7252]" />
               </div>
               <div className="flex-1">
                 <div className="flex items-center gap-2 mb-1 flex-wrap">
-                  <h3 className="font-semibold text-[oklch(0.85_0.15_25)]">
+                  <h3 className="font-semibold text-[#FF7252]">
                     High Impact News in {newsFilter.nextEvent.minutesUntil} minutes
                   </h3>
                   <StatusBadge variant="danger">AVOID ENTERING</StatusBadge>
@@ -144,7 +144,7 @@ export function NewsFilter() {
               </div>
               <div className="text-lg font-bold font-mono text-foreground">{count}</div>
               <div className="text-[10px] text-muted-foreground">
-                {highCount > 0 && <span className="text-[oklch(0.66_0.22_25)]">{highCount} high</span>}
+                {highCount > 0 && <span className="text-[#FF5252]">{highCount} high</span>}
                 {highCount === 0 && 'events'}
               </div>
             </GlassCard>
@@ -156,11 +156,11 @@ export function NewsFilter() {
       <GlassCard className="p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-base font-semibold font-display flex items-center gap-2">
-            <Newspaper className="w-4 h-4 text-[oklch(0.92_0.14_85)]" /> Upcoming Economic Events
+            <Newspaper className="w-4 h-4 text-[#FFC83D]" /> Upcoming Economic Events
           </h3>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1.5 text-[10px] font-mono text-muted-foreground">
-              <Radio className="w-3 h-3 text-[#10B981] animate-pulse" />
+              <Radio className="w-3 h-3 text-[#00E676] animate-pulse" />
               <span>REAL DATA</span>
             </div>
           </div>
@@ -207,9 +207,9 @@ function NewsEventRow({ event, index }: { event: NewsEvent; index: number }) {
       className={cn(
         'p-3 rounded-lg border transition-all',
         isSoon
-          ? 'bg-[oklch(0.66_0.22_25/8%)] border-[oklch(0.66_0.22_25/30%)]'
+          ? 'bg-[rgba(255, 82, 82, 0.08)] border-[rgba(255, 82, 82, 0.3)]'
           : isReleased
-          ? 'bg-[oklch(0.78_0.16_145/5%)] border-[oklch(0.78_0.16_145/20%)]'
+          ? 'bg-[rgba(0, 200, 83, 0.05)] border-[rgba(0, 200, 83, 0.2)]'
           : 'bg-white/5 border-border/30 hover:border-border/50'
       )}
     >
@@ -240,7 +240,7 @@ function NewsEventRow({ event, index }: { event: NewsEvent; index: number }) {
               <div className="text-[10px] text-muted-foreground uppercase">In</div>
               <div className={cn(
                 'text-sm font-mono font-semibold',
-                event.minutesUntil <= 30 ? 'text-[oklch(0.85_0.15_25)]' : 'text-foreground'
+                event.minutesUntil <= 30 ? 'text-[#FF7252]' : 'text-foreground'
               )}>
                 {formatCountdown(event.minutesUntil)}
               </div>
@@ -248,7 +248,7 @@ function NewsEventRow({ event, index }: { event: NewsEvent; index: number }) {
           ) : (
             <>
               <div className="text-[10px] text-muted-foreground uppercase">{Math.abs(event.minutesUntil)}m ago</div>
-              <div className="text-[10px] text-[#10B981] font-mono">released</div>
+              <div className="text-[10px] text-[#00E676] font-mono">released</div>
             </>
           )}
         </div>
@@ -258,7 +258,7 @@ function NewsEventRow({ event, index }: { event: NewsEvent; index: number }) {
           <div className="text-muted-foreground text-[10px] uppercase">Actual</div>
           <div className={cn(
             'font-mono font-semibold',
-            event.actual ? 'text-[#10B981]' : 'text-muted-foreground/40'
+            event.actual ? 'text-[#00E676]' : 'text-muted-foreground/40'
           )}>
             {event.actual ?? '—'}
           </div>

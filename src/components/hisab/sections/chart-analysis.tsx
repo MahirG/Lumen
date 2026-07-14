@@ -122,7 +122,7 @@ export function ChartAnalysis() {
                   className={cn(
                     'px-2.5 py-1 rounded-md text-[11px] font-mono font-medium transition-all',
                     timeframe === tf
-                      ? 'bg-[oklch(0.82_0.15_85/20%)] text-[oklch(0.92_0.14_85)] border border-[oklch(0.82_0.15_85/30%)]'
+                      ? 'bg-[rgba(247, 167, 7, 0.20)] text-[#FFC83D] border border-[rgba(247, 167, 7, 0.3)]'
                       : 'text-muted-foreground hover:text-foreground hover:bg-white/5 border border-transparent'
                   )}
                 >
@@ -133,17 +133,17 @@ export function ChartAnalysis() {
           </div>
           <SMCChart candles={currentCandles} smc={smc ?? undefined} timeframe={timeframe} height={420} />
           <div className="flex flex-wrap items-center gap-3 mt-3 text-[10px] text-muted-foreground">
-            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[oklch(0.72_0.18_145/60%)]" />Bull OB</span>
-            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[oklch(0.66_0.22_25/60%)]" />Bear OB</span>
-            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[oklch(0.82_0.15_85/50%)]" style={{ borderTop: '1px dashed' }} />Liquidity / EQ levels</span>
-            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[oklch(0.82_0.15_85/50%)]" style={{ borderTop: '1px dotted' }} />Equilibrium (50%)</span>
+            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(0, 200, 83, 0.6)]" />Bull OB</span>
+            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(255, 82, 82, 0.6)]" />Bear OB</span>
+            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(247, 167, 7, 0.50)]" style={{ borderTop: '1px dashed' }} />Liquidity / EQ levels</span>
+            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(247, 167, 7, 0.50)]" style={{ borderTop: '1px dotted' }} />Equilibrium (50%)</span>
           </div>
         </GlassCard>
 
         {/* AI Vision upload card */}
         <GlassCard variant="gold" className="p-5">
           <div className="flex items-center gap-2 mb-3">
-            <Eye className="w-4 h-4 text-[oklch(0.92_0.14_85)]" />
+            <Eye className="w-4 h-4 text-[#FFC83D]" />
             <h3 className="text-base font-semibold font-display">AI Vision Analysis</h3>
           </div>
           <p className="text-xs text-muted-foreground mb-4">
@@ -162,9 +162,9 @@ export function ChartAnalysis() {
           {!screenshot ? (
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-full aspect-video rounded-lg border-2 border-dashed border-border/60 hover:border-[oklch(0.82_0.15_85/50%)] hover:bg-[oklch(0.82_0.15_85/5%)] transition-all flex flex-col items-center justify-center gap-2 group"
+              className="w-full aspect-video rounded-lg border-2 border-dashed border-border/60 hover:border-[rgba(247, 167, 7, 0.50)] hover:bg-[rgba(247, 167, 7, 0.05)] transition-all flex flex-col items-center justify-center gap-2 group"
             >
-              <Upload className="w-7 h-7 text-muted-foreground group-hover:text-[oklch(0.92_0.14_85)] transition-colors" />
+              <Upload className="w-7 h-7 text-muted-foreground group-hover:text-[#FFC83D] transition-colors" />
               <span className="text-xs text-muted-foreground group-hover:text-foreground">Drop screenshot or click</span>
               <span className="text-[10px] text-muted-foreground/60">PNG, JPG · max 5MB</span>
             </button>
@@ -187,7 +187,7 @@ export function ChartAnalysis() {
           <Button
             onClick={runAIAnalysis}
             disabled={analyzing || (!screenshot && !smc)}
-            className="w-full mt-4 bg-gradient-to-r from-[oklch(0.78_0.16_85)] to-[oklch(0.72_0.18_75)] text-[oklch(0.16_0.012_240)] hover:opacity-90 font-semibold"
+            className="w-full mt-4 bg-gradient-to-r from-[#F7A707] to-[#F7A707] text-[#1A1A1A] hover:opacity-90 font-semibold"
           >
             {analyzing ? (
               <>
@@ -201,7 +201,7 @@ export function ChartAnalysis() {
               </>
             )}
           </Button>
-          {error && <p className="text-xs text-[oklch(0.7_0.2_25)] mt-2">{error}</p>}
+          {error && <p className="text-xs text-[#FF5252] mt-2">{error}</p>}
         </GlassCard>
       </div>
 
@@ -216,8 +216,8 @@ export function ChartAnalysis() {
             <GlassCard variant="strong" className="p-5">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[oklch(0.92_0.14_85)] to-[oklch(0.72_0.18_75)] flex items-center justify-center">
-                    <Sparkles className="w-4 h-4 text-[oklch(0.16_0.012_240)]" />
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 text-[#1A1A1A]" />
                   </div>
                   <div>
                     <h3 className="text-base font-semibold font-display">AI Vision Result</h3>
@@ -382,7 +382,7 @@ interface DetectionCardProps {
 function DetectionCard({ icon, label, items }: DetectionCardProps) {
   return (
     <div className="rounded-lg p-3 bg-white/5 border border-border/30">
-      <div className="flex items-center gap-2 mb-2 text-[oklch(0.92_0.14_85)]">
+      <div className="flex items-center gap-2 mb-2 text-[#FFC83D]">
         {icon}
         <span className="text-xs uppercase tracking-wider font-medium">{label}</span>
       </div>

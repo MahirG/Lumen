@@ -23,7 +23,7 @@ export function LiveDashboard() {
   if (!price || !indicators) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 border-2 border-[oklch(0.82_0.15_85)] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin" />
         <span className="ml-3 text-sm text-muted-foreground">Fetching live gold price...</span>
       </div>
     )
@@ -38,9 +38,9 @@ export function LiveDashboard() {
 
   const nextHighNews = newsEvents.find(e => e.impact === 'HIGH' && e.minutesUntil <= 120)
   const rsiColor = indicators.rsi > 70
-    ? 'text-[oklch(0.66_0.22_25)]'
+    ? 'text-[#FF5252]'
     : indicators.rsi < 30
-    ? 'text-[oklch(0.72_0.18_145)]'
+    ? 'text-[#00E676]'
     : 'text-foreground'
 
   return (
@@ -54,10 +54,10 @@ export function LiveDashboard() {
         <div className="flex items-center gap-3">
           <div className="relative w-2 h-2">
             <div className="absolute inset-0 rounded-full" style={{
-              background: dataSource === 'live' ? 'oklch(0.72 0.18 145)' : dataSource === 'cached' ? 'oklch(0.78 0.16 85)' : 'oklch(0.7 0.1 230)'
+              background: dataSource === 'live' ? '#00E676' : dataSource === 'cached' ? '#F7A707' : '#F7A707'
             }} />
             <div className="absolute inset-0 rounded-full animate-ping opacity-75" style={{
-              background: dataSource === 'live' ? 'oklch(0.72 0.18 145)' : dataSource === 'cached' ? 'oklch(0.78 0.16 85)' : 'oklch(0.7 0.1 230)'
+              background: dataSource === 'live' ? '#00E676' : dataSource === 'cached' ? '#F7A707' : '#F7A707'
             }} />
           </div>
           <StatusBadge variant={sourceBadge.variant}>{sourceBadge.label}</StatusBadge>
@@ -152,15 +152,15 @@ export function LiveDashboard() {
           </div>
           <div className="relative h-2 rounded-full bg-white/5 overflow-hidden">
             <div className="absolute inset-0 flex">
-              <div className="w-[30%] bg-[oklch(0.72_0.18_145/20%)]" />
-              <div className="flex-1 bg-[oklch(0.75_0.02_60/10%)]" />
-              <div className="w-[30%] bg-[oklch(0.66_0.22_25/20%)]" />
+              <div className="w-[30%] bg-[rgba(0, 230, 118, 0.20)]" />
+              <div className="flex-1 bg-[rgba(247, 167, 7, 0.1)]" />
+              <div className="w-[30%] bg-[rgba(255, 82, 82, 0.20)]" />
             </div>
             <motion.div
               initial={{ left: '50%' }}
               animate={{ left: `${indicators.rsi}%` }}
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[oklch(0.92_0.14_85)] shadow-[0_0_12px_oklch(0.82_0.15_85/60%)] -translate-x-1/2"
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#FFC83D] shadow-[0_0_12px_rgba(247, 167, 7, 0.6)] -translate-x-1/2"
             />
           </div>
           <div className="flex justify-between mt-2 text-[10px] text-muted-foreground font-mono">
@@ -182,11 +182,11 @@ export function LiveDashboard() {
           <div className="flex items-center justify-between mb-4">
             <div>
               <div className="text-xs uppercase tracking-wider text-muted-foreground">Volatility & ATR</div>
-              <div className="text-3xl font-mono font-bold mt-1 text-[oklch(0.92_0.14_85)]">
+              <div className="text-3xl font-mono font-bold mt-1 text-[#FFC83D]">
                 ${formatNumber(indicators.atr, 2)}
               </div>
             </div>
-            <Activity className="w-5 h-5 text-[oklch(0.82_0.15_85)]" />
+            <Activity className="w-5 h-5 text-[#F7A707]" />
           </div>
           <div className="space-y-3">
             <div>
@@ -225,7 +225,7 @@ export function LiveDashboard() {
               <div className="flex items-center gap-2 mt-1">
                 <div
                   className="w-2 h-2 rounded-full pulse-dot"
-                  style={{ background: session?.isActive ? getSessionColor(session.name) : 'oklch(0.5 0.05 60)' }}
+                  style={{ background: session?.isActive ? getSessionColor(session.name) : '#E69500' }}
                 />
                 <span className="text-2xl font-bold font-display">
                   {session?.name.replace('_', ' ') ?? 'OFF'}
@@ -245,7 +245,7 @@ export function LiveDashboard() {
             {session?.killZoneStart && (
               <div className="flex justify-between">
                 <span className="text-muted-foreground">Kill zone</span>
-                <span className="font-mono text-[oklch(0.92_0.14_85)]">{session.killZoneStart} → {session.killZoneEnd}</span>
+                <span className="font-mono text-[#FFC83D]">{session.killZoneStart} → {session.killZoneEnd}</span>
               </div>
             )}
             <div className="flex justify-between">
@@ -254,10 +254,10 @@ export function LiveDashboard() {
             </div>
           </div>
           {nextHighNews && (
-            <div className="mt-4 p-2.5 rounded-lg bg-[oklch(0.66_0.22_25/10%)] border border-[oklch(0.66_0.22_25/30%)]">
+            <div className="mt-4 p-2.5 rounded-lg bg-[rgba(255, 82, 82, 0.10)] border border-[rgba(255, 82, 82, 0.3)]">
               <div className="flex items-center gap-2 text-xs">
-                <AlertTriangle className="w-3.5 h-3.5 text-[oklch(0.7_0.2_25)]" />
-                <span className="font-medium text-[oklch(0.85_0.15_25)]">
+                <AlertTriangle className="w-3.5 h-3.5 text-[#FF5252]" />
+                <span className="font-medium text-[#FF7252]">
                   High-impact news in {nextHighNews.minutesUntil}m
                 </span>
               </div>
@@ -280,9 +280,9 @@ export function LiveDashboard() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
           {[
             { label: 'Open', value: price.open, color: '' },
-            { label: 'High', value: price.high, color: 'text-[oklch(0.72_0.18_145)]' },
-            { label: 'Low', value: price.low, color: 'text-[oklch(0.66_0.22_25)]' },
-            { label: 'Last', value: price.last, color: 'text-[oklch(0.92_0.14_85)]' },
+            { label: 'High', value: price.high, color: 'text-[#00E676]' },
+            { label: 'Low', value: price.low, color: 'text-[#FF5252]' },
+            { label: 'Last', value: price.last, color: 'text-[#FFC83D]' },
             { label: 'Volume', value: indicators.volume, color: '', isVolume: true },
           ].map((item, i) => (
             <motion.div

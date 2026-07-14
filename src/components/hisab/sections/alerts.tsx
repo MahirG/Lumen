@@ -61,17 +61,17 @@ export function SmartAlerts() {
       <div className="grid grid-cols-3 gap-3">
         <GlassCard className="p-4 text-center" hover>
           <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Critical</div>
-          <div className="text-3xl font-mono font-bold text-[oklch(0.85_0.15_25)]">{criticalCount}</div>
+          <div className="text-3xl font-mono font-bold text-[#FF7252]">{criticalCount}</div>
           <div className="text-[10px] text-muted-foreground mt-0.5">action required</div>
         </GlassCard>
         <GlassCard className="p-4 text-center" hover>
           <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Warnings</div>
-          <div className="text-3xl font-mono font-bold text-[oklch(0.92_0.14_85)]">{warnCount}</div>
+          <div className="text-3xl font-mono font-bold text-[#FFC83D]">{warnCount}</div>
           <div className="text-[10px] text-muted-foreground mt-0.5">monitor closely</div>
         </GlassCard>
         <GlassCard className="p-4 text-center" hover>
           <div className="text-xs uppercase tracking-wider text-muted-foreground mb-1">Info</div>
-          <div className="text-3xl font-mono font-bold text-[oklch(0.85_0.13_230)]">{infoCount}</div>
+          <div className="text-3xl font-mono font-bold text-[#FFC83D]">{infoCount}</div>
           <div className="text-[10px] text-muted-foreground mt-0.5">informational</div>
         </GlassCard>
       </div>
@@ -87,7 +87,7 @@ export function SmartAlerts() {
               className={cn(
                 'px-2.5 py-1 rounded-md text-[11px] font-mono font-medium border transition-all',
                 filter === s
-                  ? 'text-foreground border-[oklch(0.82_0.15_85/40%)] bg-[oklch(0.82_0.15_85/10%)]'
+                  ? 'text-foreground border-[rgba(247, 167, 7, 0.40)] bg-[rgba(247, 167, 7, 0.1)]'
                   : 'text-muted-foreground border-border/30 hover:border-border/60'
               )}
             >
@@ -128,7 +128,7 @@ export function SmartAlerts() {
       <GlassCard className="p-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-base font-semibold font-display flex items-center gap-2">
-            <Bell className="w-4 h-4 text-[oklch(0.92_0.14_85)]" /> Live Alert Feed
+            <Bell className="w-4 h-4 text-[#FFC83D]" /> Live Alert Feed
           </h3>
           <StatusBadge variant={filtered.length > 0 ? 'gold' : 'neutral'}>
             {filtered.length} active

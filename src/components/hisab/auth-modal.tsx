@@ -192,7 +192,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                         'w-full h-12 pl-11 pr-4 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/60',
                         'transition-all duration-200 outline-none',
                         'focus:ring-2 focus:ring-[#F7A707]/40',
-                        errors.email ? 'border-[#EF4444]/60' : 'border-border',
+                        errors.email ? 'border-[#FF5252]/60' : 'border-border',
                       )}
                       style={{
                         background: 'var(--muted)',
@@ -203,7 +203,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     />
                   </div>
                   {errors.email && (
-                    <p id="auth-email-error" className="text-xs text-[#EF4444] mt-1.5 ml-1">{errors.email}</p>
+                    <p id="auth-email-error" className="text-xs text-[#FF5252] mt-1.5 ml-1">{errors.email}</p>
                   )}
                 </div>
 
@@ -225,7 +225,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                         'w-full h-12 pl-11 pr-12 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/60',
                         'transition-all duration-200 outline-none',
                         'focus:ring-2 focus:ring-[#F7A707]/40',
-                        errors.password ? 'border-[#EF4444]/60' : 'border-border',
+                        errors.password ? 'border-[#FF5252]/60' : 'border-border',
                       )}
                       style={{
                         background: 'var(--muted)',
@@ -244,7 +244,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     </button>
                   </div>
                   {errors.password && (
-                    <p id="auth-password-error" className="text-xs text-[#EF4444] mt-1.5 ml-1">{errors.password}</p>
+                    <p id="auth-password-error" className="text-xs text-[#FF5252] mt-1.5 ml-1">{errors.password}</p>
                   )}
                 </div>
 

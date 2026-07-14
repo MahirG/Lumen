@@ -650,7 +650,7 @@ function Detail({ label, value, color }: { label: string; value: string; color?:
   return (
     <div>
       <div className="text-[9px] uppercase text-foreground/30">{label}</div>
-      <div className="text-[11px] font-mono font-semibold" style={{ color: color ?? '#F5F5F7' }}>{value}</div>
+      <div className="text-[11px] font-mono font-semibold" style={{ color: color ?? '#FFFFFF' }}>{value}</div>
     </div>
   )
 }
@@ -728,11 +728,11 @@ function CustomRules() {
             <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} className="overflow-hidden">
               <div className="p-3 rounded-xl mb-3 space-y-2" style={{ background: 'rgba(0,122,255,0.05)', border: '1px solid rgba(0,122,255,0.15)' }}>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
-                  <input type="text" placeholder="Condition (e.g., trades above)" value={newCondition} onChange={e => setNewCondition(e.target.value)} className="px-3 py-2 rounded-lg text-sm" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#F5F5F7' }} />
-                  <select value={newAsset} onChange={e => setNewAsset(e.target.value)} className="px-3 py-2 rounded-lg text-sm" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#F5F5F7' }}>
+                  <input type="text" placeholder="Condition (e.g., trades above)" value={newCondition} onChange={e => setNewCondition(e.target.value)} className="px-3 py-2 rounded-lg text-sm" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#FFFFFF' }} />
+                  <select value={newAsset} onChange={e => setNewAsset(e.target.value)} className="px-3 py-2 rounded-lg text-sm" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#FFFFFF' }}>
                     {['XAUUSD', 'EURUSD', 'GBPUSD', 'BTCUSD', 'DXY', 'NASDAQ'].map(a => <option key={a} value={a} style={{ background: '#0a0a0c' }}>{a}</option>)}
                   </select>
-                  <input type="text" placeholder="Threshold (e.g., 3450)" value={newThreshold} onChange={e => setNewThreshold(e.target.value)} className="px-3 py-2 rounded-lg text-sm" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#F5F5F7' }} />
+                  <input type="text" placeholder="Threshold (e.g., 3450)" value={newThreshold} onChange={e => setNewThreshold(e.target.value)} className="px-3 py-2 rounded-lg text-sm" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#FFFFFF' }} />
                 </div>
                 <div className="flex gap-2">
                   <GlowButton variant="gold" size="sm" onClick={addRule}><Check className="w-3.5 h-3.5" /> Create Rule</GlowButton>
@@ -918,7 +918,7 @@ function DeliveryChannels() {
                   </div>
                 </div>
                 <button onClick={() => toggleChannel(ch.channel)} disabled={isLocked} className={cn('relative w-11 h-6 rounded-full transition-all shrink-0', ch.enabled ? 'bg-[#007AFF]/30' : 'bg-white/10', isLocked && 'opacity-40 cursor-not-allowed')} aria-label={`Toggle ${CHANNEL_LABELS[ch.channel]}`}>
-                  <motion.div animate={{ x: ch.enabled ? 22 : 2 }} transition={{ type: 'spring', stiffness: 500, damping: 30 }} className={cn('absolute top-0.5 w-5 h-5 rounded-full', ch.enabled ? 'bg-[#0A84FF] shadow-[0_0_8px_rgba(0,122,255,0.5)]' : 'bg-[#F5F5F7]/30')} />
+                  <motion.div animate={{ x: ch.enabled ? 22 : 2 }} transition={{ type: 'spring', stiffness: 500, damping: 30 }} className={cn('absolute top-0.5 w-5 h-5 rounded-full', ch.enabled ? 'bg-[#0A84FF] shadow-[0_0_8px_rgba(0,122,255,0.5)]' : 'bg-[#FFFFFF]/30')} />
                 </button>
               </div>
             </LiquidGlassCard>

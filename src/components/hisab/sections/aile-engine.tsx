@@ -45,7 +45,7 @@ export function AILEEngine() {
   if (!analysis) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 border-2 border-[oklch(0.82_0.15_85)] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin" />
         <span className="ml-3 text-sm text-muted-foreground">Running 12-phase institutional analysis...</span>
       </div>
     )
@@ -82,8 +82,8 @@ export function AILEEngine() {
       {/* Narrative */}
       <LiquidGlassCard variant="gold" className="p-5">
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[oklch(0.95_0.10_85)] to-[oklch(0.72_0.18_75)] flex items-center justify-center">
-            <Brain className="w-4 h-4 text-[oklch(0.07_0.018_265)]" />
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center">
+            <Brain className="w-4 h-4 text-[#0B0B0B]" />
           </div>
           <div>
             <h3 className="text-base font-semibold font-display">Institutional Narrative</h3>
@@ -113,15 +113,15 @@ function AILEOutputCard({ output, analysis, onRefresh, generating }: {
 }) {
   const isWait = output.marketBias === 'WAIT'
   const biasColor = output.marketBias === 'BUY'
-    ? 'text-[oklch(0.85_0.15_145)]'
+    ? 'text-[#00E676]'
     : output.marketBias === 'SELL'
-    ? 'text-[oklch(0.85_0.15_25)]'
-    : 'text-[oklch(0.85_0.02_60)]'
+    ? 'text-[#FF7252]'
+    : 'text-[#F7A707]'
   const biasBg = output.marketBias === 'BUY'
-    ? 'from-[oklch(0.72_0.18_145/15%)] to-transparent'
+    ? 'from-[rgba(0, 230, 118, 0.15)] to-transparent'
     : output.marketBias === 'SELL'
-    ? 'from-[oklch(0.66_0.22_25/15%)] to-transparent'
-    : 'from-[oklch(0.75_0.02_60/10%)] to-transparent'
+    ? 'from-[rgba(255, 82, 82, 0.15)] to-transparent'
+    : 'from-[rgba(247, 167, 7, 0.1)] to-transparent'
   const biasIcon = output.marketBias === 'BUY'
     ? <TrendingUp className="w-7 h-7 md:w-8 md:h-8" />
     : output.marketBias === 'SELL'
@@ -137,10 +137,10 @@ function AILEOutputCard({ output, analysis, onRefresh, generating }: {
         className={cn(
           'mb-5 p-4 rounded-xl border-2 text-center',
           isWait
-            ? 'bg-[oklch(0.75_0.02_60/8%)] border-[oklch(0.75_0.02_60/30%)]'
+            ? 'bg-[rgba(247, 167, 7, 0.08)] border-[rgba(247, 167, 7, 0.3)]'
             : output.marketBias === 'BUY'
-            ? 'bg-[oklch(0.72_0.18_145/10%)] border-[oklch(0.72_0.18_145/35%)]'
-            : 'bg-[oklch(0.66_0.22_25/10%)] border-[oklch(0.66_0.22_25/35%)]',
+            ? 'bg-[rgba(0, 200, 83, 0.1)] border-[rgba(0, 200, 83, 0.35)]'
+            : 'bg-[rgba(255, 82, 82, 0.10)] border-[rgba(255, 82, 82, 0.35)]',
         )}
       >
         <div className="flex flex-col sm:flex-row items-center sm:justify-center gap-3">
@@ -157,7 +157,7 @@ function AILEOutputCard({ output, analysis, onRefresh, generating }: {
           </div>
           <div className="sm:ml-auto text-center sm:text-right">
             <div className="text-[10px] uppercase tracking-wider text-muted-foreground">Confidence</div>
-            <div className={cn('text-2xl sm:text-3xl md:text-4xl font-mono font-bold', isWait ? 'text-muted-foreground' : 'text-[oklch(0.92_0.13_85)]')}>
+            <div className={cn('text-2xl sm:text-3xl md:text-4xl font-mono font-bold', isWait ? 'text-muted-foreground' : 'text-[#FFC83D]')}>
               {output.confidence}%
             </div>
             <PremiumBadge variant={output.confidenceLabel === 'A_PLUS' ? 'gold' : output.confidenceLabel === 'A' ? 'bull' : output.confidenceLabel === 'B' ? 'info' : 'neutral'} size="sm" className="mt-1">
@@ -170,8 +170,8 @@ function AILEOutputCard({ output, analysis, onRefresh, generating }: {
         </div>
         {isWait && (
           <div className="mt-3 pt-3 border-t border-white/[6%] flex items-center justify-center gap-2 text-sm">
-            <Clock className="w-4 h-4 text-[oklch(0.85_0.02_60)] animate-pulse" />
-            <span className="font-semibold text-[oklch(0.85_0.02_60)]">WAIT — {8 - analysis.phase7.missing.length}/8 conditions met. Patience is edge.</span>
+            <Clock className="w-4 h-4 text-[#F7A707] animate-pulse" />
+            <span className="font-semibold text-[#F7A707]">WAIT — {8 - analysis.phase7.missing.length}/8 conditions met. Patience is edge.</span>
           </div>
         )}
       </motion.div>
@@ -185,7 +185,7 @@ function AILEOutputCard({ output, analysis, onRefresh, generating }: {
           <span>·</span>
           <span>{analysis.phase1.primaryTrend}</span>
           <span>·</span>
-          <span className="text-[oklch(0.82_0.15_85)]">{analysis.phase1.institutionalBias}</span>
+          <span className="text-[#F7A707]">{analysis.phase1.institutionalBias}</span>
         </div>
         <GlowButton variant="outline" size="sm" onClick={onRefresh} disabled={generating}>
           <RefreshCw className={cn('w-3.5 h-3.5', generating && 'animate-spin')} />
@@ -240,7 +240,7 @@ function EntryConditionsCard({ phase7 }: { phase7: AILEAnalysis['phase7'] }) {
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-base font-semibold font-display flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 text-[oklch(0.82_0.15_85)]" /> Phase 7 — Entry Conditions
+          <CheckCircle2 className="w-4 h-4 text-[#F7A707]" /> Phase 7 — Entry Conditions
         </h3>
         <PremiumBadge variant={phase7.allMet ? 'bull' : 'neutral'}>
           {metCount}/8 {phase7.allMet ? '✓ ALL MET' : 'MET'}
@@ -258,16 +258,16 @@ function EntryConditionsCard({ phase7 }: { phase7: AILEAnalysis['phase7'] }) {
               className={cn(
                 'flex items-center gap-2.5 p-2.5 rounded-lg border transition-all',
                 cond.met
-                  ? 'bg-[oklch(0.72_0.18_145/8%)] border-[oklch(0.72_0.18_145/20%)]'
+                  ? 'bg-[rgba(0, 200, 83, 0.08)] border-[rgba(0, 230, 118, 0.20)]'
                   : 'bg-white/[3%] border-white/[6%]',
               )}
             >
               <div className={cn(
                 'w-7 h-7 rounded-md flex items-center justify-center shrink-0',
-                cond.met ? 'bg-[oklch(0.72_0.18_145/15%)]' : 'bg-white/[5%]',
+                cond.met ? 'bg-[rgba(0, 230, 118, 0.15)]' : 'bg-white/[5%]',
               )}>
                 {cond.met
-                  ? <CheckCircle2 className="w-4 h-4 text-[oklch(0.85_0.15_145)]" />
+                  ? <CheckCircle2 className="w-4 h-4 text-[#00E676]" />
                   : <XCircle className="w-4 h-4 text-muted-foreground" />
                 }
               </div>
@@ -282,7 +282,7 @@ function EntryConditionsCard({ phase7 }: { phase7: AILEAnalysis['phase7'] }) {
         })}
       </div>
       {!phase7.allMet && phase7.missing.length > 0 && (
-        <div className="mt-3 p-2.5 rounded-md bg-[oklch(0.75_0.02_60/5%)] border border-[oklch(0.75_0.02_60/15%)]">
+        <div className="mt-3 p-2.5 rounded-md bg-[rgba(247, 167, 7, 0.05)] border border-[rgba(247, 167, 7, 0.15)]">
           <div className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Missing Conditions</div>
           <p className="text-xs text-foreground/80">{phase7.missing.join(' · ')}</p>
         </div>
@@ -300,7 +300,7 @@ function TradeLevelsCard({ rm, output }: { rm: NonNullable<AILEAnalysis['phase8t
     <LiquidGlassCard variant="gold" className="p-5">
       <div className="flex items-center justify-between mb-4">
         <h3 className="text-base font-semibold font-display flex items-center gap-2">
-          <Target className="w-4 h-4 text-[oklch(0.92_0.13_85)]" /> Trade Execution Levels
+          <Target className="w-4 h-4 text-[#FFC83D]" /> Trade Execution Levels
         </h3>
         <PremiumBadge variant="gold">{output.marketBias} · 1:{formatNumber(rm.rr1, 2)}</PremiumBadge>
       </div>
@@ -312,9 +312,9 @@ function TradeLevelsCard({ rm, output }: { rm: NonNullable<AILEAnalysis['phase8t
         <LevelBox label="TP3 (HTF Target)" value={`$${formatNum(rm.tp3)}`} variant="bull" sub={`1:${formatNumber(rm.rr3, 2)} → runner`} />
         <LevelBox label="Risk Distance" value={`$${formatNumber(rm.riskDistance, 2)}`} variant="neutral" />
       </div>
-      <div className="mt-3 p-2.5 rounded-md bg-[oklch(0.66_0.22_25/8%)] border border-[oklch(0.66_0.22_25/20%)]">
+      <div className="mt-3 p-2.5 rounded-md bg-[rgba(255, 82, 82, 0.08)] border border-[rgba(255, 82, 82, 0.20)]">
         <div className="flex items-start gap-2 text-xs">
-          <AlertOctagon className="w-3.5 h-3.5 text-[oklch(0.85_0.15_25)] mt-0.5 shrink-0" />
+          <AlertOctagon className="w-3.5 h-3.5 text-[#FF7252] mt-0.5 shrink-0" />
           <span className="text-foreground/90">{output.invalidation}</span>
         </div>
       </div>
@@ -324,9 +324,9 @@ function TradeLevelsCard({ rm, output }: { rm: NonNullable<AILEAnalysis['phase8t
 
 function LevelBox({ label, value, variant, sub }: { label: string; value: string; variant: 'bull' | 'bear' | 'gold' | 'neutral'; sub?: string }) {
   const colors = {
-    bull: 'text-[oklch(0.85_0.15_145)] border-[oklch(0.72_0.18_145/20%)] bg-[oklch(0.72_0.18_145/5%)]',
-    bear: 'text-[oklch(0.85_0.15_25)] border-[oklch(0.66_0.22_25/20%)] bg-[oklch(0.66_0.22_25/5%)]',
-    gold: 'text-[oklch(0.92_0.13_85)] border-[oklch(0.82_0.15_85/20%)] bg-[oklch(0.82_0.15_85/5%)]',
+    bull: 'text-[#00E676] border-[rgba(0, 230, 118, 0.20)] bg-[rgba(0, 200, 83, 0.05)]',
+    bear: 'text-[#FF7252] border-[rgba(255, 82, 82, 0.20)] bg-[rgba(255, 82, 82, 0.05)]',
+    gold: 'text-[#FFC83D] border-[rgba(247, 167, 7, 0.20)] bg-[rgba(247, 167, 7, 0.05)]',
     neutral: 'text-foreground border-white/[10%] bg-white/[3%]',
   }
   return (
@@ -348,7 +348,7 @@ function Phase1Card({ htf }: { htf: AILEAnalysis['phase1'] }) {
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-sm font-semibold flex items-center gap-2">
-          <span className="w-5 h-5 rounded-md bg-[oklch(0.82_0.15_85/15%)] text-[oklch(0.92_0.13_85)] text-[10px] font-mono font-bold flex items-center justify-center">1</span>
+          <span className="w-5 h-5 rounded-md bg-[rgba(247, 167, 7, 0.15)] text-[#FFC83D] text-[10px] font-mono font-bold flex items-center justify-center">1</span>
           Higher Timeframe Context
         </h4>
         <PremiumBadge variant={htf.aligned ? 'bull' : 'neutral'} size="sm">
@@ -360,8 +360,8 @@ function Phase1Card({ htf }: { htf: AILEAnalysis['phase1'] }) {
           <div key={tf.timeframe} className="text-center p-2 rounded-md bg-white/[4%]">
             <div className="text-[10px] uppercase text-muted-foreground font-mono">{tf.timeframe}</div>
             <div className={cn('text-xs font-bold mt-1',
-              tf.bias === 'BULLISH' ? 'text-[oklch(0.85_0.15_145)]' :
-              tf.bias === 'BEARISH' ? 'text-[oklch(0.85_0.15_25)]' :
+              tf.bias === 'BULLISH' ? 'text-[#00E676]' :
+              tf.bias === 'BEARISH' ? 'text-[#FF7252]' :
               'text-muted-foreground'
             )}>
               {tf.bias === 'BULLISH' ? '↑' : tf.bias === 'BEARISH' ? '↓' : '—'}
@@ -391,7 +391,7 @@ function Phase2Card({ phase2, currentPrice }: { phase2: AILEAnalysis['phase2']; 
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-sm font-semibold flex items-center gap-2">
-          <span className="w-5 h-5 rounded-md bg-[oklch(0.82_0.15_85/15%)] text-[oklch(0.92_0.13_85)] text-[10px] font-mono font-bold flex items-center justify-center">2</span>
+          <span className="w-5 h-5 rounded-md bg-[rgba(247, 167, 7, 0.15)] text-[#FFC83D] text-[10px] font-mono font-bold flex items-center justify-center">2</span>
           Key Level Validation
         </h4>
         <PremiumBadge variant={phase2.atKeyLevel ? 'bull' : 'neutral'} size="sm">
@@ -431,7 +431,7 @@ function Phase3Card({ fib, currentPrice }: { fib: AILEAnalysis['phase3']; curren
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-sm font-semibold flex items-center gap-2">
-          <span className="w-5 h-5 rounded-md bg-[oklch(0.82_0.15_85/15%)] text-[oklch(0.92_0.13_85)] text-[10px] font-mono font-bold flex items-center justify-center">3</span>
+          <span className="w-5 h-5 rounded-md bg-[rgba(247, 167, 7, 0.15)] text-[#FFC83D] text-[10px] font-mono font-bold flex items-center justify-center">3</span>
           Fibonacci Framework
         </h4>
         <PremiumBadge variant={fib.inOTE ? 'gold' : fib.inDiscount ? 'bull' : fib.inPremium ? 'bear' : 'neutral'} size="sm">
@@ -444,14 +444,14 @@ function Phase3Card({ fib, currentPrice }: { fib: AILEAnalysis['phase3']; curren
           return (
             <div key={level.label} className={cn(
               'flex items-center justify-between p-1.5 rounded-md text-xs transition-all',
-              level.zone === 'OTE' ? 'bg-[oklch(0.82_0.15_85/8%)] border border-[oklch(0.82_0.15_85/20%)]' : 'bg-white/[3%]',
-              isCurrent && 'ring-1 ring-[oklch(0.82_0.15_85/40%)]',
+              level.zone === 'OTE' ? 'bg-[rgba(247, 167, 7, 0.08)] border border-[rgba(247, 167, 7, 0.20)]' : 'bg-white/[3%]',
+              isCurrent && 'ring-1 ring-[rgba(247, 167, 7, 0.40)]',
             )}>
               <span className="font-mono font-medium text-muted-foreground">{level.label}</span>
               <div className="flex items-center gap-2">
                 <span className="font-mono font-semibold">${formatNumber(level.price, 2)}</span>
                 {level.zone === 'OTE' && <PremiumBadge variant="gold" size="xs">OTE</PremiumBadge>}
-                {isCurrent && <span className="w-1.5 h-1.5 rounded-full bg-[oklch(0.92_0.13_85)] animate-pulse" />}
+                {isCurrent && <span className="w-1.5 h-1.5 rounded-full bg-[#FFC83D] animate-pulse" />}
               </div>
             </div>
           )
@@ -473,7 +473,7 @@ function Phase4Card({ liq }: { liq: AILEAnalysis['phase4'] }) {
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-sm font-semibold flex items-center gap-2">
-          <span className="w-5 h-5 rounded-md bg-[oklch(0.82_0.15_85/15%)] text-[oklch(0.92_0.13_85)] text-[10px] font-mono font-bold flex items-center justify-center">4</span>
+          <span className="w-5 h-5 rounded-md bg-[rgba(247, 167, 7, 0.15)] text-[#FFC83D] text-[10px] font-mono font-bold flex items-center justify-center">4</span>
           Liquidity Confirmation
         </h4>
         <PremiumBadge variant={liq.liquidityEngineered ? 'bull' : 'neutral'} size="sm">
@@ -491,18 +491,18 @@ function Phase4Card({ liq }: { liq: AILEAnalysis['phase4'] }) {
         </div>
         <div className="p-2 rounded-md bg-white/[4%]">
           <div className="text-[10px] uppercase text-muted-foreground">Sweeps</div>
-          <div className="font-mono font-semibold mt-0.5 text-[oklch(0.92_0.13_85)]">{liq.liquiditySweeps.length}</div>
+          <div className="font-mono font-semibold mt-0.5 text-[#FFC83D]">{liq.liquiditySweeps.length}</div>
         </div>
         <div className="p-2 rounded-md bg-white/[4%]">
           <div className="text-[10px] uppercase text-muted-foreground">Stop Hunts</div>
-          <div className="font-mono font-semibold mt-0.5 text-[oklch(0.85_0.15_25)]">{liq.stopHunts.length}</div>
+          <div className="font-mono font-semibold mt-0.5 text-[#FF7252]">{liq.stopHunts.length}</div>
         </div>
       </div>
       <div className="flex justify-between text-xs mb-2">
         <span className="text-muted-foreground">Sweep Direction</span>
         <span className={cn('font-mono font-medium',
-          liq.sweepDirection === 'BULLISH' ? 'text-[oklch(0.85_0.15_145)]' :
-          liq.sweepDirection === 'BEARISH' ? 'text-[oklch(0.85_0.15_25)]' :
+          liq.sweepDirection === 'BULLISH' ? 'text-[#00E676]' :
+          liq.sweepDirection === 'BEARISH' ? 'text-[#FF7252]' :
           'text-muted-foreground'
         )}>{liq.sweepDirection}</span>
       </div>
@@ -520,7 +520,7 @@ function Phase5Card({ structure }: { structure: AILEAnalysis['phase5'] }) {
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-sm font-semibold flex items-center gap-2">
-          <span className="w-5 h-5 rounded-md bg-[oklch(0.82_0.15_85/15%)] text-[oklch(0.92_0.13_85)] text-[10px] font-mono font-bold flex items-center justify-center">5</span>
+          <span className="w-5 h-5 rounded-md bg-[rgba(247, 167, 7, 0.15)] text-[#FFC83D] text-[10px] font-mono font-bold flex items-center justify-center">5</span>
           Structure Confirmation
         </h4>
         <PremiumBadge variant={structure.confirmed ? 'bull' : 'neutral'} size="sm">
@@ -530,8 +530,8 @@ function Phase5Card({ structure }: { structure: AILEAnalysis['phase5'] }) {
       <div className="space-y-1.5 text-xs">
         <div className="flex justify-between"><span className="text-muted-foreground">Event Type</span><span className="font-mono font-medium">{structure.eventType}</span></div>
         <div className="flex justify-between"><span className="text-muted-foreground">Direction</span><span className={cn('font-mono font-medium',
-          structure.direction === 'BULLISH' ? 'text-[oklch(0.85_0.15_145)]' :
-          structure.direction === 'BEARISH' ? 'text-[oklch(0.85_0.15_25)]' :
+          structure.direction === 'BULLISH' ? 'text-[#00E676]' :
+          structure.direction === 'BEARISH' ? 'text-[#FF7252]' :
           'text-muted-foreground'
         )}>{structure.direction}</span></div>
         {structure.price > 0 && (
@@ -554,7 +554,7 @@ function Phase6Card({ obDetection }: { obDetection: AILEAnalysis['phase6'] }) {
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-sm font-semibold flex items-center gap-2">
-          <span className="w-5 h-5 rounded-md bg-[oklch(0.82_0.15_85/15%)] text-[oklch(0.92_0.13_85)] text-[10px] font-mono font-bold flex items-center justify-center">6</span>
+          <span className="w-5 h-5 rounded-md bg-[rgba(247, 167, 7, 0.15)] text-[#FFC83D] text-[10px] font-mono font-bold flex items-center justify-center">6</span>
           Order Block Detection
         </h4>
         <PremiumBadge variant={obDetection.bestOB?.rank === 'A_PLUS' ? 'gold' : obDetection.bestOB?.rank === 'A' ? 'bull' : 'neutral'} size="sm">
@@ -570,13 +570,13 @@ function Phase6Card({ obDetection }: { obDetection: AILEAnalysis['phase6'] }) {
             </div>
             <div className="text-sm font-mono font-semibold">${formatNumber(obDetection.bestOB.low, 2)} - ${formatNumber(obDetection.bestOB.high, 2)}</div>
             <div className="grid grid-cols-3 gap-1 mt-2 text-[10px]">
-              <span className={cn('px-1.5 py-0.5 rounded text-center', obDetection.bestOB.fresh ? 'bg-[oklch(0.72_0.18_145/15%)] text-[oklch(0.85_0.15_145)]' : 'bg-white/[5%] text-muted-foreground')}>
+              <span className={cn('px-1.5 py-0.5 rounded text-center', obDetection.bestOB.fresh ? 'bg-[rgba(0, 230, 118, 0.15)] text-[#00E676]' : 'bg-white/[5%] text-muted-foreground')}>
                 {obDetection.bestOB.fresh ? '✓ Fresh' : '✗ Used'}
               </span>
-              <span className={cn('px-1.5 py-0.5 rounded text-center', obDetection.bestOB.highVolume ? 'bg-[oklch(0.72_0.18_145/15%)] text-[oklch(0.85_0.15_145)]' : 'bg-white/[5%] text-muted-foreground')}>
+              <span className={cn('px-1.5 py-0.5 rounded text-center', obDetection.bestOB.highVolume ? 'bg-[rgba(0, 230, 118, 0.15)] text-[#00E676]' : 'bg-white/[5%] text-muted-foreground')}>
                 {obDetection.bestOB.highVolume ? '✓ Vol' : '✗ Vol'}
               </span>
-              <span className={cn('px-1.5 py-0.5 rounded text-center', obDetection.bestOB.fvgConfluence ? 'bg-[oklch(0.72_0.18_145/15%)] text-[oklch(0.85_0.15_145)]' : 'bg-white/[5%] text-muted-foreground')}>
+              <span className={cn('px-1.5 py-0.5 rounded text-center', obDetection.bestOB.fvgConfluence ? 'bg-[rgba(0, 230, 118, 0.15)] text-[#00E676]' : 'bg-white/[5%] text-muted-foreground')}>
                 {obDetection.bestOB.fvgConfluence ? '✓ FVG' : '✗ FVG'}
               </span>
             </div>
@@ -603,16 +603,16 @@ function Phase10Card({ management, isWait }: { management: AILEAnalysis['phase10
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-sm font-semibold flex items-center gap-2">
-          <span className="w-5 h-5 rounded-md bg-[oklch(0.82_0.15_85/15%)] text-[oklch(0.92_0.13_85)] text-[10px] font-mono font-bold flex items-center justify-center">10</span>
+          <span className="w-5 h-5 rounded-md bg-[rgba(247, 167, 7, 0.15)] text-[#FFC83D] text-[10px] font-mono font-bold flex items-center justify-center">10</span>
           Trade Management
         </h4>
         {isWait && <PremiumBadge variant="neutral" size="sm">N/A</PremiumBadge>}
       </div>
       <div className="space-y-2 text-xs">
-        <ManagementRow label="After TP1" text={management.afterTP1} icon={<Target className="w-3 h-3" />} color="text-[oklch(0.85_0.15_145)]" />
-        <ManagementRow label="After TP2" text={management.afterTP2} icon={<BarChart3 className="w-3 h-3" />} color="text-[oklch(0.82_0.15_85)]" />
-        <ManagementRow label="After TP3" text={management.afterTP3} icon={<Award className="w-3 h-3" />} color="text-[oklch(0.92_0.13_85)]" />
-        <ManagementRow label="Break Even" text={management.breakEvenTrigger} icon={<Shield className="w-3 h-3" />} color="text-[oklch(0.78_0.18_220)]" />
+        <ManagementRow label="After TP1" text={management.afterTP1} icon={<Target className="w-3 h-3" />} color="text-[#00E676]" />
+        <ManagementRow label="After TP2" text={management.afterTP2} icon={<BarChart3 className="w-3 h-3" />} color="text-[#F7A707]" />
+        <ManagementRow label="After TP3" text={management.afterTP3} icon={<Award className="w-3 h-3" />} color="text-[#FFC83D]" />
+        <ManagementRow label="Break Even" text={management.breakEvenTrigger} icon={<Shield className="w-3 h-3" />} color="text-[#F7A707]" />
       </div>
     </LiquidGlassCard>
   )
@@ -650,7 +650,7 @@ function Phase11Card({ confidence }: { confidence: AILEAnalysis['phase11'] }) {
     <LiquidGlassCard className="p-5">
       <div className="flex items-center justify-between mb-3">
         <h4 className="text-sm font-semibold flex items-center gap-2">
-          <span className="w-5 h-5 rounded-md bg-[oklch(0.82_0.15_85/15%)] text-[oklch(0.92_0.13_85)] text-[10px] font-mono font-bold flex items-center justify-center">11</span>
+          <span className="w-5 h-5 rounded-md bg-[rgba(247, 167, 7, 0.15)] text-[#FFC83D] text-[10px] font-mono font-bold flex items-center justify-center">11</span>
           AI Confidence Score
         </h4>
         <PremiumBadge variant={confidence.label === 'A_PLUS' ? 'gold' : confidence.label === 'A' ? 'bull' : confidence.label === 'B' ? 'info' : 'neutral'} size="sm">

@@ -257,7 +257,7 @@ export function TradingWorkspace() {
               <Sparkles className="w-4 h-4 text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#F5B942]">AI Analysis</span>
+              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#F7A707]">AI Analysis</span>
               <p className="text-xs text-foreground/80 leading-relaxed">
                 {isUp ? `${symbol.label} showing bullish momentum. ` : `${symbol.label} under bearish pressure. `}
                 {indicators.rsi ? 'RSI confirms ' + (isUp ? 'overbought conditions — watch for reversal. ' : 'oversold conditions — potential bounce. ') : ''}
@@ -318,7 +318,7 @@ export function TradingWorkspace() {
               <span className="text-lg font-mono font-bold tabular text-foreground">
                 {currentPrice > 1000 ? `$${formatNumber(currentPrice, 2)}` : formatNumber(currentPrice, priceFormat)}
               </span>
-              <span className="text-xs font-mono font-semibold flex items-center gap-0.5" style={{ color: isUp ? '#10B981' : '#EF4444' }}>
+              <span className="text-xs font-mono font-semibold flex items-center gap-0.5" style={{ color: isUp ? '#00E676' : '#FF5252' }}>
                 {isUp ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                 {isUp ? '+' : ''}{formatNumber(change, priceFormat)} ({isUp ? '+' : ''}{formatNumber(changePct, 2)}%)
               </span>
@@ -330,10 +330,10 @@ export function TradingWorkspace() {
             {/* Live indicator */}
             <div className="flex items-center gap-1.5 px-2 py-1 rounded-md" style={{ background: 'rgba(16,185,129,0.08)' }}>
               <div className="relative w-1.5 h-1.5">
-                <div className="absolute inset-0 rounded-full animate-ping" style={{ background: '#10B981' }} />
-                <div className="relative w-1.5 h-1.5 rounded-full" style={{ background: '#10B981' }} />
+                <div className="absolute inset-0 rounded-full animate-ping" style={{ background: '#00E676' }} />
+                <div className="relative w-1.5 h-1.5 rounded-full" style={{ background: '#00E676' }} />
               </div>
-              <span className="text-[9px] font-mono font-semibold uppercase text-[#10B981]">Live</span>
+              <span className="text-[9px] font-mono font-semibold uppercase text-[#00E676]">Live</span>
             </div>
             {/* Alert button */}
             <button className="w-7 h-7 rounded-md flex items-center justify-center text-muted-foreground hover:text-foreground hover:bg-foreground/[6%] transition-colors" title="Set Price Alert" aria-label="Set alert">
@@ -429,15 +429,15 @@ export function TradingWorkspace() {
             <span className="font-bold text-foreground">{symbol.label}</span>
             <span className="text-muted-foreground">{timeframe}</span>
             <span className="text-muted-foreground">O:<span className="text-foreground ml-0.5">{formatNumber(displayData.o, priceFormat)}</span></span>
-            <span className="text-muted-foreground">H:<span className="ml-0.5" style={{ color: '#10B981' }}>{formatNumber(displayData.h, priceFormat)}</span></span>
-            <span className="text-muted-foreground">L:<span className="ml-0.5" style={{ color: '#EF4444' }}>{formatNumber(displayData.l, priceFormat)}</span></span>
-            <span className="text-muted-foreground">C:<span className="ml-0.5" style={{ color: displayData.c >= displayData.o ? '#10B981' : '#EF4444' }}>{formatNumber(displayData.c, priceFormat)}</span></span>
+            <span className="text-muted-foreground">H:<span className="ml-0.5" style={{ color: '#00E676' }}>{formatNumber(displayData.h, priceFormat)}</span></span>
+            <span className="text-muted-foreground">L:<span className="ml-0.5" style={{ color: '#FF5252' }}>{formatNumber(displayData.l, priceFormat)}</span></span>
+            <span className="text-muted-foreground">C:<span className="ml-0.5" style={{ color: displayData.c >= displayData.o ? '#00E676' : '#FF5252' }}>{formatNumber(displayData.c, priceFormat)}</span></span>
             <span className="text-muted-foreground hidden sm:inline">Vol:<span className="text-foreground ml-0.5">{formatNumber(displayData.vol, 0)}</span></span>
           </div>
 
           {/* Connection status */}
           <div className="absolute top-2 right-2 flex items-center gap-1.5 px-2 py-1 rounded-md z-10" style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
-            <Wifi className="w-3 h-3 text-[#10B981]" />
+            <Wifi className="w-3 h-3 text-[#00E676]" />
             <span className="text-[9px] font-mono text-muted-foreground hidden sm:inline">Live Market Data</span>
           </div>
         </div>
@@ -446,8 +446,8 @@ export function TradingWorkspace() {
         <div className="flex flex-wrap items-center justify-between gap-2 px-4 py-2.5" style={{ borderTop: '1px solid var(--border)' }}>
           <div className="flex items-center gap-3 text-[10px] font-mono text-muted-foreground flex-wrap">
             <span>O: <span className="text-foreground">{formatNumber(displayData.o, priceFormat)}</span></span>
-            <span>H: <span style={{ color: '#10B981' }}>{formatNumber(displayData.h, priceFormat)}</span></span>
-            <span>L: <span style={{ color: '#EF4444' }}>{formatNumber(displayData.l, priceFormat)}</span></span>
+            <span>H: <span style={{ color: '#00E676' }}>{formatNumber(displayData.h, priceFormat)}</span></span>
+            <span>L: <span style={{ color: '#FF5252' }}>{formatNumber(displayData.l, priceFormat)}</span></span>
             <span>C: <span className="text-foreground">{formatNumber(chartCandles.at(-1)?.close ?? 0, priceFormat)}</span></span>
             <span className="hidden sm:inline">Vol: <span className="text-foreground">{formatNumber(chartCandles.at(-1)?.volume ?? 0, 0)}</span></span>
           </div>
@@ -460,10 +460,10 @@ export function TradingWorkspace() {
 
       {/* Quick stats */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <StatCard label="Session High" value={formatNumber(Math.max(...chartCandles.slice(-30).map(c => c.high)), priceFormat)} color="#10B981" />
-        <StatCard label="Session Low" value={formatNumber(Math.min(...chartCandles.slice(-30).map(c => c.low)), priceFormat)} color="#EF4444" />
+        <StatCard label="Session High" value={formatNumber(Math.max(...chartCandles.slice(-30).map(c => c.high)), priceFormat)} color="#00E676" />
+        <StatCard label="Session Low" value={formatNumber(Math.min(...chartCandles.slice(-30).map(c => c.low)), priceFormat)} color="#FF5252" />
         <StatCard label="Avg Volume" value={formatNumber(chartCandles.slice(-20).reduce((s, c) => s + c.volume, 0) / 20, 0)} color="#F7A707" />
-        <StatCard label="Volatility" value={`${formatNumber(Math.abs(changePct), 2)}%`} color="#F5B942" />
+        <StatCard label="Volatility" value={`${formatNumber(Math.abs(changePct), 2)}%`} color="#F7A707" />
       </div>
     </div>
   )
@@ -513,8 +513,8 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
         attributionLogo: false,
       },
       grid: {
-        vertLines: { color: 'rgba(120, 160, 200, 0.04)' },
-        horzLines: { color: 'rgba(120, 160, 200, 0.04)' },
+        vertLines: { color: 'rgba(44, 44, 44, 0.04)' },
+        horzLines: { color: 'rgba(44, 44, 44, 0.04)' },
       },
       crosshair: {
         mode: CrosshairMode.Normal,
@@ -532,12 +532,12 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
         },
       },
       rightPriceScale: {
-        borderColor: 'rgba(120, 160, 200, 0.08)',
+        borderColor: 'rgba(44, 44, 44, 0.08)',
         scaleMargins: { top: 0.05, bottom: 0.18 },
         ensureEdgeTickMarksVisible: true,
       },
       timeScale: {
-        borderColor: 'rgba(120, 160, 200, 0.08)',
+        borderColor: 'rgba(44, 44, 44, 0.08)',
         timeVisible: ['1M', '5M', '15M', '1H'].includes(timeframe),
         secondsVisible: false,
         rightOffset: 4,
@@ -564,12 +564,12 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
 
     // Candlestick series — professional rendering
     const candleSeries = chart.addSeries(CandlestickSeries, {
-      upColor: '#10B981',
-      downColor: '#EF4444',
-      borderUpColor: '#10B981',
-      borderDownColor: '#EF4444',
-      wickUpColor: 'rgba(16, 185, 129, 0.7)',
-      wickDownColor: 'rgba(239, 68, 68, 0.7)',
+      upColor: '#00E676',
+      downColor: '#FF5252',
+      borderUpColor: '#00E676',
+      borderDownColor: '#FF5252',
+      wickUpColor: 'rgba(0, 230, 118, 0.7)',
+      wickDownColor: 'rgba(255, 82, 82, 0.7)',
       priceFormat: { type: 'price', precision: pricePrecision, minMove: 1 / Math.pow(10, pricePrecision) },
       priceLineVisible: true,
       priceLineStyle: 2,
@@ -645,7 +645,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
         const volData = candles.map(c => ({
           time: toTime(c.time),
           value: c.volume,
-          color: c.close >= c.open ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)',
+          color: c.close >= c.open ? 'rgba(0, 230, 118, 0.25)' : 'rgba(255, 82, 82, 0.25)',
         }))
         volumeSeriesRef.current.setData(volData)
       }
@@ -670,7 +670,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
         volumeSeriesRef.current.update({
           time: timeSec,
           value: last.volume,
-          color: last.close >= last.open ? 'rgba(16, 185, 129, 0.25)' : 'rgba(239, 68, 68, 0.25)',
+          color: last.close >= last.open ? 'rgba(0, 230, 118, 0.25)' : 'rgba(255, 82, 82, 0.25)',
         })
       }
 
@@ -705,7 +705,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
       vol.setData(candles.map((c, i) => ({
         time: toTime(i),
         value: c.volume,
-        color: c.close >= c.open ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)',
+        color: c.close >= c.open ? 'rgba(0, 230, 118, 0.3)' : 'rgba(255, 82, 82, 0.3)',
       })))
       volumeSeriesRef.current = vol
     }
@@ -713,7 +713,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     // --- SMA (20) ---
     if (showMA) {
       const ma = chart.addSeries(LineSeries, {
-        color: '#F5B942',
+        color: '#F7A707',
         lineWidth: 2,
         priceLineVisible: false,
         lastValueVisible: false,
@@ -794,7 +794,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
         priceScaleId: 'macd',
       })
       const signalLine = chart.addSeries(LineSeries, {
-        color: '#F5B942',
+        color: '#F7A707',
         lineWidth: 1,
         priceLineVisible: false,
         lastValueVisible: false,
@@ -837,7 +837,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
       const histData = macdValues.map((v, i) => ({
         time: toTime(i),
         value: v - signalValues[i],
-        color: v > signalValues[i] ? 'rgba(16, 185, 129, 0.3)' : 'rgba(239, 68, 68, 0.3)',
+        color: v > signalValues[i] ? 'rgba(0, 230, 118, 0.3)' : 'rgba(255, 82, 82, 0.3)',
       })).slice(slowPeriod)
       macdLine.setData(macdData)
       signalLine.setData(sigData)

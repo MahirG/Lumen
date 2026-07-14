@@ -83,14 +83,14 @@ export function TradeJournal() {
     <div className="space-y-5">
       {/* Stats summary */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-        <StatBox label="Win Rate" value={`${stats.winRate.toFixed(1)}%`} icon={<Award className="w-4 h-4" />} color="text-[oklch(0.92_0.14_85)]" />
-        <StatBox label="Total P&L" value={formatCurrency(stats.totalPnL)} icon={<TrendingUp className="w-4 h-4" />} color={stats.totalPnL >= 0 ? 'text-[oklch(0.85_0.15_145)]' : 'text-[oklch(0.85_0.15_25)]'} />
+        <StatBox label="Win Rate" value={`${stats.winRate.toFixed(1)}%`} icon={<Award className="w-4 h-4" />} color="text-[#FFC83D]" />
+        <StatBox label="Total P&L" value={formatCurrency(stats.totalPnL)} icon={<TrendingUp className="w-4 h-4" />} color={stats.totalPnL >= 0 ? 'text-[#00E676]' : 'text-[#FF7252]'} />
         <StatBox label="Profit Factor" value={formatNumber(stats.profitFactor, 2)} icon={<BarChart3 className="w-4 h-4" />} color="text-foreground" />
         <StatBox label="Total Trades" value={String(stats.totalTrades)} icon={<BookOpen className="w-4 h-4" />} color="text-foreground" />
         <StatBox label="Wins / Losses" value={`${stats.wins} / ${stats.losses}`} icon={<Target className="w-4 h-4" />} color="text-foreground" />
-        <StatBox label="Avg R:R" value={`1:${formatNumber(stats.avgRR, 2)}`} icon={<Scale className="w-4 h-4" />} color="text-[oklch(0.92_0.14_85)]" />
-        <StatBox label="Avg Win" value={formatCurrency(stats.avgWin)} icon={<TrendingUp className="w-4 h-4" />} color="text-[oklch(0.85_0.15_145)]" />
-        <StatBox label="Avg Loss" value={formatCurrency(-stats.avgLoss)} icon={<TrendingDown className="w-4 h-4" />} color="text-[oklch(0.85_0.15_25)]" />
+        <StatBox label="Avg R:R" value={`1:${formatNumber(stats.avgRR, 2)}`} icon={<Scale className="w-4 h-4" />} color="text-[#FFC83D]" />
+        <StatBox label="Avg Win" value={formatCurrency(stats.avgWin)} icon={<TrendingUp className="w-4 h-4" />} color="text-[#00E676]" />
+        <StatBox label="Avg Loss" value={formatCurrency(-stats.avgLoss)} icon={<TrendingDown className="w-4 h-4" />} color="text-[#FF7252]" />
       </div>
 
       {/* Streak & emotion stats */}
@@ -102,25 +102,25 @@ export function TradeJournal() {
           <div className="space-y-3">
             <div className="flex justify-between items-center p-2 rounded-md bg-white/5">
               <span className="text-xs text-muted-foreground">Current streak</span>
-              <span className={cn('font-mono font-semibold', stats.currentStreak > 0 ? 'text-[oklch(0.85_0.15_145)]' : stats.currentStreak < 0 ? 'text-[oklch(0.85_0.15_25)]' : 'text-muted-foreground')}>
+              <span className={cn('font-mono font-semibold', stats.currentStreak > 0 ? 'text-[#00E676]' : stats.currentStreak < 0 ? 'text-[#FF7252]' : 'text-muted-foreground')}>
                 {stats.currentStreak > 0 ? `${stats.currentStreak}W` : stats.currentStreak < 0 ? `${Math.abs(stats.currentStreak)}L` : '—'}
               </span>
             </div>
             <div className="flex justify-between items-center p-2 rounded-md bg-white/5">
               <span className="text-xs text-muted-foreground">Longest win streak</span>
-              <span className="font-mono font-semibold text-[oklch(0.85_0.15_145)]">{stats.longestWinStreak}</span>
+              <span className="font-mono font-semibold text-[#00E676]">{stats.longestWinStreak}</span>
             </div>
             <div className="flex justify-between items-center p-2 rounded-md bg-white/5">
               <span className="text-xs text-muted-foreground">Longest loss streak</span>
-              <span className="font-mono font-semibold text-[oklch(0.85_0.15_25)]">{stats.longestLossStreak}</span>
+              <span className="font-mono font-semibold text-[#FF7252]">{stats.longestLossStreak}</span>
             </div>
             <div className="flex justify-between items-center p-2 rounded-md bg-white/5">
               <span className="text-xs text-muted-foreground">Best trade</span>
-              <span className="font-mono font-semibold text-[oklch(0.85_0.15_145)]">{formatCurrency(stats.bestTrade)}</span>
+              <span className="font-mono font-semibold text-[#00E676]">{formatCurrency(stats.bestTrade)}</span>
             </div>
             <div className="flex justify-between items-center p-2 rounded-md bg-white/5">
               <span className="text-xs text-muted-foreground">Worst trade</span>
-              <span className="font-mono font-semibold text-[oklch(0.85_0.15_25)]">{formatCurrency(stats.worstTrade)}</span>
+              <span className="font-mono font-semibold text-[#FF7252]">{formatCurrency(stats.worstTrade)}</span>
             </div>
           </div>
         </GlassCard>
@@ -155,10 +155,10 @@ export function TradeJournal() {
             <BarChart3 className="w-4 h-4 text-muted-foreground" /> Trade Distribution
           </h4>
           <div className="space-y-2">
-            <DistributionRow label="Open" value={stats.open} total={stats.totalTrades} color="oklch(0.7 0.1 230)" />
-            <DistributionRow label="Wins" value={stats.wins} total={stats.totalTrades} color="oklch(0.72 0.18 145)" />
-            <DistributionRow label="Losses" value={stats.losses} total={stats.totalTrades} color="oklch(0.66 0.22 25)" />
-            <DistributionRow label="Breakeven" value={stats.breakeven} total={stats.totalTrades} color="oklch(0.75 0.02 60)" />
+            <DistributionRow label="Open" value={stats.open} total={stats.totalTrades} color="#F7A707" />
+            <DistributionRow label="Wins" value={stats.wins} total={stats.totalTrades} color="#00E676" />
+            <DistributionRow label="Losses" value={stats.losses} total={stats.totalTrades} color="#FF5252" />
+            <DistributionRow label="Breakeven" value={stats.breakeven} total={stats.totalTrades} color="#F7A707" />
           </div>
           <div className="mt-4 pt-3 border-t border-border/30">
             <div className="flex justify-between text-[11px] mb-1">
@@ -175,7 +175,7 @@ export function TradeJournal() {
         <h3 className="text-base font-semibold font-display">Trade History</h3>
         <Button
           onClick={() => { setEditingId(null); setShowForm(true) }}
-          className="bg-gradient-to-r from-[oklch(0.78_0.16_85)] to-[oklch(0.72_0.18_75)] text-[oklch(0.16_0.012_240)] hover:opacity-90 font-semibold"
+          className="bg-gradient-to-r from-[#F7A707] to-[#F7A707] text-[#1A1A1A] hover:opacity-90 font-semibold"
         >
           <Plus className="w-4 h-4 mr-1.5" /> Add Trade
         </Button>
@@ -263,11 +263,11 @@ function TradeRow({ trade, onEdit, onDelete, delay }: {
     >
       <div className={cn(
         'w-9 h-9 rounded-md flex items-center justify-center shrink-0',
-        trade.direction === 'BUY' ? 'bg-[oklch(0.72_0.18_145/15%)]' : 'bg-[oklch(0.66_0.22_25/15%)]'
+        trade.direction === 'BUY' ? 'bg-[rgba(0, 230, 118, 0.15)]' : 'bg-[rgba(255, 82, 82, 0.15)]'
       )}>
         {trade.direction === 'BUY'
-          ? <TrendingUp className="w-4 h-4 text-[oklch(0.85_0.15_145)]" />
-          : <TrendingDown className="w-4 h-4 text-[oklch(0.85_0.15_25)]" />}
+          ? <TrendingUp className="w-4 h-4 text-[#00E676]" />
+          : <TrendingDown className="w-4 h-4 text-[#FF7252]" />}
       </div>
       <div className="flex-1 min-w-0 grid grid-cols-2 md:grid-cols-6 gap-2 items-center text-xs">
         <div>
@@ -288,7 +288,7 @@ function TradeRow({ trade, onEdit, onDelete, delay }: {
         </div>
         <div>
           <div className="text-muted-foreground text-[10px]">P&L</div>
-          <div className={cn('font-mono font-semibold', (trade.pnl ?? 0) >= 0 ? 'text-[oklch(0.85_0.15_145)]' : 'text-[oklch(0.85_0.15_25)]')}>
+          <div className={cn('font-mono font-semibold', (trade.pnl ?? 0) >= 0 ? 'text-[#00E676]' : 'text-[#FF7252]')}>
             {trade.pnl !== undefined ? formatCurrency(trade.pnl) : '—'}
           </div>
         </div>
@@ -299,7 +299,7 @@ function TradeRow({ trade, onEdit, onDelete, delay }: {
       </div>
       <div className="flex items-center gap-1 shrink-0">
         <Button variant="ghost" size="sm" onClick={onEdit} className="h-8 px-2 text-xs">Edit</Button>
-        <Button variant="ghost" size="sm" onClick={onDelete} className="h-8 px-2 text-xs text-[oklch(0.7_0.2_25)] hover:text-[oklch(0.85_0.15_25)]">
+        <Button variant="ghost" size="sm" onClick={onDelete} className="h-8 px-2 text-xs text-[#FF5252] hover:text-[#FF7252]">
           <Trash2 className="w-3.5 h-3.5" />
         </Button>
       </div>
@@ -462,7 +462,7 @@ function TradeForm({ initial, onSave, onCancel }: {
           </div>
 
           <div className="flex gap-2 mt-4">
-            <Button type="submit" className="flex-1 bg-gradient-to-r from-[oklch(0.78_0.16_85)] to-[oklch(0.72_0.18_75)] text-[oklch(0.16_0.012_240)] font-semibold">
+            <Button type="submit" className="flex-1 bg-gradient-to-r from-[#F7A707] to-[#F7A707] text-[#1A1A1A] font-semibold">
               {initial ? 'Update Trade' : 'Add Trade'}
             </Button>
             <Button type="button" variant="outline" onClick={onCancel}>Cancel</Button>

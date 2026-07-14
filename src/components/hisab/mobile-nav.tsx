@@ -224,7 +224,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                   aria-label="Toggle theme"
                 >
                   {mounted && theme === 'dark' ? (
-                    <Sun className="w-3.5 h-3.5" style={{ color: '#F5B942' }} strokeWidth={2} />
+                    <Sun className="w-3.5 h-3.5" style={{ color: '#F7A707' }} strokeWidth={2} />
                   ) : (
                     <Moon className="w-3.5 h-3.5" style={{ color: '#F7A707' }} strokeWidth={2} />
                   )}
@@ -330,8 +330,8 @@ function NavRow({
         <span
           className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded uppercase tracking-wider"
           style={{
-            background: item.badge === 'PRO' ? 'rgba(245, 185, 66, 0.12)' : 'rgba(16, 185, 129, 0.12)',
-            color: item.badge === 'PRO' ? '#F5B942' : '#10B981',
+            background: item.badge === 'PRO' ? 'rgba(247, 167, 7, 0.12)' : 'rgba(0, 230, 118, 0.12)',
+            color: item.badge === 'PRO' ? '#F7A707' : '#00E676',
             border: `1px solid ${item.badge === 'PRO' ? 'rgba(245,185,66,0.25)' : 'rgba(16,185,129,0.25)'}`,
           }}
         >

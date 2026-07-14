@@ -58,7 +58,7 @@ export function SEOPage({ data, onNavigate }: SEOPageProps) {
             </PremiumBadge>
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold font-display tracking-tight mb-4 leading-tight">
               <span className="text-white">{data.h1.split(' ').slice(0, -2).join(' ')} </span>
-              <span className="bg-gradient-to-r from-[#2563EB] via-[#60A5FA] to-[#10B981] bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#2563EB] via-[#60A5FA] to-[#00E676] bg-clip-text text-transparent">
                 {data.h1.split(' ').slice(-2).join(' ')}
               </span>
             </h1>
@@ -101,7 +101,7 @@ export function SEOPage({ data, onNavigate }: SEOPageProps) {
                   <ul className="space-y-2 mt-4">
                     {section.bullets.map((bullet, k) => (
                       <li key={k} className="flex items-start gap-2 text-sm text-foreground/70">
-                        <Check className="w-4 h-4 text-[#10B981] mt-0.5 shrink-0" />
+                        <Check className="w-4 h-4 text-[#00E676] mt-0.5 shrink-0" />
                         <span>{bullet}</span>
                       </li>
                     ))}

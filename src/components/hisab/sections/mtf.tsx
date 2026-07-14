@@ -26,7 +26,7 @@ export function MultiTimeframe() {
   if (!mtf) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 border-2 border-[oklch(0.82_0.15_85)] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -55,7 +55,7 @@ export function MultiTimeframe() {
             <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Overall Bias</div>
             <div className={cn(
               'text-4xl font-bold font-display flex items-center justify-center gap-2',
-              mtf.overallBias === 'BUY' ? 'text-[oklch(0.85_0.15_145)]' : mtf.overallBias === 'SELL' ? 'text-[oklch(0.85_0.15_25)]' : 'text-[oklch(0.85_0.02_60)]'
+              mtf.overallBias === 'BUY' ? 'text-[#00E676]' : mtf.overallBias === 'SELL' ? 'text-[#FF7252]' : 'text-[#F7A707]'
             )}>
               {mtf.overallBias === 'BUY' && <ArrowUp className="w-7 h-7" />}
               {mtf.overallBias === 'SELL' && <ArrowDown className="w-7 h-7" />}
@@ -65,14 +65,14 @@ export function MultiTimeframe() {
           </div>
           <div className="text-center">
             <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Alignment</div>
-            <div className="text-4xl font-bold font-mono text-[oklch(0.92_0.14_85)]">{mtf.alignment}%</div>
+            <div className="text-4xl font-bold font-mono text-[#FFC83D]">{mtf.alignment}%</div>
             <div className="mt-2 max-w-[180px] mx-auto">
               <ProgressBar value={mtf.alignment} color="gold" height={6} />
             </div>
           </div>
           <div className="text-center">
             <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Confidence</div>
-            <div className="text-4xl font-bold font-mono text-[oklch(0.92_0.14_85)]">{mtf.overallConfidence}%</div>
+            <div className="text-4xl font-bold font-mono text-[#FFC83D]">{mtf.overallConfidence}%</div>
             <div className="mt-2 max-w-[180px] mx-auto">
               <ProgressBar value={mtf.overallConfidence} color={mtf.overallConfidence > 70 ? 'bull' : 'gold'} height={6} />
             </div>
@@ -84,23 +84,23 @@ export function MultiTimeframe() {
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${(bullCount / 8) * 100}%` }}
-            className="bg-gradient-to-r from-[oklch(0.65_0.2_145)] to-[oklch(0.85_0.18_145)]"
+            className="bg-gradient-to-r from-[#00C853] to-[#00E676]"
           />
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${(neutralCount / 8) * 100}%` }}
-            className="bg-[oklch(0.75_0.02_60/40%)]"
+            className="bg-[rgba(247, 167, 7, 0.4)]"
           />
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${(bearCount / 8) * 100}%` }}
-            className="bg-gradient-to-r from-[oklch(0.55_0.25_25)] to-[oklch(0.75_0.22_25)]"
+            className="bg-gradient-to-r from-[#CC3333] to-[#FF5252]"
           />
         </div>
         <div className="flex justify-between mt-2 text-[10px] font-mono">
-          <span className="text-[oklch(0.85_0.15_145)]">{bullCount} Bullish</span>
+          <span className="text-[#00E676]">{bullCount} Bullish</span>
           <span className="text-muted-foreground">{neutralCount} Neutral</span>
-          <span className="text-[oklch(0.85_0.15_25)]">{bearCount} Bearish</span>
+          <span className="text-[#FF7252]">{bearCount} Bearish</span>
         </div>
       </GlassCard>
 
@@ -108,7 +108,7 @@ export function MultiTimeframe() {
       <GlassCard className="p-5">
         <div className="flex items-center justify-between mb-4">
           <h3 className="text-base font-semibold font-display flex items-center gap-2">
-            <Layers className="w-4 h-4 text-[oklch(0.92_0.14_85)]" /> Timeframe Matrix
+            <Layers className="w-4 h-4 text-[#FFC83D]" /> Timeframe Matrix
           </h3>
           <StatusBadge variant="info">8 timeframes</StatusBadge>
         </div>
@@ -133,7 +133,7 @@ export function MultiTimeframe() {
               className="grid grid-cols-2 md:grid-cols-12 gap-2 px-3 py-2.5 rounded-lg bg-white/5 hover:bg-white/[0.07] transition-colors"
             >
               <div className="col-span-2 md:col-span-2 flex items-center gap-2">
-                <div className="w-8 h-8 rounded-md glass-gold flex items-center justify-center text-xs font-mono font-bold text-[oklch(0.92_0.14_85)]">
+                <div className="w-8 h-8 rounded-md glass-gold flex items-center justify-center text-xs font-mono font-bold text-[#FFC83D]">
                   {tf.data.timeframe}
                 </div>
                 <span className="text-sm font-medium">{tf.label}</span>
@@ -157,7 +157,7 @@ export function MultiTimeframe() {
               </div>
               <div className="md:col-span-2 flex items-center text-xs">
                 {tf.data.liquiditySweep ? (
-                  <span className="text-[oklch(0.92_0.14_85)] flex items-center gap-1">
+                  <span className="text-[#FFC83D] flex items-center gap-1">
                     <Activity className="w-3 h-3" /> Sweep
                   </span>
                 ) : (
@@ -182,7 +182,7 @@ export function MultiTimeframe() {
               className="p-3 rounded-lg bg-white/5 border border-border/30"
             >
               <div className="flex items-center justify-between mb-1.5">
-                <span className="text-xs font-mono font-semibold text-[oklch(0.92_0.14_85)]">{tf.data.timeframe}</span>
+                <span className="text-xs font-mono font-semibold text-[#FFC83D]">{tf.data.timeframe}</span>
                 <StatusBadge variant={tf.data.bias === 'BUY' ? 'bull' : tf.data.bias === 'SELL' ? 'bear' : 'neutral'}>
                   {tf.data.bias}
                 </StatusBadge>
