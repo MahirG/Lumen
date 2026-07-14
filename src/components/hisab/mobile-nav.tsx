@@ -275,40 +275,11 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection }: Mobile
 }
 
 /**
- * AnimatedHamburger — morphing icon, theme-aware.
+ * AnimatedHamburger — deprecated, kept for backward compat.
+ * The new premium hamburger is now integrated directly inside the Header
+ * component (see src/components/hisab/header.tsx → PremiumHamburger).
+ * This export is a no-op stub so existing imports don't break.
  */
 export function AnimatedHamburger({ isOpen, onClick }: { isOpen: boolean; onClick: () => void }) {
-  return (
-    <motion.button
-      onClick={onClick}
-      className="lg:hidden fixed top-4 right-4 z-[62] w-11 h-11 rounded-full flex items-center justify-center"
-      style={{
-        background: 'var(--card)',
-        backdropFilter: 'blur(20px) saturate(180%)',
-        WebkitBackdropFilter: 'blur(20px) saturate(180%)',
-        border: '1px solid var(--border)',
-      }}
-      whileTap={{ scale: 0.9 }}
-      aria-label={isOpen ? 'Close menu' : 'Open menu'}
-      aria-expanded={isOpen}
-    >
-      <div className="relative w-5 h-4 flex flex-col justify-between items-center">
-        <motion.div
-          animate={isOpen ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="w-full h-[2px] rounded-full bg-foreground origin-center"
-        />
-        <motion.div
-          animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="w-full h-[2px] rounded-full bg-foreground origin-center"
-        />
-        <motion.div
-          animate={isOpen ? { rotate: -45, y: -7 } : { rotate: 0, y: 0 }}
-          transition={{ type: 'spring', stiffness: 300, damping: 20 }}
-          className="w-full h-[2px] rounded-full bg-foreground origin-center"
-        />
-      </div>
-    </motion.button>
-  )
+  return null
 }

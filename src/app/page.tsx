@@ -7,6 +7,7 @@ import { Footer } from '@/components/hisab/footer'
 import { FloatingNav } from '@/components/hisab/floating-nav'
 import { FloatingAIBot } from '@/components/hisab/floating-bot'
 import { MobileNav, AnimatedHamburger, StickyHeader } from '@/components/hisab/mobile-nav'
+import { AuthModal } from '@/components/hisab/auth-modal'
 import { Landing } from '@/components/hisab/sections/landing'
 import { LiveDashboard } from '@/components/hisab/sections/live-dashboard'
 import { ChartAnalysis } from '@/components/hisab/sections/chart-analysis'
@@ -50,6 +51,7 @@ export default function Home() {
   // Read initial section from URL hash on mount (for refresh persistence)
   const [activeSection, setActiveSection] = React.useState('home')
   const [mobileNavOpen, setMobileNavOpen] = React.useState(false)
+  const [authOpen, setAuthOpen] = React.useState(false)
   const [seoPage, setSeoPage] = React.useState<string | null>(null)
   const init = useMarketStore(s => s.init)
   const fetchRealPrice = useMarketStore(s => s.fetchRealPrice)
@@ -191,13 +193,14 @@ export default function Home() {
   return (
     <div className="flex min-h-screen bg-background">
       <div className="flex-1 flex flex-col min-w-0">
-        {!isLanding && !isSeoPage && (
-          <Header
-            onMenuClick={() => setMobileNavOpen(true)}
-            title={meta.title}
-            subtitle={meta.subtitle}
-          />
-        )}
+        <Header
+          onMenuClick={() => setMobileNavOpen(true)}
+          onAuthClick={() => setAuthOpen(true)}
+          activeSection={activeSection}
+          onNavigate={navigateToSection}
+          title={meta.title}
+          subtitle={meta.subtitle}
+        />
 
         <main ref={mainRef} className="flex-1">
           <AnimatePresence mode="wait">
@@ -238,13 +241,15 @@ export default function Home() {
       </div>
 
       {/* Premium mobile navigation — Apple-inspired full-screen overlay */}
-      <AnimatedHamburger isOpen={mobileNavOpen} onClick={() => setMobileNavOpen(!mobileNavOpen)} />
       <MobileNav
         isOpen={mobileNavOpen}
         onClose={() => setMobileNavOpen(false)}
         onNavigate={navigateToSection}
         activeSection={activeSection}
       />
+
+      {/* Authentication modal — premium glassmorphism sign-in/sign-up */}
+      <AuthModal isOpen={authOpen} onClose={() => setAuthOpen(false)} />
 
       {/* Floating bottom nav — appears on ALL pages, 4 buttons */}
       <FloatingNav active={activeSection} onNavigate={navigateToSection} />

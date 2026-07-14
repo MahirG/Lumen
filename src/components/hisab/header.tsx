@@ -1,143 +1,233 @@
 'use client'
 
 import * as React from 'react'
-import { TrendingUp, TrendingDown, Zap } from 'lucide-react'
-import { Button } from '@/components/ui/button'
-import { useMarketStore } from '@/lib/hisab/market-store'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Sun, Moon, User, Sparkles } from 'lucide-react'
+import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 
 interface HeaderProps {
   onMenuClick: () => void
+  onAuthClick: () => void
+  activeSection: string
+  onNavigate: (section: string) => void
   title: string
   subtitle?: string
 }
 
-// Ticker tape items — mix of forex, metals, indices
-// (XAUUSD / Gold is intentionally excluded from the sticky header ticker
-//  per request — it has its own dedicated live panel in the workspace.)
-const TICKER_ITEMS = [
-  { symbol: 'XAGUSD', label: 'Silver', basePrice: 58.35, volatility: 0.15 },
-  { symbol: 'EURUSD', label: 'EUR/USD', basePrice: 1.087, volatility: 0.002 },
-  { symbol: 'GBPUSD', label: 'GBP/USD', basePrice: 1.272, volatility: 0.002 },
-  { symbol: 'USDJPY', label: 'USD/JPY', basePrice: 161.88, volatility: 0.15 },
-  { symbol: 'DXY', label: 'Dollar Index', basePrice: 101.05, volatility: 0.15 },
-  { symbol: 'BTCUSD', label: 'Bitcoin', basePrice: 58250, volatility: 80 },
-  { symbol: 'ETHUSD', label: 'Ethereum', basePrice: 3120, volatility: 12 },
-  { symbol: 'US10Y', label: 'US 10Y', basePrice: 4.28, volatility: 0.02 },
-  { symbol: 'SPX', label: 'S&P 500', basePrice: 5680, volatility: 5 },
-  { symbol: 'NDX', label: 'Nasdaq', basePrice: 20350, volatility: 25 },
-  { symbol: 'WTI', label: 'Crude Oil', basePrice: 78.45, volatility: 0.3 },
+/* ============================================
+   NAV ITEMS — center desktop navigation
+   ============================================ */
+const NAV_ITEMS = [
+  { id: 'home', label: 'Home' },
+  { id: 'dashboard', label: 'Workspace' },
+  { id: 'trading', label: 'Trading' },
+  { id: 'aile', label: 'Apex AI' },
+  { id: 'asne', label: 'Intelligence' },
 ]
 
-function useTickerPrices() {
-  const [prices, setPrices] = React.useState(() =>
-    TICKER_ITEMS.map(item => ({
-      ...item,
-      price: item.basePrice,
-      change: 0,
-      changePct: 0,
-    })),
-  )
-
-  React.useEffect(() => {
-    const interval = setInterval(() => {
-      setPrices(prev =>
-        prev.map(item => {
-          const delta = (Math.random() - 0.5) * item.volatility
-          const newPrice = item.price + delta
-          const change = newPrice - item.basePrice
-          return {
-            ...item,
-            price: newPrice,
-            change,
-            changePct: (change / item.basePrice) * 100,
-          }
-        }),
-      )
-    }, 2000)
-    return () => clearInterval(interval)
-  }, [])
-
-  return prices
-}
-
-export function Header({ onMenuClick, title, subtitle }: HeaderProps) {
-  const dataSource = useMarketStore(s => s.dataSource)
-  const lastRealUpdate = useMarketStore(s => s.lastRealUpdate)
-  const tickerPrices = useTickerPrices()
-
-  const secondsAgo = lastRealUpdate ? Math.round((Date.now() - lastRealUpdate) / 1000) : null
-  const sourceLabel = dataSource === 'live' ? 'LIVE' : dataSource === 'cached' ? 'CACHED' : 'DEMO'
-  const sourceColor = dataSource === 'live' ? 'oklch(0.78 0.19 152)' : dataSource === 'cached' ? 'oklch(0.82 0.15 85)' : 'oklch(0.78 0.13_230)'
+/* ============================================
+   Header — 2026 premium unified sticky bar
+   Layout: Logo (left) | Nav (center) | Controls (right)
+   ============================================ */
+export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, title, subtitle }: HeaderProps) {
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
 
   return (
-    <header className="sticky top-0 z-30 glass-strong border-b border-white/[6%]">
-      {/* Ticker tape — scrolling marquee */}
-      <div className="relative overflow-hidden border-b border-white/[4%] bg-black/30">
-        <div className="flex animate-ticker-scroll whitespace-nowrap py-1.5" aria-hidden="true">
-          {[...tickerPrices, ...tickerPrices].map((item, i) => {
-            const isUp = item.change >= 0
-            return (
-              <div key={i} className="inline-flex items-center gap-2 px-4 border-r border-white/[5%]">
-                <span className="text-[10px] font-mono font-semibold uppercase text-muted-foreground">{item.symbol}</span>
-                <span className="text-[11px] font-mono tabular text-foreground/90">
-                  {item.price > 1000 ? item.price.toFixed(0) : item.price.toFixed(item.price > 10 ? 2 : 4)}
-                </span>
-                <span className={cn(
-                  'text-[10px] font-mono tabular',
-                  isUp ? 'text-[oklch(0.78_0.19_152)]' : 'text-[oklch(0.66_0.24_25)]',
-                )}>
-                  {isUp ? '▲' : '▼'} {Math.abs(item.changePct).toFixed(2)}%
-                </span>
+    <header
+      className="sticky top-0 z-40"
+      style={{
+        background: 'color-mix(in oklch, var(--background) 78%, transparent)',
+        backdropFilter: 'blur(24px) saturate(180%)',
+        WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+        borderBottom: '1px solid var(--border)',
+      }}
+    >
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="flex items-center justify-between h-16 lg:h-[68px]">
+          {/* ===== LEFT: Logo ===== */}
+          <div className="flex items-center gap-2.5 shrink-0">
+            <button
+              onClick={() => onNavigate('home')}
+              className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF] rounded-xl px-1 py-1"
+              aria-label="ApexEAPro home"
+            >
+              <div
+                className="relative w-8 h-8 rounded-[10px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
+                style={{ background: 'linear-gradient(135deg, #1677FF, #7C5CFC)' }}
+              >
+                <Sparkles className="w-[17px] h-[17px] text-white" strokeWidth={2.5} />
+                <div
+                  className="absolute inset-0 rounded-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+                  style={{ boxShadow: '0 6px 20px rgba(22, 119, 255, 0.5)' }}
+                />
               </div>
-            )
-          })}
-        </div>
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-[oklch(0.07_0.018_265)] to-transparent" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-[oklch(0.07_0.018_265)] to-transparent" />
-      </div>
-
-      {/* Main header bar — refined typography (smaller, lighter, more elegant) */}
-      <div className="flex items-center justify-between gap-3 px-4 lg:px-6 py-2.5">
-        <div className="flex items-center gap-3 min-w-0">
-          <div className="min-w-0">
-            <h1 className="text-sm lg:text-base font-semibold leading-tight tracking-tight truncate text-foreground" style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}>
-              {title}
-            </h1>
-            {subtitle && (
-              <p className="text-[11px] text-foreground/40 truncate font-normal tracking-tight">{subtitle}</p>
-            )}
-          </div>
-        </div>
-
-        <div className="flex items-center gap-2 lg:gap-3">
-          {/* Live status badge */}
-          <div
-            className="hidden sm:flex items-center gap-2 px-3 py-1.5 rounded-lg glass border border-white/[8%]"
-            title={`Data source: ${dataSource}. Last real update: ${secondsAgo ?? '—'}s ago`}
-          >
-            <span className="relative flex w-1.5 h-1.5">
               <span
-                className="absolute inset-0 rounded-full animate-ping opacity-75"
-                style={{ background: sourceColor }}
-              />
-              <span className="relative w-1.5 h-1.5 rounded-full" style={{ background: sourceColor }} />
-            </span>
-            <span className="text-[10px] font-mono font-semibold uppercase tracking-wide" style={{ color: sourceColor }}>
-              {sourceLabel}
-            </span>
-            {secondsAgo !== null && (
-              <span className="text-[10px] font-mono text-muted-foreground/70 tabular">· {secondsAgo}s</span>
-            )}
+                className="text-[17px] font-bold tracking-tight text-foreground hidden sm:block"
+                style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
+              >
+                Apex<span className="text-[#1677FF]">EA</span>Pro
+              </span>
+            </button>
           </div>
 
-          {/* AI Engine indicator */}
-          <div className="hidden md:flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-gradient-to-r from-[oklch(0.82_0.15_85/10%)] to-transparent border border-[oklch(0.82_0.15_85/15%)]">
-            <Zap className="w-3 h-3 text-[oklch(0.92_0.13_85)]" />
-            <span className="text-[10px] font-mono font-semibold text-[oklch(0.92_0.13_85)] uppercase tracking-wide">AI</span>
+          {/* ===== CENTER: Navigation (desktop only) ===== */}
+          <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
+            {NAV_ITEMS.map(item => {
+              const active = activeSection === item.id
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => onNavigate(item.id)}
+                  className={cn(
+                    'relative px-4 py-2 rounded-lg text-[13px] font-medium transition-colors duration-200',
+                    'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]',
+                  )}
+                  style={{
+                    color: active ? 'var(--foreground)' : 'var(--muted-foreground)',
+                  }}
+                  aria-current={active ? 'page' : undefined}
+                >
+                  {item.label}
+                  {active && (
+                    <motion.div
+                      layoutId="nav-active-pill"
+                      className="absolute inset-0 rounded-lg -z-10"
+                      style={{ background: 'var(--accent)' }}
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
+                </button>
+              )
+            })}
+          </nav>
+
+          {/* ===== RIGHT: Controls ===== */}
+          <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
+            {/* Theme Toggle — icon only, no container */}
+            <ThemeToggle />
+
+            {/* User Account — icon only, no container */}
+            <UserAccountButton onClick={onAuthClick} />
+
+            {/* Hamburger — mobile only, no container */}
+            <PremiumHamburger onClick={onMenuClick} />
           </div>
         </div>
       </div>
     </header>
+  )
+}
+
+/* ============================================
+   ThemeToggle — icon-only, smooth rotation/fade
+   No background, no container
+   ============================================ */
+function ThemeToggle() {
+  const { theme, setTheme } = useTheme()
+  const [mounted, setMounted] = React.useState(false)
+  React.useEffect(() => setMounted(true), [])
+
+  const toggle = () => setTheme(theme === 'dark' ? 'light' : 'dark')
+
+  return (
+    <button
+      onClick={toggle}
+      aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
+      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
+    >
+      <AnimatePresence mode="wait" initial={false}>
+        {mounted && theme === 'dark' ? (
+          <motion.div
+            key="moon"
+            initial={{ rotate: -90, opacity: 0, scale: 0.5 }}
+            animate={{ rotate: 0, opacity: 1, scale: 1 }}
+            exit={{ rotate: 90, opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute"
+          >
+            <Moon className="w-[19px] h-[19px]" strokeWidth={2} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key="sun"
+            initial={{ rotate: 90, opacity: 0, scale: 0.5 }}
+            animate={{ rotate: 0, opacity: 1, scale: 1 }}
+            exit={{ rotate: -90, opacity: 0, scale: 0.5 }}
+            transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute"
+          >
+            <Sun className="w-[19px] h-[19px]" strokeWidth={2} />
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </button>
+  )
+}
+
+/* ============================================
+   UserAccountButton — icon only, no container
+   Premium scale hover effect
+   ============================================ */
+function UserAccountButton({ onClick }: { onClick: () => void }) {
+  return (
+    <motion.button
+      onClick={onClick}
+      whileHover={{ scale: 1.08 }}
+      whileTap={{ scale: 0.94 }}
+      transition={{ type: 'spring', stiffness: 400, damping: 22 }}
+      aria-label="Sign in to your account"
+      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
+    >
+      <User className="w-[19px] h-[19px]" strokeWidth={2} />
+    </motion.button>
+  )
+}
+
+/* ============================================
+   PremiumHamburger — 3 lines, middle shorter
+   Morphs to X, no container, large touch target
+   Mobile/tablet only (below lg)
+   ============================================ */
+function PremiumHamburger({ onClick }: { onClick: () => void }) {
+  const [isOpen, setIsOpen] = React.useState(false)
+
+  const handleClick = () => {
+    setIsOpen(o => !o)
+    onClick()
+  }
+
+  return (
+    <button
+      onClick={handleClick}
+      aria-label="Open menu"
+      aria-expanded={isOpen}
+      className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
+    >
+      <div className="relative w-[20px] h-[14px] flex flex-col justify-between items-center">
+        {/* Top line — full width */}
+        <motion.span
+          className="block h-[2px] rounded-full bg-current"
+          style={{ width: '20px', transformOrigin: 'center' }}
+          animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
+          transition={{ type: 'spring', stiffness: 380, damping: 24 }}
+        />
+        {/* Middle line — SHORTER (14px vs 20px) */}
+        <motion.span
+          className="block h-[2px] rounded-full bg-current self-center"
+          style={{ width: '14px', transformOrigin: 'center' }}
+          animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+          transition={{ duration: 0.15 }}
+        />
+        {/* Bottom line — full width */}
+        <motion.span
+          className="block h-[2px] rounded-full bg-current"
+          style={{ width: '20px', transformOrigin: 'center' }}
+          animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
+          transition={{ type: 'spring', stiffness: 380, damping: 24 }}
+        />
+      </div>
+    </button>
   )
 }
