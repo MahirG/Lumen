@@ -1,0 +1,66 @@
+'use client'
+
+import { motion, AnimatePresence } from 'framer-motion'
+import { useEffect, useState } from 'react'
+
+/**
+ * SplashScreen — shows logo_transparent.png centered on the navy app
+ * background with a subtle fade-in + fade-out animation.
+ *
+ * Appears on initial mount only, then disappears once the app is ready.
+ * Uses logo_transparent.png (not logo_on_navy.png) because the surrounding
+ * area is already the app's navy background.
+ */
+export function SplashScreen() {
+  const [visible, setVisible] = useState(true)
+
+  useEffect(() => {
+    // Hide after 1.8s (enough for fade-in + brief hold + fade-out start)
+    const timer = setTimeout(() => setVisible(false), 1800)
+    return () => clearTimeout(timer)
+  }, [])
+
+  return (
+    <AnimatePresence>
+      {visible && (
+        <motion.div
+          className="fixed inset-0 z-[200] flex items-center justify-center"
+          style={{ background: '#071A2B' }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+        >
+          <motion.div
+            initial={{ opacity: 0, scale: 0.92, y: 8 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
+          >
+            <img
+              src="/logo_transparent.png"
+              alt="ApexEAPro"
+              height={48}
+              className="h-[40px] sm:h-[48px] w-auto"
+              style={{
+                filter: 'drop-shadow(0 4px 24px rgba(22, 119, 255, 0.3))',
+              }}
+            />
+          </motion.div>
+
+          {/* Subtle pulse glow behind logo */}
+          <motion.div
+            className="absolute rounded-full"
+            style={{
+              width: 300,
+              height: 300,
+              background: 'radial-gradient(circle, rgba(22, 119, 255, 0.12), transparent 70%)',
+              filter: 'blur(40px)',
+            }}
+            animate={{ opacity: [0.3, 0.6, 0.3], scale: [0.9, 1.05, 0.9] }}
+            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
+          />
+        </motion.div>
+      )}
+    </AnimatePresence>
+  )
+}

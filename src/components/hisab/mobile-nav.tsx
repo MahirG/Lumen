@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import {
   Home, LayoutDashboard, LineChart, Atom, BellRing, Eye,
   Newspaper, Activity, Brain, BarChart3, Clock, BookOpen,
-  Globe, Sun, Moon, LogIn, X, Sparkles, ChevronRight,
+  Globe, Sun, Moon, LogIn, X, ChevronRight,
   Twitter, Github, Linkedin, MessageCircle, HelpCircle, Phone,
   Settings, User,
 } from 'lucide-react'
@@ -138,18 +138,12 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                 className="flex items-center gap-2 group"
                 aria-label="ApexEAPro home"
               >
-                <div
-                  className="relative w-7 h-7 rounded-[8px] flex items-center justify-center transition-transform duration-200 group-hover:scale-105"
-                  style={{ background: 'linear-gradient(135deg, #1677FF, #7C5CFC)' }}
-                >
-                  <Sparkles className="w-[15px] h-[15px] text-white" strokeWidth={2.5} />
-                </div>
-                <span
-                  className="text-[15px] font-bold tracking-tight text-foreground"
-                  style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
-                >
-                  Apex<span className="text-[#1677FF]">EA</span>Pro
-                </span>
+                <img
+                  src="/logo_transparent.png"
+                  alt="ApexEAPro"
+                  height={28}
+                  className="h-[24px] w-auto transition-transform duration-200 group-hover:scale-[1.03]"
+                />
               </button>
 
               <button

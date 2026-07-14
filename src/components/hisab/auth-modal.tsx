@@ -4,7 +4,7 @@ import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import {
   X, Mail, Lock, Eye, EyeOff, ArrowRight, Loader2, Check,
-  Shield, Sparkles,
+  Shield,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 
@@ -149,19 +149,13 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             <div className="px-7 sm:px-9 pt-10 pb-8">
               {/* Brand mark */}
               <div className="flex items-center gap-2.5 mb-7">
-                <div
-                  className="relative w-9 h-9 rounded-xl flex items-center justify-center"
-                  style={{ background: 'linear-gradient(135deg, #1677FF, #7C5CFC)' }}
-                >
-                  <Sparkles className="w-[18px] h-[18px] text-white" strokeWidth={2.5} />
-                  <div className="absolute inset-0 rounded-xl" style={{ boxShadow: '0 4px 16px rgba(22, 119, 255, 0.4)' }} />
-                </div>
-                <span
-                  className="text-[17px] font-bold tracking-tight text-foreground"
-                  style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
-                >
-                  ApexEAPro
-                </span>
+                <img
+                  src="/logo_transparent.png"
+                  alt="ApexEAPro"
+                  height={30}
+                  className="h-[26px] w-auto"
+                  style={{ filter: 'drop-shadow(0 2px 8px rgba(22, 119, 255, 0.2))' }}
+                />
               </div>
 
               {/* Title + subtitle */}

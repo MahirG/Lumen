@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import Link from 'next/link'
-import { Crown, Twitter, Send, MessageCircle, Youtube, Mail, ArrowUpRight, Shield, Zap } from 'lucide-react'
+import { Twitter, Send, MessageCircle, Youtube, Mail, ArrowUpRight, Shield, Zap } from 'lucide-react'
 import { PremiumBadge } from './primitives'
 
 export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
@@ -33,14 +33,13 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
           {/* Brand column */}
           <div className="md:col-span-4 space-y-4">
             <Link href="/" onClick={() => onNavigate?.('home')} className="flex items-center gap-3 group w-fit">
-              <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-[oklch(0.95_0.10_85)] via-[oklch(0.82_0.16_85)] to-[oklch(0.65_0.20_75)] flex items-center justify-center glow-gold overflow-hidden">
-                <Crown className="w-5 h-5 text-[oklch(0.07_0.018_265)]" strokeWidth={2.5} />
-                <div className="absolute inset-0 shimmer opacity-30" />
-              </div>
-              <div>
-                <div className="text-lg font-bold font-display tracking-tight text-gradient-gold">Apex EA Pro</div>
-                <div className="text-[10px] uppercase tracking-[0.18em] text-muted-foreground">AI Forex · Gold</div>
-              </div>
+              <img
+                src="/logo_transparent.png"
+                alt="ApexEAPro"
+                height={32}
+                className="h-[26px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+                style={{ opacity: 0.8 }}
+              />
             </Link>
             <p className="text-sm text-muted-foreground leading-relaxed max-w-sm">
               The world's most advanced AI-powered forex and gold trading platform.

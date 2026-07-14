@@ -113,8 +113,14 @@ export const metadata: Metadata = {
   category: "Financial Technology",
   classification: "AI Trading Intelligence Platform",
   icons: {
-    icon: "/logo.svg",
-    apple: "/logo.svg",
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+    ],
+    apple: [
+      { url: '/icon-180.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   manifest: "/manifest.json",
   alternates: {
@@ -134,9 +140,9 @@ export const metadata: Metadata = {
     description: SITE_DESCRIPTION,
     images: [
       {
-        url: "/logo.svg",
-        width: 512,
-        height: 512,
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
         alt: "ApexEAPro — AI Trading Intelligence Platform",
       },
     ],
@@ -147,7 +153,7 @@ export const metadata: Metadata = {
     creator: "@mahifxcapital",
     title: "ApexEAPro — AI Trading Platform for Professional Traders",
     description: SITE_DESCRIPTION,
-    images: ["/logo.svg"],
+    images: ["/twitter-card.png"],
   },
   robots: {
     index: true,
@@ -190,7 +196,7 @@ const organizationSchema = {
   name: "ApexEAPro",
   alternateName: "Apex EA Pro",
   url: SITE_URL,
-  logo: `${SITE_URL}/logo.svg`,
+  logo: `${SITE_URL}/logo_on_navy.png`,
   description:
     "AI Operating System for Professional Traders. Institutional-grade market intelligence powered by AI.",
   founder: {

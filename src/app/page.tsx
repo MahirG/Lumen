@@ -8,6 +8,7 @@ import { FloatingNav } from '@/components/hisab/floating-nav'
 import { FloatingAIBot } from '@/components/hisab/floating-bot'
 import { MobileNav } from '@/components/hisab/mobile-nav'
 import { AuthModal } from '@/components/hisab/auth-modal'
+import { SplashScreen } from '@/components/hisab/splash-screen'
 import { Landing } from '@/components/hisab/sections/landing'
 import { LiveDashboard } from '@/components/hisab/sections/live-dashboard'
 import { ChartAnalysis } from '@/components/hisab/sections/chart-analysis'
@@ -267,6 +268,9 @@ export default function Home() {
 
       {/* Scroll to top button — opposite side of AI bot (bottom-LEFT) */}
       <ScrollToTopButton />
+
+      {/* Splash screen — logo_transparent.png centered on navy with fade-in */}
+      <SplashScreen />
     </div>
   )
 }

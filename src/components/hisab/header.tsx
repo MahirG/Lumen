@@ -2,7 +2,7 @@
 
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sun, Moon, User, Sparkles } from 'lucide-react'
+import { Sun, Moon, User } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 
@@ -46,29 +46,20 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-[68px]">
-          {/* ===== LEFT: Logo ===== */}
+          {/* ===== LEFT: Logo (logo_transparent.png on dark navy header) ===== */}
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               onClick={() => onNavigate('home')}
-              className="flex items-center gap-2.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF] rounded-xl px-1 py-1"
+              className="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF] rounded-xl px-1 py-1"
               aria-label="ApexEAPro home"
             >
-              <div
-                className="relative w-8 h-8 rounded-[10px] flex items-center justify-center transition-transform duration-300 group-hover:scale-105"
-                style={{ background: 'linear-gradient(135deg, #1677FF, #7C5CFC)' }}
-              >
-                <Sparkles className="w-[17px] h-[17px] text-white" strokeWidth={2.5} />
-                <div
-                  className="absolute inset-0 rounded-[10px] opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                  style={{ boxShadow: '0 6px 20px rgba(22, 119, 255, 0.5)' }}
-                />
-              </div>
-              <span
-                className="text-[17px] font-bold tracking-tight text-foreground hidden sm:block"
-                style={{ fontFamily: 'var(--font-display)', letterSpacing: '-0.02em' }}
-              >
-                Apex<span className="text-[#1677FF]">EA</span>Pro
-              </span>
+              <img
+                src="/logo_transparent.png"
+                alt="ApexEAPro"
+                height={34}
+                className="h-[28px] sm:h-[34px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+                style={{ filter: 'drop-shadow(0 2px 8px rgba(22, 119, 255, 0.15))' }}
+              />
             </button>
           </div>
 

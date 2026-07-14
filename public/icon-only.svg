@@ -1,0 +1,26 @@
+<svg width="220" height="220" viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="peakGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0B3A5C"/>
+      <stop offset="55%" stop-color="#1C7CB0"/>
+      <stop offset="100%" stop-color="#4FD1E8"/>
+    </linearGradient>
+    <linearGradient id="glowGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#4FD1E8" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#4FD1E8" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <!-- Icon: apex/peak formed like an ascending chart + "A" silhouette -->
+  <g transform="translate(10,10)">
+    <!-- outer diamond/apex frame -->
+    <path d="M100 10 L190 190 L150 190 L100 100 L50 190 L10 190 Z"
+          fill="url(#peakGrad)"/>
+    <!-- ascending chart line breaking through the peak -->
+    <polyline points="18,150 55,120 80,140 110,70 140,95 182,30"
+              fill="none" stroke="#EAF6FB" stroke-width="9"
+              stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="182" cy="30" r="9" fill="#EAF6FB"/>
+    <!-- subtle glow under peak -->
+    <ellipse cx="100" cy="185" rx="95" ry="18" fill="url(#glowGrad)"/>
+  </g>
+</svg>
