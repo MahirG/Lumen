@@ -159,12 +159,14 @@ export interface NewsEvent {
   source: NewsSource
   title: string
   currency: string
+  country?: string         // ISO currency code (USD, EUR, GBP, JPY, etc.) for flag display
   impact: NewsImpact
   actual?: string
   forecast?: string
   previous?: string
   eventTime: number
   minutesUntil: number
+  url?: string             // link to source calendar
 }
 
 export interface NewsFilter {

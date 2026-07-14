@@ -26,6 +26,7 @@ interface MarketState {
   // Actions
   init: () => Promise<void>
   fetchRealPrice: () => Promise<void>
+  fetchRealNews: () => Promise<void>
   microTick: () => void
   refreshNews: () => void
   refreshSession: () => void
@@ -89,13 +90,16 @@ export const useMarketStore = create<MarketState>((set, get) => ({
   liveTickOffset: 0,
 
   init: async () => {
-    // Set session + news immediately so UI has data while we fetch prices
+    // Set session immediately; load news in background (uses fallback calendar synchronously)
     const session = getCurrentSession()
     const newsEvents = getUpcomingNews()
     set({ session, newsEvents })
 
     // Fetch real gold price
     await get().fetchRealPrice()
+
+    // Fetch real economic news (non-blocking)
+    get().fetchRealNews()
   },
 
   fetchRealPrice: async () => {
@@ -230,12 +234,29 @@ export const useMarketStore = create<MarketState>((set, get) => ({
     // Refresh news countdown
     const refreshedNews = state.newsEvents.map(e => ({
       ...e,
-      minutesUntil: Math.max(0, Math.round((e.eventTime - Date.now()) / 60000)),
+      minutesUntil: Math.max(-120, Math.round((e.eventTime - Date.now()) / 60000)),
     }))
     set({ newsEvents: refreshedNews })
   },
 
+  fetchRealNews: async () => {
+    try {
+      const res = await fetch('/api/news?high=true&medium=true&low=false&window=1440', { cache: 'no-store' })
+      if (!res.ok) throw new Error(`HTTP ${res.status}`)
+      const data = await res.json()
+      if (Array.isArray(data.events) && data.events.length > 0) {
+        set({ newsEvents: data.events })
+      }
+    } catch (err) {
+      // Silent fallback — store already has the synchronous fallback calendar
+      console.warn('[market-store] News fetch failed, using fallback calendar:', err)
+    }
+  },
+
   refreshNews: () => {
+    // Trigger a fresh fetch from the API (non-blocking)
+    get().fetchRealNews()
+    // Immediately show the fallback calendar so the UI updates instantly
     set({ newsEvents: getUpcomingNews() })
   },
 

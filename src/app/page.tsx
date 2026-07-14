@@ -55,6 +55,7 @@ export default function Home() {
   const [seoPage, setSeoPage] = React.useState<string | null>(null)
   const init = useMarketStore(s => s.init)
   const fetchRealPrice = useMarketStore(s => s.fetchRealPrice)
+  const fetchRealNews = useMarketStore(s => s.fetchRealNews)
   const microTick = useMarketStore(s => s.microTick)
   const refreshSession = useMarketStore(s => s.refreshSession)
   const asneInit = useASNEStore(s => s.init)
@@ -171,6 +172,12 @@ export default function Home() {
     const interval = setInterval(refreshSession, 30000)
     return () => clearInterval(interval)
   }, [refreshSession])
+
+  // Refresh real economic news every 5 minutes
+  React.useEffect(() => {
+    const interval = setInterval(() => { fetchRealNews() }, 5 * 60 * 1000)
+    return () => clearInterval(interval)
+  }, [fetchRealNews])
 
   // ASNE: generate notifications every 30 seconds
   React.useEffect(() => {
