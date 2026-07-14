@@ -6,7 +6,7 @@ import {
   Home, LayoutDashboard, LineChart, Atom, BellRing, Eye,
   Newspaper, Activity, Brain, BarChart3, Clock, BookOpen,
   Globe, Sun, Moon, LogIn, X, ChevronRight,
-  Twitter, Github, Linkedin, MessageCircle, HelpCircle, Phone,
+  Twitter, Linkedin, MessageCircle, HelpCircle, Phone, Send,
   Settings, User,
 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -51,9 +51,9 @@ const APP_VERSION = 'v2.6.0'
 const COPYRIGHT = `© ${new Date().getFullYear()} ApexEAPro`
 
 const SOCIAL_LINKS = [
-  { icon: Twitter,   label: 'Twitter / X',   href: 'https://twitter.com' },
-  { icon: Github,    label: 'GitHub',        href: 'https://github.com' },
-  { icon: Linkedin,  label: 'LinkedIn',      href: 'https://linkedin.com' },
+  { icon: Send,        label: 'Telegram',   href: 'https://t.me/mahifxcapital' },
+  { icon: Twitter,     label: 'Twitter / X', href: 'https://twitter.com' },
+  { icon: Linkedin,    label: 'LinkedIn',    href: 'https://linkedin.com' },
   { icon: MessageCircle, label: 'Discord',   href: 'https://discord.com' },
 ]
 

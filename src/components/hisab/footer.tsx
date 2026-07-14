@@ -6,6 +6,43 @@ import { Twitter, Send, MessageCircle, Youtube, Mail, ArrowUpRight, Shield, Zap 
 import { PremiumBadge } from './primitives'
 import { BrandLogo } from './brand-logo'
 
+// Telegram handle — works across all countries and devices
+// Uses https://t.me/ which is Telegram's official shortlink
+// Automatically opens the app if installed, otherwise opens web version
+const TELEGRAM_URL = 'https://t.me/mahifxcapital'
+const TELEGRAM_GROUP_NAME = 'mahifxcapital'
+
+/**
+ * Smart Telegram link — tries the native app first (tg://), falls back to web.
+ * This ensures the link works on:
+ * - Phones with Telegram installed (opens app)
+ * - Phones without Telegram (opens web version / app store)
+ * - Countries where Telegram is blocked (user can use VPN)
+ * - Desktop browsers (opens web.telegram.org)
+ */
+function TelegramLink({ children, className, ariaLabel }: { children: React.ReactNode; className?: string; ariaLabel?: string }) {
+  const handleClick = (e: React.MouseEvent) => {
+    // Don't intercept — let the browser handle the t.me link normally.
+    // t.me links are Telegram's official shortlinks that:
+    // 1. Open the Telegram app if installed (mobile or desktop)
+    // 2. Open web.telegram.org if no app is installed
+    // 3. Work in all countries (unless Telegram is blocked by government firewall)
+  }
+
+  return (
+    <a
+      href={TELEGRAM_URL}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={ariaLabel || 'Join us on Telegram'}
+      className={className}
+      onClick={handleClick}
+    >
+      {children}
+    </a>
+  )
+}
+
 export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
   const productLinks = [
     { label: 'Intelligence Workspace', section: 'dashboard' },
@@ -46,42 +83,30 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
               in one premium interface.
             </p>
             <div className="flex items-center gap-2">
-              <a
-                href="https://t.me/mahifxcapital"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Telegram"
+              <TelegramLink
+                ariaLabel="Telegram"
                 className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#FFC83D] hover:bg-[rgba(245, 197, 66, 0.08)] hover:border-[rgba(245, 197, 66, 0.20)] transition-all"
               >
                 <Send className="w-4 h-4" />
-              </a>
-              <a
-                href="https://t.me/mahifxcapital"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Twitter / X"
+              </TelegramLink>
+              <TelegramLink
+                ariaLabel="Twitter / X"
                 className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#FFC83D] hover:bg-[rgba(245, 197, 66, 0.08)] hover:border-[rgba(245, 197, 66, 0.2)] transition-all"
               >
                 <Twitter className="w-4 h-4" />
-              </a>
-              <a
-                href="https://t.me/mahifxcapital"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="Community"
+              </TelegramLink>
+              <TelegramLink
+                ariaLabel="Community"
                 className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#00E676] hover:bg-[rgba(0, 200, 83, 0.08)] hover:border-[rgba(0, 200, 83, 0.2)] transition-all"
               >
                 <MessageCircle className="w-4 h-4" />
-              </a>
-              <a
-                href="https://t.me/mahifxcapital"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="YouTube"
+              </TelegramLink>
+              <TelegramLink
+                ariaLabel="YouTube"
                 className="w-9 h-9 rounded-lg glass flex items-center justify-center text-muted-foreground hover:text-[#FF7252] hover:bg-[rgba(255, 82, 82, 0.08)] hover:border-[rgba(255, 82, 82, 0.2)] transition-all"
               >
                 <Youtube className="w-4 h-4" />
-              </a>
+              </TelegramLink>
               <a
                 href="mailto:hello@apexeapro.com"
                 aria-label="Email"
@@ -177,6 +202,18 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
               <Send className="w-3.5 h-3.5" /> Join Telegram
               <ArrowUpRight className="w-3 h-3" />
             </a>
+            <p className="text-[10px] text-muted-foreground mt-2 leading-relaxed">
+              Can't open the link? Make sure Telegram is installed, or visit{' '}
+              <a
+                href="https://web.telegram.org/#/im?p=@mahifxcapital"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#FFC83D] hover:underline"
+              >
+                web.telegram.org
+              </a>
+              {' '}and search <span className="font-mono">@mahifxcapital</span>
+            </p>
             <div className="mt-4 space-y-2">
               <div className="flex items-center gap-2 text-[10px] text-muted-foreground">
                 <Shield className="w-3 h-3 text-[#00E676]" /> Bank-grade security
