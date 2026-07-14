@@ -199,8 +199,8 @@ export default function Home() {
   const isSeoPage = seoPage !== null
 
   return (
-    <div className="flex min-h-screen bg-background overflow-x-hidden max-w-full">
-      <div className="flex-1 flex flex-col min-w-0 overflow-x-hidden">
+    <div className="flex min-h-screen bg-background">
+      <div className="flex-1 flex flex-col min-w-0">
         <Header
           onMenuClick={() => setMobileNavOpen(true)}
           onAuthClick={() => setAuthOpen(true)}

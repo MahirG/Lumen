@@ -225,8 +225,6 @@
     /* Prevent text size adjustment on orientation change */
     -webkit-text-size-adjust: 100%;
     text-size-adjust: 100%;
-    /* Prevent horizontal overflow when zoomed */
-    overflow-x: hidden;
   }
   body {
     @apply bg-background text-foreground antialiased;
@@ -241,8 +239,8 @@
     min-height: 100vh;
     /* Smooth scrolling with overscroll behavior */
     overscroll-behavior-y: none;
-    /* Prevent horizontal overflow when zoomed */
-    overflow-x: hidden;
+    /* Prevent horizontal overflow — clip doesn't block vertical scroll */
+    overflow-x: clip;
     /* Apple-style letter spacing */
     letter-spacing: -0.01em;
   }
