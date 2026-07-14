@@ -388,33 +388,50 @@
     box-shadow: 0 1px 0 rgba(255,255,255,0.8) inset, 0 8px 32px rgba(15,23,42,0.06);
   }
 
-  /* Glow effects — AI-inspired */
+  /* Glow effects — subtle and premium */
   .glow-gold {
     box-shadow:
-      0 0 32px #F5C542,
-      0 0 64px #F5C542,
+      0 0 24px rgba(245, 197, 66, 0.25),
+      0 0 48px rgba(245, 197, 66, 0.12),
       0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  }
+  :root:not(.dark) .glow-gold {
+    box-shadow:
+      0 0 24px rgba(245, 197, 66, 0.20),
+      0 0 48px rgba(245, 197, 66, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.8) inset;
   }
   .glow-electric {
     box-shadow:
-      0 0 32px rgba(245, 197, 66, 0.25),
-      0 0 64px rgba(245, 197, 66, 0.12),
+      0 0 24px rgba(245, 197, 66, 0.20),
+      0 0 48px rgba(245, 197, 66, 0.10),
       0 1px 0 rgba(255, 255, 255, 0.08) inset;
+  }
+  :root:not(.dark) .glow-electric {
+    box-shadow:
+      0 0 24px rgba(245, 197, 66, 0.15),
+      0 0 48px rgba(245, 197, 66, 0.06),
+      0 1px 0 rgba(255, 255, 255, 0.8) inset;
   }
   .glow-emerald {
     box-shadow:
-      0 0 28px #00E676,
-      0 0 56px #00E676;
+      0 0 24px rgba(0, 230, 118, 0.22),
+      0 0 48px rgba(0, 230, 118, 0.10);
   }
   .glow-bear {
     box-shadow:
-      0 0 28px #FF5252,
-      0 0 56px #FF5252;
+      0 0 24px rgba(255, 82, 82, 0.22),
+      0 0 48px rgba(255, 82, 82, 0.10);
   }
   .glow-soft {
     box-shadow:
       0 8px 32px rgba(11, 15, 25, 0.3),
       0 1px 0 rgba(255, 255, 255, 0.06) inset;
+  }
+  :root:not(.dark) .glow-soft {
+    box-shadow:
+      0 8px 32px rgba(15, 23, 42, 0.08),
+      0 1px 0 rgba(255, 255, 255, 0.8) inset;
   }
 
   /* Gradient text */
@@ -446,6 +463,14 @@
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
+  /* Light mode — dark text gradient for readability */
+  :root:not(.dark) .text-gradient-platinum {
+    background: linear-gradient(180deg, #0B0F19 0%, #8B6914 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
   .text-gradient-hero {
     background: linear-gradient(135deg,
       #FFFFFF 0%,
@@ -459,6 +484,19 @@
     color: transparent;
     animation: hero-gradient 8s ease-in-out infinite;
   }
+  /* Light mode hero gradient — gold tones on dark text */
+  :root:not(.dark) .text-gradient-hero {
+    background: linear-gradient(135deg,
+      #0B0F19 0%,
+      #E69500 40%,
+      #F5C542 80%,
+      #E69500 100%);
+    background-size: 200% 200%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
 
   /* Shimmer — for loading & highlights */
   .shimmer {
@@ -469,6 +507,13 @@
     background-size: 200% 100%;
     animation: shimmer 2.5s linear infinite;
   }
+  :root:not(.dark) .shimmer {
+    background: linear-gradient(110deg,
+      transparent 0%,
+      rgba(11, 15, 25, 0.06) 50%,
+      transparent 100%);
+    background-size: 200% 100%;
+  }
 
   /* Grid background — futuristic */
   .grid-bg {
@@ -477,11 +522,21 @@
       linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
   }
+  :root:not(.dark) .grid-bg {
+    background-image:
+      linear-gradient(rgba(11, 15, 25, 0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11, 15, 25, 0.04) 1px, transparent 1px);
+  }
   .grid-bg-fine {
     background-image:
-      linear-gradient(#F5C542 1px, transparent 1px),
-      linear-gradient(90deg, #F5C542 1px, transparent 1px);
+      linear-gradient(rgba(245, 197, 66, 0.08) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245, 197, 66, 0.08) 1px, transparent 1px);
     background-size: 24px 24px;
+  }
+  :root:not(.dark) .grid-bg-fine {
+    background-image:
+      linear-gradient(rgba(245, 197, 66, 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(245, 197, 66, 0.06) 1px, transparent 1px);
   }
 
   /* Aurora background */

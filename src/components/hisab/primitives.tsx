@@ -19,13 +19,13 @@ export const LiquidGlassCard = React.forwardRef<HTMLDivElement, LiquidGlassCardP
   ({ className, variant = 'default', hover = false, glow = false, children, ...props }, ref) => {
     const base = 'rounded-2xl border transition-all duration-300 ease-out'
     const variants = {
-      default: 'liquid-glass border-white/[8%]',
+      default: 'liquid-glass border-border',
       gold: 'liquid-glass-gold',
       electric: 'liquid-glass-electric',
-      strong: 'liquid-glass border-white/[10%]',
+      strong: 'liquid-glass border-border',
     }
     const hoverClass = hover
-      ? 'hover-lift hover:border-white/[14%] hover:shadow-[0_12px_40px_rgba(0,0,0,0.3)]'
+      ? 'hover-lift hover:border-[#F5C542]/30 hover:shadow-[0_12px_40px_rgba(0,0,0,0.2)]'
       : ''
     const glowClass = glow
       ? (variant === 'gold' ? 'glow-gold' : variant === 'electric' ? 'glow-electric' : 'glow-soft')
@@ -85,16 +85,16 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
     }
 
     const variants = {
-      gold: 'text-[#0B0F19] hover:shadow-[0_8px_32px_rgba(245,185,66,0.3)]',
-      electric: 'text-white hover:shadow-[0_8px_32px_rgba(22,119,255,0.3)]',
-      emerald: 'text-white hover:shadow-[0_8px_32px_rgba(16,185,129,0.3)]',
+      gold: 'text-[#0B0F19] hover:shadow-[0_8px_32px_rgba(245,197,66,0.35)]',
+      electric: 'text-[#0B0F19] hover:shadow-[0_8px_32px_rgba(245,197,66,0.30)]',
+      emerald: 'text-white hover:shadow-[0_8px_32px_rgba(0,230,118,0.30)]',
       ghost: 'bg-transparent hover:bg-foreground/[6%] text-foreground border border-border hover:border-foreground/20',
-      outline: 'bg-transparent border border-border hover:border-foreground/25 hover:bg-foreground/[4%] text-foreground',
-      danger: 'text-white hover:shadow-[0_8px_32px_rgba(239,68,68,0.3)]',
+      outline: 'bg-transparent border border-border hover:border-[#F5C542]/40 hover:bg-[#F5C542]/[5%] text-foreground',
+      danger: 'text-white hover:shadow-[0_8px_32px_rgba(255,82,82,0.30)]',
     }
     const gradientBg: Record<string, string> = {
       gold: 'linear-gradient(135deg, #F5C542, #E09B2E)',
-      electric: 'linear-gradient(135deg, #F5C542, #0958D6)',
+      electric: 'linear-gradient(135deg, #F5C542, #E09B2E)',
       emerald: 'linear-gradient(135deg, #00E676, #059669)',
       danger: 'linear-gradient(135deg, #FF5252, #DC2626)',
     }
@@ -233,7 +233,7 @@ export function PremiumBadge({ variant = 'neutral', size = 'sm', glow = false, c
     emerald: 'bg-[rgba(0, 200, 83, 0.12)] text-[#00E676] border-[rgba(0, 200, 83, 0.28)]',
     danger: 'bg-[rgba(255, 82, 82, 0.15)] text-[#FF5252] border-[rgba(255, 82, 82, 0.3)] animate-pulse',
     info: 'bg-[rgba(245, 197, 66, 0.12)] text-[#FFC83D] border-[rgba(245, 197, 66, 0.28)]',
-    platinum: 'bg-white/[8%] text-platinum border-white/20',
+    platinum: 'bg-muted text-foreground border-border',
   }
   const sizes = {
     xs: 'text-[9px] px-1.5 py-0.5',
@@ -287,7 +287,7 @@ export function PremiumProgress({ value, color = 'gold', height = 8, showLabel, 
         </div>
       )}
       <div
-        className="w-full rounded-full overflow-hidden bg-white/[5%] relative"
+        className="w-full rounded-full overflow-hidden bg-muted relative"
         style={{ height }}
         role="progressbar"
         aria-valuenow={value}
@@ -351,7 +351,7 @@ interface SkeletonProps {
 }
 
 export function Skeleton({ className, variant = 'rect' }: SkeletonProps) {
-  const base = 'relative overflow-hidden rounded-lg bg-white/[4%]'
+  const base = 'relative overflow-hidden rounded-lg bg-muted'
   const variants = {
     text: 'h-3',
     rect: 'h-20',
@@ -515,11 +515,11 @@ export function Divider({ label, className }: { label?: string; className?: stri
   if (label) {
     return (
       <div className={cn('flex items-center gap-3 my-4', className)}>
-        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
         <span className="text-[10px] uppercase tracking-widest text-muted-foreground font-medium">{label}</span>
-        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+        <div className="flex-1 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       </div>
     )
   }
-  return <div className={cn('h-px bg-gradient-to-r from-transparent via-white/10 to-transparent my-4', className)} />
+  return <div className={cn('h-px bg-gradient-to-r from-transparent via-border to-transparent my-4', className)} />
 }
