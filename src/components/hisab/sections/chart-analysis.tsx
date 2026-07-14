@@ -122,7 +122,7 @@ export function ChartAnalysis() {
                   className={cn(
                     'px-2.5 py-1 rounded-md text-[11px] font-mono font-medium transition-all',
                     timeframe === tf
-                      ? 'bg-[rgba(247, 167, 7, 0.20)] text-[#FFC83D] border border-[rgba(247, 167, 7, 0.3)]'
+                      ? 'bg-[rgba(245, 197, 66, 0.20)] text-[#FFC83D] border border-[rgba(245, 197, 66, 0.3)]'
                       : 'text-muted-foreground hover:text-foreground hover:bg-white/5 border border-transparent'
                   )}
                 >
@@ -135,8 +135,8 @@ export function ChartAnalysis() {
           <div className="flex flex-wrap items-center gap-3 mt-3 text-[10px] text-muted-foreground">
             <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(0, 200, 83, 0.6)]" />Bull OB</span>
             <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(255, 82, 82, 0.6)]" />Bear OB</span>
-            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(247, 167, 7, 0.50)]" style={{ borderTop: '1px dashed' }} />Liquidity / EQ levels</span>
-            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(247, 167, 7, 0.50)]" style={{ borderTop: '1px dotted' }} />Equilibrium (50%)</span>
+            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(245, 197, 66, 0.50)]" style={{ borderTop: '1px dashed' }} />Liquidity / EQ levels</span>
+            <span className="flex items-center gap-1.5"><div className="w-3 h-0.5 bg-[rgba(245, 197, 66, 0.50)]" style={{ borderTop: '1px dotted' }} />Equilibrium (50%)</span>
           </div>
         </GlassCard>
 
@@ -162,7 +162,7 @@ export function ChartAnalysis() {
           {!screenshot ? (
             <button
               onClick={() => fileInputRef.current?.click()}
-              className="w-full aspect-video rounded-lg border-2 border-dashed border-border/60 hover:border-[rgba(247, 167, 7, 0.50)] hover:bg-[rgba(247, 167, 7, 0.05)] transition-all flex flex-col items-center justify-center gap-2 group"
+              className="w-full aspect-video rounded-lg border-2 border-dashed border-border/60 hover:border-[rgba(245, 197, 66, 0.50)] hover:bg-[rgba(245, 197, 66, 0.05)] transition-all flex flex-col items-center justify-center gap-2 group"
             >
               <Upload className="w-7 h-7 text-muted-foreground group-hover:text-[#FFC83D] transition-colors" />
               <span className="text-xs text-muted-foreground group-hover:text-foreground">Drop screenshot or click</span>
@@ -187,7 +187,7 @@ export function ChartAnalysis() {
           <Button
             onClick={runAIAnalysis}
             disabled={analyzing || (!screenshot && !smc)}
-            className="w-full mt-4 bg-gradient-to-r from-[#F7A707] to-[#F7A707] text-[#1A1A1A] hover:opacity-90 font-semibold"
+            className="w-full mt-4 bg-gradient-to-r from-[#F5C542] to-[#F5C542] text-[#1A1A1A] hover:opacity-90 font-semibold"
           >
             {analyzing ? (
               <>
@@ -216,7 +216,7 @@ export function ChartAnalysis() {
             <GlassCard variant="strong" className="p-5">
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center">
+                  <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F5C542] flex items-center justify-center">
                     <Sparkles className="w-4 h-4 text-[#1A1A1A]" />
                   </div>
                   <div>

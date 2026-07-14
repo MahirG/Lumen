@@ -114,12 +114,12 @@ export const metadata: Metadata = {
   classification: "AI Trading Intelligence Platform",
   icons: {
     icon: [
-      { url: '/favicon.ico', sizes: 'any' },
-      { url: '/favicon-32x32.png', type: 'image/png', sizes: '32x32' },
-      { url: '/favicon-16x16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/brand/icons/icon_32.png', type: 'image/png', sizes: '32x32' },
+      { url: '/brand/icons/icon_16.png', type: 'image/png', sizes: '16x16' },
+      { url: '/brand/svg/icon.svg', type: 'image/svg+xml' },
     ],
     apple: [
-      { url: '/icon-180.png', sizes: '180x180', type: 'image/png' },
+      { url: '/brand/icons/icon_180.png', sizes: '180x180', type: 'image/png' },
     ],
   },
   manifest: "/manifest.json",
@@ -178,7 +178,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0B0B0B",
+  themeColor: "#0B0F19",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -196,7 +196,7 @@ const organizationSchema = {
   name: "ApexEAPro",
   alternateName: "Apex EA Pro",
   url: SITE_URL,
-  logo: `${SITE_URL}/logo_on_navy.png`,
+  logo: `${SITE_URL}/brand/png/apexeapro_logo_horizontal_dark_4k.png`,
   description:
     "AI Operating System for Professional Traders. Institutional-grade market intelligence powered by AI.",
   founder: {

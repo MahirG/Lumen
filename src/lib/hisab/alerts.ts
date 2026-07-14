@@ -57,7 +57,7 @@ export function getSeverityColor(severity: AlertSeverity): string {
   switch (severity) {
     case 'critical': return '#FF5252'
     case 'warn': return '#FFC107'
-    case 'info': return '#F7A707'
+    case 'info': return '#F5C542'
   }
 }
 

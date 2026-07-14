@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1760 460" width="1760" height="460">
+  <g transform="translate(30,40) scale(0.92)">
+      <defs>
+        <linearGradient id="mg1" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#F5C542"/><stop offset="100%" stop-color="#FFD66B"/>
+        </linearGradient>
+        <linearGradient id="mg2" x1="0%" y1="100%" x2="100%" y2="0%">
+          <stop offset="0%" stop-color="#F5C542"/><stop offset="55%" stop-color="#FFD66B"/><stop offset="100%" stop-color="#FFFFFF"/>
+        </linearGradient>
+        <mask id="bc">
+          <rect x="0" y="0" width="400" height="400" fill="white"/>
+          <polyline points="94,340 152,340 118,258 172,258 108,140" fill="none" stroke="black" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+        </mask>
+      </defs>
+      <g mask="url(#bc)">
+            <path d="M 62 372 L 130 372 L 210 96 L 178 96 Z" fill="url(#mg1)"/>
+            <path d="M 196 96 L 232 96 L 300 300 L 252 300 Z" fill="url(#mg1)"/>
+          </g>
+          <path d="M 150 260 L 350 92 L 336 76 L 172 232 Z" fill="url(#mg2)"/>
+          <path d="M 300 60 L 362 66 L 356 128 Z" fill="url(#mg2)"/>
+          <path d="M 246 340 L 300 292 L 322 316 L 268 366 Z" fill="#A7B0C0" opacity="0.9"/>
+    </g>
+  <text x="418" y="300" font-family="Poppins" font-weight="700" font-size="150" letter-spacing="-2">
+    <tspan fill="#F7F8FA">Apex</tspan><tspan fill="#F5C542">EA</tspan><tspan fill="#F7F8FA">Pro</tspan>
+  </text>
+  <text x="422" y="360" font-family="Poppins" font-weight="600" font-size="30" letter-spacing="7" fill="#A7B0C0">TRADE SMARTER. AUTOMATE BETTER. WIN MORE.</text>
+</svg>

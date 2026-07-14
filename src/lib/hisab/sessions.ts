@@ -139,8 +139,8 @@ export function getAllSessions(date = new Date()): SessionInfo[] {
 
 export function getSessionColor(name: TradingSession): string {
   switch (name) {
-    case 'ASIAN': return '#F7A707'
-    case 'LONDON': return '#F7A707'
+    case 'ASIAN': return '#F5C542'
+    case 'LONDON': return '#F5C542'
     case 'NEW_YORK': return '#00E676'
     default: return '#E69500'
   }

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F5C542"/>
+      <stop offset="55%" stop-color="#FFD66B"/>
+      <stop offset="100%" stop-color="#FFFFFF"/>
+    </linearGradient>
+    <linearGradient id="goldGrad2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#F5C542"/>
+      <stop offset="100%" stop-color="#FFD66B"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Left mountain leg -->
+  <path d="M 62 372 L 130 372 L 210 96 L 178 96 Z" fill="url(#goldGrad2)"/>
+
+  <!-- Right short leg (mountain shoulder, gets crossed by arrow) -->
+  <path d="M 196 96 L 232 96 L 300 300 L 252 300 Z" fill="url(#goldGrad2)"/>
+
+  <!-- Lightning-bolt groove carved through the left peak -->
+  <polyline points="94,340 152,340 118,258 172,258 108,140" fill="none" stroke="#0B0F19" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Breakout arrow shaft -->
+  <path d="M 150 260 L 350 92 L 336 76 L 172 232 Z" fill="url(#goldGrad)"/>
+  <!-- Arrowhead -->
+  <path d="M 300 60 L 362 66 L 356 128 Z" fill="url(#goldGrad)"/>
+
+  <!-- Silver motion accent -->
+  <path d="M 246 340 L 300 292 L 322 316 L 268 366 Z" fill="#A7B0C0" opacity="0.9"/>
+</svg>

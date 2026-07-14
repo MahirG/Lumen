@@ -1,33 +1,33 @@
 {
   "name": "ApexEAPro — AI Trading Intelligence Platform",
   "short_name": "ApexEAPro",
-  "description": "The AI Operating System for Professional Traders. Institutional-grade market intelligence powered by AI.",
+  "description": "Trade smarter. Automate better. Win more. The AI Operating System for Professional Traders.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#071A2B",
-  "theme_color": "#071A2B",
+  "background_color": "#0B0F19",
+  "theme_color": "#0B0F19",
   "orientation": "any",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/brand/icons/icon_192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/brand/icons/icon_512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
     },
     {
-      "src": "/icon-192.png",
+      "src": "/brand/icons/icon_192.png",
       "sizes": "192x192",
       "type": "image/png",
       "purpose": "maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/brand/icons/icon_512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"

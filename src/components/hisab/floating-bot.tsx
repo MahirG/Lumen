@@ -303,14 +303,14 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
         onClick={() => setIsOpen(!isOpen)}
         className="fixed bottom-24 right-4 lg:bottom-6 lg:right-6 z-50 w-14 h-14 rounded-full flex items-center justify-center"
         style={{
-          background: 'linear-gradient(135deg, #007AFF, #F7A707)',
+          background: 'linear-gradient(135deg, #007AFF, #F5C542)',
           boxShadow: '0 8px 32px rgba(0, 122, 255, 0.35), 0 0 0 1px rgba(255,255,255,0.1) inset',
         }}
         aria-label="Open AI assistant"
       >
         {isOpen ? <X className="w-5 h-5 text-white" /> : <Bot className="w-5 h-5 text-white" />}
         {!isOpen && (
-          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#00E676] border-2 border-[#0B0B0B]">
+          <span className="absolute -top-0.5 -right-0.5 w-3.5 h-3.5 rounded-full bg-[#00E676] border-2 border-[#0B0F19]">
             <span className="absolute inset-0 rounded-full bg-[#00E676] animate-ping opacity-60" />
           </span>
         )}
@@ -339,14 +339,14 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
           >
             {/* Header */}
             <div className="flex items-center gap-3 px-5 py-3.5" style={{ borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
-              <div className="relative w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #F7A707)' }}>
+              <div className="relative w-9 h-9 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #F5C542)' }}>
                 <Bot className="w-4 h-4 text-white" />
                 <span className="absolute -bottom-0.5 -right-0.5 w-3 h-3 rounded-full bg-[#00E676] border-2 border-border" />
               </div>
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-1.5">
                   <span className="text-sm font-semibold tracking-tight">Apex AI</span>
-                  <Sparkles className="w-3 h-3 text-[#F7A707]" />
+                  <Sparkles className="w-3 h-3 text-[#F5C542]" />
                 </div>
                 <div className="text-[10px] text-[#00E676] font-medium flex items-center gap-1">
                   <span className="w-1 h-1 rounded-full bg-[#00E676] animate-pulse" />
@@ -395,7 +395,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                       ? 'rounded-2xl rounded-br-md text-white'
                       : 'rounded-2xl rounded-bl-md text-foreground/90',
                   )} style={msg.role === 'user' ? {
-                    background: 'linear-gradient(135deg, #007AFF, #F7A707)',
+                    background: 'linear-gradient(135deg, #007AFF, #F5C542)',
                   } : {
                     background: 'rgba(255,255,255,0.05)',
                     border: '1px solid rgba(255,255,255,0.06)',
@@ -442,7 +442,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
               {/* Loading indicator */}
               {isLoading && (
                 <div className="flex items-start gap-2">
-                  <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #F7A707)' }}>
+                  <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #007AFF, #F5C542)' }}>
                     <Bot className="w-3.5 h-3.5 text-white" />
                   </div>
                   <div className="rounded-2xl rounded-bl-md px-4 py-3.5 flex gap-1.5" style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.06)' }}>
@@ -467,7 +467,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                     key={q}
                     onClick={() => setInput(q)}
                     className="px-3 py-1.5 rounded-full text-[11px] font-medium hover:scale-105 transition-transform"
-                    style={{ background: 'rgba(0, 122, 255, 0.1)', border: '1px solid rgba(0, 122, 255, 0.2)', color: '#F7A707' }}
+                    style={{ background: 'rgba(0, 122, 255, 0.1)', border: '1px solid rgba(0, 122, 255, 0.2)', color: '#F5C542' }}
                   >
                     {q}
                   </button>
@@ -533,7 +533,7 @@ export function FloatingAIBot({ onNavigate }: FloatingBotProps) {
                 onClick={sendMessage}
                 disabled={(!input.trim() && !uploadedFile) || isLoading}
                 className="w-8 h-8 rounded-full flex items-center justify-center shrink-0 disabled:opacity-30 hover:scale-105 active:scale-95 transition-transform"
-                style={{ background: 'linear-gradient(135deg, #007AFF, #F7A707)' }}
+                style={{ background: 'linear-gradient(135deg, #007AFF, #F5C542)' }}
                 aria-label="Send message"
               >
                 {isLoading ? <StopCircle className="w-4 h-4 text-white" /> : <Send className="w-4 h-4 text-white" />}

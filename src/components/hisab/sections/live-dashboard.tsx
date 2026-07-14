@@ -23,7 +23,7 @@ export function LiveDashboard() {
   if (!price || !indicators) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#F5C542] border-t-transparent rounded-full animate-spin" />
         <span className="ml-3 text-sm text-muted-foreground">Fetching live gold price...</span>
       </div>
     )
@@ -54,10 +54,10 @@ export function LiveDashboard() {
         <div className="flex items-center gap-3">
           <div className="relative w-2 h-2">
             <div className="absolute inset-0 rounded-full" style={{
-              background: dataSource === 'live' ? '#00E676' : dataSource === 'cached' ? '#F7A707' : '#F7A707'
+              background: dataSource === 'live' ? '#00E676' : dataSource === 'cached' ? '#F5C542' : '#F5C542'
             }} />
             <div className="absolute inset-0 rounded-full animate-ping opacity-75" style={{
-              background: dataSource === 'live' ? '#00E676' : dataSource === 'cached' ? '#F7A707' : '#F7A707'
+              background: dataSource === 'live' ? '#00E676' : dataSource === 'cached' ? '#F5C542' : '#F5C542'
             }} />
           </div>
           <StatusBadge variant={sourceBadge.variant}>{sourceBadge.label}</StatusBadge>
@@ -153,14 +153,14 @@ export function LiveDashboard() {
           <div className="relative h-2 rounded-full bg-white/5 overflow-hidden">
             <div className="absolute inset-0 flex">
               <div className="w-[30%] bg-[rgba(0, 230, 118, 0.20)]" />
-              <div className="flex-1 bg-[rgba(247, 167, 7, 0.1)]" />
+              <div className="flex-1 bg-[rgba(245, 197, 66, 0.1)]" />
               <div className="w-[30%] bg-[rgba(255, 82, 82, 0.20)]" />
             </div>
             <motion.div
               initial={{ left: '50%' }}
               animate={{ left: `${indicators.rsi}%` }}
               transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#FFC83D] shadow-[0_0_12px_rgba(247, 167, 7, 0.6)] -translate-x-1/2"
+              className="absolute top-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-[#FFC83D] shadow-[0_0_12px_rgba(245, 197, 66, 0.6)] -translate-x-1/2"
             />
           </div>
           <div className="flex justify-between mt-2 text-[10px] text-muted-foreground font-mono">
@@ -186,7 +186,7 @@ export function LiveDashboard() {
                 ${formatNumber(indicators.atr, 2)}
               </div>
             </div>
-            <Activity className="w-5 h-5 text-[#F7A707]" />
+            <Activity className="w-5 h-5 text-[#F5C542]" />
           </div>
           <div className="space-y-3">
             <div>

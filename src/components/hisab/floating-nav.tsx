@@ -64,15 +64,15 @@ export function FloatingNav({ active, onNavigate }: FloatingNavProps) {
                   layoutId="floating-nav-active"
                   className="absolute inset-0 rounded-xl"
                   style={{
-                    background: 'rgba(247, 167, 7, 0.15)',
-                    border: '1px solid rgba(247, 167, 7, 0.25)',
+                    background: 'rgba(245, 197, 66, 0.15)',
+                    border: '1px solid rgba(245, 197, 66, 0.25)',
                   }}
                   transition={{ type: 'spring', stiffness: 400, damping: 30 }}
                 />
               )}
               {/* Active outer glow */}
               {isActive && (
-                <div className="absolute -inset-1 rounded-xl blur-md -z-10" style={{ background: 'rgba(247, 167, 7, 0.12)' }} />
+                <div className="absolute -inset-1 rounded-xl blur-md -z-10" style={{ background: 'rgba(245, 197, 66, 0.12)' }} />
               )}
               {/* Icon only — no text */}
               <Icon
@@ -81,7 +81,7 @@ export function FloatingNav({ active, onNavigate }: FloatingNavProps) {
                   !isActive && 'text-muted-foreground',
                 )}
                 strokeWidth={isActive ? 2.5 : 2}
-                style={isActive ? { color: '#F7A707' } : {}}
+                style={isActive ? { color: '#F5C542' } : {}}
               />
             </motion.button>
           )

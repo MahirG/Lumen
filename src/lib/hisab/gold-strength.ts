@@ -119,7 +119,7 @@ export function getStrengthLabel(label: GoldStrength['label']): string {
 
 export function getStrengthColor(score: number): string {
   if (score >= 65) return '#00E676' // bull green
-  if (score >= 50) return '#F7A707' // gold
-  if (score >= 35) return '#F7A707' // neutral
+  if (score >= 50) return '#F5C542' // gold
+  if (score >= 35) return '#F5C542' // neutral
   return '#FF5252' // bear red
 }

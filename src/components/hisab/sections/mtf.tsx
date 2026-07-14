@@ -26,7 +26,7 @@ export function MultiTimeframe() {
   if (!mtf) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#F5C542] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
@@ -55,7 +55,7 @@ export function MultiTimeframe() {
             <div className="text-xs uppercase tracking-wider text-muted-foreground mb-2">Overall Bias</div>
             <div className={cn(
               'text-4xl font-bold font-display flex items-center justify-center gap-2',
-              mtf.overallBias === 'BUY' ? 'text-[#00E676]' : mtf.overallBias === 'SELL' ? 'text-[#FF7252]' : 'text-[#F7A707]'
+              mtf.overallBias === 'BUY' ? 'text-[#00E676]' : mtf.overallBias === 'SELL' ? 'text-[#FF7252]' : 'text-[#F5C542]'
             )}>
               {mtf.overallBias === 'BUY' && <ArrowUp className="w-7 h-7" />}
               {mtf.overallBias === 'SELL' && <ArrowDown className="w-7 h-7" />}
@@ -89,7 +89,7 @@ export function MultiTimeframe() {
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: `${(neutralCount / 8) * 100}%` }}
-            className="bg-[rgba(247, 167, 7, 0.4)]"
+            className="bg-[rgba(245, 197, 66, 0.4)]"
           />
           <motion.div
             initial={{ width: 0 }}

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="400" height="400">
+  <defs>
+    <mask id="boltcut2">
+      <rect x="0" y="0" width="400" height="400" fill="white"/>
+      <polyline points="94,340 152,340 118,258 172,258 108,140" fill="none" stroke="black" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+    </mask>
+  </defs>
+  <g mask="url(#boltcut2)" fill="#FFFFFF">
+    <path d="M 62 372 L 130 372 L 210 96 L 178 96 Z"/>
+    <path d="M 196 96 L 232 96 L 300 300 L 252 300 Z"/>
+  </g>
+  <path d="M 150 260 L 350 92 L 336 76 L 172 232 Z" fill="#FFFFFF"/>
+  <path d="M 300 60 L 362 66 L 356 128 Z" fill="#FFFFFF"/>
+  <path d="M 246 340 L 300 292 L 322 316 L 268 366 Z" fill="#FFFFFF" opacity="0.6"/>
+</svg>

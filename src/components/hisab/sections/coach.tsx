@@ -63,7 +63,7 @@ export function AICoach() {
       {/* Coach intro */}
       <GlassCard variant="strong" className="p-6">
         <div className="flex items-start gap-4 mb-5">
-          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center shrink-0 glow-gold">
+          <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-[#FFC83D] to-[#F5C542] flex items-center justify-center shrink-0 glow-gold">
             <GraduationCap className="w-7 h-7 text-[#1A1A1A]" />
           </div>
           <div className="flex-1">
@@ -116,7 +116,7 @@ export function AICoach() {
       {quickTip && (
         <GlassCard variant="gold" className="p-4">
           <div className="flex items-start gap-3">
-            <div className="w-8 h-8 rounded-lg bg-[rgba(247, 167, 7, 0.15)] flex items-center justify-center shrink-0">
+            <div className="w-8 h-8 rounded-lg bg-[rgba(245, 197, 66, 0.15)] flex items-center justify-center shrink-0">
               <Lightbulb className="w-4 h-4 text-[#FFC83D]" />
             </div>
             <div className="flex-1">
@@ -130,7 +130,7 @@ export function AICoach() {
       {/* Full explanation */}
       <GlassCard className="p-5">
         <div className="flex items-center gap-2 mb-4">
-          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F5C542] flex items-center justify-center">
             <Brain className="w-4 h-4 text-[#1A1A1A]" />
           </div>
           <div>
@@ -141,7 +141,7 @@ export function AICoach() {
 
         {generating ? (
           <div className="flex items-center justify-center py-8">
-            <div className="w-5 h-5 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin mr-2" />
+            <div className="w-5 h-5 border-2 border-[#F5C542] border-t-transparent rounded-full animate-spin mr-2" />
             <span className="text-sm text-muted-foreground">Mentor analyzing market structure...</span>
           </div>
         ) : (
@@ -159,7 +159,7 @@ export function AICoach() {
                 transition={{ delay: i * 0.05 }}
                 className="text-sm leading-relaxed text-foreground/90 flex gap-2"
               >
-                <span className="text-[#F7A707] font-mono text-xs shrink-0 mt-0.5">{(i + 1).toString().padStart(2, '0')}</span>
+                <span className="text-[#F5C542] font-mono text-xs shrink-0 mt-0.5">{(i + 1).toString().padStart(2, '0')}</span>
                 <span>{sentence}{i < arr.length - 1 ? '.' : ''}</span>
               </motion.p>
             ))}

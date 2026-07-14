@@ -155,10 +155,10 @@ export function TradeJournal() {
             <BarChart3 className="w-4 h-4 text-muted-foreground" /> Trade Distribution
           </h4>
           <div className="space-y-2">
-            <DistributionRow label="Open" value={stats.open} total={stats.totalTrades} color="#F7A707" />
+            <DistributionRow label="Open" value={stats.open} total={stats.totalTrades} color="#F5C542" />
             <DistributionRow label="Wins" value={stats.wins} total={stats.totalTrades} color="#00E676" />
             <DistributionRow label="Losses" value={stats.losses} total={stats.totalTrades} color="#FF5252" />
-            <DistributionRow label="Breakeven" value={stats.breakeven} total={stats.totalTrades} color="#F7A707" />
+            <DistributionRow label="Breakeven" value={stats.breakeven} total={stats.totalTrades} color="#F5C542" />
           </div>
           <div className="mt-4 pt-3 border-t border-border/30">
             <div className="flex justify-between text-[11px] mb-1">
@@ -175,7 +175,7 @@ export function TradeJournal() {
         <h3 className="text-base font-semibold font-display">Trade History</h3>
         <Button
           onClick={() => { setEditingId(null); setShowForm(true) }}
-          className="bg-gradient-to-r from-[#F7A707] to-[#F7A707] text-[#1A1A1A] hover:opacity-90 font-semibold"
+          className="bg-gradient-to-r from-[#F5C542] to-[#F5C542] text-[#1A1A1A] hover:opacity-90 font-semibold"
         >
           <Plus className="w-4 h-4 mr-1.5" /> Add Trade
         </Button>
@@ -462,7 +462,7 @@ function TradeForm({ initial, onSave, onCancel }: {
           </div>
 
           <div className="flex gap-2 mt-4">
-            <Button type="submit" className="flex-1 bg-gradient-to-r from-[#F7A707] to-[#F7A707] text-[#1A1A1A] font-semibold">
+            <Button type="submit" className="flex-1 bg-gradient-to-r from-[#F5C542] to-[#F5C542] text-[#1A1A1A] font-semibold">
               {initial ? 'Update Trade' : 'Add Trade'}
             </Button>
             <Button type="button" variant="outline" onClick={onCancel}>Cancel</Button>

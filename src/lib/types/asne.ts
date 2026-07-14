@@ -132,7 +132,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS'],
     cooldownMultiplier: 2,
     label: 'Free',
-    color: '#F7A707',
+    color: '#F5C542',
   },
   PRO: {
     maxChannels: 4,
@@ -140,7 +140,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS', 'PRICE_LEVEL', 'MARKET_STRUCTURE', 'VOLATILITY'],
     cooldownMultiplier: 1.5,
     label: 'Pro',
-    color: '#F7A707',
+    color: '#F5C542',
   },
   PREMIUM: {
     maxChannels: 6,
@@ -148,7 +148,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS', 'PRICE_LEVEL', 'MARKET_STRUCTURE', 'SMART_MONEY', 'VOLATILITY', 'RISK', 'TRADE_SETUP'],
     cooldownMultiplier: 1,
     label: 'Premium',
-    color: '#F7A707',
+    color: '#F5C542',
   },
   VIP: {
     maxChannels: 7,
@@ -156,7 +156,7 @@ export const TIER_CONFIG: Record<SubscriptionTier, TIER_FEATURES> = {
     categories: ['SESSION', 'ECONOMIC_NEWS', 'PRICE_LEVEL', 'MARKET_STRUCTURE', 'SMART_MONEY', 'VOLATILITY', 'RISK', 'TRADE_SETUP'],
     cooldownMultiplier: 0.7,
     label: 'VIP',
-    color: '#F7A707',
+    color: '#F5C542',
   },
   INSTITUTIONAL: {
     maxChannels: 8,
@@ -192,7 +192,7 @@ export const CATEGORY_LABELS: Record<AlertCategory, string> = {
 
 export const PRIORITY_CONFIG: Record<PriorityLevel, { color: string; label: string; triggersPush: boolean }> = {
   CRITICAL: { color: '#FF5252', label: 'Critical', triggersPush: true },
-  HIGH: { color: '#F7A707', label: 'High', triggersPush: true },
-  MEDIUM: { color: '#F7A707', label: 'Medium', triggersPush: false },
-  LOW: { color: '#F7A707', label: 'Low', triggersPush: false },
+  HIGH: { color: '#F5C542', label: 'High', triggersPush: true },
+  MEDIUM: { color: '#F5C542', label: 'Medium', triggersPush: false },
+  LOW: { color: '#F5C542', label: 'Low', triggersPush: false },
 }

@@ -55,13 +55,13 @@ export function DecisionEngine() {
   if (!setup || !mtf) {
     return (
       <div className="flex items-center justify-center py-12">
-        <div className="w-6 h-6 border-2 border-[#F7A707] border-t-transparent rounded-full animate-spin" />
+        <div className="w-6 h-6 border-2 border-[#F5C542] border-t-transparent rounded-full animate-spin" />
       </div>
     )
   }
 
-  const biasColor = setup.bias === 'BUY' ? 'text-[#00E676]' : setup.bias === 'SELL' ? 'text-[#FF7252]' : 'text-[#F7A707]'
-  const biasBg = setup.bias === 'BUY' ? 'from-[rgba(0, 230, 118, 0.15)] to-transparent' : setup.bias === 'SELL' ? 'from-[rgba(255, 82, 82, 0.15)] to-transparent' : 'from-[rgba(247, 167, 7, 0.1)] to-transparent'
+  const biasColor = setup.bias === 'BUY' ? 'text-[#00E676]' : setup.bias === 'SELL' ? 'text-[#FF7252]' : 'text-[#F5C542]'
+  const biasBg = setup.bias === 'BUY' ? 'from-[rgba(0, 230, 118, 0.15)] to-transparent' : setup.bias === 'SELL' ? 'from-[rgba(255, 82, 82, 0.15)] to-transparent' : 'from-[rgba(245, 197, 66, 0.1)] to-transparent'
   const biasIcon = setup.bias === 'BUY' ? <TrendingUp className="w-7 h-7" /> : setup.bias === 'SELL' ? <TrendingDown className="w-7 h-7" /> : <Minus className="w-7 h-7" />
 
   return (
@@ -241,7 +241,7 @@ export function DecisionEngine() {
       {/* Coach */}
       <GlassCard variant="gold" className="p-5">
         <div className="flex items-center gap-2 mb-3">
-          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F7A707] flex items-center justify-center">
+          <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#FFC83D] to-[#F5C542] flex items-center justify-center">
             <Brain className="w-4 h-4 text-[#1A1A1A]" />
           </div>
           <div>
@@ -280,7 +280,7 @@ function LevelRow({ label, value, variant, sub }: {
   const colors = {
     bull: 'text-[#00E676] border-[rgba(0, 230, 118, 0.20)] bg-[rgba(0, 200, 83, 0.05)]',
     bear: 'text-[#FF7252] border-[rgba(255, 82, 82, 0.20)] bg-[rgba(255, 82, 82, 0.05)]',
-    gold: 'text-[#FFC83D] border-[rgba(247, 167, 7, 0.20)] bg-[rgba(247, 167, 7, 0.05)]',
+    gold: 'text-[#FFC83D] border-[rgba(245, 197, 66, 0.20)] bg-[rgba(245, 197, 66, 0.05)]',
     neutral: 'text-foreground border-border/30 bg-white/5',
   }
   return (

@@ -85,7 +85,7 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
     }
 
     const variants = {
-      gold: 'text-[#0B0B0B] hover:shadow-[0_8px_32px_rgba(245,185,66,0.3)]',
+      gold: 'text-[#0B0F19] hover:shadow-[0_8px_32px_rgba(245,185,66,0.3)]',
       electric: 'text-white hover:shadow-[0_8px_32px_rgba(22,119,255,0.3)]',
       emerald: 'text-white hover:shadow-[0_8px_32px_rgba(16,185,129,0.3)]',
       ghost: 'bg-transparent hover:bg-foreground/[6%] text-foreground border border-border hover:border-foreground/20',
@@ -93,8 +93,8 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
       danger: 'text-white hover:shadow-[0_8px_32px_rgba(239,68,68,0.3)]',
     }
     const gradientBg: Record<string, string> = {
-      gold: 'linear-gradient(135deg, #F7A707, #E09B2E)',
-      electric: 'linear-gradient(135deg, #F7A707, #0958D6)',
+      gold: 'linear-gradient(135deg, #F5C542, #E09B2E)',
+      electric: 'linear-gradient(135deg, #F5C542, #0958D6)',
       emerald: 'linear-gradient(135deg, #00E676, #059669)',
       danger: 'linear-gradient(135deg, #FF5252, #DC2626)',
     }
@@ -189,8 +189,8 @@ interface StatusDotProps {
 export function StatusDot({ color = 'green', pulse = true, size = 'sm', label, className }: StatusDotProps) {
   const colors = {
     green: 'bg-[#00E676]',
-    gold: 'bg-[#F7A707]',
-    blue: 'bg-[#F7A707]',
+    gold: 'bg-[#F5C542]',
+    blue: 'bg-[#F5C542]',
     red: 'bg-[#FF5252]',
     gray: 'bg-[#1A1A1A]',
   }
@@ -227,12 +227,12 @@ export function PremiumBadge({ variant = 'neutral', size = 'sm', glow = false, c
   const variants = {
     bull: 'bg-[rgba(0, 200, 83, 0.15)] text-[#00E676] border-[rgba(0, 200, 83, 0.3)]',
     bear: 'bg-[rgba(255, 82, 82, 0.15)] text-[#FF5252] border-[rgba(255, 82, 82, 0.3)]',
-    neutral: 'bg-[rgba(247, 167, 7, 0.12)] text-[#FFC83D] border-[rgba(247, 167, 7, 0.25)]',
-    gold: 'bg-[rgba(247, 167, 7, 0.12)] text-[#FFC83D] border-[rgba(247, 167, 7, 0.28)]',
-    electric: 'bg-[rgba(247, 167, 7, 0.12)] text-[#FFC83D] border-[rgba(247, 167, 7, 0.28)]',
+    neutral: 'bg-[rgba(245, 197, 66, 0.12)] text-[#FFC83D] border-[rgba(245, 197, 66, 0.25)]',
+    gold: 'bg-[rgba(245, 197, 66, 0.12)] text-[#FFC83D] border-[rgba(245, 197, 66, 0.28)]',
+    electric: 'bg-[rgba(245, 197, 66, 0.12)] text-[#FFC83D] border-[rgba(245, 197, 66, 0.28)]',
     emerald: 'bg-[rgba(0, 200, 83, 0.12)] text-[#00E676] border-[rgba(0, 200, 83, 0.28)]',
     danger: 'bg-[rgba(255, 82, 82, 0.15)] text-[#FF5252] border-[rgba(255, 82, 82, 0.3)] animate-pulse',
-    info: 'bg-[rgba(247, 167, 7, 0.12)] text-[#FFC83D] border-[rgba(247, 167, 7, 0.28)]',
+    info: 'bg-[rgba(245, 197, 66, 0.12)] text-[#FFC83D] border-[rgba(245, 197, 66, 0.28)]',
     platinum: 'bg-white/[8%] text-platinum border-white/20',
   }
   const sizes = {
@@ -271,7 +271,7 @@ interface PremiumProgressProps {
 
 export function PremiumProgress({ value, color = 'gold', height = 8, showLabel, label, animated = true, className }: PremiumProgressProps) {
   const colors = {
-    gold: 'from-[#F7A707] to-[#FFC83D]',
+    gold: 'from-[#F5C542] to-[#FFC83D]',
     electric: 'from-[#1A1A1A] to-[#FFC83D]',
     emerald: 'from-[#00C853] to-[#00E676]',
     bear: 'from-[#CC3333] to-[#FF5252]',

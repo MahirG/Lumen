@@ -87,7 +87,7 @@ export function SmartAlerts() {
               className={cn(
                 'px-2.5 py-1 rounded-md text-[11px] font-mono font-medium border transition-all',
                 filter === s
-                  ? 'text-foreground border-[rgba(247, 167, 7, 0.40)] bg-[rgba(247, 167, 7, 0.1)]'
+                  ? 'text-foreground border-[rgba(245, 197, 66, 0.40)] bg-[rgba(245, 197, 66, 0.1)]'
                   : 'text-muted-foreground border-border/30 hover:border-border/60'
               )}
             >

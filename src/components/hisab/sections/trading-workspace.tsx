@@ -253,11 +253,11 @@ export function TradingWorkspace() {
       {showAIAnalysis && (
         <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}>
           <LiquidGlassCard variant="gold" className="p-3 flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #F7A707, #F7A707)' }}>
+            <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0" style={{ background: 'linear-gradient(135deg, #F5C542, #F5C542)' }}>
               <Sparkles className="w-4 h-4 text-white" />
             </div>
             <div className="flex-1 min-w-0">
-              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#F7A707]">AI Analysis</span>
+              <span className="text-[10px] uppercase tracking-wider font-semibold text-[#F5C542]">AI Analysis</span>
               <p className="text-xs text-foreground/80 leading-relaxed">
                 {isUp ? `${symbol.label} showing bullish momentum. ` : `${symbol.label} under bearish pressure. `}
                 {indicators.rsi ? 'RSI confirms ' + (isUp ? 'overbought conditions — watch for reversal. ' : 'oversold conditions — potential bounce. ') : ''}
@@ -346,7 +346,7 @@ export function TradingWorkspace() {
                   key={tf.id}
                   onClick={() => setTimeframe(tf.id)}
                   className={cn('px-2 py-1 rounded-md text-[10px] font-mono font-semibold transition-all', timeframe === tf.id ? 'text-white' : 'text-muted-foreground hover:text-foreground')}
-                  style={timeframe === tf.id ? { background: '#F7A707' } : {}}
+                  style={timeframe === tf.id ? { background: '#F5C542' } : {}}
                 >
                   {tf.label}
                 </button>
@@ -374,7 +374,7 @@ export function TradingWorkspace() {
                 key={tool.id}
                 onClick={() => setActiveTool(tool.id)}
                 className={cn('w-7 h-7 rounded-md flex items-center justify-center transition-all shrink-0', activeTool === tool.id ? 'text-white' : 'text-muted-foreground hover:text-foreground hover:bg-foreground/[6%]')}
-                style={activeTool === tool.id ? { background: '#F7A707' } : {}}
+                style={activeTool === tool.id ? { background: '#F5C542' } : {}}
                 title={tool.label}
               >
                 <Icon className="w-3.5 h-3.5" />
@@ -462,8 +462,8 @@ export function TradingWorkspace() {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         <StatCard label="Session High" value={formatNumber(Math.max(...chartCandles.slice(-30).map(c => c.high)), priceFormat)} color="#00E676" />
         <StatCard label="Session Low" value={formatNumber(Math.min(...chartCandles.slice(-30).map(c => c.low)), priceFormat)} color="#FF5252" />
-        <StatCard label="Avg Volume" value={formatNumber(chartCandles.slice(-20).reduce((s, c) => s + c.volume, 0) / 20, 0)} color="#F7A707" />
-        <StatCard label="Volatility" value={`${formatNumber(Math.abs(changePct), 2)}%`} color="#F7A707" />
+        <StatCard label="Avg Volume" value={formatNumber(chartCandles.slice(-20).reduce((s, c) => s + c.volume, 0) / 20, 0)} color="#F5C542" />
+        <StatCard label="Volatility" value={`${formatNumber(Math.abs(changePct), 2)}%`} color="#F5C542" />
       </div>
     </div>
   )
@@ -519,16 +519,16 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
       crosshair: {
         mode: CrosshairMode.Normal,
         vertLine: {
-          color: 'rgba(247, 167, 7, 0.5)',
+          color: 'rgba(245, 197, 66, 0.5)',
           width: 1,
           style: 2,
-          labelBackgroundColor: '#F7A707',
+          labelBackgroundColor: '#F5C542',
         },
         horzLine: {
-          color: 'rgba(247, 167, 7, 0.5)',
+          color: 'rgba(245, 197, 66, 0.5)',
           width: 1,
           style: 2,
-          labelBackgroundColor: '#F7A707',
+          labelBackgroundColor: '#F5C542',
         },
       },
       rightPriceScale: {
@@ -573,7 +573,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
       priceFormat: { type: 'price', precision: pricePrecision, minMove: 1 / Math.pow(10, pricePrecision) },
       priceLineVisible: true,
       priceLineStyle: 2,
-      priceLineColor: 'rgba(247, 167, 7, 0.3)',
+      priceLineColor: 'rgba(245, 197, 66, 0.3)',
       lastValueVisible: true,
     })
 
@@ -693,7 +693,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     // --- Volume histogram ---
     if (showVolume) {
       const vol = chart.addSeries(HistogramSeries, {
-        color: 'rgba(247, 167, 7, 0.3)',
+        color: 'rgba(245, 197, 66, 0.3)',
         priceFormat: { type: 'volume' },
         priceScaleId: 'vol',
         priceLineVisible: false,
@@ -713,7 +713,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     // --- SMA (20) ---
     if (showMA) {
       const ma = chart.addSeries(LineSeries, {
-        color: '#F7A707',
+        color: '#F5C542',
         lineWidth: 2,
         priceLineVisible: false,
         lastValueVisible: false,
@@ -733,7 +733,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     // --- EMA (9) ---
     if (showEMA) {
       const ema = chart.addSeries(LineSeries, {
-        color: '#F7A707',
+        color: '#F5C542',
         lineWidth: 2,
         priceLineVisible: false,
         lastValueVisible: false,
@@ -755,7 +755,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     // --- RSI (14) ---
     if (showRSI) {
       const rsi = chart.addSeries(LineSeries, {
-        color: '#F7A707',
+        color: '#F5C542',
         lineWidth: 2,
         priceLineVisible: false,
         lastValueVisible: true,
@@ -785,7 +785,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
     // --- MACD (12, 26, 9) ---
     if (showMACD) {
       const macdLine = chart.addSeries(LineSeries, {
-        color: '#F7A707',
+        color: '#F5C542',
         lineWidth: 2,
         priceLineVisible: false,
         lastValueVisible: true,
@@ -794,7 +794,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
         priceScaleId: 'macd',
       })
       const signalLine = chart.addSeries(LineSeries, {
-        color: '#F7A707',
+        color: '#F5C542',
         lineWidth: 1,
         priceLineVisible: false,
         lastValueVisible: false,
@@ -802,7 +802,7 @@ function ProChart({ candles, timeframe, showMA, showEMA, showRSI, showMACD, show
         priceScaleId: 'macd',
       })
       const macdHist = chart.addSeries(HistogramSeries, {
-        color: 'rgba(247, 167, 7, 0.2)',
+        color: 'rgba(245, 197, 66, 0.2)',
         priceLineVisible: false,
         lastValueVisible: false,
         priceScaleId: 'macd',
@@ -874,7 +874,7 @@ function ChartSkeleton() {
         </div>
       </div>
       <div className="absolute flex flex-col items-center gap-2">
-        <Loader2 className="w-5 h-5 animate-spin text-[#F7A707]" />
+        <Loader2 className="w-5 h-5 animate-spin text-[#F5C542]" />
         <span className="text-xs text-muted-foreground">Loading market data...</span>
       </div>
     </div>

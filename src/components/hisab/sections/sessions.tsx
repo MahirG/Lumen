@@ -57,7 +57,7 @@ export function SessionDetector() {
               <motion.div
                 initial={{ scale: 0.9 }}
                 animate={{ scale: 1 }}
-                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(247, 167, 7, 0.15)] border border-[rgba(247, 167, 7, 0.3)]"
+                className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-[rgba(245, 197, 66, 0.15)] border border-[rgba(245, 197, 66, 0.3)]"
               >
                 <Zap className="w-4 h-4 text-[#FFC83D]" />
                 <span className="text-sm font-semibold text-[#FFC83D]">KILL ZONE ACTIVE</span>
@@ -78,7 +78,7 @@ export function SessionDetector() {
 
         {currentSession.killZoneStart && (
           <div className="mt-3 grid grid-cols-2 gap-3">
-            <div className="p-3 rounded-lg bg-[rgba(247, 167, 7, 0.05)] border border-[rgba(247, 167, 7, 0.20)]">
+            <div className="p-3 rounded-lg bg-[rgba(245, 197, 66, 0.05)] border border-[rgba(245, 197, 66, 0.20)]">
               <div className="text-[10px] uppercase text-muted-foreground">Kill Zone Window</div>
               <div className="text-sm font-mono font-semibold mt-1 text-[#FFC83D]">
                 {currentSession.killZoneStart} → {currentSession.killZoneEnd}
@@ -139,7 +139,7 @@ export function SessionDetector() {
           })}
           {/* Current time indicator */}
           <div
-            className="absolute top-0 bottom-0 w-0.5 bg-[#FFC83D] shadow-[0_0_8px_rgba(247, 167, 7, 0.6)]"
+            className="absolute top-0 bottom-0 w-0.5 bg-[#FFC83D] shadow-[0_0_8px_rgba(245, 197, 66, 0.6)]"
             style={{ left: `${(utcHours / 24) * 100}%` }}
           />
         </div>
@@ -160,7 +160,7 @@ function SessionCard({ session, delay }: { session: SessionInfo; delay: number }
       transition={{ delay }}
     >
       <GlassCard
-        className={cn('p-5 transition-all', session.isActive && 'border-[rgba(247, 167, 7, 0.40)] glow-gold')}
+        className={cn('p-5 transition-all', session.isActive && 'border-[rgba(245, 197, 66, 0.40)] glow-gold')}
         hover
       >
         <div className="flex items-center justify-between mb-3">

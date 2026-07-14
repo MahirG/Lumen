@@ -46,19 +46,19 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
     >
       <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-[68px]">
-          {/* ===== LEFT: Logo (logo_transparent.png on dark navy header) ===== */}
+          {/* ===== LEFT: Logo (horizontal dark transparent on dark header) ===== */}
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               onClick={() => onNavigate('home')}
-              className="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707] rounded-xl px-1 py-1"
+              className="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542] rounded-xl px-1 py-1"
               aria-label="ApexEAPro home"
             >
               <img
-                src="/logo_transparent.png"
+                src="/brand/png/apexeapro_logo_horizontal_dark_transparent.png"
                 alt="ApexEAPro"
-                height={34}
-                className="h-[28px] sm:h-[34px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
-                style={{ filter: 'drop-shadow(0 2px 8px rgba(247, 167, 7, 0.15))' }}
+                height={32}
+                className="h-[26px] sm:h-[32px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+                style={{ filter: 'drop-shadow(0 2px 8px rgba(245, 197, 66, 0.15))' }}
               />
             </button>
           </div>
@@ -73,7 +73,7 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
                   onClick={() => onNavigate(item.id)}
                   className={cn(
                     'relative px-4 py-2 rounded-lg text-[13px] font-medium transition-colors duration-200',
-                    'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]',
+                    'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]',
                   )}
                   style={{
                     color: active ? 'var(--foreground)' : 'var(--muted-foreground)',
@@ -126,7 +126,7 @@ function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]"
+      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
     >
       <AnimatePresence mode="wait" initial={false}>
         {mounted && theme === 'dark' ? (
@@ -169,7 +169,7 @@ function UserAccountButton({ onClick }: { onClick: () => void }) {
       whileTap={{ scale: 0.94 }}
       transition={{ type: 'spring', stiffness: 400, damping: 22 }}
       aria-label="Sign in to your account"
-      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]"
+      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
     >
       <User className="w-[19px] h-[19px]" strokeWidth={2} />
     </motion.button>
@@ -194,7 +194,7 @@ function PremiumHamburger({ onClick }: { onClick: () => void }) {
       onClick={handleClick}
       aria-label="Open menu"
       aria-expanded={isOpen}
-      className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]"
+      className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
     >
       <div className="relative w-[20px] h-[14px] flex flex-col justify-between items-center">
         {/* Top line — full width */}

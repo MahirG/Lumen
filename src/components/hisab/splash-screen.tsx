@@ -25,7 +25,7 @@ export function SplashScreen() {
       {visible && (
         <motion.div
           className="fixed inset-0 z-[200] flex items-center justify-center"
-          style={{ background: '#0B0B0B' }}
+          style={{ background: '#0B0F19' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -37,12 +37,12 @@ export function SplashScreen() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           >
             <img
-              src="/logo_transparent.png"
+              src="/brand/png/apexeapro_logo_horizontal_dark_transparent.png"
               alt="ApexEAPro"
-              height={48}
-              className="h-[40px] sm:h-[48px] w-auto"
+              height={44}
+              className="h-[36px] sm:h-[44px] w-auto"
               style={{
-                filter: 'drop-shadow(0 4px 24px rgba(247, 167, 7, 0.3))',
+                filter: 'drop-shadow(0 4px 24px rgba(245, 197, 66, 0.3))',
               }}
             />
           </motion.div>
@@ -53,7 +53,7 @@ export function SplashScreen() {
             style={{
               width: 300,
               height: 300,
-              background: 'radial-gradient(circle, rgba(247, 167, 7, 0.12), transparent 70%)',
+              background: 'radial-gradient(circle, rgba(245, 197, 66, 0.12), transparent 70%)',
               filter: 'blur(40px)',
             }}
             animate={{ opacity: [0.3, 0.6, 0.3], scale: [0.9, 1.05, 0.9] }}

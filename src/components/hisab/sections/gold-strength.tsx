@@ -195,7 +195,7 @@ interface ComponentCardProps {
 }
 
 function ComponentCard({ icon, title, value, change, impact, note, delay }: ComponentCardProps) {
-  const impactColor = impact > 5 ? '#00E676' : impact < -5 ? '#FF5252' : '#F7A707'
+  const impactColor = impact > 5 ? '#00E676' : impact < -5 ? '#FF5252' : '#F5C542'
   return (
     <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay }}>
       <GlassCard className="p-4" hover>

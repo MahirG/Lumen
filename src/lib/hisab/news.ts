@@ -715,7 +715,7 @@ export function getImpactColor(impact: NewsImpact): string {
   switch (impact) {
     case 'HIGH': return '#FF5252'
     case 'MEDIUM': return '#FFC107'
-    case 'LOW': return '#F7A707'
+    case 'LOW': return '#F5C542'
     default: return '#E69500'
   }
 }
@@ -732,7 +732,7 @@ export function getImpactLabel(impact: NewsImpact): string {
 export function getSourceColor(source: NewsSource): string {
   switch (source) {
     case 'ForexFactory': return '#00C853'
-    case 'TradingEconomics': return '#F7A707'
-    case 'Investing': return '#F7A707'
+    case 'TradingEconomics': return '#F5C542'
+    case 'Investing': return '#F5C542'
   }
 }

@@ -91,8 +91,8 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
         {/* Logo */}
         <div className="flex items-center justify-between p-5 border-b border-white/[6%]">
           <Link href="/" onClick={() => onSelect('home')} className="flex items-center gap-3 group">
-            <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-[#FFC83D] via-[#F7A707] to-[#E69500] flex items-center justify-center glow-gold shrink-0 overflow-hidden">
-              <Crown className="w-5 h-5 text-[#0B0B0B]" strokeWidth={2.5} />
+            <div className="relative w-11 h-11 rounded-2xl bg-gradient-to-br from-[#FFC83D] via-[#F5C542] to-[#E69500] flex items-center justify-center glow-gold shrink-0 overflow-hidden">
+              <Crown className="w-5 h-5 text-[#0B0F19]" strokeWidth={2.5} />
               <div className="absolute inset-0 shimmer opacity-40" />
             </div>
             <div className="flex flex-col">
@@ -134,7 +134,7 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
                         'group relative w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left',
                         'transition-all duration-300',
                         isActive
-                          ? 'bg-gradient-to-r from-[rgba(247, 167, 7, 0.12)] via-[rgba(247, 167, 7, 0.06)] to-transparent text-foreground'
+                          ? 'bg-gradient-to-r from-[rgba(245, 197, 66, 0.12)] via-[rgba(245, 197, 66, 0.06)] to-transparent text-foreground'
                           : 'text-muted-foreground hover:text-foreground hover:bg-white/[4%]',
                       )}
                       aria-current={isActive ? 'page' : undefined}
@@ -149,7 +149,7 @@ export function Sidebar({ active, onSelect, isOpen, onClose }: SidebarProps) {
                       <div className={cn(
                         'w-9 h-9 rounded-lg flex items-center justify-center transition-all shrink-0',
                         isActive
-                          ? 'bg-gradient-to-br from-[rgba(247, 167, 7, 0.20)] to-[rgba(247, 167, 7, 0.08)] border border-[rgba(247, 167, 7, 0.25)]'
+                          ? 'bg-gradient-to-br from-[rgba(245, 197, 66, 0.20)] to-[rgba(245, 197, 66, 0.08)] border border-[rgba(245, 197, 66, 0.25)]'
                           : 'bg-white/[4%] group-hover:bg-white/[8%]',
                       )}>
                         <Icon className={cn(

@@ -139,10 +139,10 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                 aria-label="ApexEAPro home"
               >
                 <img
-                  src="/logo_transparent.png"
+                  src="/brand/png/apexeapro_logo_horizontal_dark_transparent.png"
                   alt="ApexEAPro"
-                  height={28}
-                  className="h-[24px] w-auto transition-transform duration-200 group-hover:scale-[1.03]"
+                  height={26}
+                  className="h-[22px] w-auto transition-transform duration-200 group-hover:scale-[1.03]"
                 />
               </button>
 
@@ -224,9 +224,9 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                   aria-label="Toggle theme"
                 >
                   {mounted && theme === 'dark' ? (
-                    <Sun className="w-3.5 h-3.5" style={{ color: '#F7A707' }} strokeWidth={2} />
+                    <Sun className="w-3.5 h-3.5" style={{ color: '#F5C542' }} strokeWidth={2} />
                   ) : (
-                    <Moon className="w-3.5 h-3.5" style={{ color: '#F7A707' }} strokeWidth={2} />
+                    <Moon className="w-3.5 h-3.5" style={{ color: '#F5C542' }} strokeWidth={2} />
                   )}
                   <span>{mounted && theme === 'dark' ? 'Light' : 'Dark'}</span>
                 </button>
@@ -237,8 +237,8 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                 onClick={() => { onClose(); onAuthClick?.() }}
                 className="w-full flex items-center justify-center gap-2 h-10 rounded-xl text-[13px] font-semibold text-white transition-all duration-200 hover:opacity-95 active:scale-[0.98]"
                 style={{
-                  background: 'linear-gradient(135deg, #F7A707, #F7A707)',
-                  boxShadow: '0 4px 16px rgba(247, 167, 7, 0.28)',
+                  background: 'linear-gradient(135deg, #F5C542, #F5C542)',
+                  boxShadow: '0 4px 16px rgba(245, 197, 66, 0.28)',
                 }}
               >
                 <LogIn className="w-[15px] h-[15px]" strokeWidth={2.2} />
@@ -301,7 +301,7 @@ function NavRow({
       whileTap={{ scale: 0.98 }}
       className={cn(
         'w-full flex items-center gap-3 h-10 px-3 rounded-lg transition-all duration-200',
-        'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]',
+        'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]',
       )}
       style={{
         background: isActive ? 'var(--accent)' : 'transparent',
@@ -310,7 +310,7 @@ function NavRow({
     >
       <Icon
         className="w-[17px] h-[17px] shrink-0 transition-transform duration-200"
-        style={{ color: isActive ? '#F7A707' : 'var(--muted-foreground)' }}
+        style={{ color: isActive ? '#F5C542' : 'var(--muted-foreground)' }}
         strokeWidth={isActive ? 2.4 : 2}
       />
       <span
@@ -330,8 +330,8 @@ function NavRow({
         <span
           className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded uppercase tracking-wider"
           style={{
-            background: item.badge === 'PRO' ? 'rgba(247, 167, 7, 0.12)' : 'rgba(0, 230, 118, 0.12)',
-            color: item.badge === 'PRO' ? '#F7A707' : '#00E676',
+            background: item.badge === 'PRO' ? 'rgba(245, 197, 66, 0.12)' : 'rgba(0, 230, 118, 0.12)',
+            color: item.badge === 'PRO' ? '#F5C542' : '#00E676',
             border: `1px solid ${item.badge === 'PRO' ? 'rgba(245,185,66,0.25)' : 'rgba(16,185,129,0.25)'}`,
           }}
         >
@@ -339,7 +339,7 @@ function NavRow({
         </span>
       )}
       {isActive && (
-        <ChevronRight className="w-3.5 h-3.5 text-[#F7A707]" strokeWidth={2.4} />
+        <ChevronRight className="w-3.5 h-3.5 text-[#F5C542]" strokeWidth={2.4} />
       )}
     </motion.button>
   )
@@ -358,7 +358,7 @@ function SecondaryRow({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 h-10 px-3 rounded-lg transition-all duration-200 hover:bg-foreground/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]"
+      className="w-full flex items-center gap-3 h-10 px-3 rounded-lg transition-all duration-200 hover:bg-foreground/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
     >
       <Icon className="w-[17px] h-[17px] shrink-0 text-muted-foreground" strokeWidth={2} />
       <span
