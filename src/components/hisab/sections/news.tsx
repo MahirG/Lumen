@@ -283,7 +283,7 @@ function NewsEventRow({ event, index }: { event: NewsEvent; index: number }) {
           href={event.url}
           target="_blank"
           rel="noopener noreferrer"
-          className="mt-2 inline-flex items-center gap-1 text-[10px] text-[#1677FF] hover:text-[#3B9BFF] transition-colors"
+          className="mt-2 inline-flex items-center gap-1 text-[10px] text-[#F7A707] hover:text-[#FFC83D] transition-colors"
         >
           View on Forex Factory <ExternalLink className="w-3 h-3" />
         </a>

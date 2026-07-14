@@ -226,7 +226,7 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                   {mounted && theme === 'dark' ? (
                     <Sun className="w-3.5 h-3.5" style={{ color: '#F5B942' }} strokeWidth={2} />
                   ) : (
-                    <Moon className="w-3.5 h-3.5" style={{ color: '#1677FF' }} strokeWidth={2} />
+                    <Moon className="w-3.5 h-3.5" style={{ color: '#F7A707' }} strokeWidth={2} />
                   )}
                   <span>{mounted && theme === 'dark' ? 'Light' : 'Dark'}</span>
                 </button>
@@ -237,8 +237,8 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                 onClick={() => { onClose(); onAuthClick?.() }}
                 className="w-full flex items-center justify-center gap-2 h-10 rounded-xl text-[13px] font-semibold text-white transition-all duration-200 hover:opacity-95 active:scale-[0.98]"
                 style={{
-                  background: 'linear-gradient(135deg, #1677FF, #7C5CFC)',
-                  boxShadow: '0 4px 16px rgba(22, 119, 255, 0.28)',
+                  background: 'linear-gradient(135deg, #F7A707, #F7A707)',
+                  boxShadow: '0 4px 16px rgba(247, 167, 7, 0.28)',
                 }}
               >
                 <LogIn className="w-[15px] h-[15px]" strokeWidth={2.2} />
@@ -301,7 +301,7 @@ function NavRow({
       whileTap={{ scale: 0.98 }}
       className={cn(
         'w-full flex items-center gap-3 h-10 px-3 rounded-lg transition-all duration-200',
-        'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]',
+        'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]',
       )}
       style={{
         background: isActive ? 'var(--accent)' : 'transparent',
@@ -310,7 +310,7 @@ function NavRow({
     >
       <Icon
         className="w-[17px] h-[17px] shrink-0 transition-transform duration-200"
-        style={{ color: isActive ? '#1677FF' : 'var(--muted-foreground)' }}
+        style={{ color: isActive ? '#F7A707' : 'var(--muted-foreground)' }}
         strokeWidth={isActive ? 2.4 : 2}
       />
       <span
@@ -339,7 +339,7 @@ function NavRow({
         </span>
       )}
       {isActive && (
-        <ChevronRight className="w-3.5 h-3.5 text-[#1677FF]" strokeWidth={2.4} />
+        <ChevronRight className="w-3.5 h-3.5 text-[#F7A707]" strokeWidth={2.4} />
       )}
     </motion.button>
   )
@@ -358,7 +358,7 @@ function SecondaryRow({
   return (
     <button
       onClick={onClick}
-      className="w-full flex items-center gap-3 h-10 px-3 rounded-lg transition-all duration-200 hover:bg-foreground/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
+      className="w-full flex items-center gap-3 h-10 px-3 rounded-lg transition-all duration-200 hover:bg-foreground/5 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]"
     >
       <Icon className="w-[17px] h-[17px] shrink-0 text-muted-foreground" strokeWidth={2} />
       <span

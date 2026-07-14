@@ -85,7 +85,7 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
     }
 
     const variants = {
-      gold: 'text-[#071A2B] hover:shadow-[0_8px_32px_rgba(245,185,66,0.3)]',
+      gold: 'text-[#0B0B0B] hover:shadow-[0_8px_32px_rgba(245,185,66,0.3)]',
       electric: 'text-white hover:shadow-[0_8px_32px_rgba(22,119,255,0.3)]',
       emerald: 'text-white hover:shadow-[0_8px_32px_rgba(16,185,129,0.3)]',
       ghost: 'bg-transparent hover:bg-foreground/[6%] text-foreground border border-border hover:border-foreground/20',
@@ -94,7 +94,7 @@ export const GlowButton = React.forwardRef<HTMLButtonElement, GlowButtonProps>(
     }
     const gradientBg: Record<string, string> = {
       gold: 'linear-gradient(135deg, #F5B942, #E09B2E)',
-      electric: 'linear-gradient(135deg, #1677FF, #0958D6)',
+      electric: 'linear-gradient(135deg, #F7A707, #0958D6)',
       emerald: 'linear-gradient(135deg, #10B981, #059669)',
       danger: 'linear-gradient(135deg, #EF4444, #DC2626)',
     }

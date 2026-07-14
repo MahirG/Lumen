@@ -178,7 +178,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#071A2B",
+  themeColor: "#0B0B0B",
   width: "device-width",
   initialScale: 1,
   maximumScale: 1,
@@ -438,9 +438,9 @@ export default function RootLayout({
             theme="dark"
             toastOptions={{
               style: {
-                background: "oklch(0.16 0.025 265 / 90%)",
-                border: "1px solid oklch(1 0 0 / 10%)",
-                color: "oklch(0.97 0.005 240)",
+                background: "#1A1A1A",
+                border: "1px solid #2C2C2C",
+                color: "#FFFFFF",
                 backdropFilter: "blur(24px)",
                 borderRadius: "12px",
               },

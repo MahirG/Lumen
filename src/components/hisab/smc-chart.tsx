@@ -44,7 +44,7 @@ const DEFAULT_THEME: ChartTheme = {
   text: '#64748B',
   grid: 'rgba(120, 160, 200, 0.05)',
   border: 'rgba(120, 160, 200, 0.1)',
-  volume: 'rgba(22, 119, 255, 0.25)',
+  volume: 'rgba(247, 167, 7, 0.25)',
   liq: 'rgba(245, 185, 66, 0.6)',
   equilibrium: 'rgba(245, 185, 66, 0.4)',
   ob: 'rgba(245, 185, 66, 0.15)',
@@ -116,8 +116,8 @@ export function SMCChart({
       },
       crosshair: {
         mode: CrosshairMode.Normal,
-        vertLine: { color: 'rgba(22, 119, 255, 0.4)', width: 1, style: 2, labelBackgroundColor: '#1677FF' },
-        horzLine: { color: 'rgba(22, 119, 255, 0.4)', width: 1, style: 2, labelBackgroundColor: '#1677FF' },
+        vertLine: { color: 'rgba(247, 167, 7, 0.4)', width: 1, style: 2, labelBackgroundColor: '#F7A707' },
+        horzLine: { color: 'rgba(247, 167, 7, 0.4)', width: 1, style: 2, labelBackgroundColor: '#F7A707' },
       },
       rightPriceScale: {
         borderColor: theme.border,

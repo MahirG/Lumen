@@ -25,7 +25,7 @@ export function SplashScreen() {
       {visible && (
         <motion.div
           className="fixed inset-0 z-[200] flex items-center justify-center"
-          style={{ background: '#071A2B' }}
+          style={{ background: '#0B0B0B' }}
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -42,7 +42,7 @@ export function SplashScreen() {
               height={48}
               className="h-[40px] sm:h-[48px] w-auto"
               style={{
-                filter: 'drop-shadow(0 4px 24px rgba(22, 119, 255, 0.3))',
+                filter: 'drop-shadow(0 4px 24px rgba(247, 167, 7, 0.3))',
               }}
             />
           </motion.div>
@@ -53,7 +53,7 @@ export function SplashScreen() {
             style={{
               width: 300,
               height: 300,
-              background: 'radial-gradient(circle, rgba(22, 119, 255, 0.12), transparent 70%)',
+              background: 'radial-gradient(circle, rgba(247, 167, 7, 0.12), transparent 70%)',
               filter: 'blur(40px)',
             }}
             animate={{ opacity: [0.3, 0.6, 0.3], scale: [0.9, 1.05, 0.9] }}

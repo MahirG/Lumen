@@ -59,7 +59,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 60% 50% at 15% 30%, rgba(22, 119, 255, 0.12), transparent 60%),
+              radial-gradient(ellipse 60% 50% at 15% 30%, rgba(247, 167, 7, 0.12), transparent 60%),
               radial-gradient(ellipse 50% 40% at 85% 70%, rgba(124, 92, 252, 0.10), transparent 60%),
               radial-gradient(ellipse 70% 50% at 50% 100%, rgba(16, 185, 129, 0.06), transparent 65%)
             `,
@@ -70,7 +70,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
           animate={{ x: [0, 60, 0], y: [0, -30, 0], opacity: [0.3, 0.5, 0.3] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(22, 119, 255, 0.15), transparent 70%)', filter: 'blur(40px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(247, 167, 7, 0.15), transparent 70%)', filter: 'blur(40px)' }}
         />
         <motion.div
           animate={{ x: [0, -50, 0], y: [0, 40, 0], opacity: [0.2, 0.4, 0.2] }}
@@ -118,7 +118,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
           >
             <span className="text-foreground">The AI Operating System</span>
             <br />
-            <span className="bg-gradient-to-r from-[#1677FF] via-[#3B9BFF] to-[#10B981] bg-clip-text text-transparent">for Professional Traders</span>
+            <span className="bg-gradient-to-r from-[#F7A707] via-[#FFC83D] to-[#10B981] bg-clip-text text-transparent">for Professional Traders</span>
           </motion.h1>
 
           {/* Subheadline */}
@@ -201,7 +201,7 @@ function ParticleField() {
       duration: Math.random() * 8 + 6,
       delay: Math.random() * 6,
       riseHeight: 200 + Math.random() * 400,
-      color: i % 4 === 0 ? '#1677FF' : i % 4 === 1 ? '#10B981' : i % 4 === 2 ? '#F5B942' : '#7C5CFC',
+      color: i % 4 === 0 ? '#F7A707' : i % 4 === 1 ? '#10B981' : i % 4 === 2 ? '#F5B942' : '#F7A707',
     })), []
   )
 
@@ -214,7 +214,7 @@ function ParticleField() {
       duration: Math.random() * 15 + 12,
       delay: Math.random() * 5,
       direction: Math.random() > 0.5 ? 1 : -1,
-      color: i % 3 === 0 ? 'rgba(22, 119, 255, 0.4)' : i % 3 === 1 ? 'rgba(16, 185, 129, 0.35)' : 'rgba(245, 185, 66, 0.3)',
+      color: i % 3 === 0 ? 'rgba(247, 167, 7, 0.4)' : i % 3 === 1 ? 'rgba(16, 185, 129, 0.35)' : 'rgba(245, 185, 66, 0.3)',
     })), []
   )
 
@@ -307,8 +307,8 @@ function FinancialGlobe() {
   const markets = [
     { name: 'New York', lat: 40.7, lon: -74, color: '#10B981' },
     { name: 'London', lat: 51.5, lon: -0.1, color: '#F5B942' },
-    { name: 'Tokyo', lat: 35.7, lon: 139.7, color: '#1677FF' },
-    { name: 'Frankfurt', lat: 50.1, lon: 8.7, color: '#3B9BFF' },
+    { name: 'Tokyo', lat: 35.7, lon: 139.7, color: '#F7A707' },
+    { name: 'Frankfurt', lat: 50.1, lon: 8.7, color: '#FFC83D' },
     { name: 'Sydney', lat: -33.9, lon: 151.2, color: '#A78BFA' },
     { name: 'Singapore', lat: 1.3, lon: 103.8, color: '#F472B6' },
   ]
@@ -316,26 +316,26 @@ function FinancialGlobe() {
   return (
     <div className="absolute right-0 top-1/2 -translate-y-1/2 w-[600px] h-[600px] hidden lg:block pointer-events-none">
       {/* Glow behind globe */}
-      <div className="absolute inset-0 rounded-full bg-[#1677FF]/10 blur-3xl" />
+      <div className="absolute inset-0 rounded-full bg-[#F7A707]/10 blur-3xl" />
       {/* Globe */}
       <motion.div
         animate={{ rotate: 360 }}
         transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-        className="absolute inset-12 rounded-full border border-[#1677FF]/20"
+        className="absolute inset-12 rounded-full border border-[#F7A707]/20"
         style={{
           background: 'radial-gradient(circle at 30% 30%, rgba(37,99,235,0.15), transparent 60%), radial-gradient(circle at 70% 70%, rgba(16,185,129,0.1), transparent 60%)',
         }}
       >
         {/* Latitude lines */}
         {[30, 60, 90, 120, 150].map((r) => (
-          <div key={r} className="absolute border border-[#1677FF]/10 rounded-full" style={{
+          <div key={r} className="absolute border border-[#F7A707]/10 rounded-full" style={{
             width: `${r * 2}%`, height: `${r * 2}%`,
             left: `${50 - r}%`, top: `${50 - r}%`,
           }} />
         ))}
         {/* Longitude lines (ellipses) */}
         {[0, 30, 60, 90, 120, 150].map((deg) => (
-          <div key={deg} className="absolute border border-[#1677FF]/10 rounded-full" style={{
+          <div key={deg} className="absolute border border-[#F7A707]/10 rounded-full" style={{
             width: '100%', height: '100%',
             transform: `rotateY(${deg}deg)`,
           }} />
@@ -427,7 +427,7 @@ function MarketTickerSection() {
 function TickerCard({ sym, delay }: { sym: MarketSymbol; delay: number }) {
   const isUp = sym.change >= 0
   const color = isUp ? '#10B981' : '#EF4444'
-  const categoryColor = sym.category === 'METAL' ? '#F5B942' : sym.category === 'CRYPTO' ? '#F7930A' : sym.category === 'DXY' ? '#3B9BFF' : sym.category === 'INDEX' ? '#A78BFA' : '#10B981'
+  const categoryColor = sym.category === 'METAL' ? '#F5B942' : sym.category === 'CRYPTO' ? '#F7930A' : sym.category === 'DXY' ? '#FFC83D' : sym.category === 'INDEX' ? '#A78BFA' : '#10B981'
 
   return (
     <motion.div
@@ -480,7 +480,7 @@ function AICommandCenterSection({ onNavigate }: { onNavigate: (s: string) => voi
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Institutional Intelligence,</span>{' '}
-            <span className="bg-gradient-to-r from-[#1677FF] to-[#10B981] bg-clip-text text-transparent">Real-Time</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#10B981] bg-clip-text text-transparent">Real-Time</span>
           </h2>
           <p className="text-base text-foreground/60">
             Six AI-powered panels monitoring every aspect of the market — from liquidity to news, from structure to sentiment.
@@ -771,7 +771,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
               {/* AI Assistant (left) */}
               <div className="lg:col-span-3 p-4 border-r border-border/50">
                 <div className="flex items-center gap-2 mb-3">
-                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#1677FF] to-[#10B981] flex items-center justify-center">
+                  <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-[#F7A707] to-[#10B981] flex items-center justify-center">
                     <Cpu className="w-3.5 h-3.5 text-white" />
                   </div>
                   <span className="text-xs font-semibold">AI Assistant</span>
@@ -819,7 +819,7 @@ function AITerminalPreviewSection({ onNavigate }: { onNavigate: (s: string) => v
           </LiquidGlassCard>
 
           {/* Glow under terminal */}
-          <div className="absolute -inset-4 bg-gradient-to-r from-[#1677FF]/10 via-[#F5B942]/5 to-[#10B981]/10 blur-2xl -z-10" />
+          <div className="absolute -inset-4 bg-gradient-to-r from-[#F7A707]/10 via-[#F5B942]/5 to-[#10B981]/10 blur-2xl -z-10" />
         </motion.div>
 
         <div className="text-center mt-8">
@@ -949,7 +949,7 @@ function AIAssistantDemoSection() {
           </PremiumBadge>
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Talk to Your</span>{' '}
-            <span className="bg-gradient-to-r from-[#1677FF] to-[#3B9BFF] bg-clip-text text-transparent">AI Analyst</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#FFC83D] bg-clip-text text-transparent">AI Analyst</span>
           </h2>
           <p className="text-base text-foreground/60">Ask any question. Get institutional-grade answers in seconds.</p>
         </motion.div>
@@ -965,14 +965,14 @@ function AIAssistantDemoSection() {
                   className={cn('flex gap-3', msg.role === 'user' && 'justify-end')}
                 >
                   {msg.role === 'ai' && (
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#1677FF] to-[#10B981] flex items-center justify-center shrink-0">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-[#F7A707] to-[#10B981] flex items-center justify-center shrink-0">
                       <Cpu className="w-4 h-4 text-white" />
                     </div>
                   )}
                   <div className={cn(
                     'max-w-[80%] p-3 rounded-2xl text-sm',
                     msg.role === 'user'
-                      ? 'bg-[#1677FF]/15 border border-[#1677FF]/30 text-foreground'
+                      ? 'bg-[#F7A707]/15 border border-[#F7A707]/30 text-foreground'
                       : 'liquid-glass text-foreground/80',
                   )}>
                     {msg.final ? (
@@ -1001,8 +1001,8 @@ function AIAssistantDemoSection() {
                     )}
                   </div>
                   {msg.role === 'user' && (
-                    <div className="w-8 h-8 rounded-lg bg-[#1677FF]/20 flex items-center justify-center shrink-0">
-                      <span className="text-xs font-bold text-[#3B9BFF]">U</span>
+                    <div className="w-8 h-8 rounded-lg bg-[#F7A707]/20 flex items-center justify-center shrink-0">
+                      <span className="text-xs font-bold text-[#FFC83D]">U</span>
                     </div>
                   )}
                 </motion.div>
@@ -1037,12 +1037,12 @@ function RotateCwIcon() {
 
 function WhyChooseSection({ onNavigate }: { onNavigate: (s: string) => void }) {
   const cards = [
-    { icon: Radar, title: 'Institutional Liquidity Analysis', desc: 'Understand where professional money is moving.', detail: 'Track smart money activity, liquidity zones, and institutional flow in real-time.', color: '#1677FF', section: 'chart-analysis' },
+    { icon: Radar, title: 'Institutional Liquidity Analysis', desc: 'Understand where professional money is moving.', detail: 'Track smart money activity, liquidity zones, and institutional flow in real-time.', color: '#F7A707', section: 'chart-analysis' },
     { icon: Shield, title: 'AI Trade Validation', desc: 'Confirm setups before taking action.', detail: '8-condition entry checklist ensures only A+ setups trigger alerts.', color: '#10B981', section: 'aile' },
     { icon: Layers, title: 'Multi-Timeframe Intelligence', desc: 'Combine multiple market perspectives.', detail: '8-timeframe bias matrix from Monthly to 1M with weighted alignment.', color: '#F5B942', section: 'mtf' },
     { icon: Bell, title: 'Smart Notifications', desc: 'Never miss important market conditions.', detail: '8 alert categories, anti-spam, priority-based delivery across 8 channels.', color: '#A78BFA', section: 'asne' },
     { icon: AlertTriangle, title: 'Economic Event Protection', desc: 'Avoid unnecessary exposure during volatility.', detail: '60/30/15/5/1 minute countdowns for high-impact news events.', color: '#EF4444', section: 'news' },
-    { icon: GraduationCap, title: 'AI Trading Coach', desc: 'Learn and improve with personalized insights.', detail: 'Mentor-style explanations break down every setup step-by-step.', color: '#3B9BFF', section: 'coach' },
+    { icon: GraduationCap, title: 'AI Trading Coach', desc: 'Learn and improve with personalized insights.', detail: 'Mentor-style explanations break down every setup step-by-step.', color: '#FFC83D', section: 'coach' },
   ]
 
   return (
@@ -1125,7 +1125,7 @@ function PricingSection() {
       desc: 'For active retail traders',
       monthly: 79, annual: 63,
       features: ['AI Market Analysis', '8-timeframe matrix', 'Smart notifications (4 channels)', 'Trade journal', 'AI Coach', 'Risk manager'],
-      color: '#1677FF',
+      color: '#F7A707',
       popular: false,
     },
     {
@@ -1255,7 +1255,7 @@ function FAQSection() {
         >
           <h2 className="text-4xl lg:text-5xl font-bold font-display tracking-tight mb-4">
             <span className="text-foreground">Frequently Asked</span>{' '}
-            <span className="bg-gradient-to-r from-[#1677FF] to-[#10B981] bg-clip-text text-transparent">Questions</span>
+            <span className="bg-gradient-to-r from-[#F7A707] to-[#10B981] bg-clip-text text-transparent">Questions</span>
           </h2>
         </motion.div>
         <div className="space-y-3">
@@ -1374,7 +1374,7 @@ function AILEEngineButton({ onClick }: AILEButtonProps) {
             <Atom className="w-2.5 h-2.5 text-background" strokeWidth={2.5} />
           </div>
         </div>
-        <span className="text-base font-bold font-display tracking-tight bg-gradient-to-r from-[#F5B942] to-[#1677FF] bg-clip-text text-transparent whitespace-nowrap">AILE Engine</span>
+        <span className="text-base font-bold font-display tracking-tight bg-gradient-to-r from-[#F5B942] to-[#F7A707] bg-clip-text text-transparent whitespace-nowrap">AILE Engine</span>
         <span className="text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F5B942]/15 text-[#F5B942] border border-[#F5B942]/30 uppercase tracking-wider shrink-0">PRO</span>
       </div>
     </motion.button>

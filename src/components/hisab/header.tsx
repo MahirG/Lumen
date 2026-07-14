@@ -50,7 +50,7 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               onClick={() => onNavigate('home')}
-              className="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF] rounded-xl px-1 py-1"
+              className="flex items-center gap-2 group focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707] rounded-xl px-1 py-1"
               aria-label="ApexEAPro home"
             >
               <img
@@ -58,7 +58,7 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
                 alt="ApexEAPro"
                 height={34}
                 className="h-[28px] sm:h-[34px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
-                style={{ filter: 'drop-shadow(0 2px 8px rgba(22, 119, 255, 0.15))' }}
+                style={{ filter: 'drop-shadow(0 2px 8px rgba(247, 167, 7, 0.15))' }}
               />
             </button>
           </div>
@@ -73,7 +73,7 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
                   onClick={() => onNavigate(item.id)}
                   className={cn(
                     'relative px-4 py-2 rounded-lg text-[13px] font-medium transition-colors duration-200',
-                    'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]',
+                    'focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]',
                   )}
                   style={{
                     color: active ? 'var(--foreground)' : 'var(--muted-foreground)',
@@ -126,7 +126,7 @@ function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
+      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]"
     >
       <AnimatePresence mode="wait" initial={false}>
         {mounted && theme === 'dark' ? (
@@ -169,7 +169,7 @@ function UserAccountButton({ onClick }: { onClick: () => void }) {
       whileTap={{ scale: 0.94 }}
       transition={{ type: 'spring', stiffness: 400, damping: 22 }}
       aria-label="Sign in to your account"
-      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
+      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]"
     >
       <User className="w-[19px] h-[19px]" strokeWidth={2} />
     </motion.button>
@@ -194,7 +194,7 @@ function PremiumHamburger({ onClick }: { onClick: () => void }) {
       onClick={handleClick}
       aria-label="Open menu"
       aria-expanded={isOpen}
-      className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF]"
+      className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707]"
     >
       <div className="relative w-[20px] h-[14px] flex flex-col justify-between items-center">
         {/* Top line — full width */}

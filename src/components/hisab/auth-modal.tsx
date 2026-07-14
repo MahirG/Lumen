@@ -134,14 +134,14 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
             {/* Subtle top accent line */}
             <div
               className="absolute top-0 left-1/2 -translate-x-1/2 h-[3px] w-24 rounded-full"
-              style={{ background: 'linear-gradient(90deg, transparent, #1677FF, #7C5CFC, transparent)' }}
+              style={{ background: 'linear-gradient(90deg, transparent, #F7A707, #F7A707, transparent)' }}
             />
 
             {/* Close button — icon only, no container */}
             <button
               onClick={onClose}
               aria-label="Close"
-              className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#1677FF] rounded-lg"
+              className="absolute top-5 right-5 w-8 h-8 flex items-center justify-center text-muted-foreground hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F7A707] rounded-lg"
             >
               <X className="w-[18px] h-[18px]" strokeWidth={2} />
             </button>
@@ -154,7 +154,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                   alt="ApexEAPro"
                   height={30}
                   className="h-[26px] w-auto"
-                  style={{ filter: 'drop-shadow(0 2px 8px rgba(22, 119, 255, 0.2))' }}
+                  style={{ filter: 'drop-shadow(0 2px 8px rgba(247, 167, 7, 0.2))' }}
                 />
               </div>
 
@@ -191,7 +191,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       className={cn(
                         'w-full h-12 pl-11 pr-4 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/60',
                         'transition-all duration-200 outline-none',
-                        'focus:ring-2 focus:ring-[#1677FF]/40',
+                        'focus:ring-2 focus:ring-[#F7A707]/40',
                         errors.email ? 'border-[#EF4444]/60' : 'border-border',
                       )}
                       style={{
@@ -224,7 +224,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       className={cn(
                         'w-full h-12 pl-11 pr-12 rounded-xl text-sm text-foreground placeholder:text-muted-foreground/60',
                         'transition-all duration-200 outline-none',
-                        'focus:ring-2 focus:ring-[#1677FF]/40',
+                        'focus:ring-2 focus:ring-[#F7A707]/40',
                         errors.password ? 'border-[#EF4444]/60' : 'border-border',
                       )}
                       style={{
@@ -259,9 +259,9 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                       <span
                         className={cn(
                           'w-[18px] h-[18px] rounded-[6px] flex items-center justify-center transition-all duration-200',
-                          remember ? 'bg-[#1677FF] border-[#1677FF]' : 'border border-border bg-transparent',
+                          remember ? 'bg-[#F7A707] border-[#F7A707]' : 'border border-border bg-transparent',
                         )}
-                        style={{ background: remember ? '#1677FF' : 'transparent' }}
+                        style={{ background: remember ? '#F7A707' : 'transparent' }}
                       >
                         {remember && <Check className="w-3 h-3 text-white" strokeWidth={3} />}
                       </span>
@@ -269,7 +269,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     </button>
                     <button
                       type="button"
-                      className="text-[#1677FF] hover:text-[#3B9BFF] transition-colors font-medium"
+                      className="text-[#F7A707] hover:text-[#FFC83D] transition-colors font-medium"
                     >
                       Forgot password?
                     </button>
@@ -287,8 +287,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                     loading && 'opacity-80',
                   )}
                   style={{
-                    background: 'linear-gradient(135deg, #1677FF, #7C5CFC)',
-                    boxShadow: '0 8px 24px rgba(22, 119, 255, 0.32)',
+                    background: 'linear-gradient(135deg, #F7A707, #F7A707)',
+                    boxShadow: '0 8px 24px rgba(247, 167, 7, 0.32)',
                   }}
                 >
                   {loading ? (
@@ -343,7 +343,7 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
                 <button
                   type="button"
                   onClick={() => { setMode(m => m === 'signin' ? 'signup' : 'signin'); setErrors({}) }}
-                  className="text-[#1677FF] hover:text-[#3B9BFF] font-semibold transition-colors"
+                  className="text-[#F7A707] hover:text-[#FFC83D] font-semibold transition-colors"
                 >
                   {mode === 'signin' ? 'Sign up' : 'Sign in'}
                 </button>
