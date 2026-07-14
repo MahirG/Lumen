@@ -16,6 +16,7 @@ interface HeaderProps {
   onNavigate: (section: string) => void
   title: string
   subtitle?: string
+  mobileNavOpen?: boolean
 }
 
 /* ============================================
@@ -34,7 +35,7 @@ const NAV_ITEMS = [
    Layout: Logo (left) | Nav (center) | Controls (right)
    Desktop controls: Search | Language | Theme | Notifications | Account
    ============================================ */
-export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, title, subtitle }: HeaderProps) {
+export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, title, subtitle, mobileNavOpen }: HeaderProps) {
   const [mounted, setMounted] = React.useState(false)
   const [scrolled, setScrolled] = React.useState(false)
   React.useEffect(() => {
@@ -122,7 +123,7 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
             <UserAccountButton onClick={onAuthClick} />
 
             {/* Hamburger — mobile/tablet only */}
-            <PremiumHamburger onClick={onMenuClick} />
+            <PremiumHamburger onClick={onMenuClick} isOpen={mobileNavOpen ?? false} />
           </div>
         </div>
       </div>
@@ -290,41 +291,43 @@ function UserAccountButton({ onClick }: { onClick: () => void }) {
 }
 
 /* ============================================
-   PremiumHamburger — mobile/tablet only
+   PremiumHamburger — 3 lines, top two equal & longer, bottom shorter
+   Morphs to X when open, smooth spring transition
+   Mobile/tablet only (below lg)
    ============================================ */
-function PremiumHamburger({ onClick }: { onClick: () => void }) {
-  const [isOpen, setIsOpen] = React.useState(false)
-
+function PremiumHamburger({ onClick, isOpen }: { onClick: () => void; isOpen: boolean }) {
   const handleClick = () => {
-    setIsOpen(o => !o)
     onClick()
   }
 
   return (
     <button
       onClick={handleClick}
-      aria-label="Open menu"
+      aria-label={isOpen ? 'Close menu' : 'Open menu'}
       aria-expanded={isOpen}
       className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 hover:bg-foreground/[5%] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
     >
-      <div className="relative w-[20px] h-[14px] flex flex-col justify-between items-center">
+      <div className="relative w-[22px] h-[14px] flex flex-col justify-between items-center">
+        {/* Top line — full width (22px) */}
         <motion.span
           className="block h-[2px] rounded-full bg-current"
-          style={{ width: '20px', transformOrigin: 'center' }}
+          style={{ width: '22px', transformOrigin: 'center' }}
           animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
-          transition={{ type: 'spring', stiffness: 380, damping: 24 }}
+          transition={{ type: 'spring', stiffness: 350, damping: 22, duration: 0.3 }}
         />
+        {/* Middle line — full width (22px), equal to top */}
+        <motion.span
+          className="block h-[2px] rounded-full bg-current self-center"
+          style={{ width: '22px', transformOrigin: 'center' }}
+          animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
+          transition={{ type: 'spring', stiffness: 350, damping: 22, duration: 0.25 }}
+        />
+        {/* Bottom line — SHORTER (14px) */}
         <motion.span
           className="block h-[2px] rounded-full bg-current self-center"
           style={{ width: '14px', transformOrigin: 'center' }}
-          animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
-          transition={{ duration: 0.15 }}
-        />
-        <motion.span
-          className="block h-[2px] rounded-full bg-current"
-          style={{ width: '20px', transformOrigin: 'center' }}
-          animate={isOpen ? { rotate: -45, y: -6 } : { rotate: 0, y: 0 }}
-          transition={{ type: 'spring', stiffness: 380, damping: 24 }}
+          animate={isOpen ? { rotate: -45, y: -6, width: '22px' } : { rotate: 0, y: 0, width: '14px' }}
+          transition={{ type: 'spring', stiffness: 350, damping: 22, duration: 0.3 }}
         />
       </div>
     </button>

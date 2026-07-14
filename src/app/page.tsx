@@ -202,12 +202,13 @@ export default function Home() {
     <div className="flex min-h-screen bg-background">
       <div className="flex-1 flex flex-col min-w-0">
         <Header
-          onMenuClick={() => setMobileNavOpen(true)}
+          onMenuClick={() => setMobileNavOpen(o => !o)}
           onAuthClick={() => setAuthOpen(true)}
           activeSection={activeSection}
           onNavigate={navigateToSection}
           title={meta.title}
           subtitle={meta.subtitle}
+          mobileNavOpen={mobileNavOpen}
         />
 
         <main ref={mainRef} className="flex-1">
