@@ -36,8 +36,8 @@ export function SplashScreen() {
             transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1], delay: 0.1 }}
           >
             <BrandLogo
-              height={44}
-              className="h-[36px] sm:h-[44px] w-auto"
+              height={72}
+              className="h-[56px] sm:h-[72px] w-auto"
               style={{
                 filter: 'drop-shadow(0 4px 24px rgba(245, 197, 66, 0.3))',
               }}

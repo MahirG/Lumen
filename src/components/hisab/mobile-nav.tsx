@@ -140,8 +140,8 @@ export function MobileNav({ isOpen, onClose, onNavigate, activeSection, onAuthCl
                 aria-label="ApexEAPro home"
               >
                 <BrandLogo
-                  height={24}
-                  className="h-[22px] w-auto transition-transform duration-200 group-hover:scale-[1.03]"
+                  height={36}
+                  className="h-[32px] w-auto transition-transform duration-200 group-hover:scale-[1.03]"
                 />
               </button>
 

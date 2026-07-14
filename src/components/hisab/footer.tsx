@@ -35,8 +35,8 @@ export function Footer({ onNavigate }: { onNavigate?: (s: string) => void }) {
           <div className="md:col-span-4 space-y-4">
             <Link href="/" onClick={() => onNavigate?.('home')} className="flex items-center gap-3 group w-fit">
               <BrandLogo
-                height={24}
-                className="h-[24px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+                height={36}
+                className="h-[36px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
                 style={{ opacity: 0.85 }}
               />
             </Link>

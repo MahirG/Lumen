@@ -55,8 +55,8 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
               aria-label="ApexEAPro home"
             >
               <BrandLogo
-                height={32}
-                className="h-[26px] sm:h-[32px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
+                height={48}
+                className="h-[40px] sm:h-[48px] w-auto transition-transform duration-300 group-hover:scale-[1.03]"
                 style={{ filter: 'drop-shadow(0 2px 8px rgba(245, 197, 66, 0.15))' }}
               />
             </button>

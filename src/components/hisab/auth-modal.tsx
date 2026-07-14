@@ -151,8 +151,8 @@ export function AuthModal({ isOpen, onClose }: AuthModalProps) {
               {/* Brand mark */}
               <div className="flex items-center gap-2.5 mb-7">
                 <BrandLogo
-                  height={26}
-                  className="h-[24px] w-auto"
+                  height={40}
+                  className="h-[40px] w-auto"
                   style={{ filter: 'drop-shadow(0 2px 8px rgba(245, 197, 66, 0.2))' }}
                 />
               </div>
