@@ -96,62 +96,90 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
       <div className="absolute inset-0 z-[3] bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
       <div className="absolute inset-0 z-[3] bg-gradient-to-r from-background/60 via-transparent to-transparent pointer-events-none" />
 
-      {/* ====== LAYER 5: Hero content ====== */}
+      {/* ====== LAYER 5: Hero content — 2-column desktop layout ====== */}
       <motion.div
         style={{ opacity: heroOpacity }}
-        className="relative z-10 max-w-7xl mx-auto px-4 lg:px-6 py-20 w-full"
+        className="relative z-10 max-w-[1600px] mx-auto px-4 lg:px-6 py-20 w-full"
       >
-        <div className="max-w-4xl">
-          {/* Headline */}
-          <motion.h1
-            initial={{ opacity: 0, y: 24 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.1 }}
-            className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight leading-[1.05] mb-6"
-          >
-            <span className="text-foreground">The AI Operating System</span>
-            <br />
-            <span className="bg-gradient-to-r from-[#F5C542] via-[#FFC83D] to-[#00E676] bg-clip-text text-transparent">for Professional Traders</span>
-          </motion.h1>
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          {/* LEFT COLUMN — Headline + CTAs + Stats */}
+          <div className="lg:col-span-7 xl:col-span-6">
+            <div className="max-w-2xl">
+              {/* Headline */}
+              <motion.h1
+                initial={{ opacity: 0, y: 24 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.7, delay: 0.1 }}
+                className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold font-display tracking-tight leading-[1.05] mb-6"
+              >
+                <span className="text-foreground">The AI Operating System</span>
+                <br />
+                <span className="bg-gradient-to-r from-[#F5C542] via-[#FFC83D] to-[#00E676] bg-clip-text text-transparent">for Professional Traders</span>
+              </motion.h1>
 
-          {/* Subheadline */}
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base md:text-lg text-foreground/80 max-w-2xl leading-relaxed mb-8"
-          >
-            Institutional-grade market intelligence, powered by advanced artificial intelligence
-            and designed for traders who demand precision.
-          </motion.p>
+              {/* Subheadline */}
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.2 }}
+                className="text-base md:text-lg text-foreground/80 max-w-2xl leading-relaxed mb-8"
+              >
+                Institutional-grade market intelligence, powered by advanced artificial intelligence
+                and designed for traders who demand precision.
+              </motion.p>
 
-          {/* CTAs */}
+              {/* CTAs */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.3 }}
+                className="flex flex-wrap items-center gap-3 mb-8"
+              >
+                <GlowButton size="xl" variant="gold" glow onClick={() => onNavigate('dashboard')}>
+                  <Cpu className="w-4 h-4" /> Launch AI Intelligence Workspace
+                </GlowButton>
+                <GlowButton size="xl" variant="outline" onClick={() => onNavigate('aile')}>
+                  <Atom className="w-4 h-4" /> AILE Engine
+                  <span className="ml-1 text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F5C542]/15 text-[#F5C542] border border-[#F5C542]/30 uppercase">PRO</span>
+                </GlowButton>
+              </motion.div>
+
+              {/* Trust indicators */}
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground/75"
+              >
+                <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> AI Market Intelligence</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Priority Intelligence</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Multi-Timeframe Intelligence</span>
+                <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Institutional Trading Tools</span>
+              </motion.div>
+
+              {/* Live market statistics — desktop only */}
+              <motion.div
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.5 }}
+                className="hidden lg:grid grid-cols-4 gap-4 mt-10 pt-8 border-t border-border"
+              >
+                <LiveStat label="Active Traders" value="14.2K" change="+12%" trend="up" />
+                <LiveStat label="AI Accuracy" value="94.7%" change="+3.2%" trend="up" />
+                <LiveStat label="Markets" value="48" change="+6" trend="up" />
+                <LiveStat label="Uptime" value="99.9%" change="" trend="neutral" />
+              </motion.div>
+            </div>
+          </div>
+
+          {/* RIGHT COLUMN — Mini Trading Workspace (desktop only) */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="flex flex-wrap items-center gap-3 mb-8"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
+            className="hidden lg:block lg:col-span-5 xl:col-span-6"
           >
-            <GlowButton size="xl" variant="gold" glow onClick={() => onNavigate('dashboard')}>
-              <Cpu className="w-4 h-4" /> Launch AI Intelligence Workspace
-            </GlowButton>
-            <GlowButton size="xl" variant="outline" onClick={() => onNavigate('aile')}>
-              <Atom className="w-4 h-4" /> AILE Engine
-              <span className="ml-1 text-[8px] font-mono font-bold px-1 py-0.5 rounded bg-[#F5C542]/15 text-[#F5C542] border border-[#F5C542]/30 uppercase">PRO</span>
-            </GlowButton>
-          </motion.div>
-
-          {/* Trust indicators */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="flex flex-wrap items-center gap-x-5 gap-y-2 text-xs text-foreground/75"
-          >
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> AI Market Intelligence</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Priority Intelligence</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Multi-Timeframe Intelligence</span>
-            <span className="flex items-center gap-1.5"><Check className="w-3 h-3 text-[#00E676]" /> Institutional Trading Tools</span>
+            <HeroTradingPanel onNavigate={onNavigate} />
           </motion.div>
         </div>
       </motion.div>
@@ -165,6 +193,160 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
         <ChevronRight className="w-5 h-5 rotate-90" />
       </motion.div>
     </section>
+  )
+}
+
+/* ============================================
+   LIVE STAT — small KPI display for hero
+   ============================================ */
+function LiveStat({ label, value, change, trend }: { label: string; value: string; change: string; trend: 'up' | 'down' | 'neutral' }) {
+  return (
+    <div>
+      <div className="text-[11px] uppercase tracking-wide text-muted-foreground font-medium mb-1">{label}</div>
+      <div className="text-xl font-mono font-bold text-foreground leading-none">{value}</div>
+      {change && (
+        <div className={cn('text-[11px] font-mono font-semibold mt-1', trend === 'up' ? 'text-[#00E676]' : trend === 'down' ? 'text-[#FF5252]' : 'text-muted-foreground')}>
+          {change}
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ============================================
+   HERO TRADING PANEL — mini workspace for desktop hero
+   Premium glassmorphism panel with live chart preview,
+   price ticker, AI signal, and market sentiment
+   ============================================ */
+function HeroTradingPanel({ onNavigate }: { onNavigate: (s: string) => void }) {
+  const price = useMarketStore(s => s.price)
+  const indicators = useMarketStore(s => s.indicators)
+
+  // Generate mini candle data for the chart preview
+  const candles = React.useMemo(() => {
+    const base = price?.last ?? 4000
+    return Array.from({ length: 40 }, (_, i) => {
+      const trend = i > 25 ? 1 : -1
+      const volatility = Math.sin(i * 0.3) * 8 + (Math.random() - 0.5) * 6
+      const open = base - (40 - i) * 2 + volatility
+      const close = open + trend * (Math.random() * 6 + 2)
+      const high = Math.max(open, close) + Math.random() * 4
+      const low = Math.min(open, close) - Math.random() * 4
+      return { open, close, high, low, isUp: close > open }
+    })
+  }, [price?.last])
+
+  const maxPrice = Math.max(...candles.map(c => c.high))
+  const minPrice = Math.min(...candles.map(c => c.low))
+  const priceRange = maxPrice - minPrice || 1
+
+  return (
+    <div className="relative">
+      {/* Glow behind panel */}
+      <div className="absolute -inset-4 bg-gradient-to-br from-[#F5C542]/10 via-transparent to-[#00E676]/10 blur-3xl -z-10" />
+
+      <LiquidGlassCard variant="strong" className="p-5 lg:p-6" glow>
+        {/* Header */}
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center gap-2">
+            <div className="w-8 h-8 rounded-lg glass-gold flex items-center justify-center">
+              <LineChart className="w-4 h-4 text-[#F5C542]" strokeWidth={2.5} />
+            </div>
+            <div>
+              <div className="text-sm font-bold text-foreground">XAUUSD</div>
+              <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Gold · Live</div>
+            </div>
+          </div>
+          <div className="text-right">
+            {price ? (
+              <>
+                <div className="text-lg font-mono font-bold text-foreground tabular">${formatNumber(price.last, 2)}</div>
+                <div className={cn('text-[11px] font-mono font-semibold', price.change >= 0 ? 'text-[#00E676]' : 'text-[#FF5252]')}>
+                  {price.change >= 0 ? '+' : ''}{formatNumber(price.change, 2)} ({price.change >= 0 ? '+' : ''}{formatNumber(price.changePct, 2)}%)
+                </div>
+              </>
+            ) : (
+              <div className="text-lg font-mono font-bold text-muted-foreground">—</div>
+            )}
+          </div>
+        </div>
+
+        {/* Mini candlestick chart */}
+        <div className="relative h-32 mb-4">
+          <svg className="w-full h-full" preserveAspectRatio="none" viewBox="0 0 400 128">
+            {/* Grid lines */}
+            {[0, 32, 64, 96, 128].map(y => (
+              <line key={y} x1="0" y1={y} x2="400" y2={y} stroke="var(--border)" strokeWidth="0.5" opacity="0.5" />
+            ))}
+            {/* Candles */}
+            {candles.map((c, i) => {
+              const x = (i / 40) * 400 + 4
+              const w = 6
+              const openY = 120 - ((c.open - minPrice) / priceRange) * 110 + 4
+              const closeY = 120 - ((c.close - minPrice) / priceRange) * 110 + 4
+              const highY = 120 - ((c.high - minPrice) / priceRange) * 110 + 4
+              const lowY = 120 - ((c.low - minPrice) / priceRange) * 110 + 4
+              const color = c.isUp ? '#00E676' : '#FF5252'
+              return (
+                <g key={i}>
+                  <line x1={x + w/2} y1={highY} x2={x + w/2} y2={lowY} stroke={color} strokeWidth="1" opacity="0.6" />
+                  <rect x={x} y={Math.min(openY, closeY)} width={w} height={Math.abs(closeY - openY) || 1} fill={color} opacity="0.8" rx="1" />
+                </g>
+              )
+            })}
+          </svg>
+        </div>
+
+        {/* AI Signal */}
+        <div className="flex items-center gap-3 p-3 rounded-lg glass-gold mb-3">
+          <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-[#F5C542] to-[#E09B2E] flex items-center justify-center shrink-0">
+            <Brain className="w-4 h-4 text-[#0B0F19]" strokeWidth={2.5} />
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="flex items-center gap-2">
+              <span className="text-xs font-bold text-foreground">AI Signal</span>
+              <span className="text-[9px] font-mono font-bold px-1.5 py-0.5 rounded bg-[#00E676]/15 text-[#00E676] border border-[#00E676]/30 uppercase">Buy</span>
+            </div>
+            <div className="text-[11px] text-muted-foreground mt-0.5">Confidence: 92% · Multi-timeframe aligned</div>
+          </div>
+          <div className="text-right shrink-0">
+            <div className="text-xs font-mono font-bold text-[#F5C542]">$4,012</div>
+            <div className="text-[10px] text-muted-foreground">Entry</div>
+          </div>
+        </div>
+
+        {/* Market sentiment + indicators */}
+        <div className="grid grid-cols-3 gap-2 mb-4">
+          <div className="p-2.5 rounded-lg glass">
+            <div className="text-[10px] text-muted-foreground uppercase tracking-wide">RSI</div>
+            <div className={cn('text-sm font-mono font-bold', indicators && indicators.rsi > 70 ? 'text-[#FF5252]' : indicators && indicators.rsi < 30 ? 'text-[#00E676]' : 'text-foreground')}>
+              {indicators ? indicators.rsi.toFixed(1) : '—'}
+            </div>
+          </div>
+          <div className="p-2.5 rounded-lg glass">
+            <div className="text-[10px] text-muted-foreground uppercase tracking-wide">ATR</div>
+            <div className="text-sm font-mono font-bold text-foreground">
+              {indicators ? `$${indicators.atr.toFixed(2)}` : '—'}
+            </div>
+          </div>
+          <div className="p-2.5 rounded-lg glass">
+            <div className="text-[10px] text-muted-foreground uppercase tracking-wide">Trend</div>
+            <div className="text-sm font-mono font-bold text-[#00E676]">Bullish</div>
+          </div>
+        </div>
+
+        {/* Open workspace button */}
+        <button
+          onClick={() => onNavigate('trading')}
+          className="w-full h-10 rounded-xl flex items-center justify-center gap-2 text-xs font-semibold text-[#0B0F19] transition-all duration-200 hover:opacity-90 active:scale-[0.98]"
+          style={{ background: 'linear-gradient(135deg, #F5C542, #E09B2E)', boxShadow: '0 4px 16px rgba(245, 197, 66, 0.25)' }}
+        >
+          <LineChart className="w-3.5 h-3.5" strokeWidth={2.5} />
+          Open Trading Workspace
+          <ArrowRight className="w-3.5 h-3.5" strokeWidth={2.5} />
+        </button>
+      </LiquidGlassCard>
+    </div>
   )
 }
 

@@ -2,10 +2,12 @@
 
 import * as React from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Sun, Moon, User } from 'lucide-react'
+import { Sun, Moon, User, Search, Bell, Globe, ChevronDown } from 'lucide-react'
 import { useTheme } from 'next-themes'
 import { cn } from '@/lib/utils'
 import { BrandLogo } from './brand-logo'
+import { useI18n } from '@/lib/i18n/context'
+import { LANGUAGES } from '@/lib/i18n/types'
 
 interface HeaderProps {
   onMenuClick: () => void
@@ -28,26 +30,35 @@ const NAV_ITEMS = [
 ]
 
 /* ============================================
-   Header — 2026 premium unified sticky bar
+   Header — 2026 premium desktop sticky bar
    Layout: Logo (left) | Nav (center) | Controls (right)
+   Desktop controls: Search | Language | Theme | Notifications | Account
    ============================================ */
 export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, title, subtitle }: HeaderProps) {
   const [mounted, setMounted] = React.useState(false)
-  React.useEffect(() => setMounted(true), [])
+  const [scrolled, setScrolled] = React.useState(false)
+  React.useEffect(() => {
+    setMounted(true)
+    const onScroll = () => setScrolled(window.scrollY > 10)
+    window.addEventListener('scroll', onScroll, { passive: true })
+    return () => window.removeEventListener('scroll', onScroll)
+  }, [])
 
   return (
     <header
-      className="sticky top-0 z-40 overflow-x-hidden"
+      className="sticky top-0 z-40 overflow-x-hidden transition-all duration-300"
       style={{
-        background: 'color-mix(in oklch, var(--background) 78%, transparent)',
+        background: scrolled
+          ? 'color-mix(in oklch, var(--background) 85%, transparent)'
+          : 'color-mix(in oklch, var(--background) 70%, transparent)',
         backdropFilter: 'blur(24px) saturate(180%)',
         WebkitBackdropFilter: 'blur(24px) saturate(180%)',
-        borderBottom: '1px solid var(--border)',
+        borderBottom: scrolled ? '1px solid var(--border)' : '1px solid transparent',
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
-        <div className="flex items-center justify-between h-16 lg:h-[68px]">
-          {/* ===== LEFT: Logo (theme-aware) ===== */}
+      <div className="max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        <div className="flex items-center justify-between h-16 lg:h-[72px]">
+          {/* ===== LEFT: Logo ===== */}
           <div className="flex items-center gap-2.5 shrink-0">
             <button
               onClick={() => onNavigate('home')}
@@ -62,7 +73,7 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
             </button>
           </div>
 
-          {/* ===== CENTER: Navigation (desktop only) ===== */}
+          {/* ===== CENTER: Navigation (desktop only, lg+) ===== */}
           <nav className="hidden lg:flex items-center gap-1" aria-label="Primary">
             {NAV_ITEMS.map(item => {
               const active = activeSection === item.id
@@ -95,13 +106,22 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
 
           {/* ===== RIGHT: Controls ===== */}
           <div className="flex items-center gap-1 sm:gap-1.5 shrink-0">
-            {/* Theme Toggle — icon only, no container */}
+            {/* Search — desktop only */}
+            <SearchButton />
+
+            {/* Language Selector — desktop only */}
+            <LanguageSelector />
+
+            {/* Theme Toggle */}
             <ThemeToggle />
 
-            {/* User Account — icon only, no container */}
+            {/* Notifications — desktop only */}
+            <NotificationsButton />
+
+            {/* User Account */}
             <UserAccountButton onClick={onAuthClick} />
 
-            {/* Hamburger — mobile only, no container */}
+            {/* Hamburger — mobile/tablet only */}
             <PremiumHamburger onClick={onMenuClick} />
           </div>
         </div>
@@ -111,8 +131,103 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
 }
 
 /* ============================================
+   SearchButton — premium search trigger
+   ============================================ */
+function SearchButton() {
+  return (
+    <button
+      aria-label="Search"
+      className="hidden lg:flex items-center gap-2 h-9 px-3 rounded-lg text-muted-foreground hover:text-foreground transition-colors duration-200 hover:bg-foreground/[5%] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
+    >
+      <Search className="w-[16px] h-[16px]" strokeWidth={2} />
+      <span className="text-xs font-medium">Search</span>
+      <kbd className="hidden xl:inline-flex items-center gap-0.5 px-1.5 py-0.5 rounded text-[9px] font-mono font-semibold bg-muted border border-border text-muted-foreground">
+        ⌘K
+      </kbd>
+    </button>
+  )
+}
+
+/* ============================================
+   LanguageSelector — premium dropdown
+   ============================================ */
+function LanguageSelector() {
+  const { language, setLanguage } = useI18n()
+  const [open, setOpen] = React.useState(false)
+  const current = LANGUAGES.find(l => l.code === language)
+
+  return (
+    <div className="relative hidden lg:block">
+      <button
+        onClick={() => setOpen(o => !o)}
+        aria-label="Select language"
+        className="flex items-center gap-1.5 h-9 px-2.5 rounded-lg text-muted-foreground hover:text-foreground transition-colors duration-200 hover:bg-foreground/[5%] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
+      >
+        <Globe className="w-[16px] h-[16px]" strokeWidth={2} />
+        <span className="text-xs font-medium uppercase">{current?.code || 'EN'}</span>
+        <ChevronDown className={cn('w-3 h-3 transition-transform duration-200', open && 'rotate-180')} />
+      </button>
+      <AnimatePresence>
+        {open && (
+          <>
+            <div className="fixed inset-0 z-40" onClick={() => setOpen(false)} />
+            <motion.div
+              initial={{ opacity: 0, y: 8, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 8, scale: 0.96 }}
+              transition={{ duration: 0.18, ease: [0.22, 1, 0.36, 1] }}
+              className="absolute right-0 top-full mt-2 w-44 rounded-xl p-1.5 z-50"
+              style={{
+                background: 'var(--popover)',
+                border: '1px solid var(--border)',
+                boxShadow: '0 12px 40px rgba(0,0,0,0.3)',
+                backdropFilter: 'blur(24px) saturate(180%)',
+                WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+              }}
+            >
+              {LANGUAGES.map(lang => (
+                <button
+                  key={lang.code}
+                  onClick={() => { setLanguage(lang.code); setOpen(false) }}
+                  className={cn(
+                    'w-full flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-colors duration-150',
+                    language === lang.code
+                      ? 'text-foreground bg-foreground/[5%]'
+                      : 'text-muted-foreground hover:text-foreground hover:bg-foreground/[5%]'
+                  )}
+                >
+                  <span>{lang.nativeName}</span>
+                  <span className="font-mono text-[10px] uppercase opacity-60">{lang.code}</span>
+                </button>
+              ))}
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+    </div>
+  )
+}
+
+/* ============================================
+   NotificationsButton — bell with badge
+   ============================================ */
+function NotificationsButton() {
+  const [hasUnread] = React.useState(true)
+  return (
+    <button
+      aria-label="Notifications"
+      className="hidden lg:flex relative w-9 h-9 items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 hover:bg-foreground/[5%] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
+    >
+      <Bell className="w-[17px] h-[17px]" strokeWidth={2} />
+      {hasUnread && (
+        <span className="absolute top-1.5 right-1.5 w-2 h-2 rounded-full bg-[#F5C542] ring-2 ring-background" />
+      )}
+    </button>
+  )
+}
+
+/* ============================================
    ThemeToggle — icon-only, smooth rotation/fade
-   No background, no container
    ============================================ */
 function ThemeToggle() {
   const { theme, setTheme } = useTheme()
@@ -125,7 +240,7 @@ function ThemeToggle() {
     <button
       onClick={toggle}
       aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
-      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
+      className="relative w-9 h-9 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 hover:bg-foreground/[5%] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
     >
       <AnimatePresence mode="wait" initial={false}>
         {mounted && theme === 'dark' ? (
@@ -137,7 +252,7 @@ function ThemeToggle() {
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="absolute"
           >
-            <Moon className="w-[19px] h-[19px]" strokeWidth={2} />
+            <Moon className="w-[17px] h-[17px]" strokeWidth={2} />
           </motion.div>
         ) : (
           <motion.div
@@ -148,7 +263,7 @@ function ThemeToggle() {
             transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
             className="absolute"
           >
-            <Sun className="w-[19px] h-[19px]" strokeWidth={2} />
+            <Sun className="w-[17px] h-[17px]" strokeWidth={2} />
           </motion.div>
         )}
       </AnimatePresence>
@@ -157,8 +272,7 @@ function ThemeToggle() {
 }
 
 /* ============================================
-   UserAccountButton — icon only, no container
-   Premium scale hover effect
+   UserAccountButton — icon only, premium scale hover
    ============================================ */
 function UserAccountButton({ onClick }: { onClick: () => void }) {
   return (
@@ -168,17 +282,15 @@ function UserAccountButton({ onClick }: { onClick: () => void }) {
       whileTap={{ scale: 0.94 }}
       transition={{ type: 'spring', stiffness: 400, damping: 22 }}
       aria-label="Sign in to your account"
-      className="relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
+      className="relative w-9 h-9 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 hover:bg-foreground/[5%] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
     >
-      <User className="w-[19px] h-[19px]" strokeWidth={2} />
+      <User className="w-[17px] h-[17px]" strokeWidth={2} />
     </motion.button>
   )
 }
 
 /* ============================================
-   PremiumHamburger — 3 lines, middle shorter
-   Morphs to X, no container, large touch target
-   Mobile/tablet only (below lg)
+   PremiumHamburger — mobile/tablet only
    ============================================ */
 function PremiumHamburger({ onClick }: { onClick: () => void }) {
   const [isOpen, setIsOpen] = React.useState(false)
@@ -193,24 +305,21 @@ function PremiumHamburger({ onClick }: { onClick: () => void }) {
       onClick={handleClick}
       aria-label="Open menu"
       aria-expanded={isOpen}
-      className="lg:hidden relative w-10 h-10 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
+      className="lg:hidden relative w-9 h-9 flex items-center justify-center rounded-lg text-foreground/70 hover:text-foreground transition-colors duration-200 hover:bg-foreground/[5%] focus:outline-none focus-visible:ring-2 focus-visible:ring-[#F5C542]"
     >
       <div className="relative w-[20px] h-[14px] flex flex-col justify-between items-center">
-        {/* Top line — full width */}
         <motion.span
           className="block h-[2px] rounded-full bg-current"
           style={{ width: '20px', transformOrigin: 'center' }}
           animate={isOpen ? { rotate: 45, y: 6 } : { rotate: 0, y: 0 }}
           transition={{ type: 'spring', stiffness: 380, damping: 24 }}
         />
-        {/* Middle line — SHORTER (14px vs 20px) */}
         <motion.span
           className="block h-[2px] rounded-full bg-current self-center"
           style={{ width: '14px', transformOrigin: 'center' }}
           animate={isOpen ? { opacity: 0, scaleX: 0 } : { opacity: 1, scaleX: 1 }}
           transition={{ duration: 0.15 }}
         />
-        {/* Bottom line — full width */}
         <motion.span
           className="block h-[2px] rounded-full bg-current"
           style={{ width: '20px', transformOrigin: 'center' }}
