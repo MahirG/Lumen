@@ -247,12 +247,13 @@ export default function Home() {
         <Footer onNavigate={navigateToSection} />
       </div>
 
-      {/* Premium mobile navigation — Apple-inspired full-screen overlay */}
+      {/* Premium mobile navigation — compact side drawer */}
       <MobileNav
         isOpen={mobileNavOpen}
         onClose={() => setMobileNavOpen(false)}
         onNavigate={navigateToSection}
         activeSection={activeSection}
+        onAuthClick={() => setAuthOpen(true)}
       />
 
       {/* Authentication modal — premium glassmorphism sign-in/sign-up */}

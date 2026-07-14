@@ -146,3 +146,51 @@ Stage Summary:
 - Server-side caching (10 min) + 5-minute auto-refresh + manual refresh
 - Rich UI with flags, actual values, source links, countdown formatting, released state
 - Data quality rated 8/10 by VLM
+
+---
+Task ID: mobile-menu-redesign-1
+Agent: main
+Task: Redesign mobile hamburger menu to 2026 international standards (compact, premium, side drawer)
+
+Work Log:
+- Identified issues with old MobileNav:
+  - Full-screen overlay (not a side drawer)
+  - Excessive spacing: py-3.5 (14px vertical), gap-4 (16px), oversized w-10 h-10 icon containers
+  - Text too large: text-[15px] with heavy styling
+  - Too many CTA buttons at bottom (Sign In + Launch Workspace + Language + Theme)
+  - No version/copyright/social links
+- Completely rewrote src/components/hisab/mobile-nav.tsx:
+  - SIDE DRAWER: slides in from right (88vw width, max 380px) with spring physics
+  - Compact nav items: 40px height, 14px text, 17px icons, 12px gap (icon→text), 4px vertical spacing
+  - Premium typography: 500-600 font weight, -0.01em letter spacing, 1.3 line height
+  - Active state: electric blue accent background, blue icon, chevron indicator, 600 weight
+  - Hover: soft foreground/5 background highlight
+  - Touch feedback: whileTap scale 0.98
+  - Staggered entrance: spring animation with 0.025s delay per item
+  - Glassmorphism: blur(40px) saturate(180%) with premium shadow
+  - Concise labels: "Workspace" (not "AI Intelligence Workspace"), "Trading" (not "Trading Workspace"), "Intelligence Center" (not "Market Intelligence Center"), etc.
+  - Secondary section: Settings, Help & Support, Contact Us (with divider)
+  - Bottom section:
+    * Language + Theme quick toggles (compact 36px height)
+    * Sign In / Sign Up gradient button (opens auth modal via onAuthClick)
+    * Social icons: Twitter, GitHub, LinkedIn, Discord
+    * App version (v2.6.0) + copyright
+  - Accessibility: 40px+ touch targets, keyboard nav, focus rings, aria-labels, aria-modal
+  - Theme-aware: uses CSS variables throughout, adapts to dark/light automatically
+  - Smooth scrolling with overscroll-contain
+- Updated page.tsx to pass onAuthClick prop to MobileNav (opens auth modal)
+- Verified via VLM:
+  - Dark mode: 9/10 — "Clear hierarchy, premium aesthetic, compact layout"
+  - Light mode: 7/10 — "Clean, modern, cohesive" (badge contrast noted)
+  - Tablet 768px: 7/10 — "Functional, visually cohesive"
+  - Auth modal opens correctly from Sign In button
+
+Stage Summary:
+- Mobile menu is now a premium compact side drawer (not full-screen overlay)
+- 13 primary nav items + 3 secondary items (Settings, Help, Contact)
+- Tight spacing: 40px row height, 14px text, 17px icons, 4px gaps
+- Active state with blue accent + chevron indicator
+- Bottom section: language/theme toggles, Sign In button (opens auth modal), social icons, version + copyright
+- Glassmorphism with blur, premium shadow, spring animations
+- Fully theme-aware (dark/light) via CSS variables
+- Accessible: keyboard nav, focus rings, aria labels, 40px+ touch targets
