@@ -52,42 +52,35 @@ export function Landing({ onNavigate }: LandingProps) {
 function HeroSection({ onNavigate, heroOpacity }: any) {
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-background">
-      {/* ====== LAYER 1: Animated gradient background (NO image) ====== */}
+      {/* ====== LAYER 1: Minimal dark background (almost no light) ====== */}
       <div className="absolute inset-0 z-0 pointer-events-none">
-        {/* Deep navy base with radial brand glows */}
+        {/* Very subtle radial glow — barely visible */}
         <div
           className="absolute inset-0"
           style={{
             background: `
-              radial-gradient(ellipse 60% 50% at 15% 30%, rgba(245, 197, 66, 0.12), transparent 60%),
-              radial-gradient(ellipse 50% 40% at 85% 70%, rgba(245, 197, 66, 0.10), transparent 60%),
-              radial-gradient(ellipse 70% 50% at 50% 100%, rgba(0, 230, 118, 0.06), transparent 65%)
+              radial-gradient(ellipse 60% 50% at 15% 30%, rgba(245, 197, 66, 0.03), transparent 60%),
+              radial-gradient(ellipse 50% 40% at 85% 70%, rgba(245, 197, 66, 0.02), transparent 60%)
             `,
           }}
         />
-        {/* Animated moving glow blobs */}
+        {/* Faint moving glow blobs — barely visible */}
         <motion.div
-          animate={{ x: [0, 60, 0], y: [0, -30, 0], opacity: [0.3, 0.5, 0.3] }}
+          animate={{ x: [0, 60, 0], y: [0, -30, 0], opacity: [0.05, 0.08, 0.05] }}
           transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(245, 197, 66, 0.15), transparent 70%)', filter: 'blur(40px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(245, 197, 66, 0.04), transparent 70%)', filter: 'blur(60px)' }}
         />
         <motion.div
-          animate={{ x: [0, -50, 0], y: [0, 40, 0], opacity: [0.2, 0.4, 0.2] }}
+          animate={{ x: [0, -50, 0], y: [0, 40, 0], opacity: [0.03, 0.06, 0.03] }}
           transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
           className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(245, 197, 66, 0.12), transparent 70%)', filter: 'blur(40px)' }}
-        />
-        <motion.div
-          animate={{ x: [0, 40, 0], y: [0, -50, 0], opacity: [0.15, 0.3, 0.15] }}
-          transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
-          className="absolute top-1/2 right-1/3 w-72 h-72 rounded-full"
-          style={{ background: 'radial-gradient(circle, rgba(0, 230, 118, 0.10), transparent 70%)', filter: 'blur(40px)' }}
+          style={{ background: 'radial-gradient(circle, rgba(245, 197, 66, 0.03), transparent 70%)', filter: 'blur(60px)' }}
         />
       </div>
 
-      {/* Grid background */}
-      <div className="absolute inset-0 z-[1] grid-bg-fine opacity-25 pointer-events-none" />
+      {/* Grid background — almost invisible */}
+      <div className="absolute inset-0 z-[1] grid-bg-fine opacity-[0.03] pointer-events-none" />
 
       {/* ====== LAYER 2: Enhanced particle field ====== */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
@@ -99,9 +92,9 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
         <FinancialGlobe />
       </div>
 
-      {/* Subtle gradient overlays for depth */}
-      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-background/20 via-transparent to-background/80 pointer-events-none" />
-      <div className="absolute inset-0 z-[3] bg-gradient-to-r from-background/40 via-transparent to-transparent pointer-events-none" />
+      {/* Subtle gradient overlays for depth — minimal */}
+      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
+      <div className="absolute inset-0 z-[3] bg-gradient-to-r from-background/60 via-transparent to-transparent pointer-events-none" />
 
       {/* ====== LAYER 5: Hero content ====== */}
       <motion.div

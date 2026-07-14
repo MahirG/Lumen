@@ -269,7 +269,7 @@ export default function Home() {
       {/* Scroll to top button — opposite side of AI bot (bottom-LEFT) */}
       <ScrollToTopButton />
 
-      {/* Splash screen — logo_transparent.png centered on navy with fade-in */}
+      {/* Splash screen — ApexEAPro brand logo centered on dark with fade-in */}
       <SplashScreen />
     </div>
   )

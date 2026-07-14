@@ -4,12 +4,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useEffect, useState } from 'react'
 
 /**
- * SplashScreen — shows logo_transparent.png centered on the navy app
+ * SplashScreen — shows the ApexEAPro brand logo centered on the dark app
  * background with a subtle fade-in + fade-out animation.
  *
- * Appears on initial mount only, then disappears once the app is ready.
- * Uses logo_transparent.png (not logo_on_navy.png) because the surrounding
- * area is already the app's navy background.
+ * Uses apexeapro_logo_horizontal_dark_transparent.png because the surrounding
+ * area is the app's dark background (#0B0F19).
  */
 export function SplashScreen() {
   const [visible, setVisible] = useState(true)
