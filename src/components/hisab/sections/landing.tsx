@@ -41,63 +41,74 @@ export function Landing({ onNavigate }: LandingProps) {
 
 /* ============================================
    HERO — Cinematic AI Operating System
-   Layered structure:
-   Layer 1: Premium background image
-   Layer 2: Theme-aware gradient overlay
-   Layer 3: Existing animations (particles, globe, market flow)
-   Layer 4: Hero content (heading, CTAs, stats)
+   Layered structure (NO person image):
+   Layer 1: Animated gradient + grid background
+   Layer 2: Enhanced particle field (multi-color, multi-direction)
+   Layer 3: Rising trading candles (ALL screens) + price line graph
+   Layer 4: 3D financial globe (desktop)
+   Layer 5: Hero content (heading, CTAs, stats)
    ============================================ */
 
 function HeroSection({ onNavigate, heroOpacity }: any) {
-  // Subtle parallax for the background image — desktop only.
-  // Mobile disables this for performance (the inline transform is
-  // only applied above the lg breakpoint via a state check).
-  const [isDesktop, setIsDesktop] = React.useState(false)
-  React.useEffect(() => {
-    const mq = window.matchMedia('(min-width: 1024px)')
-    const update = () => setIsDesktop(mq.matches)
-    update()
-    mq.addEventListener('change', update)
-    return () => mq.removeEventListener('change', update)
-  }, [])
-
-  const { scrollY } = useScroll()
-  const bgY = useTransform(scrollY, [0, 800], isDesktop ? [0, 80] : [0, 0])
-  const bgScale = useTransform(scrollY, [0, 800], isDesktop ? [1, 1.08] : [1, 1])
-
   return (
     <section className="relative min-h-[92vh] flex items-center overflow-hidden bg-background">
-      {/* ====== LAYER 1: Premium background image ====== */}
-      <motion.div
-        aria-hidden="true"
-        style={{ y: bgY, scale: bgScale }}
-        className="absolute inset-0 z-0 pointer-events-none"
-      >
-        <div className="hero-bg-image" />
-      </motion.div>
+      {/* ====== LAYER 1: Animated gradient background (NO image) ====== */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
+        {/* Deep navy base with radial brand glows */}
+        <div
+          className="absolute inset-0"
+          style={{
+            background: `
+              radial-gradient(ellipse 60% 50% at 15% 30%, rgba(22, 119, 255, 0.12), transparent 60%),
+              radial-gradient(ellipse 50% 40% at 85% 70%, rgba(124, 92, 252, 0.10), transparent 60%),
+              radial-gradient(ellipse 70% 50% at 50% 100%, rgba(16, 185, 129, 0.06), transparent 65%)
+            `,
+          }}
+        />
+        {/* Animated moving glow blobs */}
+        <motion.div
+          animate={{ x: [0, 60, 0], y: [0, -30, 0], opacity: [0.3, 0.5, 0.3] }}
+          transition={{ duration: 20, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-1/4 left-1/4 w-96 h-96 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(22, 119, 255, 0.15), transparent 70%)', filter: 'blur(40px)' }}
+        />
+        <motion.div
+          animate={{ x: [0, -50, 0], y: [0, 40, 0], opacity: [0.2, 0.4, 0.2] }}
+          transition={{ duration: 25, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute bottom-1/3 right-1/4 w-80 h-80 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(124, 92, 252, 0.12), transparent 70%)', filter: 'blur(40px)' }}
+        />
+        <motion.div
+          animate={{ x: [0, 40, 0], y: [0, -50, 0], opacity: [0.15, 0.3, 0.15] }}
+          transition={{ duration: 30, repeat: Infinity, ease: 'easeInOut' }}
+          className="absolute top-1/2 right-1/3 w-72 h-72 rounded-full"
+          style={{ background: 'radial-gradient(circle, rgba(16, 185, 129, 0.10), transparent 70%)', filter: 'blur(40px)' }}
+        />
+      </div>
 
-      {/* ====== LAYER 2: Theme-aware overlay + brand tint ====== */}
-      <div className="hero-bg-overlay z-[1]" aria-hidden="true" />
-      <div className="hero-bg-tint z-[1]" aria-hidden="true" />
+      {/* Grid background */}
+      <div className="absolute inset-0 z-[1] grid-bg-fine opacity-25 pointer-events-none" />
 
-      {/* ====== LAYER 3: Existing animated effects ====== */}
-      {/* Animated particle background */}
+      {/* ====== LAYER 2: Enhanced particle field ====== */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
         <ParticleField />
       </div>
-      {/* 3D rotating financial globe */}
+
+      {/* ====== LAYER 3: Rising trading candles (ALL screens) ====== */}
+      <div className="absolute inset-0 z-[4] pointer-events-none">
+        <TradingCandleFlow />
+      </div>
+
+      {/* ====== LAYER 4: 3D financial globe (desktop only) ====== */}
       <div className="absolute inset-0 z-[2] pointer-events-none">
         <FinancialGlobe />
       </div>
-      {/* Mobile/tablet market flow animation */}
-      <div className="absolute inset-0 z-[2] pointer-events-none">
-        <MobileMarketFlow />
-      </div>
-      {/* Gradient overlays */}
-      <div className="absolute inset-0 z-[2] bg-gradient-to-b from-background/40 via-transparent to-background pointer-events-none" />
-      <div className="absolute inset-0 z-[2] grid-bg-fine opacity-20 pointer-events-none" />
 
-      {/* ====== LAYER 4: Hero content ====== */}
+      {/* Subtle gradient overlays for depth (below candles so they stay visible) */}
+      <div className="absolute inset-0 z-[3] bg-gradient-to-b from-background/20 via-transparent to-background/80 pointer-events-none" />
+      <div className="absolute inset-0 z-[3] bg-gradient-to-r from-background/40 via-transparent to-transparent pointer-events-none" />
+
+      {/* ====== LAYER 5: Hero content ====== */}
       <motion.div
         style={{ opacity: heroOpacity }}
         className="relative z-10 max-w-7xl mx-auto px-4 lg:px-6 py-20 w-full"
@@ -120,7 +131,7 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-base md:text-lg text-foreground/80 max-w-2xl leading-relaxed mb-8 drop-shadow-sm"
+            className="text-base md:text-lg text-foreground/80 max-w-2xl leading-relaxed mb-8"
           >
             Institutional-grade market intelligence, powered by advanced artificial intelligence
             and designed for traders who demand precision.
@@ -170,28 +181,123 @@ function HeroSection({ onNavigate, heroOpacity }: any) {
 }
 
 /* ============================================
-   PARTICLE FIELD — Animated background
+   PARTICLE FIELD — Enhanced multi-layer particle system
+   3 types: floating dust, rising sparks, drifting embers
    ============================================ */
 
 function ParticleField() {
-  const particles = React.useMemo(() =>
-    Array.from({ length: 40 }, () => ({
+  // Layer 1: Floating dust particles (slow, ambient)
+  const dust = React.useMemo(() =>
+    Array.from({ length: 25 }, () => ({
       x: Math.random() * 100,
       y: Math.random() * 100,
-      size: Math.random() * 2 + 0.5,
-      duration: Math.random() * 20 + 10,
-      delay: Math.random() * 5,
+      size: Math.random() * 2.5 + 0.5,
+      duration: Math.random() * 25 + 15,
+      delay: Math.random() * 8,
+      drift: (Math.random() - 0.5) * 40,
     })), []
   )
+
+  // Layer 2: Rising sparks (fast, bright, multi-color)
+  const sparks = React.useMemo(() =>
+    Array.from({ length: 12 }, (_, i) => ({
+      x: Math.random() * 100,
+      size: Math.random() * 2 + 1,
+      duration: Math.random() * 8 + 6,
+      delay: Math.random() * 6,
+      riseHeight: 200 + Math.random() * 400,
+      color: i % 4 === 0 ? '#1677FF' : i % 4 === 1 ? '#10B981' : i % 4 === 2 ? '#F5B942' : '#7C5CFC',
+    })), []
+  )
+
+  // Layer 3: Drifting embers (medium, horizontal movement)
+  const embers = React.useMemo(() =>
+    Array.from({ length: 8 }, (_, i) => ({
+      x: Math.random() * 100,
+      y: 20 + Math.random() * 60,
+      size: Math.random() * 3 + 1,
+      duration: Math.random() * 15 + 12,
+      delay: Math.random() * 5,
+      direction: Math.random() > 0.5 ? 1 : -1,
+      color: i % 3 === 0 ? 'rgba(22, 119, 255, 0.4)' : i % 3 === 1 ? 'rgba(16, 185, 129, 0.35)' : 'rgba(245, 185, 66, 0.3)',
+    })), []
+  )
+
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
-      {particles.map((p, i) => (
+      {/* Layer 1: Floating dust */}
+      {dust.map((p, i) => (
         <motion.div
-          key={i}
-          className="absolute rounded-full bg-white/30"
-          style={{ left: `${p.x}%`, top: `${p.y}%`, width: p.size, height: p.size }}
-          animate={{ y: [0, -30, 0], opacity: [0, 0.6, 0] }}
+          key={`dust-${i}`}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            background: 'rgba(180, 200, 230, 0.4)',
+            boxShadow: `0 0 ${p.size * 2}px rgba(180, 200, 230, 0.2)`,
+          }}
+          animate={{
+            y: [0, -40, 0],
+            x: [0, p.drift, 0],
+            opacity: [0, 0.7, 0],
+          }}
           transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: 'easeInOut' }}
+        />
+      ))}
+
+      {/* Layer 2: Rising sparks (bright, colored) */}
+      {sparks.map((p, i) => (
+        <motion.div
+          key={`spark-${i}`}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.x}%`,
+            bottom: '0%',
+            width: p.size,
+            height: p.size,
+            background: p.color,
+            boxShadow: `0 0 ${p.size * 4}px ${p.color}, 0 0 ${p.size * 8}px ${p.color}40`,
+          }}
+          animate={{
+            y: [0, -p.riseHeight],
+            opacity: [0, 1, 0],
+            scale: [0.5, 1.2, 0.3],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: 'easeOut',
+          }}
+        />
+      ))}
+
+      {/* Layer 3: Drifting embers (horizontal) */}
+      {embers.map((p, i) => (
+        <motion.div
+          key={`ember-${i}`}
+          className="absolute rounded-full"
+          style={{
+            left: `${p.x}%`,
+            top: `${p.y}%`,
+            width: p.size,
+            height: p.size,
+            background: p.color,
+            boxShadow: `0 0 ${p.size * 3}px ${p.color}`,
+          }}
+          animate={{
+            x: [0, p.direction * 120, 0],
+            y: [0, -30, 0],
+            opacity: [0, 0.6, 0],
+          }}
+          transition={{
+            duration: p.duration,
+            repeat: Infinity,
+            delay: p.delay,
+            ease: 'easeInOut',
+          }}
         />
       ))}
     </div>
@@ -199,152 +305,179 @@ function ParticleField() {
 }
 
 /* ============================================
-   MOBILE MARKET FLOW — Upward flowing market animation
-   Market lines rise from bottom, behind hero text, like rising prices.
+   TRADING CANDLE FLOW — Rising candlesticks on ALL screens
+   Realistic candlestick shapes (body + wick) that rise upward
+   Green (bullish) and red (bearish) candles with glow
    ============================================ */
 
-function MobileMarketFlow() {
-  // Generate candlestick-like shapes that rise upward
+function TradingCandleFlow() {
+  // Generate candlestick data — proper candle with body + wick
   const candles = React.useMemo(() =>
-    Array.from({ length: 14 }, (_, i) => ({
-      x: (i / 14) * 100 + Math.random() * 3,
-      w: 3 + Math.random() * 4,
-      h: 20 + Math.random() * 60,
-      delay: Math.random() * 8,
-      duration: 10 + Math.random() * 8,
-      isUp: Math.random() > 0.4,
+    Array.from({ length: 10 }, (_, i) => ({
+      x: (i / 10) * 100 + Math.random() * 4,
+      bodyWidth: 14 + Math.random() * 12,
+      bodyHeight: 50 + Math.random() * 140,
+      wickHeight: 20 + Math.random() * 50,
+      delay: (i / 10) * 2.5 + Math.random() * 0.8,
+      duration: 11 + Math.random() * 4,
+      isUp: Math.random() > 0.35,
+      riseDistance: 50 + Math.random() * 120,
     })), []
   )
 
-  // Generate rising price line points
-  const linePoints = React.useMemo(() =>
-    Array.from({ length: 20 }, (_, i) => ({
-      x: (i / 19) * 100,
-      delay: i * 0.3,
-      duration: 8 + Math.random() * 6,
-    })), []
-  )
-
+  // Rising price line (SVG path) — visible on all screens
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden lg:hidden" aria-hidden="true">
-      {/* Layer 1: Ambient blue glow rising from bottom */}
+    <div className="absolute inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
+      {/* Ambient glow rising from bottom */}
       <motion.div
-        animate={{ opacity: [0.2, 0.35, 0.2], y: [20, 0, 20] }}
+        animate={{ opacity: [0.4, 0.6, 0.4], y: [20, 0, 20] }}
         transition={{ duration: 10, repeat: Infinity, ease: 'easeInOut' }}
-        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-64 rounded-full"
-        style={{ background: 'radial-gradient(ellipse at center bottom, rgba(22, 119, 255, 0.1), transparent 70%)' }}
+        className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[120%] h-80 rounded-full"
+        style={{ background: 'radial-gradient(ellipse at center bottom, rgba(22, 119, 255, 0.18), transparent 70%)' }}
       />
 
-      {/* Layer 2: Rising candlestick shapes — like market moving up */}
+      {/* Rising candlesticks — proper candle shape with body + wick */}
       <div className="absolute inset-0">
-        {candles.map((c, i) => (
-          <motion.div
-            key={i}
-            className="absolute bottom-0 rounded-sm"
-            style={{
-              left: `${c.x}%`,
-              width: `${c.w}px`,
-              height: `${c.h}px`,
-              background: c.isUp
-                ? 'linear-gradient(to top, rgba(16, 185, 129, 0.08), rgba(16, 185, 129, 0.02))'
-                : 'linear-gradient(to top, rgba(239, 68, 68, 0.06), rgba(239, 68, 68, 0.01))',
-              borderLeft: `1px solid ${c.isUp ? 'rgba(16, 185, 129, 0.12)' : 'rgba(239, 68, 68, 0.08)'}`,
-            }}
-            animate={{
-              y: [40, -10, 40],
-              opacity: [0, 0.6, 0],
-              scaleY: [0.8, 1, 0.8],
-            }}
-            transition={{
-              duration: c.duration,
-              repeat: Infinity,
-              delay: c.delay,
-              ease: 'easeInOut',
-            }}
-          />
-        ))}
+        {candles.map((c, i) => {
+          const totalHeight = c.bodyHeight + c.wickHeight * 2
+          const color = c.isUp ? '#10B981' : '#EF4444'
+          const colorBright = c.isUp ? 'rgba(16, 185, 129, 0.8)' : 'rgba(239, 68, 68, 0.8)'
+          const colorMid = c.isUp ? 'rgba(16, 185, 129, 0.6)' : 'rgba(239, 68, 68, 0.6)'
+          return (
+            <motion.div
+              key={i}
+              className="absolute bottom-0"
+              style={{
+                left: `${c.x}%`,
+                width: `${c.bodyWidth}px`,
+                height: `${totalHeight}px`,
+              }}
+              animate={{
+                y: [0, -c.riseDistance * 0.3, -c.riseDistance, -c.riseDistance * 1.5],
+                opacity: [0, 1, 1, 0],
+                scaleY: [0.6, 1, 1, 0.6],
+              }}
+              transition={{
+                duration: c.duration,
+                repeat: Infinity,
+                delay: c.delay,
+                ease: 'easeOut',
+                times: [0, 0.15, 0.7, 1],
+              }}
+            >
+              {/* Wick (thin vertical line through center) */}
+              <div
+                className="absolute left-1/2 -translate-x-1/2 top-0"
+                style={{
+                  width: '2px',
+                  height: `${totalHeight}px`,
+                  background: c.isUp ? '#10B981' : '#EF4444',
+                  opacity: 0.9,
+                }}
+              />
+              {/* Candle body — solid color */}
+              <div
+                className="absolute left-1/2 -translate-x-1/2 rounded-[3px]"
+                style={{
+                  width: `${c.bodyWidth}px`,
+                  height: `${c.bodyHeight}px`,
+                  top: `${c.wickHeight}px`,
+                  backgroundColor: color,
+                  border: `2px solid ${color}`,
+                  boxShadow: `0 0 12px ${color}, 0 0 24px ${color}80`,
+                }}
+              />
+            </motion.div>
+          )
+        })}
       </div>
 
-      {/* Layer 3: Rising price line — smooth upward flowing graph */}
-      <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 375 667">
-        {/* Main rising line — electric blue */}
+      {/* Rising price line graph — enhanced visibility */}
+      <svg
+        className="absolute inset-0 w-full h-full"
+        preserveAspectRatio="none"
+        viewBox="0 0 1440 900"
+        aria-hidden="true"
+      >
+        {/* Main rising line — electric blue (brighter) */}
         <motion.path
-          d="M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200"
+          d="M-50,800 C150,780 250,700 400,650 C550,600 650,500 800,420 C950,340 1100,280 1300,200 C1400,160 1500,120 1600,80"
           fill="none"
-          stroke="rgba(22, 119, 255, 0.1)"
-          strokeWidth="2"
+          stroke="rgba(22, 119, 255, 0.45)"
+          strokeWidth="3"
           strokeLinecap="round"
           animate={{
             d: [
-              'M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200',
-              'M-20,590 C50,570 80,500 130,470 C180,440 210,380 260,330 C310,280 340,230 390,180',
-              'M-20,600 C50,580 80,520 130,490 C180,460 210,400 260,350 C310,300 340,250 390,200',
+              'M-50,800 C150,780 250,700 400,650 C550,600 650,500 800,420 C950,340 1100,280 1300,200 C1400,160 1500,120 1600,80',
+              'M-50,790 C150,760 250,670 400,620 C550,570 650,460 800,380 C950,300 1100,240 1300,160 C1400,120 1500,80 1600,40',
+              'M-50,800 C150,780 250,700 400,650 C550,600 650,500 800,420 C950,340 1100,280 1300,200 C1400,160 1500,120 1600,80',
             ]
           }}
           transition={{ duration: 14, repeat: Infinity, ease: 'easeInOut' }}
         />
-        {/* Secondary line — emerald green */}
+        {/* Secondary line — emerald green (brighter) */}
         <motion.path
-          d="M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270"
+          d="M-50,830 C200,810 300,740 450,690 C600,640 700,560 850,480 C1000,400 1150,350 1350,280 C1450,240 1550,200 1600,170"
           fill="none"
-          stroke="rgba(16, 185, 129, 0.07)"
-          strokeWidth="1.5"
+          stroke="rgba(16, 185, 129, 0.35)"
+          strokeWidth="2.5"
           strokeLinecap="round"
           animate={{
             d: [
-              'M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270',
-              'M-20,610 C60,590 90,530 140,500 C190,470 220,420 270,380 C320,340 350,290 390,250',
-              'M-20,620 C60,600 90,550 140,520 C190,490 220,440 270,400 C320,360 350,310 390,270',
+              'M-50,830 C200,810 300,740 450,690 C600,640 700,560 850,480 C1000,400 1150,350 1350,280 C1450,240 1550,200 1600,170',
+              'M-50,820 C200,790 300,710 450,660 C600,610 700,520 850,440 C1000,360 1150,310 1350,240 C1450,200 1550,160 1600,130',
+              'M-50,830 C200,810 300,740 450,690 C600,640 700,560 850,480 C1000,400 1150,350 1350,280 C1450,240 1550,200 1600,170',
             ]
           }}
           transition={{ duration: 16, repeat: Infinity, ease: 'easeInOut' }}
         />
         {/* Tertiary line — purple */}
         <motion.path
-          d="M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310"
+          d="M-50,860 C250,840 350,770 500,720 C650,670 750,600 900,520 C1050,440 1200,400 1400,340 C1500,300 1550,270 1600,250"
           fill="none"
-          stroke="rgba(124, 92, 252, 0.05)"
-          strokeWidth="1"
+          stroke="rgba(124, 92, 252, 0.28)"
+          strokeWidth="2"
           strokeLinecap="round"
           animate={{
             d: [
-              'M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310',
-              'M-20,630 C70,610 100,550 150,520 C200,490 230,440 280,400 C330,360 360,320 390,290',
-              'M-20,640 C70,620 100,570 150,540 C200,510 230,460 280,420 C330,380 360,340 390,310',
+              'M-50,860 C250,840 350,770 500,720 C650,670 750,600 900,520 C1050,440 1200,400 1400,340 C1500,300 1550,270 1600,250',
+              'M-50,850 C250,820 350,740 500,690 C650,640 750,560 900,480 C1050,400 1200,360 1400,300 C1500,260 1550,230 1600,210',
+              'M-50,860 C250,840 350,770 500,720 C650,670 750,600 900,520 C1050,440 1200,400 1400,340 C1500,300 1550,270 1600,250',
             ]
           }}
           transition={{ duration: 18, repeat: Infinity, ease: 'easeInOut' }}
         />
       </svg>
 
-      {/* Layer 4: Rising glowing particles — like price ticks moving up */}
-      {Array.from({ length: 10 }).map((_, i) => (
-        <motion.div
-          key={i}
-          className="absolute rounded-full"
-          style={{
-            width: 2 + Math.random() * 3,
-            height: 2 + Math.random() * 3,
-            left: `${Math.random() * 100}%`,
-            bottom: '0%',
-            background: i % 3 === 0
-              ? 'rgba(22, 119, 255, 0.5)'
-              : i % 3 === 1
-              ? 'rgba(16, 185, 129, 0.4)'
-              : 'rgba(245, 185, 66, 0.3)',
-          }}
-          animate={{
-            y: [0, -300 - Math.random() * 200],
-            opacity: [0, 0.5, 0],
-          }}
-          transition={{
-            duration: 12 + Math.random() * 8,
-            repeat: Infinity,
-            delay: i * 1.2,
-            ease: 'easeOut',
-          }}
-        />
-      ))}
+      {/* Rising glowing price ticks — bright dots moving up */}
+      {Array.from({ length: 10 }).map((_, i) => {
+        const color = i % 3 === 0 ? '#1677FF' : i % 3 === 1 ? '#10B981' : '#F5B942'
+        return (
+          <motion.div
+            key={`tick-${i}`}
+            className="absolute rounded-full"
+            style={{
+              width: 4,
+              height: 4,
+              left: `${Math.random() * 100}%`,
+              bottom: '0%',
+              background: color,
+              boxShadow: `0 0 10px ${color}, 0 0 20px ${color}60`,
+            }}
+            animate={{
+              y: [0, -400 - Math.random() * 300],
+              opacity: [0, 1, 0],
+              scale: [0.5, 1.5, 0.3],
+            }}
+            transition={{
+              duration: 10 + Math.random() * 8,
+              repeat: Infinity,
+              delay: i * 0.7,
+              ease: 'easeOut',
+            }}
+          />
+        )
+      })}
     </div>
   )
 }
