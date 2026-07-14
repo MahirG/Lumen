@@ -8,13 +8,19 @@ interface BrandLogoProps {
   className?: string
   style?: React.CSSProperties
   alt?: string
+  /** When true, shows only the mark (letter A icon) without the wordmark/tagline */
+  markOnly?: boolean
 }
 
 /**
  * BrandLogo — theme-aware ApexEAPro logo.
  *
- * Uses the LIGHT logo variant (dark text) when the site is in light mode,
- * and the DARK logo variant (light text) when in dark mode.
+ * Full logo:
+ *   - Light mode → apexeapro_logo_horizontal_light_transparent.png (dark text)
+ *   - Dark mode  → apexeapro_logo_horizontal_dark_transparent.png (light text)
+ *
+ * Mark only (letter A icon):
+ *   - Uses apexeapro_mark_transparent.png (gold gradient, works on both themes)
  *
  * Both variants are transparent PNGs, so they blend perfectly with the
  * surrounding background.
@@ -24,6 +30,7 @@ export function BrandLogo({
   className = '',
   style,
   alt = 'ApexEAPro',
+  markOnly = false,
 }: BrandLogoProps) {
   const { theme } = useTheme()
   const [isDark, setIsDark] = useState(true) // default to dark (matches SSR)
@@ -43,9 +50,13 @@ export function BrandLogo({
     return () => observer.disconnect()
   }, [theme])
 
-  const logoSrc = isDark
-    ? '/brand/png/apexeapro_logo_horizontal_dark_transparent.png'
-    : '/brand/png/apexeapro_logo_horizontal_light_transparent.png'
+  // Mark-only uses the gold gradient mark (works on both light & dark)
+  // Full logo uses theme-aware variant
+  const logoSrc = markOnly
+    ? '/brand/png/apexeapro_mark_transparent.png'
+    : isDark
+      ? '/brand/png/apexeapro_logo_horizontal_dark_transparent.png'
+      : '/brand/png/apexeapro_logo_horizontal_light_transparent.png'
 
   return (
     <img

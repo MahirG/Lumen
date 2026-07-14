@@ -37,7 +37,7 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
 
   return (
     <header
-      className="sticky top-0 z-40"
+      className="sticky top-0 z-40 overflow-x-hidden"
       style={{
         background: 'color-mix(in oklch, var(--background) 78%, transparent)',
         backdropFilter: 'blur(24px) saturate(180%)',
@@ -45,7 +45,7 @@ export function Header({ onMenuClick, onAuthClick, activeSection, onNavigate, ti
         borderBottom: '1px solid var(--border)',
       }}
     >
-      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-[1400px] mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <div className="flex items-center justify-between h-16 lg:h-[68px]">
           {/* ===== LEFT: Logo (theme-aware) ===== */}
           <div className="flex items-center gap-2.5 shrink-0">

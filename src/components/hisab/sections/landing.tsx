@@ -25,7 +25,7 @@ export function Landing({ onNavigate }: LandingProps) {
   const heroOpacity = useTransform(scrollY, [0, 600], [1, 0.95])
 
   return (
-    <div className="space-y-0">
+    <div className="space-y-0 overflow-x-hidden">
       <HeroSection onNavigate={onNavigate} heroOpacity={heroOpacity} />
       <MarketTickerSection />
       <AICommandCenterSection onNavigate={onNavigate} />
