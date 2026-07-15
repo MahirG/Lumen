@@ -656,3 +656,163 @@ Never force a setup. Never chase price. Never issue duplicate entries for the sa
 ---
 
 IMPORTANT: This engine is for educational purposes and should not be considered financial advice. Trading involves substantial risk of loss.`
+
+// ============================================================
+// SMART CHART VISUALIZATION ENGINE
+// AI-generated institutional analysis chart with all SMC components
+// ============================================================
+
+export const CHART_COLORS = {
+  // Market elements
+  marketPrice: '#FFFFFF',
+  swingHigh: '#FF5252',
+  swingLow: '#00E676',
+  internalStructure: '#FF9800',
+  externalStructure: '#2196F3',
+  bos: '#2196F3',
+  mss: '#9C27B0',
+  liquiditySweep: '#FFD600',
+  equalHighs: '#FFD600',
+  equalLows: '#FFD600',
+
+  // Zones
+  premiumZone: 'rgba(255, 82, 82, 0.08)',
+  discountZone: 'rgba(0, 230, 118, 0.08)',
+
+  // Fibonacci levels
+  fib_0: '#FFFFFF',
+  fib_0_5: '#9E9E9E',
+  fib_618: '#64B5F6',
+  fib_705: '#00E5FF',
+  fib_71: '#FFD700', // Institutional OTE — Bright Gold
+  fib_786: '#FF9800',
+  fib_91: '#FF5252',
+  fib_neg21: '#00E676',
+
+  // Order blocks
+  bullishOB: '#00E676',
+  bearishOB: '#FF5252',
+  mitigatedOB: 'rgba(255, 255, 255, 0.15)',
+
+  // FVG
+  bullishFVG: 'rgba(0, 230, 118, 0.15)',
+  bearishFVG: 'rgba(255, 82, 82, 0.15)',
+
+  // Trade levels
+  entry: '#00E5FF',
+  stopLoss: '#FF5252',
+  tp1: '#2196F3',
+  tp2: '#00E676',
+
+  // Active trade
+  activeTradeGlow: '#FFD700',
+  activeTradePath: '#FFD700',
+} as const
+
+export const FIB_LEVELS = [
+  { level: 0, label: '0', color: '#FFFFFF' },
+  { level: 0.5, label: '0.5', color: '#9E9E9E' },
+  { level: 0.618, label: '0.618', color: '#64B5F6' },
+  { level: 0.705, label: '0.705', color: '#00E5FF' },
+  { level: 0.71, label: '0.71 — INSTITUTIONAL OTE', color: '#FFD700' },
+  { level: 0.786, label: '0.786', color: '#FF9800' },
+  { level: 0.91, label: '0.91', color: '#FF5252' },
+  { level: -0.21, label: '-0.21', color: '#00E676' },
+] as const
+
+export interface SmartChartAnalysis {
+  trend: 'Bullish' | 'Bearish' | 'Neutral'
+  marketStructure: 'Bullish' | 'Bearish'
+  liquidity: 'Swept' | 'Not Swept'
+  ote: 'Reached' | 'Waiting'
+  orderBlock: 'Fresh' | 'Mitigated'
+  session: 'London' | 'New York' | 'Overlap' | 'Asian'
+  confidence: number
+  tradeStatus: 'WAITING' | 'READY' | 'ACTIVE' | 'TP1 HIT' | 'COMPLETED' | 'STOPPED'
+}
+
+export interface SmartChartCandle {
+  open: number
+  high: number
+  low: number
+  close: number
+  time: number
+}
+
+export interface SmartChartSwing {
+  type: 'high' | 'low'
+  price: number
+  index: number
+  label: string
+}
+
+export interface SmartChartStructure {
+  type: 'internal' | 'external'
+  from: number
+  to: number
+  fromIndex: number
+  toIndex: number
+}
+
+export interface SmartChartBOS {
+  type: 'BOS' | 'MSS'
+  price: number
+  index: number
+  direction: 'up' | 'down'
+}
+
+export interface SmartChartLiquiditySweep {
+  type: 'buy_side' | 'sell_side'
+  price: number
+  index: number
+}
+
+export interface SmartChartOrderBlock {
+  type: 'bullish' | 'bearish'
+  top: number
+  bottom: number
+  startIndex: number
+  endIndex: number
+  mitigated: boolean
+}
+
+export interface SmartChartFVG {
+  type: 'bullish' | 'bearish'
+  top: number
+  bottom: number
+  startIndex: number
+  endIndex: number
+}
+
+export interface SmartChartFibonacci {
+  swingHigh: number
+  swingLow: number
+  direction: 'BUY' | 'SELL'
+}
+
+export interface SmartChartTrade {
+  status: 'NONE' | 'READY' | 'ACTIVE' | 'TP1_HIT' | 'COMPLETED' | 'STOPPED'
+  direction: 'BUY' | 'SELL'
+  entry: number
+  stopLoss: number
+  tp1: number
+  tp2: number
+  currentPrice: number
+  progressPercent: number
+}
+
+export interface SmartChartData {
+  candles: SmartChartCandle[]
+  swings: SmartChartSwing[]
+  structures: SmartChartStructure[]
+  bos: SmartChartBOS[]
+  sweeps: SmartChartLiquiditySweep[]
+  orderBlocks: SmartChartOrderBlock[]
+  fvgs: SmartChartFVG[]
+  fibonacci: SmartChartFibonacci | null
+  trade: SmartChartTrade | null
+  analysis: SmartChartAnalysis
+  premiumZone: { top: number; bottom: number } | null
+  discountZone: { top: number; bottom: number } | null
+}
+
