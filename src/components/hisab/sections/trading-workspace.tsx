@@ -468,29 +468,65 @@ export function TradingWorkspace() {
 
       {/* Smart Chart Visualization — AI institutional analysis */}
       <LiquidGlassCard className="p-4 lg:p-5">
-        <SmartChartVisualizationLazy />
+        <SmartChartVisualizationLazy timeframe={timeframe} />
       </LiquidGlassCard>
     </div>
   )
 }
 
 /* ============================================
-   SmartChartVisualizationLazy — loads Smart Chart with sample data
+   SmartChartVisualizationLazy — loads Smart Chart with LIVE XAUUSD data
+   Fetches /api/candles (real gold-api.com ticks + real SMC analysis),
+   never demo/sample data. Polls every 30s per the Live Update Engine spec.
    ============================================ */
-function SmartChartVisualizationLazy() {
+function SmartChartVisualizationLazy({ timeframe = '15M' }: { timeframe?: Timeframe }) {
   const [Chart, setChart] = React.useState<React.ComponentType<any> | null>(null)
+  const [mod, setMod] = React.useState<typeof import('../smart-chart') | null>(null)
+  const [payload, setPayload] = React.useState<{ candles: any[]; analysis: any } | null>(null)
+  const [error, setError] = React.useState<string | null>(null)
 
   React.useEffect(() => {
-    import('../smart-chart').then(mod => {
-      setChart(() => () => (
-        <mod.SmartChartVisualization
-          data={mod.generateSampleSmartChartData()}
-          symbol="XAUUSD"
-          timeframe="H1"
-        />
-      ))
-    })
+    import('../smart-chart').then(setMod)
   }, [])
+
+  React.useEffect(() => {
+    let cancelled = false
+    async function load() {
+      try {
+        const res = await fetch(`/api/candles?timeframe=${timeframe}`, { cache: 'no-store' })
+        if (!res.ok) throw new Error(`HTTP ${res.status}`)
+        const data = await res.json()
+        if (!cancelled) {
+          setPayload({ candles: data.candles, analysis: data.analysis })
+          setError(null)
+        }
+      } catch (err: any) {
+        if (!cancelled) setError(err.message ?? 'Failed to load live chart data')
+      }
+    }
+    load()
+    const poll = setInterval(load, 30000) // Live Update Engine: redraw on new candle/tick
+    return () => { cancelled = true; clearInterval(poll) }
+  }, [timeframe])
+
+  React.useEffect(() => {
+    if (!mod || !payload) return
+    setChart(() => () => (
+      <mod.SmartChartVisualization
+        data={mod.buildLiveSmartChartData(payload.candles, payload.analysis)}
+        symbol="XAUUSD"
+        timeframe={timeframe}
+      />
+    ))
+  }, [mod, payload, timeframe])
+
+  if (error) {
+    return (
+      <div className="flex items-center justify-center py-8 text-xs text-muted-foreground">
+        Live chart data unavailable — {error}
+      </div>
+    )
+  }
 
   if (!Chart) {
     return (
