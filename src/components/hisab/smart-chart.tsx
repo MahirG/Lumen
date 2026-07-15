@@ -359,6 +359,12 @@ export function SmartChartVisualization({ data, symbol = 'XAUUSD', timeframe = '
           <AIAnalysisPanel analysis={analysis} trade={data.trade} />
         </div>
       </div>
+
+      {/* Trade Lifecycle + Fibonacci Level Ordering */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-3 mt-3">
+        <TradeLifecycle status={analysis.tradeStatus} />
+        <FibonacciOrdering fib={data.fibonacci} trade={data.trade} />
+      </div>
     </div>
   )
 }
@@ -400,6 +406,8 @@ function LightningIcon({ x, y, color }: { x: number; y: number; color: string })
 
 /* ============================================
    FibonacciLevels — 8 levels with labels
+   BUY:  Fib 0 = Swing High, Fib 1 = Swing Low (retracement measured from high down)
+   SELL: Fib 0 = Swing Low, Fib 1 = Swing High (retracement measured from low up)
    ============================================ */
 function FibonacciLevels({
   fib,
@@ -417,10 +425,13 @@ function FibonacciLevels({
   return (
     <g>
       {FIB_LEVELS.map(fibLevel => {
-        // For SELL: swingHigh = 1.0, swingLow = 0.0
-        // For BUY: swingLow = 0.0, swingHigh = 1.0
-        // level -0.21 is the extension
-        const price = fib.swingLow + fibLevel.level * range
+        // BUY: Fib 0 = Swing High (origin of retracement), retracement goes DOWN
+        //   price = swingHigh - level * range
+        // SELL: Fib 0 = Swing Low (origin of retracement), retracement goes UP
+        //   price = swingLow + level * range
+        const price = fib.direction === 'BUY'
+          ? fib.swingHigh - fibLevel.level * range
+          : fib.swingLow + fibLevel.level * range
         const y = priceToY(price)
         const isOTE = fibLevel.level === 0.71
 
@@ -610,7 +621,245 @@ function AIAnalysisPanel({ analysis, trade }: { analysis: SmartChartData['analys
 }
 
 /* ============================================
+   TradeLifecycle — visual flow diagram
+   WAITING → READY → ENTRY → ACTIVE → TP1 → TP2 → COMPLETED
+   ============================================ */
+function TradeLifecycle({ status }: { status: string }) {
+  const stages = [
+    { id: 'WAITING', label: 'WAITING', icon: '🟢', sub: ['Detect HTF Bias', 'Detect Structure', 'Detect Liquidity', 'Detect OTE', 'Detect Order Block', 'Detect Confirmation'] },
+    { id: 'READY', label: 'READY FOR ENTRY', icon: '🟡' },
+    { id: 'ENTRY', label: 'ENTRY TRIGGERED', icon: '⚡' },
+    { id: 'ACTIVE', label: 'ACTIVE TRADE', icon: '🟠', sub: ['Progress %', 'Distance to TP1', 'Distance to TP2'] },
+    { id: 'TP1', label: 'TP1 HIT', icon: '🔵' },
+    { id: 'TP2', label: 'TP2 HIT', icon: '🟢' },
+    { id: 'COMPLETED', label: 'COMPLETED', icon: '🏆' },
+  ]
+
+  // Map the analysis status to lifecycle stage index
+  const statusMap: Record<string, number> = {
+    'WAITING': 0,
+    'READY': 1,
+    'ACTIVE': 3,
+    'TP1 HIT': 4,
+    'COMPLETED': 6,
+    'STOPPED': -1,
+  }
+  const currentIdx = statusMap[status] ?? 0
+
+  return (
+    <div className="rounded-xl p-4" style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
+      <div className="flex items-center gap-2 mb-3">
+        <Activity className="w-3.5 h-3.5 text-[#FFD700]" strokeWidth={2.5} />
+        <span className="text-xs font-bold uppercase tracking-wide text-foreground">Trade Lifecycle</span>
+      </div>
+
+      <div className="space-y-0">
+        {stages.map((stage, i) => {
+          const isPassed = i <= currentIdx
+          const isCurrent = i === currentIdx
+          const isStopped = status === 'STOPPED'
+
+          return (
+            <React.Fragment key={stage.id}>
+              <div className="flex items-start gap-2">
+                <div className="flex flex-col items-center shrink-0">
+                  <div
+                    className={cn(
+                      'w-6 h-6 rounded-full flex items-center justify-center text-[10px] transition-all duration-300',
+                      isCurrent && 'ring-2 ring-[#FFD700] ring-offset-2 ring-offset-background scale-110',
+                    )}
+                    style={{
+                      background: isPassed
+                        ? (stage.id === 'COMPLETED' ? '#00E676' : stage.id === 'TP1' ? '#2196F3' : stage.id === 'TP2' ? '#00E676' : stage.id === 'ACTIVE' ? '#FF9800' : stage.id === 'READY' ? '#FFD700' : '#9E9E9E')
+                        : 'var(--muted)',
+                      opacity: isPassed ? 1 : 0.4,
+                    }}
+                  >
+                    {stage.icon}
+                  </div>
+                  {i < stages.length - 1 && (
+                    <div
+                      className="w-0.5 h-4 mt-0.5"
+                      style={{ background: i < currentIdx ? '#FFD700' : 'var(--border)' }}
+                    />
+                  )}
+                </div>
+                <div className="pt-0.5 pb-2">
+                  <div
+                    className={cn('text-[11px] font-mono font-bold uppercase tracking-wide', isPassed ? 'text-foreground' : 'text-muted-foreground')}
+                    style={{ opacity: isPassed ? 1 : 0.5 }}
+                  >
+                    {stage.label}
+                  </div>
+                  {stage.sub && isCurrent && (
+                    <div className="mt-1 space-y-0.5">
+                      {stage.sub.map((s, j) => (
+                        <div key={j} className="text-[9px] text-muted-foreground flex items-center gap-1">
+                          <span className="text-[#FFD700]">├──</span> {s}
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </div>
+            </React.Fragment>
+          )
+        })}
+        {isStopped && (
+          <div className="flex items-center gap-2 mt-2 pt-2 border-t" style={{ borderColor: 'var(--border)' }}>
+            <span className="text-sm">🔴</span>
+            <span className="text-[11px] font-mono font-bold text-[#FF5252] uppercase">STOP LOSS HIT — Trade Invalidated</span>
+          </div>
+        )}
+      </div>
+    </div>
+  )
+}
+
+/* ============================================
+   FibonacciOrdering — visual level hierarchy
+   Shows the Fibonacci levels from top to bottom with trade markers
+   ============================================ */
+function FibonacciOrdering({
+  fib,
+  trade,
+}: {
+  fib: SmartChartData['fibonacci']
+  trade: SmartChartData['trade']
+}) {
+  if (!fib || !trade) return null
+
+  const range = fib.swingHigh - fib.swingLow
+  const direction = fib.direction
+
+  // Build levels array with prices (sorted top to bottom = highest price first)
+  const levels = [
+    { label: 'TP2 (Fib -0.21)', icon: '🟢', color: '#00E676', price: trade.tp2 },
+    { label: 'TP1 (Fib 0)', icon: '🔵', color: '#2196F3', price: trade.tp1 },
+    { label: 'Current Price', icon: '🟡', color: '#FFD700', price: trade.currentPrice },
+    { label: 'Entry (Fib 0.71)', icon: '🟠', color: '#FF9800', price: trade.entry },
+    { label: 'Stop Loss (Fib 0.91 / Structural)', icon: '🔴', color: '#FF5252', price: trade.stopLoss },
+  ]
+
+  // Sort by price descending (highest at top) for BUY, ascending for SELL
+  const sorted = direction === 'BUY'
+    ? [...levels].sort((a, b) => b.price - a.price)
+    : [...levels].sort((a, b) => a.price - b.price)
+
+  return (
+    <div className="rounded-xl p-4" style={{ background: 'var(--card)', border: '1px solid var(--border)' }}>
+      <div className="flex items-center gap-2 mb-3">
+        <TrendingUp className="w-3.5 h-3.5 text-[#FFD700]" strokeWidth={2.5} />
+        <span className="text-xs font-bold uppercase tracking-wide text-foreground">
+          Fibonacci Levels · {direction}
+        </span>
+      </div>
+
+      <div className="space-y-1">
+        {sorted.map((level, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <span className="text-sm shrink-0">{level.icon}</span>
+            <div
+              className="flex-1 h-7 rounded-md flex items-center justify-between px-2.5 transition-all duration-300"
+              style={{
+                background: `${level.color}15`,
+                border: `1px solid ${level.color}40`,
+              }}
+            >
+              <span className="text-[10px] font-mono font-semibold" style={{ color: level.color }}>
+                {level.label}
+              </span>
+              <span className="text-[10px] font-mono font-bold" style={{ color: level.color }}>
+                ${level.price.toFixed(2)}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Range info */}
+      <div className="mt-3 pt-2 border-t flex items-center justify-between text-[9px] font-mono text-muted-foreground" style={{ borderColor: 'var(--border)' }}>
+        <span>Swing High: ${fib.swingHigh.toFixed(2)}</span>
+        <span>Range: ${range.toFixed(2)}</span>
+        <span>Swing Low: ${fib.swingLow.toFixed(2)}</span>
+      </div>
+
+      {/* Progress bar */}
+      <div className="mt-2">
+        <div className="flex items-center justify-between mb-1">
+          <span className="text-[9px] font-mono uppercase text-[#FFD700]">Progress</span>
+          <span className="text-[9px] font-mono font-bold text-foreground">{trade.progressPercent}%</span>
+        </div>
+        <div className="h-1.5 rounded-full overflow-hidden" style={{ background: 'var(--muted)' }}>
+          <div
+            className="h-full rounded-full transition-all duration-500"
+            style={{
+              width: `${trade.progressPercent}%`,
+              background: 'linear-gradient(90deg, #FFD700, #00E676)',
+              boxShadow: '0 0 6px rgba(255, 215, 0, 0.5)',
+            }}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+/* ============================================
+   Helper: Calculate trade levels dynamically from Swing High/Low
+   NEVER use placeholder numbers — all prices derived from Fibonacci
+
+   BUY (bullish setup):
+     Entry   = Fib 0.71 = Swing High - 0.71 * range (deep retracement)
+     TP1     = Fib 0    = Swing High (previous impulse target)
+     TP2     = Fib -0.21 = Swing High + 0.21 * range (extension above)
+     StopLoss = Swing Low - buffer (structural invalidation, or Fib 0.91)
+
+   SELL (bearish setup):
+     Entry   = Fib 0.71 = Swing Low + 0.71 * range (deep retracement)
+     TP1     = Fib 0    = Swing Low (previous impulse target)
+     TP2     = Fib -0.21 = Swing Low - 0.21 * range (extension below)
+     StopLoss = Swing High + buffer (structural invalidation, or Fib 0.91)
+   ============================================ */
+export function calculateTradeLevels(
+  swingHigh: number,
+  swingLow: number,
+  direction: 'BUY' | 'SELL',
+  currentPrice?: number,
+): {
+  entry: number
+  stopLoss: number
+  tp1: number
+  tp2: number
+  currentPrice: number
+  progressPercent: number
+} {
+  const range = swingHigh - swingLow
+
+  if (direction === 'BUY') {
+    const entry = swingHigh - 0.71 * range       // Fib 0.71 retracement
+    const tp1 = swingHigh                         // Fib 0 = previous impulse high
+    const tp2 = swingHigh + 0.21 * range          // Fib -0.21 extension above
+    const stopLoss = swingLow - range * 0.02      // Structural invalidation below swing low
+    const price = currentPrice ?? (entry + (tp1 - entry) * 0.63) // Default: 63% to TP1
+    const progress = Math.max(0, Math.min(100, ((price - entry) / (tp2 - entry)) * 100))
+
+    return { entry, stopLoss, tp1, tp2, currentPrice: price, progressPercent: Math.round(progress) }
+  } else {
+    const entry = swingLow + 0.71 * range         // Fib 0.71 retracement
+    const tp1 = swingLow                           // Fib 0 = previous impulse low
+    const tp2 = swingLow - 0.21 * range            // Fib -0.21 extension below
+    const stopLoss = swingHigh + range * 0.02      // Structural invalidation above swing high
+    const price = currentPrice ?? (entry - (entry - tp1) * 0.63) // Default: 63% to TP1
+    const progress = Math.max(0, Math.min(100, ((entry - price) / (entry - tp2)) * 100))
+
+    return { entry, stopLoss, tp1, tp2, currentPrice: price, progressPercent: Math.round(progress) }
+  }
+}
+
+/* ============================================
    Helper: Generate sample SmartChartData for demo
+   All trade prices calculated dynamically from Swing High/Low
    ============================================ */
 export function generateSampleSmartChartData(basePrice = 4000): SmartChartData {
   // Generate 50 candles with a trend
@@ -629,10 +878,11 @@ export function generateSampleSmartChartData(basePrice = 4000): SmartChartData {
   const swingLowIdx = 35
   const swingHighPrice = candles[swingHighIdx].high
   const swingLowPrice = candles[swingLowIdx].low
-
   const range = swingHighPrice - swingLowPrice
-  const fibHigh = swingHighPrice
-  const fibLow = swingLowPrice
+
+  // Calculate ALL trade levels dynamically from Fibonacci
+  const direction: 'BUY' | 'SELL' = 'BUY'
+  const levels = calculateTradeLevels(swingHighPrice, swingLowPrice, direction)
 
   return {
     candles,
@@ -660,19 +910,19 @@ export function generateSampleSmartChartData(basePrice = 4000): SmartChartData {
       { type: 'bullish', top: candles[42].high, bottom: candles[41].low, startIndex: 41, endIndex: 44 },
     ],
     fibonacci: {
-      swingHigh: fibHigh,
-      swingLow: fibLow,
-      direction: 'BUY',
+      swingHigh: swingHighPrice,
+      swingLow: swingLowPrice,
+      direction,
     },
     trade: {
       status: 'ACTIVE',
-      direction: 'BUY',
-      entry: fibLow + 0.71 * range,
-      stopLoss: fibLow - 5,
-      tp1: fibLow + 0 * range, // 0 Fib
-      tp2: fibLow + (-0.21) * range, // -0.21 extension
-      currentPrice: candles[49].close,
-      progressPercent: 63,
+      direction,
+      entry: levels.entry,           // Fib 0.71 — calculated from swing
+      stopLoss: levels.stopLoss,     // Structural invalidation — calculated from swing
+      tp1: levels.tp1,               // Fib 0 — calculated from swing
+      tp2: levels.tp2,               // Fib -0.21 — calculated from swing
+      currentPrice: levels.currentPrice,
+      progressPercent: levels.progressPercent,
     },
     analysis: {
       trend: 'Bullish',
@@ -684,7 +934,7 @@ export function generateSampleSmartChartData(basePrice = 4000): SmartChartData {
       confidence: 92,
       tradeStatus: 'ACTIVE',
     },
-    premiumZone: { top: swingHighPrice, bottom: fibLow + 0.5 * range },
-    discountZone: { top: fibLow + 0.5 * range, bottom: swingLowPrice },
+    premiumZone: { top: swingHighPrice, bottom: swingLowPrice + 0.5 * range },
+    discountZone: { top: swingLowPrice + 0.5 * range, bottom: swingLowPrice },
   }
 }
