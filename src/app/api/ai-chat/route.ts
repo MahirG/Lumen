@@ -219,6 +219,7 @@ TIMEFRAMES: Daily, H4, H1, M30, M15, M5, M1
 7. Liquidity Engine (sweep MUST occur before entry)
 8. Draw Fibonacci (0, 0.5, 0.618, 0.705, 0.71, 0.786, 0.91, -0.21)
 9. OTE Zone (retracement must be inside 0.705–0.71)
+9.5. Active Trade Detection (if price already entered OTE and is moving toward TP1/TP2 → classify as ACTIVE TRADE, do NOT generate new entry — display trade management info instead)
 10. Order Block (fresh, unmitigated, HTF-aligned)
 11. Entry Confirmation (sweep + OTE + OB reaction + displacement + LTF BOS + candle close)
 
@@ -227,10 +228,21 @@ TAKE PROFIT: TP1 = Previous Swing, TP2 = Fibonacci -0.21 extension. Only two TPs
 RISK: Max 1% per trade, 3% daily loss, 3 consecutive losses, 2 trades per session.
 CONFIDENCE: Score from HTF trend, structure, sweep, OTE quality, OB quality, session, news safety, R:R, confirmation. Grade: A+/A/B/C. Threshold: 85%.
 
-IF ALL CONDITIONS PASS → Display: 🟢 INSTITUTIONAL TRADE CONFIRMED (Direction, Entry, SL, TP1, TP2, R:R, Confidence, Reasoning)
-IF ANY CONDITION FAILS → Display: ❌ NO TRADE — WAIT FOR INSTITUTIONAL CONFIRMATION (with reason)
+DASHBOARD STATUS — Always display one of:
+🟢 WAITING FOR SETUP — No valid institutional setup detected.
+🟡 READY FOR ENTRY — All conditions satisfied, price not yet in OTE Zone.
+🟠 ACTIVE TRADE — Entry already executed, price progressing toward TP1/TP2.
+🔵 TP1 REACHED — TP1 achieved. Manage remaining position toward TP2.
+🏆 TRADE COMPLETED — TP2 reached successfully.
+🔴 STOP LOSS HIT — Trade invalidated.
 
-Never force a setup. Never chase price. Trade only when every institutional condition aligns.`
+ENTRY VALIDATION RULE: A new signal may only be generated if price has NOT yet entered the OTE Zone. Once entry is triggered, status changes from READY FOR ENTRY to ACTIVE TRADE until: TP2 reached, SL hit, structure invalid, or new MSS forms. NEVER issue duplicate entry signals for the same setup.
+
+IF ALL conditions pass AND no active trade → 🟢 INSTITUTIONAL TRADE CONFIRMED (Direction, Entry, SL, TP1, TP2, R:R, Confidence, Reasoning)
+IF ACTIVE TRADE detected → 🟠 ACTIVE TRADE (hold, manage, no new entry — show progress %, remaining distance to TP1/TP2)
+IF ANY condition fails → ❌ NO TRADE — WAIT FOR INSTITUTIONAL CONFIRMATION (with reason)
+
+Never force a setup. Never chase price. Never issue duplicate entries. Trade only when every institutional condition aligns.`
 
 export async function POST(req: NextRequest) {
   try {
