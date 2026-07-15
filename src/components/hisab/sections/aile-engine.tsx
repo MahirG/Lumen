@@ -13,6 +13,7 @@ import { useMarketStore } from '@/lib/hisab/market-store'
 import { runAILEAnalysis } from '@/lib/hisab/aile-engine'
 import { formatNumber } from '@/lib/hisab/risk-manager'
 import type { AILEAnalysis, AILEOutput } from '@/lib/types/aile'
+import { SmartChartVisualization, generateSampleSmartChartData } from '../smart-chart'
 import { cn } from '@/lib/utils'
 
 export function AILEEngine() {
@@ -58,6 +59,15 @@ export function AILEEngine() {
     <div className="space-y-5">
       {/* Master Output Card — Phase 12 */}
       <AILEOutputCard output={output} analysis={analysis} onRefresh={runAnalysis} generating={generating} />
+
+      {/* Smart Chart Visualization — AI institutional analysis chart */}
+      <LiquidGlassCard className="p-4 lg:p-5">
+        <SmartChartVisualization
+          data={generateSampleSmartChartData(analysis.currentPrice ?? 4000)}
+          symbol="XAUUSD"
+          timeframe="H1"
+        />
+      </LiquidGlassCard>
 
       {/* Entry Conditions Checklist — Phase 7 */}
       <EntryConditionsCard phase7={analysis.phase7} />

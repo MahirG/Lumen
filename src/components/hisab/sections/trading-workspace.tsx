@@ -465,8 +465,42 @@ export function TradingWorkspace() {
         <StatCard label="Avg Volume" value={formatNumber(chartCandles.slice(-20).reduce((s, c) => s + c.volume, 0) / 20, 0)} color="#F5C542" />
         <StatCard label="Volatility" value={`${formatNumber(Math.abs(changePct), 2)}%`} color="#F5C542" />
       </div>
+
+      {/* Smart Chart Visualization — AI institutional analysis */}
+      <LiquidGlassCard className="p-4 lg:p-5">
+        <SmartChartVisualizationLazy />
+      </LiquidGlassCard>
     </div>
   )
+}
+
+/* ============================================
+   SmartChartVisualizationLazy — loads Smart Chart with sample data
+   ============================================ */
+function SmartChartVisualizationLazy() {
+  const [Chart, setChart] = React.useState<React.ComponentType<any> | null>(null)
+
+  React.useEffect(() => {
+    import('../smart-chart').then(mod => {
+      setChart(() => () => (
+        <mod.SmartChartVisualization
+          data={mod.generateSampleSmartChartData()}
+          symbol="XAUUSD"
+          timeframe="H1"
+        />
+      ))
+    })
+  }, [])
+
+  if (!Chart) {
+    return (
+      <div className="flex items-center justify-center py-8">
+        <div className="w-5 h-5 border-2 border-[#F5C542] border-t-transparent rounded-full animate-spin" />
+        <span className="ml-2 text-xs text-muted-foreground">Loading Smart Chart...</span>
+      </div>
+    )
+  }
+  return <Chart />
 }
 
 /* ============================================
